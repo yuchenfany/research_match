@@ -12,8 +12,8 @@ import {
 } from 'react-router-dom';
 
 import Login from './pages/Login';
-// import Start from './pages/Start';
-// import DeleteAccount from './pages/DeleteAccount'
+import Home from './pages/Home';
+import SignUp from './pages/SignUp'
 // import Quiz from './pages/Quiz'
 // // import Questions from './Components/Questions'
 // import Correct from './pages/Correct'
@@ -32,14 +32,14 @@ ReactDOM.render(
               <Login />
             )}/>
       <Route exact
-            path="/start"
+            path="/home"
             render={() => (
-              <Start />
+              <Home />
             )}/>
       <Route exact
-            path="/deleteaccount"
+            path="/signup"
             render={() => (
-              <DeleteAccount />
+              <SignUp />
             )}/>
       <Route exact
             path="/quiz"

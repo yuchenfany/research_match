@@ -94,27 +94,17 @@ class Login extends React.Component {
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer">
-          Login
+          HOME :)
         </h1>
 
-        <div>
-        <h3 style={{color: "#576074", fontFamily: "Overpass", textAlign: 'left', marginBottom: "-2px"}}>Username </h3>
-        <TextField inputProps={{ className: styles.input, pattern: "^[a-zA-Z0-9]*$" }} onChange={this.handleChange} sx={styles.field} style={{width: "340px", border: "2.5px solid #C4C4C4"}} label="" name="username" />
-        </div>
-
-        <div>
-        <h3 style={{color: "#576074", fontFamily: "Overpass", textAlign: 'left', marginBottom: "-2px"}}>Password </h3>
-        <TextField inputProps={{ className: styles.input, pattern: "^[a-zA-Z0-9]*$" }} onChange={this.handleChange} sx={styles.field} style={{width: "340px", border: "2.5px solid #C4C4C4"}} label="" name="username" />
-        </div>
-
-        {this.state.isValidUser ?
-        <Button onClick = {this.handleClick} component={Link} to="/home" type="submit" style={{background: "#4FF1A4", color: "white", border: "3px solid rgba(255, 255, 255, 0.8)", marginTop: "100px", width: "250px"}} variant="contained">
-            {<Button style={{color: "white", fontSize: "30px"}} component={Link} to="/home"> LOGIN</Button>}
+        
+        <Button onClick = {this.handleClick} component={Link} to="/start" type="submit" style={{background: "#4FF1A4", color: "white", border: "3px solid rgba(255, 255, 255, 0.8)", marginTop: "100px", width: "250px"}} variant="contained">
+            {<Button style={{color: "white", fontSize: "30px"}} component={Link} to="/"> DO SOMETHING</Button>}
         </Button> : 
         
-        <Button disabled type="submit" style={{background: "#4FF1A4", color: "white", border: "2px solid red", marginTop: "100px", width: "250px"}} variant="contained">
-        {<Button style={{color: "white", fontSize: "30px"}} component={Link}> PLz input appropriate username</Button>}
-        </Button>}
+        <Button type="submit" style={{background: "#4FF1A4", color: "white", border: "2px solid red", marginTop: "100px", width: "250px"}} variant="contained">
+        {<Button style={{color: "white", fontSize: "30px"}} component={Link} to="/signup"> MAYBE SIGN UP FOR STUDY? (currently sign up)</Button>}
+        </Button>
 
       </header>
 
