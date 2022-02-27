@@ -1,7 +1,7 @@
 // import logo from '../logo.svg';
 import { Button, TextField } from '@mui/material';
 import React from "react";
-// import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../App.css';
 import { Link } from 'react-router-dom';
 // import { textAlign } from '@mui/system';
@@ -36,6 +36,8 @@ import { Link } from 'react-router-dom';
 // function sayHello() {
 //     alert('You clicked me!');
 // }
+const User = require("../models/userModel");
+
 class Login extends React.Component {
 
     constructor(props) {
@@ -43,21 +45,23 @@ class Login extends React.Component {
   
       this.state = {
         username: "Should be empty",
+        password: '',
         isValidUser: false
       };
       this.handleChange = this.handleChange.bind(this) 
       this.handleClick = this.handleClick.bind(this) 
+
+
       //this.leagueOnChange = this.leagueOnChange.bind(this)
       //this.goToMatch = this.goToMatch.bind(this)
     }
-  
-  
-    // componentDidMount() {
-    //     // const [errorMessage, setErrorMessage] = useState("");
-    //     // this.errorMessage = errorMessage;
-    // }
     handleChange(e) {
-
+      // fetch("/").then(res => {
+      //   if(res.ok) {
+      //     console.log(JSON.stringify(res.json))
+      //     return res.json()
+      //   }
+      // }).then(jsonRes => this.setState(jsonRes));
       if(e.target.value.length === 0) {
         this.setState({isValidUser: false});
       } else {
@@ -66,9 +70,25 @@ class Login extends React.Component {
         this.setState({isValidUser: isValid});
         this.setState({username : e.target.value});
       }
-
-      console.log(this.isValidUser);
-      
+    }
+    
+    
+    // useEffect() {
+    //   console.log("USEEFFECT IS BEING READ");
+    //   fetch("/").then(res => {
+    //     if(res.ok) {
+    //       return res.json()
+    //     }
+    //   }).then(jsonRes => this.setState(jsonRes));
+    // }
+    
+    componentDidMount() {
+      fetch("/").then(res => {
+        if(res.ok) {
+          console.log(JSON.stringify(res.json))
+          return res.json()
+        }
+      }).then(jsonRes => this.setState(jsonRes));
     }
 
     handleClick(){
@@ -95,6 +115,8 @@ class Login extends React.Component {
           target="_blank"
           rel="noopener noreferrer">
           Login
+          {this.state.username}
+          {this.state.password}
         </h1>
 
         <div>
