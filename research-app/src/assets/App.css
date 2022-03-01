@@ -1,26 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@180&display=swap');
-
 .App {
   text-align: center;
-}
-
-.container {
-  margin: auto;
-  text-align: center;
-  display: flex;
-  align-items: flex-end;
-}
-
-.title-header {
-  font-family: Overpass;
-  font-style: normal;
-  font-size: 80px;
-  line-height: 100px;
-  display: flex;
-  align-items: flex-end;
-  text-align: center;
-  
-  color: #576074;
 }
 
 .App-logo {
@@ -35,7 +14,7 @@
 }
 
 .App-header {
-  background-color: white;
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

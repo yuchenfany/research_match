@@ -5,9 +5,7 @@ import '../assets/index.css';
 
 function Home() {
   return (
-    <div className="Home">
-      <div className="header">HOME PAGE</div>
-    </div>
+    <div className="Home"> HOME PAGE </div>
   );
 }
 

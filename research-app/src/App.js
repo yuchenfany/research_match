@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
-          <Route exact path="/home" element={<Home user={user} setUser={setUser} />} />
+          <Route exact path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

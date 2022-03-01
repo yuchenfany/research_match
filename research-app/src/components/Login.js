@@ -71,7 +71,7 @@ function Login({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" value="LOG IN"/>
+          <input className="button" type="submit" />
         </label>
       </form>
     </div>
