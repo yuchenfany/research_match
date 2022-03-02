@@ -53,7 +53,7 @@ function Login({ user, setUser }) {
 
   const handleAsync = (event) => {
     event.preventDefault();
-    handleNameChange().then(handleSubmit());
+    handleNameChange(event).then(handleSubmit(event));
   };
 
   return (
