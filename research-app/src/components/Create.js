@@ -26,18 +26,14 @@ function Create({ user, setUser }) {
   };
 
   async function userExists() {
-    await fetch(`http://localhost:5000/record/${user.username}`, {
+    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user),
-    })
-      .catch((e) => {
-        return false;
-      });
-      
-    return true;
+    }).catch((e) => {});
+    
+    return await data.json() != null;
   }
 
   async function verify() {
