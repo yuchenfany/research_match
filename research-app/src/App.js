@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import Login from './components/Login';
 import Home from './components/Home';
 import Create from './components/Create';
+import Profile from './components/Profile';
 
 function App() {
   const [user, setUser] = useState({ username: '', password: '' });
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
+        <Route exact path="/profile" element={<Profile user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );

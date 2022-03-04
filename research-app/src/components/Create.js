@@ -8,14 +8,20 @@ function Create({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
   const navigate = useNavigate();
 
-  // combined alphanumeric and empty check
-  const isValid = () => {
-    if (user.name.length === 0) {
-      setError({ message: 'Please enter a username' });
-    } else if (!user.name.match(/^[0-9a-zA-Z]+$/)) {
-      setError({ message: 'Username must be an alphanumeric string' });
+  const isValidUsername = () => {
+    if (user.username.length === 0) {
+      setError({ message: 'Please create a username' });
+    } else if (!user.username.match(/^[0-9a-zA-Z]+$/)) {
+      setError({ message: 'Your username must be an alphanumeric string' });
     }
-    return !(user.name.length === 0 || !user.name.match(/^[0-9a-zA-Z]+$/));
+    return !(user.username.length === 0 || !user.username.match(/^[0-9a-zA-Z]+$/));
+  };
+
+  const isValidPassword = () => {
+    if (user.password.length < 6 || !user.password.match(/^[0-9a-zA-Z]+$/)) {
+      setError({ message: 'Your password must be at least 6 alphanumeric characters' });
+    }
+    return !(user.password.length < 6 || !user.password.match(/^[0-9a-zA-Z]+$/));
   };
 
   async function verify() {
@@ -31,12 +37,33 @@ function Create({ user, setUser }) {
       .catch((e) => {
         window.alert(e);
       });
+
+    return true;
   }
 
   async function handleSubmit(event) {
+    if (user.username.length === 0 && user.password.length === 0) {
+      setError({ message: 'Please create a username and password' });
+      event.preventDefault();
+      return;
+    }
+    if (user.password.length === 0) {
+      setError({ message: 'Please create your password' });
+      event.preventDefault();
+      return;
+    }
+    if (!isValidUsername()) {
+      event.preventDefault();
+      return;
+    }
+    if (!isValidPassword()) {
+      event.preventDefault();
+      return;
+    }
+
+    // all information is valid, continue
     if (await verify()) {
-      console.log('verified');
-      navigate('/home');
+      navigate('/profile');
     } else {
       event.preventDefault();
     }
@@ -62,12 +89,13 @@ function Create({ user, setUser }) {
   };
 
   const backToLogin = () => {
+    setUser({ username: '', password: '' });
     navigate('/');
   };
 
   const handleAsync = (event) => {
     event.preventDefault();
-    handleNameChange(event).then(handleSubmit(event));
+    handleSubmit(event);
   };
 
   return (
