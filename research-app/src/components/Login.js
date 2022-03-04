@@ -1,4 +1,3 @@
-/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
@@ -10,50 +9,20 @@ function Login({ user, setUser }) {
   const navigate = useNavigate();
   const [samePassword, setSamePassword] = useState(0);
 
-  // combined alphanumeric and empty check
-  const isValid = () => {
-    if (user.name.length === 0) {
-      setError({ message: 'Please enter a username' });
-    } else if (!user.name.match(/^[0-9a-zA-Z]+$/)) {
-      setError({ message: 'Username must be an alphanumeric string' });
-    }
-    return !(user.name.length === 0 || !user.name.match(/^[0-9a-zA-Z]+$/));
-  };
-
-async function verify() {
-    console.log(user.username);
-    console.log(user.password);
-    fetch(`http://localhost:5000/record/${user.username}`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then(res => res.json())
-    .then(json => {
-      console.log(json.password);
-      if (json.password == user.password) {
-        console.log("Same Password, logged in");
-        setSamePassword(1);
-        return 1;
-      }
-      else {
-        console.log("Incorrect Password");
-        setSamePassword(0);
-        return 0;
-      }
-
-    })
-    // const records = await response.json();
-    // console.log(response);
-    // console.log(await response.json());
-    // return 0;
-  }
-
   async function handleSubmit(event) {
     console.log(samePassword);
+    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const json = await data.json();
+
     // const variable = await verify();
-    // console.log(await verify().then());
-    if (await verify().then()) {
+    // console.log(variable);
+    if (json.password === user.password) {
       console.log('verified');
       navigate('/home');
     } else {
@@ -71,18 +40,22 @@ async function verify() {
     );
   };
 
-const handleNameChangePassword = async (event) => {
+  const handleNameChangePassword = async (event) => {
     setUser(
       {
         username: user.username,
         password: event.target.value,
       },
     );
-};
+  };
 
   const handleAsync = (event) => {
     event.preventDefault();
     handleNameChange(event).then(handleSubmit(event));
+  };
+
+  const goToCreate = () => {
+    navigate('/create');
   };
 
   return (
@@ -108,6 +81,7 @@ const handleNameChangePassword = async (event) => {
             <span className="error-message">{error.message}</span>
           </div>
           <input className="button" type="submit" />
+          <button className="button" type="button" onClick={goToCreate}>New user sign-up</button>
         </label>
       </form>
     </div>

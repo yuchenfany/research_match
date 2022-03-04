@@ -1,4 +1,3 @@
-/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import './assets/App.css';
@@ -17,8 +16,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
-          <Route exact path="/home" element={<Home />} />
-          <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );

@@ -1,11 +1,10 @@
-/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
-function  Create({ user, setUser }) {
+function Create({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
   const navigate = useNavigate();
 
@@ -20,20 +19,18 @@ function  Create({ user, setUser }) {
   };
 
   async function verify() {
-
     console.log(JSON.stringify(user));
 
-    await fetch("http://localhost:5000/record/add", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(user),
-   })
-   .catch(error => {
-     window.alert(error);
-     return;
-   });
+    await fetch('http://localhost:5000/record/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .catch((e) => {
+        window.alert(e);
+      });
   }
 
   async function handleSubmit(event) {
@@ -55,14 +52,18 @@ function  Create({ user, setUser }) {
     );
   };
 
-const handleNameChangePassword = async (event) => {
+  const handleNameChangePassword = async (event) => {
     setUser(
       {
         username: user.username,
         password: event.target.value,
       },
     );
-};
+  };
+
+  const backToLogin = () => {
+    navigate('/');
+  };
 
   const handleAsync = (event) => {
     event.preventDefault();
@@ -94,6 +95,7 @@ const handleNameChangePassword = async (event) => {
           <input className="button" type="submit" />
         </label>
       </form>
+      <button className="button" type="button" onClick={backToLogin}>Back to login</button>
     </div>
   );
 }
