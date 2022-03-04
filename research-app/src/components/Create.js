@@ -5,10 +5,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
-function Login({ user, setUser }) {
+function  Create({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
   const navigate = useNavigate();
-  const [samePassword, setSamePassword] = useState(0);
 
   // combined alphanumeric and empty check
   const isValid = () => {
@@ -20,40 +19,25 @@ function Login({ user, setUser }) {
     return !(user.name.length === 0 || !user.name.match(/^[0-9a-zA-Z]+$/));
   };
 
-async function verify() {
-    console.log(user.username);
-    console.log(user.password);
-    fetch(`http://localhost:5000/record/${user.username}`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then(res => res.json())
-    .then(json => {
-      console.log(json.password);
-      if (json.password == user.password) {
-        console.log("Same Password, logged in");
-        setSamePassword(1);
-        return 1;
-      }
-      else {
-        console.log("Incorrect Password");
-        setSamePassword(0);
-        return 0;
-      }
+  async function verify() {
 
-    })
-    // const records = await response.json();
-    // console.log(response);
-    // console.log(await response.json());
-    // return 0;
+    console.log(JSON.stringify(user));
+
+    await fetch("http://localhost:5000/record/add", {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(user),
+   })
+   .catch(error => {
+     window.alert(error);
+     return;
+   });
   }
 
   async function handleSubmit(event) {
-    console.log(samePassword);
-    // const variable = await verify();
-    // console.log(await verify().then());
-    if (await verify().then()) {
+    if (await verify()) {
       console.log('verified');
       navigate('/home');
     } else {
@@ -86,8 +70,8 @@ const handleNameChangePassword = async (event) => {
   };
 
   return (
-    <div className="Login">
-      <p className="header">Research Match</p>
+    <div className="Create">
+      <p className="header">Create An Account</p>
       <form onSubmit={handleAsync}>
         <label className="login-label" htmlFor="username">
           <div className="username-wrapper">
@@ -114,4 +98,4 @@ const handleNameChangePassword = async (event) => {
   );
 }
 
-export default Login;
+export default Create;
