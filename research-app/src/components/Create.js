@@ -72,18 +72,18 @@ function Create({ user, setUser }) {
 
   return (
     <div className="Create">
-      <p className="header">Create An Account</p>
+      <p className="header">Sign Up</p>
       <form onSubmit={handleAsync}>
         <label className="login-label" htmlFor="username">
           <div className="username-wrapper">
-            <p>USERNAME</p>
+            <p className="field-label">CREATE USERNAME</p>
             <input
               className="input-field"
               type="text"
               id="username"
               onChange={handleNameChange}
             />
-            <p>Password</p>
+            <p className="field-label">CREATE PASSWORD</p>
             <input
               className="input-field"
               type="text"
@@ -92,10 +92,11 @@ function Create({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" />
+          <input className="button" type="submit" value="CREATE ACCOUNT" />
         </label>
+        <div className="spacer" />
+        <button className="link" type="button" onClick={backToLogin}>Back to login</button>
       </form>
-      <button className="button" type="button" onClick={backToLogin}>Back to login</button>
     </div>
   );
 }

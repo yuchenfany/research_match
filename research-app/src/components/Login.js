@@ -86,14 +86,14 @@ function Login({ user, setUser }) {
       <form onSubmit={handleAsync}>
         <label className="login-label" htmlFor="username">
           <div className="username-wrapper">
-            <p>USERNAME</p>
+            <p className="field-label">USERNAME</p>
             <input
               className="input-field"
               type="text"
               id="username"
               onChange={handleNameChange}
             />
-            <p>Password</p>
+            <p className="field-label">PASSWORD</p>
             <input
               className="input-field"
               type="text"
@@ -102,8 +102,9 @@ function Login({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" />
-          <button className="button" type="button" onClick={goToCreate}>New user sign-up</button>
+          <input className="button" type="submit" value="SUBMIT" />
+          <div className="spacer" />
+          <button className="link" type="button" onClick={goToCreate}>New user sign-up</button>
         </label>
       </form>
     </div>
