@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
@@ -18,6 +19,21 @@ function Create({ user, setUser }) {
     return !(user.name.length === 0 || !user.name.match(/^[0-9a-zA-Z]+$/));
   };
 
+  async function userExists() {
+    await fetch(`http://localhost:5000/record/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .catch((e) => {
+        return false;
+      });
+      
+    return true;
+  }
+
   async function verify() {
     console.log(JSON.stringify(user));
 
@@ -34,7 +50,9 @@ function Create({ user, setUser }) {
   }
 
   async function handleSubmit(event) {
-    if (await verify()) {
+    if (await userExists()) {
+      setError({ message: 'Username is already taken' });
+    } else if (await verify()) {
       console.log('verified');
       navigate('/home');
     } else {
