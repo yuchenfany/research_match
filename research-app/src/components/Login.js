@@ -7,10 +7,29 @@ import '../assets/index.css';
 function Login({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
   const navigate = useNavigate();
-  const [samePassword, setSamePassword] = useState(0);
+  // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(samePassword);
+
+    console.log(user.username);
+    console.log(user.password);
+
+    if (user.username.length === 0 && user.password.length === 0) {
+      setError({ message: 'Please enter your login credentials' });
+      event.preventDefault();
+      return;
+    }
+    if (user.username.length === 0) {
+      setError({ message: 'Please enter your username' });
+      event.preventDefault();
+      return;
+    }
+    if (user.password.length === 0) {
+      setError({ message: 'Please enter your password' });
+      event.preventDefault();
+      return;
+    }
+
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
       headers: {
@@ -20,12 +39,15 @@ function Login({ user, setUser }) {
 
     const json = await data.json();
 
-    // const variable = await verify();
-    // console.log(variable);
-    if (json.password === user.password) {
-      console.log('verified');
+    // verification checks of username & password
+    if (json === null) {
+      setError({ message: 'User does not exist' });
+      event.preventDefault();
+    } else if (json.password === user.password) {
       navigate('/home');
     } else {
+      console.log('INCORRECT PASSWORD');
+      setError({ message: 'Incorrect password' });
       event.preventDefault();
     }
   }

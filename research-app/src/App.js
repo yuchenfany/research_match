@@ -10,7 +10,7 @@ import Home from './components/Home';
 import Create from './components/Create';
 
 function App() {
-  const [user, setUser] = useState({ name: '', highScore: 0, returning: true });
+  const [user, setUser] = useState({ username: '', password: '' });
 
   return (
     <div className="App">

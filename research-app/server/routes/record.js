@@ -1,4 +1,3 @@
-/* eslint-disable */
 const express = require("express");
 
 // recordRoutes is an instance of the express router.
