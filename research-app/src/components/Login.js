@@ -10,7 +10,6 @@ function Login({ user, setUser }) {
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-
     console.log(user.username);
     console.log(user.password);
 
@@ -73,7 +72,8 @@ function Login({ user, setUser }) {
 
   const handleAsync = (event) => {
     event.preventDefault();
-    handleNameChange(event).then(handleSubmit(event));
+    // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
+    handleSubmit(event);
   };
 
   const goToCreate = () => {
