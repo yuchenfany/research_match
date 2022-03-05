@@ -1,0 +1,81 @@
+[{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Ariana_Grande_-_The_Honeymoon_Tour_Live_Jakarta_%285%29.jpg",
+    "option1": "Selena Gomez",
+    "option2": "Ariana Grande",
+    "option3": "Katy Perry",
+    "option4": "Bebe Rexha",
+    "correct": "option2"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Emma_Stone_at_the_39th_Mill_Valley_Film_Festival_%28cropped%29.jpg",
+    "option1": "Emma Stone",
+    "option2": "Taylor Swift",
+    "option3": "Zendaya",
+    "option4": "Hunter Schafer",
+    "correct": "option1"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Tom_Holland.jpg",
+    "option1": "Andrew Garfield",
+    "option2": "Toby Maguire",
+    "option3": "Tom Holland",
+    "option4": "Daniel Radcliffe",
+    "correct": "option3"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/9/93/Olivia_Rodrigo_with_Dr_Fauci_2.png",
+    "option1": "Phoebe Bridgers",
+    "option2": "Olivia Rodrigo",
+    "option3": "Doja Cat",
+    "option4": "Gemma Chan",
+    "correct": "option2"
+}, 
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/b/b1/KeiraKnightleyByAndreaRaffin2011_%28cropped%29.jpg",
+    "option1": "Anne Hathaway",
+    "option2": "Kendall Jenner",
+    "option3": "Rosamund Pike",
+    "option4": "Keira Knightley",
+    "correct": "option4"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/0/04/Jesse_Eisenberg_-_La_red_social_-_Madrid_-_2.jpg",
+    "option1": "Tom Cruise",
+    "option2": "Mark Zuckerberg",
+    "option3": "Jesse Eisenberg",
+    "option4": "Ben Affleck",
+    "correct": "option3"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg",
+    "option1": "Emma Watson",
+    "option2": "Jennifer Lawrence",
+    "option3": "Rachel McAdams",
+    "option4": "Emily Blunt",
+    "correct": "option1"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg",
+    "option1": "Kanye West",
+    "option2": "Warren Buffet",
+    "option3": "Elon Musk",
+    "option4": "Jeff Bezos",
+    "correct": "option3"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Lana_Condor_2015_%283%29.jpg",
+    "option1": "Sandra Oh",
+    "option2": "Lana Condor",
+    "option3": "Brenda Song",
+    "option4": "Jamie Chung",
+    "correct": "option2"
+},
+{
+    "img": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Lucy_Liu_Cannes_2008.jpg",
+    "option1": "Lucy Liu",
+    "option2": "Constance Wu",
+    "option3": "Michelle Yeoh",
+    "option4": "Awkwafina",
+    "correct": "option1"
+}
+]
