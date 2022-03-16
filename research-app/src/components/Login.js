@@ -7,10 +7,28 @@ import '../assets/index.css';
 function Login({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
   const navigate = useNavigate();
-  const [samePassword, setSamePassword] = useState(0);
+  // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(samePassword);
+    console.log(user.username);
+    console.log(user.password);
+
+    if (user.username.length === 0 && user.password.length === 0) {
+      setError({ message: 'Please enter your login credentials' });
+      event.preventDefault();
+      return;
+    }
+    if (user.username.length === 0) {
+      setError({ message: 'Please enter your username' });
+      event.preventDefault();
+      return;
+    }
+    if (user.password.length === 0) {
+      setError({ message: 'Please enter your password' });
+      event.preventDefault();
+      return;
+    }
+
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
       headers: {
@@ -20,12 +38,15 @@ function Login({ user, setUser }) {
 
     const json = await data.json();
 
-    // const variable = await verify();
-    // console.log(variable);
-    if (json.password === user.password) {
-      console.log('verified');
+    // verification checks of username & password
+    if (json === null) {
+      setError({ message: 'User does not exist' });
+      event.preventDefault();
+    } else if (json.password === user.password) {
       navigate('/home');
     } else {
+      console.log('INCORRECT PASSWORD');
+      setError({ message: 'Incorrect password' });
       event.preventDefault();
     }
   }
@@ -51,7 +72,8 @@ function Login({ user, setUser }) {
 
   const handleAsync = (event) => {
     event.preventDefault();
-    handleNameChange(event).then(handleSubmit(event));
+    // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
+    handleSubmit(event);
   };
 
   const goToCreate = () => {
@@ -64,14 +86,14 @@ function Login({ user, setUser }) {
       <form onSubmit={handleAsync}>
         <label className="login-label" htmlFor="username">
           <div className="username-wrapper">
-            <p>USERNAME</p>
+            <p className="field-label">USERNAME</p>
             <input
               className="input-field"
               type="text"
               id="username"
               onChange={handleNameChange}
             />
-            <p>Password</p>
+            <p className="field-label">PASSWORD</p>
             <input
               className="input-field"
               type="text"
@@ -80,8 +102,9 @@ function Login({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" />
-          <button className="button" type="button" onClick={goToCreate}>New user sign-up</button>
+          <input className="button" type="submit" value="SUBMIT" />
+          <div className="spacer" />
+          <button className="link" type="button" onClick={goToCreate}>New user sign-up</button>
         </label>
       </form>
     </div>
