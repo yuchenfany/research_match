@@ -2,19 +2,20 @@ const express = require("express");
 
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path /record.
+
+/* USER ROUTES */
+// Router controlling requests starting with path /record.
 const recordRoutes = express.Router();
 
-// This will help us connect to the database
+// Connect to DB
 const dbo = require("../db/conn");
 
-// This help convert the id from string to ObjectId for the _id.
+// Helps convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
+// Login POST method
 recordRoutes.post('/login', (req, res) => {
-
   var username = req.body.username;
-
   if (!username) {
     return res.status(401).json({'err':true, 'msg':'Not valid login.'});
   }
@@ -24,8 +25,9 @@ recordRoutes.post('/login', (req, res) => {
     .findOne({username : username}, (err, usr) => {
       if (err) {
         console.log(err);
-        if (err == "No such user")
+        if (err == "No such user") {
           return res.status(401).json({'err':true, 'msg':'Your username/password combination does not match.'});
+        }
         return res.status(500).json({'err':true, 'msg': 'There was an internal server error.'}) 
       }
       // var password = auth.hash(req.body.password);
@@ -37,13 +39,10 @@ recordRoutes.post('/login', (req, res) => {
       io.sockets.emit("newLogin", {user: username});
     })
   })
-// This section will help you get a list of all the records.
+
+// Find password GET method
 recordRoutes.route("/findPassword").get(function (req, res) {
   let db_connect = dbo.getDb("research-app");
-  let myobj = {
-    username: req.body.username,
-    password: req.body.password,
-  };
   db_connect
     .collection("user-info")
     .findOne({username : username})
@@ -53,7 +52,7 @@ recordRoutes.route("/findPassword").get(function (req, res) {
     });
 });
 
-// This section will help you get a list of all the records.
+// Get user GET method
 recordRoutes.route("/record").get(function (req, res) {
   let db_connect = dbo.getDb("research-app");
   db_connect
@@ -65,7 +64,7 @@ recordRoutes.route("/record").get(function (req, res) {
     )
 });
 
-// This section will help you get a single record by id
+// User GET by id method
 recordRoutes.route("/record/:id").get(function (req, res) {
   let db_connect = dbo.getDb("research-app");
   console.log(req.params.id);
@@ -78,12 +77,13 @@ recordRoutes.route("/record/:id").get(function (req, res) {
       });
 });
 
-// This section will help you create a new record.
+// Add user POST method
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     username: req.body.username,
     password: req.body.password,
+    enrolled: []
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -91,34 +91,59 @@ recordRoutes.route("/record/add").post(function (req, response) {
   });
 });
 
-// This section will help you update a record by id.
-recordRoutes.route("/update/:id").post(function (req, response) {
-  let db_connect = dbo.getDb();
-  let myquery = { username: ObjectId( req.params.id )};
-  let newvalues = {
-    $set: {
-      username: req.body.username,
-      password: req.body.password,
-    },
-  };
+// get list of studies user is enrolled in
+recordRoutes.route("/record/studies/:username").get(function (req, res) {
+  let db_connect = dbo.getDb("research-app");
   db_connect
-    .collection("records")
-    .updateOne(myquery, function (err, res) {
-      if (err) throw err;
-      console.log("1 document updated");
-      response.json(res);
-    });
+    .collection("user-info")
+    .findOne({username : req.params.username}, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      }
+    )
 });
 
-// This section will help you delete a record
-recordRoutes.route("/:id").delete((req, response) => {
+//TODO
+// enroll in a study POST method 
+recordRoutes.route("/record/enroll/:username/:study_id").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
-  db_connect.collection("records").deleteOne(myquery, function (err, obj) {
+  let myobj = {
+    id: req.params.id,
+  };
+  db_connect.collection("studies").insertOne(myobj, function (err, res) {
     if (err) throw err;
-    console.log("1 document deleted");
-    response.json(obj);
+    response.json(res);
   });
 });
+
+// Update user info PUT method
+// recordRoutes.route("/update/:id").post(function (req, response) {
+//   let db_connect = dbo.getDb();
+//   let myquery = { username: ObjectId( req.params.id )};
+//   let newvalues = {
+//     $set: {
+//       username: req.body.username,
+//       password: req.body.password,
+//     },
+//   };
+//   db_connect
+//     .collection("records")
+//     .updateOne(myquery, function (err, res) {
+//       if (err) throw err;
+//       console.log("1 document updated");
+//       response.json(res);
+//     });
+// });
+
+// Delete user DELETE method
+// recordRoutes.route("/:id").delete((req, response) => {
+//   let db_connect = dbo.getDb();
+//   let myquery = { _id: ObjectId( req.params.id )};
+//   db_connect.collection("records").deleteOne(myquery, function (err, obj) {
+//     if (err) throw err;
+//     console.log("1 document deleted");
+//     response.json(obj);
+//   });
+// });
 
 module.exports = recordRoutes;
