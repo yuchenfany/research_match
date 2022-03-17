@@ -21,7 +21,6 @@ function App() {
         <Route exact path="/home" element={<Home user={user} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
         <Route exact path="/profile" element={<Profile user={user} setUser={setUser} />} />
-
         <Route exact path="/study" element={<Study />} />
       </Routes>
     </div>

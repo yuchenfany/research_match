@@ -8,8 +8,7 @@ const dbo = require("../db/conn");
 // get individual study by id
 studyRoutes.route("/study/:id").get(function (req, res) {
   let db_connect = dbo.getDb("research-app");
-  console.log(req.params.id);
-  let myquery = { studyId: req.params.id};
+  const myquery = { studyId: parseInt(req.params.id) };
   db_connect
       .collection("studies")
       .findOne(myquery, function (err, result) {
