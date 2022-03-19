@@ -7,8 +7,9 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
-function Study() {
-  const studyId = 0;
+function Study({ studyId }) {
+  // Hardcoded:
+  // const studyId = 0;
   const [study, setStudy] = useState({});
 
   async function getStudy() {

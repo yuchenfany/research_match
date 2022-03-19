@@ -10,8 +10,8 @@ function Login({ user, setUser }) {
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(user.username);
-    console.log(user.password);
+    // console.log(user.username);
+    // console.log(user.password);
 
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
