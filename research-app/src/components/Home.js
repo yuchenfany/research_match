@@ -12,13 +12,14 @@ function Home({ user }) { // add props user
   // NOTE: remove hardcoding once users are enrolled in studies
 
   async function getStudyIds() {
-    const data = await fetch(`http://localhost:5000/record/${user.name}`, {
+    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    return data.json().enrolled;
+    const json = await data.json();
+    return json.enrolled;
     // Hardcoded:
     // return [0, 1, 2, 3];
   }
@@ -37,7 +38,7 @@ function Home({ user }) { // add props user
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
-    console.log(user.name);
+    console.log(user.username);
     console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
@@ -59,8 +60,12 @@ function Home({ user }) { // add props user
         {
         enrolledStudies.length === 0 ? []
           : enrolledStudies.map(
-            (studyJson) => <div key={studyJson.studyId}>{studyJson.title}</div>,
-            (studyJson) => <button type="button" key={studyJson.studyId} onClick={goToStudy(studyJson.studyId)}>VIEW</button>,
+            (studyJson) => (
+              <div key={studyJson.studyId}>
+                {studyJson.title}
+                <button type="button" key={studyJson.studyId} onClick={goToStudy(studyJson.studyId)}>VIEW</button>
+              </div>
+            ),
           )
         }
       </div>
