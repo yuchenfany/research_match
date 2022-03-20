@@ -7,13 +7,14 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
-function Study({ studyId }) {
+function Study({ study, setStudy }) {
   // Hardcoded:
   // const studyId = 0;
-  const [study, setStudy] = useState({});
+  // const [study, setStudy] = useState({});
 
   async function getStudy() {
-    const studyData = await fetch(`http://localhost:5000/study/${studyId}`, {
+    console.log('IN GETSTUDY');
+    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

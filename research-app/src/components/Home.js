@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
-function Home({ user }) { // add props user
+function Home({ user, setStudy }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -49,6 +49,8 @@ function Home({ user }) { // add props user
   }, []);
 
   function goToStudy(studyId) {
+    console.log(studyId);
+    setStudy({ studyId });
     navigate(`/study/${studyId}`);
   }
 
@@ -63,7 +65,7 @@ function Home({ user }) { // add props user
             (studyJson) => (
               <div key={studyJson.studyId}>
                 {studyJson.title}
-                <button type="button" key={studyJson.studyId} onClick={goToStudy(studyJson.studyId)}>VIEW</button>
+                <button type="button" key={studyJson.studyId} onClick={() => goToStudy(studyJson.studyId)}>VIEW</button>
               </div>
             ),
           )
