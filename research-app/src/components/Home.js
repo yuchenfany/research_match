@@ -57,16 +57,16 @@ function Home({ user, setStudy }) { // add props user
   return (
     <div className="Home">
       <div className="nav">nav</div>
-      <div className="header">Enrolled Studies</div>
       <div className="study-flex">
+        <div className="header-left">Enrolled Studies</div>
         <div>
           {
           enrolledStudies.length === 0 ? []
             : enrolledStudies.map(
               (studyJson) => (
                 <div key={studyJson.studyId} className="study">
-                  {studyJson.title}
-                  <button className="button" type="button" key={studyJson.studyId} onClick={() => goToStudy(studyJson.studyId)}>VIEW</button>
+                  <div className="study-title">{studyJson.title}</div>
+                  <button className="view-button" type="button" key={studyJson.studyId} onClick={() => goToStudy(studyJson.studyId)}>VIEW</button>
                 </div>
               ),
             )

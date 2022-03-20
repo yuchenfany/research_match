@@ -46,12 +46,15 @@ function Study({ study, setStudy }) {
 
   return (
     <div className="Study Page">
-      <div className="header">Study Page</div>
-      <div> Title: { study.title } </div>
-      <div> Duration: { study.duration } </div>
-      <div> Compensation: { study.compensation } </div>
-      <div> Researcher names: [ADD IN] </div>
-      <div> Description: { study.description } </div>
+      <div className="nav">nav</div>
+      <div className="study-flex">
+        <div className="header-left"> { study.title } </div>
+        <div> Duration: { study.duration } </div>
+        <div> Compensation: { study.compensation } </div>
+        <div> Researcher names: [ADD IN] </div>
+        <div className="header-small"> Description </div>
+        <div className="paragraph"> { study.description } </div>
+      </div>
     </div>
   );
 }
