@@ -58,18 +58,20 @@ function Home({ user, setStudy }) { // add props user
     <div className="Home">
       <div className="nav">nav</div>
       <div className="header">Enrolled Studies</div>
-      <div>
-        {
-        enrolledStudies.length === 0 ? []
-          : enrolledStudies.map(
-            (studyJson) => (
-              <div key={studyJson.studyId}>
-                {studyJson.title}
-                <button type="button" key={studyJson.studyId} onClick={() => goToStudy(studyJson.studyId)}>VIEW</button>
-              </div>
-            ),
-          )
-        }
+      <div className="study-flex">
+        <div>
+          {
+          enrolledStudies.length === 0 ? []
+            : enrolledStudies.map(
+              (studyJson) => (
+                <div key={studyJson.studyId} className="study">
+                  {studyJson.title}
+                  <button className="button" type="button" key={studyJson.studyId} onClick={() => goToStudy(studyJson.studyId)}>VIEW</button>
+                </div>
+              ),
+            )
+          }
+        </div>
       </div>
     </div>
   );
