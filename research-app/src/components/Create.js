@@ -36,23 +36,6 @@ function Create({ user, setUser }) {
     return await data.json() != null;
   }
 
-  async function verify() {
-    console.log(JSON.stringify(user));
-
-    await fetch('http://localhost:5000/record/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .catch((e) => {
-        window.alert(e);
-      });
-
-    return true;
-  }
-
   async function handleSubmit(event) {
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please create a username and password' });
@@ -76,10 +59,8 @@ function Create({ user, setUser }) {
     // all information is valid, continue
     if (await userExists()) {
       setError({ message: 'Username is already taken' });
-    } else if (await verify()) {
-      navigate('/profile');
     } else {
-      event.preventDefault();
+      navigate('/profile');
     }
   }
 

@@ -83,6 +83,16 @@ recordRoutes.route("/record/add").post(function (req, response) {
   let myobj = {
     username: req.body.username,
     password: req.body.password,
+    age: req.body.age,
+    heightFeet: req.body.heightFeet,
+    heightInches: req.body.heightInches,
+    weight: req.body.weight,
+    sex: req.body.sex,
+    gender: req.body.gender,
+    allergies: req.body.allergies,
+    phys: req.body.phys,
+    psych: req.body.psych,
+    med: req.body.med,
     enrolled: []
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
