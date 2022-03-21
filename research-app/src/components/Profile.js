@@ -66,14 +66,6 @@ function Profile({ user, setUser }) {
     return true;
   }
 
-  async function goToHome(event) {
-    if (await verify()) {
-      navigate('/home');
-    } else {
-      event.preventDefault();
-    }
-  }
-
   const updateAge = async (event) => {
     setUser({
       username: user.username,
@@ -82,6 +74,7 @@ function Profile({ user, setUser }) {
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
       weight: user.weight,
+      sex: user.sex,
     });
   };
 
@@ -93,6 +86,7 @@ function Profile({ user, setUser }) {
       heightFeet: event.target.value,
       heightInches: user.heightInches,
       weight: user.weight,
+      sex: user.sex,
     });
   };
 
@@ -104,6 +98,7 @@ function Profile({ user, setUser }) {
       heightFeet: user.heightFeet,
       heightInches: event.target.value,
       weight: user.weight,
+      sex: user.sex,
     });
   };
 
@@ -115,8 +110,29 @@ function Profile({ user, setUser }) {
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
       weight: event.target.value,
+      sex: user.sex,
     });
   };
+
+  const updateBioSex = async (value) => {
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: value,
+    });
+  };
+
+  async function handleSubmit(event) {
+    if (await verify()) {
+      navigate('/home');
+    } else {
+      event.preventDefault();
+    }
+  }
 
   return (
     <div className="Profile">
@@ -161,7 +177,8 @@ function Profile({ user, setUser }) {
               type="radio"
               id="male"
               value="male"
-              name="bio-sex"
+              name="option"
+              onClick={() => updateBioSex('male')}
             />
             <div>Male</div>
           </label>
@@ -170,7 +187,8 @@ function Profile({ user, setUser }) {
               type="radio"
               id="female"
               value="female"
-              name="bio-sex"
+              name="option"
+              onClick={() => updateBioSex('female')}
             />
             <div>Female</div>
           </label>
@@ -179,7 +197,8 @@ function Profile({ user, setUser }) {
               type="radio"
               id="intersex"
               value="intersex"
-              name="bio-sex"
+              name="option"
+              onClick={() => updateBioSex('intersex')}
             />
             <div>Intersex</div>
           </label>
@@ -229,7 +248,7 @@ function Profile({ user, setUser }) {
             className="select-tags"
           />
         </div>
-        <input className="signup-button" type="submit" value="SIGN UP" onClick={goToHome} />
+        <input className="signup-button" type="submit" value="SIGN UP" onClick={handleSubmit} />
       </div>
     </div>
   );
