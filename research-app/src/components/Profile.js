@@ -75,6 +75,7 @@ function Profile({ user, setUser }) {
       heightInches: user.heightInches,
       weight: user.weight,
       sex: user.sex,
+      gender: user.gender,
     });
   };
 
@@ -87,6 +88,7 @@ function Profile({ user, setUser }) {
       heightInches: user.heightInches,
       weight: user.weight,
       sex: user.sex,
+      gender: user.gender,
     });
   };
 
@@ -99,6 +101,7 @@ function Profile({ user, setUser }) {
       heightInches: event.target.value,
       weight: user.weight,
       sex: user.sex,
+      gender: user.gender,
     });
   };
 
@@ -111,6 +114,7 @@ function Profile({ user, setUser }) {
       heightInches: user.heightInches,
       weight: event.target.value,
       sex: user.sex,
+      gender: user.gender,
     });
   };
 
@@ -123,6 +127,20 @@ function Profile({ user, setUser }) {
       heightInches: user.heightInches,
       weight: user.weight,
       sex: value,
+      gender: user.gender,
+    });
+  };
+
+  const updateGender = async (value) => {
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: value,
     });
   };
 
@@ -208,7 +226,7 @@ function Profile({ user, setUser }) {
           <div className="dropdown">
             <Select
               options={genderOptions}
-              onChange={(opt) => console.log(opt.label, opt.value)}
+              onChange={(option) => updateGender(option.value)}
             />
           </div>
         </div>
