@@ -8,6 +8,32 @@ import '../assets/index.css';
 function Profile({ user, setUser }) {
   const navigate = useNavigate();
 
+  const customStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      width: 'state.selectProps.width,',
+      color: state.selectProps.menuColor,
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      background: '#F9FFFE',
+      borderColor: '#808A8F',
+      fontSize: '14px',
+      boxShadow: state.isFocused ? null : null,
+    }),
+    multiValueLabel: (styles) => ({
+      ...styles,
+      backgroundColor: '#BBEFEB',
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      backgroundColor: '#BBEFEB',
+      ':hover': {
+        color: '#4aa8a2',
+      },
+    }),
+  };
+
   const genderOptions = [
     { label: 'Female', value: 'female' },
     { label: 'Male', value: 'male' },
@@ -50,8 +76,6 @@ function Profile({ user, setUser }) {
   ];
 
   async function verify() {
-    console.log(JSON.stringify(user));
-
     await fetch('http://localhost:5000/record/add', {
       method: 'POST',
       headers: {
@@ -337,20 +361,25 @@ function Profile({ user, setUser }) {
             <Select
               options={genderOptions}
               onChange={(option) => updateGender(option.value)}
+              styles={customStyles}
             />
           </div>
         </div>
         <div className="profile-row">
           <div>Allergies</div>
+        </div>
+        <div className="profile-row">
           <Select
             options={allergyTags}
             isMulti
             onChange={(tags) => updateAllergies(tags)}
-            className="select-tags"
+            styles={customStyles}
           />
         </div>
         <div className="profile-row">
           <div>Medical Conditions (Physical)</div>
+        </div>
+        <div className="profile-row">
           <Select
             options={physTags}
             isMulti
@@ -360,6 +389,8 @@ function Profile({ user, setUser }) {
         </div>
         <div className="profile-row">
           <div>Medical Conditions (Psychological)</div>
+        </div>
+        <div className="profile-row">
           <Select
             options={psychTags}
             isMulti
@@ -369,6 +400,8 @@ function Profile({ user, setUser }) {
         </div>
         <div className="profile-row">
           <div>Medications</div>
+        </div>
+        <div className="profile-row">
           <Select
             options={medTags}
             isMulti
