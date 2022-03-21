@@ -32,4 +32,14 @@ studyRoutes.route('/study').get((req, res) => {
     });
 });
 
+// POST: add study to a user's enrolled array
+studyRoutes.route('/study/enroll/:id').post((req) => {
+  const dbConnect = dbo.getDb('research-app');
+  const myobj = {
+    id: req.params.id,
+  };
+
+  dbConnect.collection('user-info').update({ $addToSet: { enrolled: myobj } });
+});
+
 module.exports = studyRoutes;

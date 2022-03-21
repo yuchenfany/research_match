@@ -28,7 +28,16 @@ function Study({ study, setStudy }) {
   useEffect(() => {
     getStudy()
       .then(setStudy);
-   }, []);
+  }, []);
+
+  async function enroll() {
+    const studyData = await fetch(`http://localhost:5000/study/enroll/${study.studyId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 
   // const study = getStudy();
 //   async function renderStudy() {
@@ -52,6 +61,7 @@ function Study({ study, setStudy }) {
         <div> Duration: { study.duration } </div>
         <div> Compensation: { study.compensation } </div>
         <div> Researcher names: [ADD IN] </div>
+        <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
         <div className="header-small"> Description </div>
         <div className="paragraph"> { study.description } </div>
       </div>
