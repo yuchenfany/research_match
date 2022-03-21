@@ -66,6 +66,16 @@ function Profile({ user, setUser }) {
     return true;
   }
 
+  async function getTagsArr(tags) {
+    const arr = [];
+
+    for (let i = 0; i < tags.length; i += 1) {
+      arr.push(tags[i].value);
+    }
+
+    return arr;
+  }
+
   const updateAge = async (event) => {
     setUser({
       username: user.username,
@@ -76,6 +86,10 @@ function Profile({ user, setUser }) {
       weight: user.weight,
       sex: user.sex,
       gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
     });
   };
 
@@ -89,6 +103,10 @@ function Profile({ user, setUser }) {
       weight: user.weight,
       sex: user.sex,
       gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
     });
   };
 
@@ -102,6 +120,10 @@ function Profile({ user, setUser }) {
       weight: user.weight,
       sex: user.sex,
       gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
     });
   };
 
@@ -115,6 +137,10 @@ function Profile({ user, setUser }) {
       weight: event.target.value,
       sex: user.sex,
       gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
     });
   };
 
@@ -128,6 +154,10 @@ function Profile({ user, setUser }) {
       weight: user.weight,
       sex: value,
       gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
     });
   };
 
@@ -141,6 +171,86 @@ function Profile({ user, setUser }) {
       weight: user.weight,
       sex: user.sex,
       gender: value,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
+    });
+  };
+
+  const updateAllergies = async (tags) => {
+    const arr = await getTagsArr(tags);
+
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: arr,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
+    });
+  };
+
+  const updatePhys = async (tags) => {
+    const arr = await getTagsArr(tags);
+
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: arr,
+      psych: user.psych,
+      med: user.med,
+    });
+  };
+
+  const updatePsych = async (tags) => {
+    const arr = await getTagsArr(tags);
+
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: arr,
+      med: user.med,
+    });
+  };
+
+  const updateMed = async (tags) => {
+    const arr = await getTagsArr(tags);
+
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: arr,
     });
   };
 
@@ -235,7 +345,7 @@ function Profile({ user, setUser }) {
           <Select
             options={allergyTags}
             isMulti
-            onChange={(opt) => console.log(opt.label, opt.value)}
+            onChange={(tags) => updateAllergies(tags)}
             className="select-tags"
           />
         </div>
@@ -244,7 +354,7 @@ function Profile({ user, setUser }) {
           <Select
             options={physTags}
             isMulti
-            onChange={(opt) => console.log(opt.label, opt.value)}
+            onChange={(tags) => updatePhys(tags)}
             className="select-tags"
           />
         </div>
@@ -253,7 +363,7 @@ function Profile({ user, setUser }) {
           <Select
             options={psychTags}
             isMulti
-            onChange={(opt) => console.log(opt.label, opt.value)}
+            onChange={(tags) => updatePsych(tags)}
             className="select-tags"
           />
         </div>
@@ -262,7 +372,7 @@ function Profile({ user, setUser }) {
           <Select
             options={medTags}
             isMulti
-            onChange={(opt) => console.log(opt.label, opt.value)}
+            onChange={(tags) => updateMed(tags)}
             className="select-tags"
           />
         </div>
