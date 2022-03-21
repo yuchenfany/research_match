@@ -10,6 +10,7 @@ import Home from './components/Home';
 import Create from './components/Create';
 import Profile from './components/Profile';
 import Study from './components/Study';
+import Dashboard from './components/Dashboard';
 
 function App() {
   const [user, setUser] = useState({ username: '', password: '', enrolled: [] });
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
         <Route exact path="/profile" element={<Profile user={user} setUser={setUser} />} />
+        <Route exact path="/dashboard" element={<Dashboard user={user} />} />
       </Routes>
     </div>
   );
