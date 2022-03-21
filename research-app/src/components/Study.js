@@ -31,7 +31,7 @@ function Study({ study, setStudy }) {
   }, []);
 
   async function enroll() {
-    const studyData = await fetch(`http://localhost:5000/study/enroll/${study.studyId}`, {
+    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
