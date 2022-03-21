@@ -245,3 +245,7 @@ code {
   flex-direction: row;
   width: 10%;
 }
+
+.select-tags {
+  width: 100%;
+}
