@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
-function Profile() {
+function Profile({ user, setUser }) {
   const navigate = useNavigate();
 
   const genderOptions = [
@@ -49,12 +49,73 @@ function Profile() {
     { label: 'Lexapro', value: 'lexapro' },
   ];
 
-  const goToHome = () => {
-    navigate('/home');
+  async function verify() {
+    console.log(JSON.stringify(user));
+
+    await fetch('http://localhost:5000/record/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .catch((e) => {
+        window.alert(e);
+      });
+
+    return true;
+  }
+
+  async function goToHome(event) {
+    if (await verify()) {
+      navigate('/home');
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  const updateAge = async (event) => {
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: event.target.value,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+    });
   };
 
-  const handleAgeChange = async () => {
-    // console.log(event.target.value);
+  const updateHeightFeet = async (event) => {
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: event.target.value,
+      heightInches: user.heightInches,
+      weight: user.weight,
+    });
+  };
+
+  const updateHeightInches = async (event) => {
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: event.target.value,
+      weight: user.weight,
+    });
+  };
+
+  const updateWeight = async (event) => {
+    setUser({
+      username: user.username,
+      password: user.password,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: event.target.value,
+    });
   };
 
   return (
@@ -67,21 +128,21 @@ function Profile() {
             className="input-field"
             type="text"
             id="age"
-            onChange={handleAgeChange}
+            onChange={updateAge}
           />
           <div>Height</div>
           <input
             className="input-field"
             type="text"
             id="age"
-            onChange={handleAgeChange}
+            onChange={updateHeightFeet}
           />
           <div>ft</div>
           <input
             className="input-field"
             type="text"
             id="age"
-            onChange={handleAgeChange}
+            onChange={updateHeightInches}
           />
           <div>in</div>
           <div>Weight</div>
@@ -89,7 +150,7 @@ function Profile() {
             className="input-field"
             type="text"
             id="age"
-            onChange={handleAgeChange}
+            onChange={updateWeight}
           />
           <div>lbs</div>
         </div>
