@@ -30,18 +30,10 @@ function Study({ study, setStudy, user }) {
       .then(setStudy);
   }, []);
 
-  async function enroll() {
+  async function enrollUpdateStudy() {
     const currStudy = await getStudy();
     const currParticipants = currStudy.participants;
-
-    console.log(currStudy);
-    console.log(currParticipants);
-
     currParticipants.push(user.username);
-
-    console.log(currParticipants);
-    console.log('STUDY ID:');
-    console.log(study.studyId);
 
     const updatedStudy = {
       title: currStudy.title,
@@ -54,6 +46,35 @@ function Study({ study, setStudy, user }) {
       researchers: currStudy.researchers,
     }
     await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}`, {
+      method: 'POST',
+      body: JSON.stringify(updatedStudy),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  async function getUser() {
+    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  async function enrollUpdateUser() {
+    const userInfo = await getUser();
+    const userEnrolled = userInfo.enrolled;
+    userEnrolled.push(study.studyId);
+    setUser({ username: user.username, password: user.password, enrolled: userEnrolled });
+
+    const updatedUser = {
+      username: userInfo.username,
+      password: userInfo.password,
+      enrolled: userEnrolled,
+    }
+    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
       method: 'POST',
       body: JSON.stringify(updatedStudy),
       headers: {
@@ -84,7 +105,7 @@ function Study({ study, setStudy, user }) {
         <div> Duration: { study.duration } </div>
         <div> Compensation: { study.compensation } </div>
         <div> Researcher names: [ADD IN] </div>
-        <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
+        <button className="button" type="button" onClick={() => enrollUpdateStudy()}>ENROLL</button>
         <div className="header-small"> Description </div>
         <div className="paragraph"> { study.description } </div>
       </div>
