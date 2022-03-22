@@ -113,17 +113,29 @@ recordRoutes.route("/record/studies/:username").get(function (req, res) {
     )
 });
 
-//TODO
-// enroll in a study POST method 
-recordRoutes.route("/record/enroll/:username/:study_id").post(function (req, response) {
-  let db_connect = dbo.getDb();
-  let myobj = {
-    id: req.params.id,
+// enroll in a study POST method
+recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { studyId: req.body.studyId };
+
+  const newvalues = {
+    $set: {
+      title: req.body.title,
+      description: req.body.description,
+      compensation: req.body.compensation,
+      duration: req.body.duration,
+      tags: req.body.tags,
+      participants: req.body.participants,
+      studyId: req.body.studyId,
+      researchers: req.body.researchers,
+    },
   };
-  db_connect.collection("studies").insertOne(myobj, function (err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
+  dbConnect
+    .collection('studies')
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    });
 });
 
 // Update user info PUT method

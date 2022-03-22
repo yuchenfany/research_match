@@ -55,7 +55,6 @@ studyRoutes.route('/study/:id').post((req, response) => {
       if (err) throw err;
       response.json(res);
     });
-  // dbConnect.collection('user-info').update({ $addToSet: { enrolled: myobj } });
 });
 
 module.exports = studyRoutes;
