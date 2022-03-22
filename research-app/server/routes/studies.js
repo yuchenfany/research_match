@@ -58,6 +58,7 @@ studyRoutes.route('/study/:id').post((req, response) => {
 });
 
 studyRoutes.route('/study/add').post((req, response) => {
+  console.log('reached backend');
   const dbConnect = dbo.getDb();
   const myobj = {
     title: req.body.title,
@@ -71,6 +72,7 @@ studyRoutes.route('/study/add').post((req, response) => {
   };
   dbConnect.collection('studies').insertOne(myobj, (err, res) => {
     if (err) throw err;
+    console.log('in backend, past error');
     response.json(res);
   });
 });
