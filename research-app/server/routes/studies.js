@@ -36,7 +36,7 @@ studyRoutes.route('/study').get((req, res) => {
 // POST: add study to a user's enrolled array
 studyRoutes.route('/study/:id').post((req, response) => {
   const dbConnect = dbo.getDb();
-  const myquery = { _id: ObjectId(req.params.id) };
+  const myquery = { _id: ObjectId };
   const newvalues = {
     $set: {
       title: req.body.title,
@@ -52,7 +52,9 @@ studyRoutes.route('/study/:id').post((req, response) => {
   dbConnect
     .collection('studies')
     .updateOne(myquery, newvalues, (err, res) => {
+      console.log('in updateOne');
       if (err) throw err;
+      console.log('after error');
       response.json(res);
     });
   // dbConnect.collection('user-info').update({ $addToSet: { enrolled: myobj } });
