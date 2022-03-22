@@ -48,7 +48,7 @@ function Study({ study, setStudy, user, setUser }) {
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
     }
-    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}`, {
+    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}/enroll`, {
       method: 'POST',
       body: JSON.stringify(updatedStudy),
       headers: {

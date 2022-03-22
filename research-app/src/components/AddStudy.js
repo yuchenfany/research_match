@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useEffect } from 'react';
-// import Select from 'react-select';
+import React from 'react';
+import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 // study, setStudy,
@@ -19,58 +19,71 @@ function AddStudy({ study, setStudy }) {
   //   });
   // };
 
-  useEffect(() => {
-    setStudy({
-      title: '',
-      description: '',
-      compensation: '',
-      duration: '',
-      tags: [],
-      participants: [],
-      studyId: 4,
-      researchers: [],
-    });
-    console.log('useEFfect is being run');
-    console.log(study.description);
-  }, []);
+  // useEffect(() => {
+  //   setStudy({
+  //     title: '',
+  //     description: '',
+  //     compensation: '',
+  //     duration: '',
+  //     tags: [],
+  //     participants: [],
+  //     studyId: 4,
+  //     researchers: [],
+  //   });
+  //   console.log('useEFfect is being run');
+  //   console.log(study.description);
+  // }, []);
   const navigate = useNavigate();
-
-  // const customStyles = {
-  //   menu: (provided, state) => ({
-  //     ...provided,
-  //     width: 'state.selectProps.width,',
-  //     color: state.selectProps.menuColor,
-  //   }),
-  //   control: (provided, state) => ({
-  //     ...provided,
-  //     background: '#F9FFFE',
-  //     borderColor: '#808A8F',
-  //     fontSize: '14px',
-  //     boxShadow: state.isFocused ? null : null,
-  //   }),
-  //   multiValueLabel: (styles) => ({
-  //     ...styles,
-  //     backgroundColor: '#BBEFEB',
-  //   }),
-  //   multiValueRemove: (styles) => ({
-  //     ...styles,
-  //     backgroundColor: '#BBEFEB',
-  //     ':hover': {
-  //       color: '#4aa8a2',
+  const Tags = [
+    { label: 'Diabetes', value: 'diabetes' },
+    { label: 'Cancer', value: 'cancer' },
+    { label: 'Social', value: 'social' },
+    { label: 'placebo', value: 'placebo' },
+    { label: 'Brain', value: 'brain' },
+    { label: 'Physical', value: 'physical' },
+  ];
+  const customStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      width: 'state.selectProps.width,',
+      color: state.selectProps.menuColor,
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      background: '#F9FFFE',
+      borderColor: '#808A8F',
+      fontSize: '14px',
+      boxShadow: state.isFocused ? null : null,
+    }),
+    multiValueLabel: (styles) => ({
+      ...styles,
+      backgroundColor: '#BBEFEB',
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      backgroundColor: '#BBEFEB',
+      ':hover': {
+        color: '#4aa8a2',
+      },
+    }),
+  };
+  // async function getNextStudyID() {
+  //   const studyData = await fetch('http://localhost:5000/study/findMax', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
   //     },
-  //   }),
-  // };
-
-  // const allergyTags = [
-  //   { label: 'Tree Nuts', value: 'treeNuts' },
-  //   { label: 'Gluten', value: 'gluten' },
-  //   { label: 'Penicillin', value: 'penicillin' },
-  //   { label: 'Peanuts', value: 'peanuts' },
-  //   { label: 'Aspirin', value: 'aspirin' },
-  //   { label: 'Pollen', value: 'pollen' },
-  // ];
-
+  //   });
+  //   const data = await studyData.json();
+  //   console.log(data);
+  //   return data;
+  // }
   async function verify() {
+    console.log(JSON.stringify(study));
+    // console.log(JSON.stringify(getNextStudyID()));
+    // setStudy({
+    //   studyId: getNextStudyID(),
+    // });
     await fetch('http://localhost:5000/study/add', {
       method: 'POST',
       headers: {
@@ -96,18 +109,22 @@ function AddStudy({ study, setStudy }) {
   // }
 
   const updateTitle = async (event) => {
+    console.log('UPDATE TITLE');
+    console.log(event.target.value);
     setStudy({
       title: event.target.value,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
+      // description: study.description,
+      // compensation: study.compensation,
+      // duration: study.duration,
+      // tags: study.tags,
+      // participants: study.participants,
+      // studyId: study.studyId,
+      // researchers: study.researchers,
     });
   };
   const updateDescription = async (event) => {
+    console.log('UPDATE description');
+    console.log(event.target.value);
     setStudy({
       title: study.title,
       description: event.target.value,
@@ -143,7 +160,42 @@ function AddStudy({ study, setStudy }) {
       researchers: study.researchers,
     });
   };
+  const updateResearcher = async (event) => {
+    setStudy({
+      title: study.title,
+      description: study.description,
+      compensation: study.compensation,
+      duration: study.duration,
+      tags: study.tags,
+      participants: study.participants,
+      studyId: study.studyId,
+      researchers: event.target.value,
+    });
+  };
+  async function getTagsArr(tags) {
+    const arr = [];
 
+    for (let i = 0; i < tags.length; i += 1) {
+      arr.push(tags[i].value);
+    }
+
+    return arr;
+  }
+
+  const updateTags = async (tags) => {
+    const arr = await getTagsArr(tags);
+    console.log(arr);
+    setStudy({
+      title: study.title,
+      description: study.description,
+      compensation: study.compensation,
+      duration: study.duration,
+      tags: arr,
+      participants: study.participants,
+      studyId: study.studyId,
+      researchers: study.researchers,
+    });
+  };
   async function handleSubmit(event) {
     if (await verify()) {
       navigate('/home');
@@ -177,15 +229,33 @@ function AddStudy({ study, setStudy }) {
           <input
             className="input-field"
             type="text"
-            id="cpmpensation"
+            id="compensation"
             onChange={updateCompensation}
           />
           <div>Duration</div>
           <input
             className="input-field"
             type="text"
-            id="age"
+            id="duration"
             onChange={updateDuration}
+          />
+          <div>Lead Researcher</div>
+          <input
+            className="input-field"
+            type="text"
+            id="researchers"
+            onChange={updateResearcher}
+          />
+        </div>
+        <div className="profile-row">
+          <div>Tags</div>
+        </div>
+        <div className="profile-row">
+          <Select
+            options={Tags}
+            isMulti
+            onChange={(tags) => updateTags(tags)}
+            styles={customStyles}
           />
         </div>
         <input className="signup-button" type="submit" value="Add Study" onClick={handleSubmit} />
