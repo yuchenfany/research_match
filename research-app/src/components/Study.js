@@ -88,7 +88,7 @@ function Study({ study, setStudy, user, setUser }) {
     const updatedUser = {
       username: user.username,
       password: user.password,
-      enrolled: user.enrolled,
+      enrolled: updatedArray,
     }
     await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
       method: 'POST',
@@ -102,6 +102,8 @@ function Study({ study, setStudy, user, setUser }) {
   async function enroll() {
     enrollUpdateStudy().then(enrollUpdateUser());
   }
+
+  console.log(user.enrolled);
 
   // const study = getStudy();
 //   async function renderStudy() {
