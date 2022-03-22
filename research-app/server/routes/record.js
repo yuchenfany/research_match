@@ -113,25 +113,20 @@ recordRoutes.route("/record/studies/:username").get(function (req, res) {
     )
 });
 
-// enroll in a study POST method
+// POST: add study to user's enrolled array
 recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) => {
   const dbConnect = dbo.getDb();
-  const myquery = { studyId: req.body.studyId };
+  const myquery = { username: req.body.username };
 
   const newvalues = {
     $set: {
-      title: req.body.title,
-      description: req.body.description,
-      compensation: req.body.compensation,
-      duration: req.body.duration,
-      tags: req.body.tags,
-      participants: req.body.participants,
-      studyId: req.body.studyId,
-      researchers: req.body.researchers,
+      username: req.body.username,
+      password: req.body.password,
+      enrolled: req.body.enrolled,
     },
   };
   dbConnect
-    .collection('studies')
+    .collection('user-info')
     .updateOne(myquery, newvalues, (err, res) => {
       if (err) throw err;
       response.json(res);
