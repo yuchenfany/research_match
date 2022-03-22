@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
-        <Route exact path="/home" element={<Home user={user} setStudy={setStudy} />} />
+        <Route exact path="/home" element={<Home user={user} setUser={setUser} setStudy={setStudy} />} />
         <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
         <Route exact path="/profile" element={<Profile user={user} setUser={setUser} />} />

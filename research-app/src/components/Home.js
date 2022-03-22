@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
-function Home({ user, setStudy }) { // add props user
+function Home({ user, setUser, setStudy }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ function Home({ user, setStudy }) { // add props user
       },
     });
     const json = await data.json();
+    setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
     return json.enrolled;
     // Hardcoded:
     // return [0, 1, 2, 3];

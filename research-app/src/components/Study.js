@@ -12,6 +12,9 @@ function Study({ study, setStudy, user, setUser }) {
   // const studyId = 0;
   // const [study, setStudy] = useState({});
 
+  console.log('AT THE BEGINNING:');
+  console.log(user.enrolled);
+
   async function getStudy() {
     console.log('IN GETSTUDY');
     const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
