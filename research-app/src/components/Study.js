@@ -7,10 +7,13 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
-function Study({ study, setStudy, user }) {
+function Study({ study, setStudy, user, setUser }) {
   // Hardcoded:
   // const studyId = 0;
   // const [study, setStudy] = useState({});
+
+  console.log('AT THE BEGINNING:');
+  console.log(user.enrolled);
 
   async function getStudy() {
     console.log('IN GETSTUDY');
@@ -30,18 +33,10 @@ function Study({ study, setStudy, user }) {
       .then(setStudy);
   }, []);
 
-  async function enroll() {
+  async function enrollUpdateStudy() {
     const currStudy = await getStudy();
     const currParticipants = currStudy.participants;
-
-    console.log(currStudy);
-    console.log(currParticipants);
-
     currParticipants.push(user.username);
-
-    console.log(currParticipants);
-    console.log('STUDY ID:');
-    console.log(study.studyId);
 
     const updatedStudy = {
       title: currStudy.title,
@@ -53,7 +48,7 @@ function Study({ study, setStudy, user }) {
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
     }
-    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}`, {
+    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}/enroll`, {
       method: 'POST',
       body: JSON.stringify(updatedStudy),
       headers: {
@@ -61,6 +56,54 @@ function Study({ study, setStudy, user }) {
       },
     });
   }
+
+  async function enrollUpdateUser() {
+
+    // console.log(user.username);
+    // console.log(user.enrolled);
+
+    // const userEnrolled = user.enrolled;
+
+    // this function has been checked! concat works
+    function updateArray(array, newElement) {
+      return array.concat(newElement);
+    }
+    
+    console.log('Before change');
+    console.log(user.enrolled);
+    // setUser({ username: user.username, password: user.password, enrolled: [...user.enrolled, [study.studId]] });
+    const updatedArray = updateArray(user.enrolled, [study.studyId]);
+    console.log('UPDATED ARRAY:')
+    console.log(updatedArray);
+    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
+    console.log('After change');
+    console.log(user.enrolled);
+
+    // console.log('Before push');
+    // console.log(userEnrolled);
+    // await userEnrolled.push(study.studyId);
+    // console.log('After push');
+    // console.log(userEnrolled);
+
+    const updatedUser = {
+      username: user.username,
+      password: user.password,
+      enrolled: updatedArray,
+    }
+    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
+      method: 'POST',
+      body: JSON.stringify(updatedUser),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  async function enroll() {
+    enrollUpdateStudy().then(enrollUpdateUser());
+  }
+
+  console.log(user.enrolled);
 
   // const study = getStudy();
 //   async function renderStudy() {

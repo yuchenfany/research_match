@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
-function Home({ user, setStudy }) { // add props user
+function Home({ user, setUser, setStudy }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ function Home({ user, setStudy }) { // add props user
       },
     });
     const json = await data.json();
+    setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
     return json.enrolled;
     // Hardcoded:
     // return [0, 1, 2, 3];
@@ -39,6 +40,7 @@ function Home({ user, setStudy }) { // add props user
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
     console.log(user.username);
+    console.log(user.enrolled);
     console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
@@ -79,6 +81,13 @@ function Home({ user, setStudy }) { // add props user
         <div className="study">
           <div className="study-title">Organ Transplant Research</div>
           <button className="view-button" type="button" key={3} onClick={() => goToStudy(3)}>VIEW</button>
+        </div>
+      </div>
+      <div className="study-transfer">
+        <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
+        <div className="study">
+          <div className="study-transfer">Go to Study Page</div>
+          <button className="view-button" type="button" onClick={() => navigate('/add-study')}>Add Study</button>
         </div>
       </div>
     </div>
