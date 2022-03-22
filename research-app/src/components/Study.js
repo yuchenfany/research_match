@@ -7,7 +7,7 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
-function Study({ study, setStudy }) {
+function Study({ study, setStudy, user }) {
   // Hardcoded:
   // const studyId = 0;
   // const [study, setStudy] = useState({});
@@ -28,7 +28,39 @@ function Study({ study, setStudy }) {
   useEffect(() => {
     getStudy()
       .then(setStudy);
-   }, []);
+  }, []);
+
+  async function enroll() {
+    const currStudy = await getStudy();
+    const currParticipants = currStudy.participants;
+
+    console.log(currStudy);
+    console.log(currParticipants);
+
+    currParticipants.push(user.username);
+
+    console.log(currParticipants);
+    console.log('STUDY ID:');
+    console.log(study.studyId);
+
+    const updatedStudy = {
+      title: currStudy.title,
+      description: currStudy.description,
+      compensation: currStudy.compensation,
+      duration: currStudy.duration,
+      tags: currStudy.tags,
+      participants: currParticipants,
+      studyId: currStudy.studyId,
+      researchers: currStudy.researchers,
+    }
+    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}`, {
+      method: 'POST',
+      body: JSON.stringify(updatedStudy),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 
   // const study = getStudy();
 //   async function renderStudy() {
@@ -52,6 +84,7 @@ function Study({ study, setStudy }) {
         <div> Duration: { study.duration } </div>
         <div> Compensation: { study.compensation } </div>
         <div> Researcher names: [ADD IN] </div>
+        <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
         <div className="header-small"> Description </div>
         <div className="paragraph"> { study.description } </div>
       </div>
