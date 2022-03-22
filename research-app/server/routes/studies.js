@@ -6,18 +6,18 @@ const studyRoutes = express.Router();
 const dbo = require('../db/conn');
 
 // get individual study by id
-// studyRoutes.route('/study/:id').get((req, res) => {
-//   const dbConnect = dbo.getDb('research-app');
-//   const myquery = { studyId: parseInt(req.params.id, 10) };
-//   dbConnect
-//     .collection('studies')
-//     .findOne(myquery, (err, result) => {
-//       if (err) {
-//         throw err;
-//       }
-//       res.json(result);
-//     });
-// });
+studyRoutes.route('/study/:id').get((req, res) => {
+  const dbConnect = dbo.getDb('research-app');
+  const myquery = { studyId: parseInt(req.params.id, 10) };
+  dbConnect
+    .collection('studies')
+    .findOne(myquery, (err, result) => {
+      if (err) {
+        throw err;
+      }
+      res.json(result);
+    });
+});
 // POST: add user to study's participants array
 studyRoutes.route('/study/:id/enroll').post((req, response) => {
   const dbConnect = dbo.getDb();
@@ -95,7 +95,7 @@ studyRoutes.route('/study/findMax').get((req, res) => {
 //     });
 // });
 
-studyRoutes.route('/study/add').post((req, response) => {
+studyRoutes.route('/add-study').post((req, response) => {
   const dbConnect = dbo.getDb('research-app');
   const myobj = {
     title: req.body.title,

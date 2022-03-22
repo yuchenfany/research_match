@@ -84,7 +84,7 @@ function AddStudy({ study, setStudy }) {
     // setStudy({
     //   studyId: getNextStudyID(),
     // });
-    await fetch('http://localhost:5000/study/add', {
+    await fetch('http://localhost:5000/add-study', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
