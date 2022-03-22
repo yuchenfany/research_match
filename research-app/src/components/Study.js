@@ -39,6 +39,10 @@ function Study({ study, setStudy, user }) {
 
     currParticipants.push(user.username);
 
+    console.log(currParticipants);
+    console.log('STUDY ID:');
+    console.log(study.studyId);
+
     const updatedStudy = {
       title: currStudy.title,
       description: currStudy.description,
@@ -49,7 +53,7 @@ function Study({ study, setStudy, user }) {
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
     }
-    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}`, {
       method: 'POST',
       body: JSON.stringify(updatedStudy),
       headers: {
