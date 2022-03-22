@@ -57,4 +57,22 @@ studyRoutes.route('/study/:id').post((req, response) => {
     });
 });
 
+studyRoutes.route('/study/add').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myobj = {
+    title: req.body.title,
+    description: req.body.description,
+    compensation: req.body.compensation,
+    duration: req.body.duration,
+    tags: req.body.tags,
+    participants: req.body.participants,
+    studyId: req.body.studyId,
+    researchers: req.body.researchers,
+  };
+  dbConnect.collection('studies').insertOne(myobj, (err, res) => {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
 module.exports = studyRoutes;

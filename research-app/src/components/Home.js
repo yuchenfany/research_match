@@ -83,6 +83,13 @@ function Home({ user, setUser, setStudy }) { // add props user
           <button className="view-button" type="button" key={3} onClick={() => goToStudy(3)}>VIEW</button>
         </div>
       </div>
+      <div className="study-transfer">
+        <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
+        <div className="study">
+          <div className="study-transfer">Go to Study Page</div>
+          <button className="view-button" type="button" key={3} onClick={() => navigate('/AddStudy')}>Add Study</button>
+        </div>
+      </div>
     </div>
   );
 }
