@@ -24,7 +24,7 @@ recordRoutes.post('/login', (req, res) => {
     .collection("user-info")
     .findOne({username : username}, (err, usr) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         if (err == "No such user") {
           return res.status(401).json({'err':true, 'msg':'Your username/password combination does not match.'});
         }

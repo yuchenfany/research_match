@@ -109,6 +109,7 @@ studyRoutes.route('/study/add').post((req, response) => {
   };
   dbConnect.collection("studies").insertOne(myobj, function (err, res) {
     if (err) throw err;
+    console.log('in backend, past error');
     response.json(res);
   });
 });

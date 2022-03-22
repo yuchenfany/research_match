@@ -29,7 +29,7 @@ function App() {
         <Route exact path="/home" element={<Home user={user} setUser={setUser} setStudy={setStudy} />} />
         <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
-        <Route exact path="/add-study" element={<AddStudy study={study} setStudy={setStudy} />} />
+        <Route exact path="/study/add" element={<AddStudy study={study} setStudy={setStudy} />} />
         <Route exact path="/profile" element={<Profile user={user} setUser={setUser} />} />
         <Route exact path="/dashboard" element={<Dashboard user={user} />} />
       </Routes>

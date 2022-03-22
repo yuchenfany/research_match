@@ -95,6 +95,7 @@ function AddStudy({ study, setStudy }) {
         window.alert(e);
       });
 
+    console.log('fetch is being called');
     return true;
   }
 
