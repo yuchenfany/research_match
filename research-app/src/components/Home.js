@@ -39,6 +39,7 @@ function Home({ user, setStudy }) { // add props user
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
     console.log(user.username);
+    console.log(user.enrolled);
     console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
@@ -77,8 +78,8 @@ function Home({ user, setStudy }) { // add props user
       <div className="study-flex">
         <div className="header-left">For Testing Purposes: Delete Later</div>
         <div className="study">
-          <div className="study-title">Organ Transplant Research</div>
-          <button className="view-button" type="button" key={3} onClick={() => goToStudy(3)}>VIEW</button>
+          <div className="study-title">Diabetic Research</div>
+          <button className="view-button" type="button" key={0} onClick={() => goToStudy(0)}>VIEW</button>
         </div>
       </div>
     </div>
