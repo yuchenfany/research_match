@@ -83,6 +83,10 @@ function Study({ study, setStudy, user }) {
     });
   }
 
+  async function enroll() {
+    enrollUpdateStudy().then(enrollUpdateUser());
+  }
+
   // const study = getStudy();
 //   async function renderStudy() {
 //     const data = await getStudy();
@@ -105,7 +109,7 @@ function Study({ study, setStudy, user }) {
         <div> Duration: { study.duration } </div>
         <div> Compensation: { study.compensation } </div>
         <div> Researcher names: [ADD IN] </div>
-        <button className="button" type="button" onClick={() => enrollUpdateStudy()}>ENROLL</button>
+        <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
         <div className="header-small"> Description </div>
         <div className="paragraph"> { study.description } </div>
       </div>
