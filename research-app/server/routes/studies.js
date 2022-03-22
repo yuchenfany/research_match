@@ -33,7 +33,7 @@ studyRoutes.route('/study').get((req, res) => {
 });
 
 // POST: add user to study's participants array
-studyRoutes.route('/study/:id').post((req, response) => {
+studyRoutes.route('/study/:id/enroll').post((req, response) => {
   const dbConnect = dbo.getDb();
   const myquery = { studyId: req.body.studyId };
 
