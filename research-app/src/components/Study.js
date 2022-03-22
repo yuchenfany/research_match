@@ -7,7 +7,7 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
-function Study({ study, setStudy, user }) {
+function Study({ study, setStudy, user, setUser }) {
   // Hardcoded:
   // const studyId = 0;
   // const [study, setStudy] = useState({});
@@ -54,29 +54,23 @@ function Study({ study, setStudy, user }) {
     });
   }
 
-  async function getUser() {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-
   async function enrollUpdateUser() {
-    const userInfo = await getUser();
-    const userEnrolled = userInfo.enrolled;
+
+    console.log(user.username);
+    console.log(user.enrolled);
+
+    const userEnrolled = user.enrolled;
     userEnrolled.push(study.studyId);
     setUser({ username: user.username, password: user.password, enrolled: userEnrolled });
 
     const updatedUser = {
-      username: userInfo.username,
-      password: userInfo.password,
+      username: user.username,
+      password: user.password,
       enrolled: userEnrolled,
     }
     await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
       method: 'POST',
-      body: JSON.stringify(updatedStudy),
+      body: JSON.stringify(updatedUser),
       headers: {
         'Content-Type': 'application/json',
       },

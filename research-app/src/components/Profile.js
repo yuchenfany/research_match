@@ -104,6 +104,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: event.target.value,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -121,6 +122,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: event.target.value,
       heightInches: user.heightInches,
@@ -138,6 +140,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: event.target.value,
@@ -155,6 +158,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -172,6 +176,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -189,6 +194,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -208,6 +214,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -227,6 +234,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -246,6 +254,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -265,6 +274,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,

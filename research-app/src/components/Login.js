@@ -57,6 +57,7 @@ function Login({ user, setUser }) {
       {
         username: event.target.value,
         password: user.password,
+        enrolled: user.enrolled,
       },
     );
   };
@@ -66,6 +67,7 @@ function Login({ user, setUser }) {
       {
         username: user.username,
         password: event.target.value,
+        enrolled: user.enrolled,
       },
     );
   };
