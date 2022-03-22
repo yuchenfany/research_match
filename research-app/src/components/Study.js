@@ -58,32 +58,12 @@ function Study({ study, setStudy, user, setUser }) {
   }
 
   async function enrollUpdateUser() {
-
-    // console.log(user.username);
-    // console.log(user.enrolled);
-
-    // const userEnrolled = user.enrolled;
-
-    // this function has been checked! concat works
     function updateArray(array, newElement) {
       return array.concat(newElement);
     }
-    
-    console.log('Before change');
-    console.log(user.enrolled);
-    // setUser({ username: user.username, password: user.password, enrolled: [...user.enrolled, [study.studId]] });
-    const updatedArray = updateArray(user.enrolled, [study.studyId]);
-    console.log('UPDATED ARRAY:')
-    console.log(updatedArray);
-    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
-    console.log('After change');
-    console.log(user.enrolled);
 
-    // console.log('Before push');
-    // console.log(userEnrolled);
-    // await userEnrolled.push(study.studyId);
-    // console.log('After push');
-    // console.log(userEnrolled);
+    const updatedArray = updateArray(user.enrolled, [study.studyId]);
+    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
 
     const updatedUser = {
       username: user.username,
