@@ -1,23 +1,61 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 
 function Dashboard({ user }) {
-//   async function getNumStudies() {
-//     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-//     const json = await data.json();
-//     return json.enrolled.length;
-//   }
-  const totalCompensation = 0;
-  const numEnrolled = 0;
-  const numRecommended = 0;
-  const numMessages = 0;
+  const [totalCompensation, setTotalCompensation] = useState(0);
+  const [numEnrolled, setNumEnrolled] = useState(0);
+  const [numRecommended, setNumRecommended] = useState(0);
+  const [numMessages] = useState(0);
+
+  // Fake for now by getting all studies
+  async function getStudiesLength() {
+    const data = await fetch('http://localhost:5000/study', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const json = await data.json();
+    return json.length;
+  }
+
+  async function getUserInfo() {
+    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const json = await data.json();
+    return json;
+  }
+
+  async function getNumStudies() {
+    const data = await getUserInfo();
+    return data.enrolled?.length;
+  }
+
+  async function getTotalCompensation() {
+    const data = await getUserInfo();
+    return data.compensation?.length;
+  }
+
+  useEffect(() => {
+    getNumStudies()
+      .then(setNumEnrolled);
+  }, []);
+
+  useEffect(() => {
+    getTotalCompensation()
+      .then(setTotalCompensation);
+  }, []);
+
+  useEffect(() => {
+    getStudiesLength()
+      .then(setNumRecommended);
+  }, []);
 
   const cards = [
     ['TOTAL COMPENSATION EARNED', `$${totalCompensation}`],
