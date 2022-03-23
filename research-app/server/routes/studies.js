@@ -57,11 +57,15 @@ studyRoutes.route('/study').get((req, res) => {
     });
 });
 
-studyRoutes.route('/study/findMax').get((req, res) => {
+studyRoutes.route('/findMax').get((req, res) => {
   const dbConnect = dbo.getDb('research-app');
-  const data = dbConnect.collection.find().sort({studyId:-1}).limit(1);
-  console.log(data); 
-  res.json(data);
+  dbConnect.collection('studies').find().sort({studyId:-1}).limit(1)
+  .toArray((err, result) => {
+    if (err) throw err;
+    res.json(result);
+  });
+  // console.log(data); 
+  // res.json(data);
   // dbConnect.findOne()
   // .sort('-studyId')  // give me the max
   // .exec(function (err, result) {
