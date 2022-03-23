@@ -43,7 +43,7 @@ function Login({ user, setUser }) {
       setError({ message: 'User does not exist' });
       event.preventDefault();
     } else if (json.password === user.password) {
-      navigate('/home');
+      navigate('/participant-home');
     } else {
       console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });

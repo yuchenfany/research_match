@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
-function Profile({ user, setUser }) {
+function ParticipantProfile({ user, setUser }) {
   const navigate = useNavigate();
 
   const customStyles = {
@@ -300,7 +300,7 @@ function Profile({ user, setUser }) {
 
   async function handleSubmit(event) {
     if (await verify()) {
-      navigate('/home');
+      navigate('/participant-home');
     } else {
       event.preventDefault();
     }
@@ -309,7 +309,7 @@ function Profile({ user, setUser }) {
   return (
     <div className="Profile">
       <div className="profile-flex">
-        <div className="header-left"> Create Profile </div>
+        <div className="header-left"> Create User Profile </div>
         <div className="profile-row">
           <div>Age</div>
           <input
@@ -435,4 +435,4 @@ function Profile({ user, setUser }) {
   );
 }
 
-export default Profile;
+export default ParticipantProfile;

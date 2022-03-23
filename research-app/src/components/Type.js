@@ -10,9 +10,9 @@ function Type({ user, setUser }) {
   function goToProfile() {
     console.log('USER TYPE');
     console.log(user.type);
-    if (user.type === '0') {
+    if (user.type === 0) {
       navigate('/participant-profile');
-    } else if (user.type === '1') {
+    } else if (user.type === 1) {
       navigate('/researcher-profile');
     }
   }
