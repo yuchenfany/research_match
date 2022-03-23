@@ -115,6 +115,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -133,6 +134,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -151,6 +153,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -169,6 +172,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -187,6 +191,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -205,6 +210,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -225,6 +231,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -245,6 +252,7 @@ function Profile({ user, setUser }) {
       phys: arr,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -265,6 +273,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: arr,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -285,6 +294,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: arr,
+      type: user.type,
     });
   };
 

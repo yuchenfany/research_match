@@ -43,7 +43,6 @@ studyRoutes.route('/study/:id/enroll').post((req, response) => {
     });
 });
 
-
 // get list of all studies
 studyRoutes.route('/study').get((req, res) => {
   const dbConnect = dbo.getDb('research-app');
@@ -59,8 +58,8 @@ studyRoutes.route('/study').get((req, res) => {
 
 studyRoutes.route('/study/findMax').get((req, res) => {
   const dbConnect = dbo.getDb('research-app');
-  const data = dbConnect.collection.find().sort({studyId:-1}).limit(1);
-  console.log(data); 
+  const data = dbConnect.collection.find().sort({ studyId: -1 }).limit(1);
+  console.log(data);
   res.json(data);
   // dbConnect.findOne()
   // .sort('-studyId')  // give me the max
@@ -107,7 +106,7 @@ studyRoutes.route('/add-study').post((req, response) => {
     studyId: req.body.studyId,
     researchers: req.body.researchers,
   };
-  dbConnect.collection("studies").insertOne(myobj, function (err, res) {
+  dbConnect.collection('studies').insertOne(myobj, function (err, res) {
     if (err) throw err;
     console.log('in backend, past error');
     response.json(res);

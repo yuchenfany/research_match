@@ -93,7 +93,8 @@ recordRoutes.route("/record/add").post(function (req, response) {
     phys: req.body.phys,
     psych: req.body.psych,
     med: req.body.med,
-    enrolled: []
+    enrolled: [],
+    type: req.body.type
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
     if (err) throw err;
