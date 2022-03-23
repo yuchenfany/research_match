@@ -7,6 +7,7 @@ import {
 import React, { useState } from 'react';
 import Login from './components/Login';
 import ParticipantHome from './components/ParticipantHome';
+import ResearcherHome from './components/ResearcherHome';
 import Create from './components/Create';
 import ParticipantProfile from './components/ParticipantProfile';
 import ResearcherProfile from './components/ResearcherProfile';
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
         <Route exact path="/participant-home" element={<ParticipantHome user={user} setUser={setUser} setStudy={setStudy} />} />
+        <Route exact path="/researcher-home" element={<ResearcherHome user={user} setUser={setUser} setStudy={setStudy} />} />
         <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
         <Route exact path="/add-study" element={<AddStudy study={study} setStudy={setStudy} />} />
