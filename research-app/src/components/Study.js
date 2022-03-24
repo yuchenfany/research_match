@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
 function Study({
-  study, setStudy, user, setUser,
+  study, setStudy, user, setUser, status, setStatus,
 }) {
   // Hardcoded:
   // const studyId = 0;
@@ -125,19 +125,19 @@ function Study({
     });
   }
 
-  const [status, setStatus] = useState({ isEnrolled: false });
+  // const [status, setStatus] = useState({ isEnrolled: false });
 
-  function updateStatus() {
-    if (user.enrolled.indexOf(study.studyId) > -1) {
-      setStatus({ isEnrolled: true });
-    }
-  }
+  // function updateStatus() {
+  //   if (user.enrolled.indexOf(study.studyId) > -1) {
+  //     setStatus({ isEnrolled: true });
+  //   }
+  // }
 
-  useEffect(updateStatus(), []);
+  // useEffect(updateStatus(), []);
 
-  if (user.enrolled.indexOf(study.studyId) > -1) {
-    setStatus({ isEnrolled: true });
-  }
+  // if (user.enrolled.indexOf(study.studyId) > -1) {
+  //   setStatus({ isEnrolled: true });
+  // }
 
   async function enroll() {
     await setStatus({ isEnrolled: true });
@@ -179,6 +179,11 @@ function Study({
 
   //   console.log('STUDY TITLE:');
   //   console.log(study);
+
+  console.log('ENROLLED:');
+  console.log(status.isEnrolled);
+  console.log('ENROLLED ARRAY:');
+  console.log(user.enrolled);
 
   return (
     <div className="Study Page">
