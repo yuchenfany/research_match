@@ -76,14 +76,37 @@ function Study({
     });
   }
 
+  // const [status, setStatus] = useState({ isEnrolled: false });
+
   async function enroll() {
+    // await setStatus({ isEnrolled: true });
     enrollUpdateStudy().then(enrollUpdateUser());
   }
 
-  function renderButton() {
+  async function drop() {
+    // await setStatus({ isEnrolled: false });
+  }
+
+  // async function updateStatus() {
+  //   if (user.enrolled.indexOf(study.studyId) > -1) {
+  //     setStatus({ isEnrolled: true });
+  //   }
+  // }
+
+  function isEnrolled() {
     if (user.enrolled.indexOf(study.studyId) > -1) {
-      return (<button className="button" type="button" onClick={() => enroll()}>TEST</button>);
+      return true;
     }
+    return false;
+  }
+
+  function renderButton() {
+    const initialStatus = isEnrolled();
+    if (initialStatus) {
+      console.log('IS ENROLLED');
+      return (<button className="button" type="button" onClick={() => drop()}>TEST</button>);
+    }
+    console.log('IS NOT ENROLLED');
     return (<button className="button" type="button" onClick={() => enroll()}>ENROLL</button>);
   }
 
@@ -117,7 +140,9 @@ function Study({
           {study.compensation}
         </div>
         <div> Researcher names: [ADD IN] </div>
-        <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
+        <div>
+          {renderButton()}
+        </div>
         <div className="header-small"> Description </div>
         <div className="paragraph">
           {study.description}
