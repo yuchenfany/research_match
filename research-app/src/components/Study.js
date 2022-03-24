@@ -1,4 +1,3 @@
-/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
@@ -7,16 +6,14 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
-function Study({ study, setStudy, user, setUser }) {
+function Study({
+  study, setStudy, user, setUser,
+}) {
   // Hardcoded:
   // const studyId = 0;
   // const [study, setStudy] = useState({});
 
-  console.log('AT THE BEGINNING:');
-  console.log(user.enrolled);
-
   async function getStudy() {
-    console.log('IN GETSTUDY');
     const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'GET',
       headers: {
@@ -47,7 +44,7 @@ function Study({ study, setStudy, user, setUser }) {
       participants: currParticipants,
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
-    }
+    };
     await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}/enroll`, {
       method: 'POST',
       body: JSON.stringify(updatedStudy),
@@ -69,7 +66,7 @@ function Study({ study, setStudy, user, setUser }) {
       username: user.username,
       password: user.password,
       enrolled: updatedArray,
-    }
+    };
     await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
       method: 'POST',
       body: JSON.stringify(updatedUser),
@@ -83,33 +80,48 @@ function Study({ study, setStudy, user, setUser }) {
     enrollUpdateStudy().then(enrollUpdateUser());
   }
 
-  console.log(user.enrolled);
+  function renderButton() {
+    if (user.enrolled.indexOf(study.studyId) > -1) {
+      return (<button className="button" type="button" onClick={() => enroll()}>TEST</button>);
+    }
+    return (<button className="button" type="button" onClick={() => enroll()}>ENROLL</button>);
+  }
 
   // const study = getStudy();
-//   async function renderStudy() {
-//     const data = await getStudy();
+  //   async function renderStudy() {
+  //     const data = await getStudy();
 
-//     return (<div> HELLO </div>);
-//   }
+  //     return (<div> HELLO </div>);
+  //   }
 
-//   const handleAsync = (event) => {
-//     getStudy().then(renderStudy());
-//   };
+  //   const handleAsync = (event) => {
+  //     getStudy().then(renderStudy());
+  //   };
 
-//   console.log('STUDY TITLE:');
-//   console.log(study);
+  //   console.log('STUDY TITLE:');
+  //   console.log(study);
 
   return (
     <div className="Study Page">
       <div className="nav">nav</div>
       <div className="study-flex">
-        <div className="header-left"> { study.title } </div>
-        <div> Duration: { study.duration } </div>
-        <div> Compensation: { study.compensation } </div>
+        <div className="header-left">
+          {study.title}
+        </div>
+        <div>
+          Duration:
+          {study.duration}
+        </div>
+        <div>
+          Compensation:
+          {study.compensation}
+        </div>
         <div> Researcher names: [ADD IN] </div>
         <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
         <div className="header-small"> Description </div>
-        <div className="paragraph"> { study.description } </div>
+        <div className="paragraph">
+          {study.description}
+        </div>
       </div>
     </div>
   );
