@@ -105,6 +105,26 @@ function Study({
     });
   }
 
+  async function dropUpdateUser() {
+    const index = user.enrolled.indexOf(study.studyId);
+    const updatedArray = user.enrolled;
+    updatedArray.splice(index, 1);
+    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
+
+    const updatedUser = {
+      username: user.username,
+      password: user.password,
+      enrolled: updatedArray,
+    };
+    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
+      method: 'POST',
+      body: JSON.stringify(updatedUser),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
   // const [status, setStatus] = useState({ isEnrolled: false });
 
   async function enroll() {
@@ -114,7 +134,7 @@ function Study({
 
   async function drop() {
     // await setStatus({ isEnrolled: false });
-    dropUpdateStudy();
+    dropUpdateStudy().then(dropUpdateUser());
   }
 
   // async function updateStatus() {
