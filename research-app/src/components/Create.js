@@ -60,7 +60,7 @@ function Create({ user, setUser }) {
     if (await userExists()) {
       setError({ message: 'Username is already taken' });
     } else {
-      navigate('/profile');
+      navigate('/type');
     }
   }
 

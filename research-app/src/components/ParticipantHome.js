@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
-
 import NavBar from './NavBar';
 
-function Home({ user, setUser, setStudy }) { // add props user
+function ParticipantHome({ user, setUser, setStudy }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -96,4 +95,4 @@ function Home({ user, setUser, setStudy }) { // add props user
   );
 }
 
-export default Home;
+export default ParticipantHome;
