@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
+import bcrypt from 'bcryptjs';
 
 function Login({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
@@ -10,8 +11,8 @@ function Login({ user, setUser }) {
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    // console.log(user.username);
-    // console.log(user.password);
+    console.log(user.username);
+    console.log(user.password);
 
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
@@ -42,7 +43,8 @@ function Login({ user, setUser }) {
     if (json === null) {
       setError({ message: 'User does not exist' });
       event.preventDefault();
-    } else if (json.password === user.password) {
+    // } else if (user.password === json.password) {
+    } else if (bcrypt.compareSync(user.password, json.password)) {
       if (json.type === 0) {
         navigate('/participant-home');
       } else if (json.type === 1) {
@@ -108,7 +110,7 @@ function Login({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" value="SUBMIT" onClick={async () => { navigate('/participant-home'); }} />
+          <input className="button" type="submit" value="SUBMIT" />
           <div className="spacer" />
           <button className="link" type="button" onClick={goToCreate}>New user sign-up</button>
         </label>
