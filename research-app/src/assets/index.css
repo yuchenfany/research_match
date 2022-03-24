@@ -59,6 +59,36 @@ code {
   width: 100%;
   background-color: #FAFCFD;
   filter: drop-shadow(0px 1px 4px #eeeeee);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.nav-btn {
+  border: none;
+  background-color: #FAFCFD;
+  font-family: 'Inter', sans-serif;
+  margin: 1rem;
+}
+
+.nav-btn:hover {
+  font-weight: bold;
+}
+
+.account-btn {
+  color: #5ABFB7;
+  border: solid 1px #5ABFB7;
+  border-radius: 20px;
+  background-color: #FAFCFD;
+  padding: 0.5rem;
+  height: 2rem;
+  margin: 1.5rem 3rem 1rem 1rem;
+}
+
+.account-btn:hover {
+  font-weight: bold;
+  color: #FAFCFD;
+  background-color: #5ABFB7;
 }
 
 .Login {
