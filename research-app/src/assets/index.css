@@ -161,6 +161,18 @@ code {
   margin: 25px 25px 25px auto;
 }
 
+.study-tag {
+    width: 85px;
+    height: 35px;
+    background-color: #ce9773;
+    color: #103143;
+    border-style: none;
+    border-radius: 10px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin: 25px 25px 25px auto;
+  }
+
 .view-button:hover {
   cursor: pointer;
   box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
