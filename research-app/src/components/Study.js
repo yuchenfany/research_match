@@ -81,9 +81,6 @@ function Study({
     const currParticipants = currStudy.participants;
     const index = currParticipants.indexOf(user.username);
 
-    console.log(currParticipants);
-    console.log(index);
-
     currParticipants.splice(index, 1);
 
     const updatedStudy = {
@@ -125,20 +122,6 @@ function Study({
     });
   }
 
-  // const [status, setStatus] = useState({ isEnrolled: false });
-
-  // function updateStatus() {
-  //   if (user.enrolled.indexOf(study.studyId) > -1) {
-  //     setStatus({ isEnrolled: true });
-  //   }
-  // }
-
-  // useEffect(updateStatus(), []);
-
-  // if (user.enrolled.indexOf(study.studyId) > -1) {
-  //   setStatus({ isEnrolled: true });
-  // }
-
   async function enroll() {
     await setStatus({ isEnrolled: true });
     enrollUpdateStudy().then(enrollUpdateUser());
@@ -148,42 +131,6 @@ function Study({
     await setStatus({ isEnrolled: false });
     dropUpdateStudy().then(dropUpdateUser());
   }
-
-  // function isEnrolled() {
-  //   if (user.enrolled.indexOf(study.studyId) > -1) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
-  // function renderButton() {
-  //   const initialStatus = isEnrolled();
-  //   if (initialStatus) {
-  //     console.log('IS ENROLLED');
-  //     return (<button className="button" type="button" onClick={() => drop()}>TEST</button>);
-  //   }
-  //   console.log('IS NOT ENROLLED');
-  //   return (<button className="button" type="button" onClick={() => enroll()}>ENROLL</button>);
-  // }
-
-  // const study = getStudy();
-  //   async function renderStudy() {
-  //     const data = await getStudy();
-
-  //     return (<div> HELLO </div>);
-  //   }
-
-  //   const handleAsync = (event) => {
-  //     getStudy().then(renderStudy());
-  //   };
-
-  //   console.log('STUDY TITLE:');
-  //   console.log(study);
-
-  console.log('ENROLLED:');
-  console.log(status.isEnrolled);
-  console.log('ENROLLED ARRAY:');
-  console.log(user.enrolled);
 
   return (
     <div className="Study Page">

@@ -52,11 +52,8 @@ function ParticipantHome({ user, setUser, setStudy, setStatus }) { // add props 
   }, []);
 
   function goToStudy(studyId) {
-    console.log(studyId);
     setStudy({ studyId });
     if (user.enrolled.indexOf(studyId) > -1) {
-      console.log('setting true for study:');
-      console.log(studyId);
       setStatus({ isEnrolled: true });
     } else {
       setStatus({ isEnrolled: false });
