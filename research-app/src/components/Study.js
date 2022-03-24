@@ -76,6 +76,35 @@ function Study({
     });
   }
 
+  async function dropUpdateStudy() {
+    const currStudy = await getStudy();
+    const currParticipants = currStudy.participants;
+    const index = currParticipants.indexOf(user.username);
+
+    console.log(currParticipants);
+    console.log(index);
+
+    currParticipants.splice(index, 1);
+
+    const updatedStudy = {
+      title: currStudy.title,
+      description: currStudy.description,
+      compensation: currStudy.compensation,
+      duration: currStudy.duration,
+      tags: currStudy.tags,
+      participants: currParticipants,
+      studyId: currStudy.studyId,
+      researchers: currStudy.researchers,
+    };
+    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}/enroll`, {
+      method: 'POST',
+      body: JSON.stringify(updatedStudy),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
   // const [status, setStatus] = useState({ isEnrolled: false });
 
   async function enroll() {
@@ -85,6 +114,7 @@ function Study({
 
   async function drop() {
     // await setStatus({ isEnrolled: false });
+    dropUpdateStudy();
   }
 
   // async function updateStatus() {
@@ -93,22 +123,22 @@ function Study({
   //   }
   // }
 
-  function isEnrolled() {
-    if (user.enrolled.indexOf(study.studyId) > -1) {
-      return true;
-    }
-    return false;
-  }
+  // function isEnrolled() {
+  //   if (user.enrolled.indexOf(study.studyId) > -1) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
-  function renderButton() {
-    const initialStatus = isEnrolled();
-    if (initialStatus) {
-      console.log('IS ENROLLED');
-      return (<button className="button" type="button" onClick={() => drop()}>TEST</button>);
-    }
-    console.log('IS NOT ENROLLED');
-    return (<button className="button" type="button" onClick={() => enroll()}>ENROLL</button>);
-  }
+  // function renderButton() {
+  //   const initialStatus = isEnrolled();
+  //   if (initialStatus) {
+  //     console.log('IS ENROLLED');
+  //     return (<button className="button" type="button" onClick={() => drop()}>TEST</button>);
+  //   }
+  //   console.log('IS NOT ENROLLED');
+  //   return (<button className="button" type="button" onClick={() => enroll()}>ENROLL</button>);
+  // }
 
   // const study = getStudy();
   //   async function renderStudy() {
@@ -140,9 +170,8 @@ function Study({
           {study.compensation}
         </div>
         <div> Researcher names: [ADD IN] </div>
-        <div>
-          {renderButton()}
-        </div>
+        <button className="button" type="button" onClick={() => drop()}>DROP</button>
+        <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
         <div className="header-small"> Description </div>
         <div className="paragraph">
           {study.description}
