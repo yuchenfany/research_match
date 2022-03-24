@@ -114,7 +114,7 @@ recordRoutes.route("/record/studies/:username").get(function (req, res) {
     )
 });
 
-// POST: add study to user's enrolled array
+// POST: update user's enrolled array
 recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) => {
   const dbConnect = dbo.getDb();
   const myquery = { username: req.body.username };

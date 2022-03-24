@@ -5,7 +5,7 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
-function ParticipantHome({ user, setUser, setStudy }) { // add props user
+function ParticipantHome({ user, setUser, setStudy, setStatus }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -50,8 +50,12 @@ function ParticipantHome({ user, setUser, setStudy }) { // add props user
   }, []);
 
   function goToStudy(studyId) {
-    console.log(studyId);
     setStudy({ studyId });
+    if (user.enrolled.indexOf(studyId) > -1) {
+      setStatus({ isEnrolled: true });
+    } else {
+      setStatus({ isEnrolled: false });
+    }
     navigate(`/study/${studyId}`);
   }
 
