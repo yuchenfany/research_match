@@ -125,23 +125,29 @@ function Study({
     });
   }
 
-  // const [status, setStatus] = useState({ isEnrolled: false });
+  const [status, setStatus] = useState({ isEnrolled: false });
+
+  function updateStatus() {
+    if (user.enrolled.indexOf(study.studyId) > -1) {
+      setStatus({ isEnrolled: true });
+    }
+  }
+
+  useEffect(updateStatus(), []);
+
+  if (user.enrolled.indexOf(study.studyId) > -1) {
+    setStatus({ isEnrolled: true });
+  }
 
   async function enroll() {
-    // await setStatus({ isEnrolled: true });
+    await setStatus({ isEnrolled: true });
     enrollUpdateStudy().then(enrollUpdateUser());
   }
 
   async function drop() {
-    // await setStatus({ isEnrolled: false });
+    await setStatus({ isEnrolled: false });
     dropUpdateStudy().then(dropUpdateUser());
   }
-
-  // async function updateStatus() {
-  //   if (user.enrolled.indexOf(study.studyId) > -1) {
-  //     setStatus({ isEnrolled: true });
-  //   }
-  // }
 
   // function isEnrolled() {
   //   if (user.enrolled.indexOf(study.studyId) > -1) {
@@ -190,8 +196,9 @@ function Study({
           {study.compensation}
         </div>
         <div> Researcher names: [ADD IN] </div>
-        <button className="button" type="button" onClick={() => drop()}>DROP</button>
-        <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>
+        {status.isEnrolled
+          ? <button className="button" type="button" onClick={() => drop()}>DROP</button>
+          : <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>}
         <div className="header-small"> Description </div>
         <div className="paragraph">
           {study.description}
