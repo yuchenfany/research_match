@@ -108,7 +108,7 @@ function Login({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" value="SUBMIT" />
+          <input className="button" type="submit" value="SUBMIT" onClick={async () => { navigate('/participant-home'); }} />
           <div className="spacer" />
           <button className="link" type="button" onClick={goToCreate}>New user sign-up</button>
         </label>

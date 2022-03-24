@@ -21,9 +21,7 @@ function ParticipantHome({ user, setUser, setStudy }) { // add props user
     });
     const json = await data.json();
     setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
-    return json.enrolled;
-    // Hardcoded:
-    // return [0, 1, 2, 3];
+    return json?.enrolled ?? [];
   }
 
   // gets individual study by id

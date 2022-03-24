@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-equals-spacing */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
@@ -41,7 +40,9 @@ function NavBar({ user, setUser }) {
       <button
         type="button"
         className="nav-btn"
-        onClick={async () => { navigate('/home'); }}
+        onClick={async () => {
+          navigate(`/${(user.type ?? 0) === 0 ? 'participant' : 'researcher'}-home`);
+        }}
       >
         HOME
       </button>
