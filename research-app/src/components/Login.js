@@ -43,7 +43,11 @@ function Login({ user, setUser }) {
       setError({ message: 'User does not exist' });
       event.preventDefault();
     } else if (json.password === user.password) {
-      navigate('/home');
+      if (json.type === 0) {
+        navigate('/participant-home');
+      } else if (json.type === 1) {
+        navigate('/researcher-home');
+      }
     } else {
       console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });
@@ -57,6 +61,7 @@ function Login({ user, setUser }) {
       {
         username: event.target.value,
         password: user.password,
+        enrolled: user.enrolled,
       },
     );
   };
@@ -66,6 +71,7 @@ function Login({ user, setUser }) {
       {
         username: user.username,
         password: event.target.value,
+        enrolled: user.enrolled,
       },
     );
   };
@@ -102,7 +108,7 @@ function Login({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" value="SUBMIT" />
+          <input className="button" type="submit" value="SUBMIT" onClick={async () => { navigate('/participant-home'); }} />
           <div className="spacer" />
           <button className="link" type="button" onClick={goToCreate}>New user sign-up</button>
         </label>

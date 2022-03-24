@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
-function Profile({ user, setUser }) {
+function ParticipantProfile({ user, setUser }) {
   const navigate = useNavigate();
 
   const customStyles = {
@@ -104,6 +104,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: event.target.value,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -114,6 +115,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -121,6 +123,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: event.target.value,
       heightInches: user.heightInches,
@@ -131,6 +134,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -138,6 +142,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: event.target.value,
@@ -148,6 +153,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -155,6 +161,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -165,6 +172,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -172,6 +180,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -182,6 +191,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -189,6 +199,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -199,6 +210,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -208,6 +220,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -218,6 +231,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -227,6 +241,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -237,6 +252,7 @@ function Profile({ user, setUser }) {
       phys: arr,
       psych: user.psych,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -246,6 +262,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -256,6 +273,7 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: arr,
       med: user.med,
+      type: user.type,
     });
   };
 
@@ -265,6 +283,7 @@ function Profile({ user, setUser }) {
     setUser({
       username: user.username,
       password: user.password,
+      enrolled: user.enrolled,
       age: user.age,
       heightFeet: user.heightFeet,
       heightInches: user.heightInches,
@@ -275,12 +294,13 @@ function Profile({ user, setUser }) {
       phys: user.phys,
       psych: user.psych,
       med: arr,
+      type: user.type,
     });
   };
 
   async function handleSubmit(event) {
     if (await verify()) {
-      navigate('/home');
+      navigate('/participant-home');
     } else {
       event.preventDefault();
     }
@@ -289,7 +309,7 @@ function Profile({ user, setUser }) {
   return (
     <div className="Profile">
       <div className="profile-flex">
-        <div className="header-left"> Create Profile </div>
+        <div className="header-left"> Create User Profile </div>
         <div className="profile-row">
           <div>Age</div>
           <input
@@ -415,4 +435,4 @@ function Profile({ user, setUser }) {
   );
 }
 
-export default Profile;
+export default ParticipantProfile;

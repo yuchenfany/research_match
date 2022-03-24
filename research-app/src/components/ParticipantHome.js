@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
-function Home({ user, setStudy }) { // add props user
+function ParticipantHome({ user, setUser, setStudy }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ function Home({ user, setStudy }) { // add props user
       },
     });
     const json = await data.json();
+    setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
     return json?.enrolled ?? [];
   }
 
@@ -37,6 +39,7 @@ function Home({ user, setStudy }) { // add props user
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
     console.log(user.username);
+    console.log(user.enrolled);
     console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
@@ -54,7 +57,7 @@ function Home({ user, setStudy }) { // add props user
 
   return (
     <div className="Home">
-      <div className="nav">nav</div>
+      <NavBar user={user} />
       <div className="study-flex">
         <div className="header-left">Enrolled Studies</div>
         <div>
@@ -75,12 +78,19 @@ function Home({ user, setStudy }) { // add props user
       <div className="study-flex">
         <div className="header-left">For Testing Purposes: Delete Later</div>
         <div className="study">
-          <div className="study-title">Organ Transplant Research</div>
-          <button className="view-button" type="button" key={3} onClick={() => goToStudy(3)}>VIEW</button>
+          <div className="study-title">Sleep Research</div>
+          <button className="view-button" type="button" key={2} onClick={() => goToStudy(2)}>VIEW</button>
+        </div>
+      </div>
+      <div className="study-transfer">
+        <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
+        <div className="study">
+          <div className="study-transfer">Go to Study Page</div>
+          <button className="view-button" type="button" onClick={() => navigate('/add-study')}>Add Study</button>
         </div>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default ParticipantHome;

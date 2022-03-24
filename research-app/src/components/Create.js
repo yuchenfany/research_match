@@ -60,7 +60,7 @@ function Create({ user, setUser }) {
     if (await userExists()) {
       setError({ message: 'Username is already taken' });
     } else {
-      navigate('/profile');
+      navigate('/type');
     }
   }
 
@@ -70,6 +70,7 @@ function Create({ user, setUser }) {
       {
         username: event.target.value,
         password: user.password,
+        enrolled: user.enrolled,
       },
     );
   };
@@ -79,12 +80,13 @@ function Create({ user, setUser }) {
       {
         username: user.username,
         password: event.target.value,
+        enrolled: user.enrolled,
       },
     );
   };
 
   const backToLogin = () => {
-    setUser({ username: '', password: '' });
+    setUser({ username: '', password: '', enrolled: [] });
     navigate('/');
   };
 

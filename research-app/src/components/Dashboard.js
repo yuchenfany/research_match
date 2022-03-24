@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
+import NavBar from './NavBar';
 
 function Dashboard({ user }) {
   const [totalCompensation, setTotalCompensation] = useState(0);
@@ -75,10 +76,9 @@ function Dashboard({ user }) {
 
   return (
     <div className="Dashboard">
-      <div className="nav">nav</div>
+      <NavBar user={user} />
       <div className="dashboard">
         <h1 className="header-left">Analytics</h1>
-        {user.username}
         <div className="dash-flex">{cards}</div>
       </div>
     </div>

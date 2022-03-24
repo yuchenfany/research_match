@@ -24,7 +24,7 @@ recordRoutes.post('/login', (req, res) => {
     .collection("user-info")
     .findOne({username : username}, (err, usr) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         if (err == "No such user") {
           return res.status(401).json({'err':true, 'msg':'Your username/password combination does not match.'});
         }
@@ -93,7 +93,8 @@ recordRoutes.route("/record/add").post(function (req, response) {
     phys: req.body.phys,
     psych: req.body.psych,
     med: req.body.med,
-    enrolled: []
+    enrolled: [],
+    type: req.body.type
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -113,17 +114,24 @@ recordRoutes.route("/record/studies/:username").get(function (req, res) {
     )
 });
 
-//TODO
-// enroll in a study POST method 
-recordRoutes.route("/record/enroll/:username/:study_id").post(function (req, response) {
-  let db_connect = dbo.getDb();
-  let myobj = {
-    id: req.params.id,
+// POST: add study to user's enrolled array
+recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { username: req.body.username };
+
+  const newvalues = {
+    $set: {
+      username: req.body.username,
+      password: req.body.password,
+      enrolled: req.body.enrolled,
+    },
   };
-  db_connect.collection("studies").insertOne(myobj, function (err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
+  dbConnect
+    .collection('user-info')
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    });
 });
 
 // Update user info PUT method
