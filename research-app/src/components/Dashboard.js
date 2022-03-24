@@ -18,7 +18,7 @@ function Dashboard({ user }) {
       },
     });
     const json = await data.json();
-    return json.length;
+    return json?.length ?? 0;
   }
 
   async function getUserInfo() {
@@ -34,12 +34,12 @@ function Dashboard({ user }) {
 
   async function getNumStudies() {
     const data = await getUserInfo();
-    return data.enrolled?.length;
+    return data?.enrolled?.length ?? 0;
   }
 
   async function getTotalCompensation() {
     const data = await getUserInfo();
-    return data.compensation?.length;
+    return data?.compensation?.length ?? 0;
   }
 
   useEffect(() => {
@@ -68,6 +68,10 @@ function Dashboard({ user }) {
       <p>{content}</p>
     </div>
   ));
+
+  if (!user.username) {
+    return <div>forbidden</div>;
+  }
 
   return (
     <div className="Dashboard">

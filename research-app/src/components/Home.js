@@ -19,9 +19,7 @@ function Home({ user, setStudy }) { // add props user
       },
     });
     const json = await data.json();
-    return json.enrolled;
-    // Hardcoded:
-    // return [0, 1, 2, 3];
+    return json?.enrolled ?? [];
   }
 
   // gets individual study by id
