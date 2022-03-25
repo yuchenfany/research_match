@@ -233,7 +233,7 @@ function AddStudy({ study, setStudy }) {
   };
   async function handleSubmit(event) {
     if (await verify()) {
-      navigate('/home');
+      navigate('/participant-home');
     } else {
       event.preventDefault();
     }

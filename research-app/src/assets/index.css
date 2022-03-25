@@ -59,7 +59,85 @@ code {
   width: 100%;
   background-color: #FAFCFD;
   filter: drop-shadow(0px 1px 4px #eeeeee);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  z-index: 1;
 }
+
+.nav-btn {
+  border: none;
+  background-color: #FAFCFD;
+  font-family: 'Inter', sans-serif;
+  margin: 1rem;
+}
+
+.nav-btn:hover {
+  font-weight: bold;
+}
+
+.account-btn {
+  color: #5ABFB7;
+  border: solid 1px #5ABFB7;
+  border-radius: 20px;
+  background-color: #FAFCFD;
+  padding: 0.5rem;
+  height: 2rem;
+  margin: 1.5rem 3rem 1rem 1rem;
+}
+
+.account-btn:hover {
+  font-weight: bold;
+  color: #FAFCFD;
+  background-color: #5ABFB7;
+}
+
+.acct-options {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(50%, 50%);
+  background-color: #FAFCFD;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  z-index: 5;
+  filter: drop-shadow(0px 1px 4px #d6d6d6);
+}
+
+.acct-options button {
+  margin: 1rem !important;
+}
+
+.logout-btn {
+  border: solid 1px #5ABFB7;
+  border-radius: 20px;
+  color: black;
+  background-color: #5ABFB7;
+  padding: 0.5rem;
+  height: 2rem;
+}
+
+.goback-btn {
+    width: 85px;
+    height: 35px;
+    border: solid 1px #5ABFB7;
+    border-radius: 40px;
+    color: black;
+    background-color: #5ABFB7;
+    font-size: 14px;
+  }
+
+  .delete-btn {
+    width: 85px;
+    height: 35px;
+    border: solid 1px #ca8247;
+    border-radius: 20px;
+    color: black;
+    background-color: #ca8247;
+    font-size: 14px;
+  }
 
 .Login {
   display: flex;
@@ -121,6 +199,20 @@ code {
   border-radius: 3px;
 }
 
+.profile-input {
+  width: 275px;
+  height: 27px;
+  background-color: #F9FFFE;
+  border: 1px solid #808A8F;
+  margin-right: 100px;
+  color: #103143;
+  border-radius: 3px;
+}
+
+.input-label {
+  margin-right: 10px;
+}
+
 /* when user clicks into text input box */
 .input-field:focus {
   outline: none;
@@ -159,6 +251,18 @@ code {
   font-size: 14px;
   letter-spacing: 1px;
   margin: 25px 25px 25px auto;
+}
+
+.study-tag {
+    width: 85px;
+    height: 35px;
+    background-color: #ce9773;
+    color: #103143;
+    border-style: none;
+    border-radius: 10px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin: 25px 25px 25px auto;
 }
 
 .view-button:hover {
@@ -262,6 +366,7 @@ code {
   margin: 0.5rem;
   padding: 1rem;
   text-align: center;
+  z-index: -1;
 }
 
 .dash-card h4 {
@@ -275,7 +380,7 @@ code {
 .profile-flex {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex;
   margin: auto;
   width: 80%;
 }
@@ -284,9 +389,9 @@ code {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  margin: auto;
+  /* margin: auto; */
   width: 100%;
-  height: 10%;
+  margin-bottom: 20px;
 }
 
 .radio-option {

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
+import bcrypt from 'bcryptjs';
 
 function Login({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
@@ -10,8 +11,8 @@ function Login({ user, setUser }) {
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    // console.log(user.username);
-    // console.log(user.password);
+    console.log(user.username);
+    console.log(user.password);
 
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
@@ -42,8 +43,47 @@ function Login({ user, setUser }) {
     if (json === null) {
       setError({ message: 'User does not exist' });
       event.preventDefault();
-    } else if (json.password === user.password) {
-      navigate('/home');
+    // } else if (user.password === json.password) {
+    } else if (bcrypt.compareSync(user.password, json.password)) {
+      if (json.type === 0) {
+        // makes sure all fields are available in home
+        setUser({
+          username: json.username,
+          password: json.password,
+          enrolled: json.enrolled,
+          age: json.age,
+          heightFeet: json.heightFeet,
+          heightInches: json.heightInches,
+          weight: json.weight,
+          sex: json.sex,
+          gender: json.gender,
+          allergies: json.allergies,
+          phys: json.phys,
+          psych: json.psych,
+          med: json.med,
+          type: json.type,
+        });
+        console.log('TYPE');
+        console.log(json.type);
+        console.log(json.age);
+        console.log(json.heightFeet);
+        console.log(json.heightInches);
+        console.log(json.weight);
+        console.log(json.sex);
+        console.log(json.gender);
+
+        navigate('/participant-home');
+      } else if (json.type === 1) {
+        // makes sure all fields are available in home
+        setUser({
+          username: json.username,
+          password: json.password,
+          name: json.name,
+          organization: json.organization,
+          type: json.type,
+        });
+        navigate('/researcher-home');
+      }
     } else {
       console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });

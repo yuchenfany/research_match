@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require('bcryptjs')
 
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
@@ -77,12 +78,12 @@ recordRoutes.route("/record/:id").get(function (req, res) {
       });
 });
 
-// Add user POST method
+// Add participant POST method
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     username: req.body.username,
-    password: req.body.password,
+    password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
     age: req.body.age,
     heightFeet: req.body.heightFeet,
     heightInches: req.body.heightInches,
@@ -93,7 +94,26 @@ recordRoutes.route("/record/add").post(function (req, response) {
     phys: req.body.phys,
     psych: req.body.psych,
     med: req.body.med,
-    enrolled: []
+    enrolled: [],
+    type: req.body.type
+  };
+  db_connect.collection("user-info").insertOne(myobj, function (err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
+// Add researcher POST method
+recordRoutes.route("/record/add-researcher").post(function (req, response) {
+  console.log('POSTING RESEARCHER');
+  let db_connect = dbo.getDb();
+  let myobj = {
+    username: req.body.username,
+    password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
+    name: req.body.name,
+    organization: req.body.organization,
+    studies: [],
+    type: req.body.type
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -113,7 +133,7 @@ recordRoutes.route("/record/studies/:username").get(function (req, res) {
     )
 });
 
-// POST: add study to user's enrolled array
+// POST: update user's enrolled array
 recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) => {
   const dbConnect = dbo.getDb();
   const myquery = { username: req.body.username };
@@ -123,6 +143,59 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
       username: req.body.username,
       password: req.body.password,
       enrolled: req.body.enrolled,
+    },
+  };
+  dbConnect
+    .collection('user-info')
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    });
+});
+
+// POST: update researcher's information on edit in profile
+recordRoutes.route('/record/researcher-edit/:username').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { username: req.body.username };
+
+  const newvalues = {
+    $set: {
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+      organization: req.body.organization,
+      type: req.body.type,
+    },
+  };
+  dbConnect
+    .collection('user-info')
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    });
+});
+
+// POST: update participant's information on edit in profile
+recordRoutes.route('/record/participant-edit/:username').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { username: req.body.username };
+
+  const newvalues = {
+    $set: {
+      username: req.body.username,
+      password: req.body.password,
+      enrolled: req.body.enrolled,
+      age: req.body.age,
+      heightFeet: req.body.heightFeet,
+      heightInches: req.body.heightInches,
+      weight: req.body.weight,
+      sex: req.body.sex,
+      gender: req.body.gender,
+      allergies: req.body.allergies,
+      phys: req.body.phys,
+      psych: req.body.psych,
+      med: req.body.med,
+      type: req.body.type,
     },
   };
   dbConnect
@@ -162,5 +235,16 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
 //     response.json(obj);
 //   });
 // });
+
+recordRoutes.route("/record/delete/:id").delete((req, response) => {
+    let db_connect = dbo.getDb();
+    let myquery = { username: req.params.id };
+    db_connect.collection("user-info").deleteOne(myquery, function (err, obj) {
+    if (err) throw err;
+        console.log("1 document deleted");
+        response.json(obj);
+     });
+});
+
 
 module.exports = recordRoutes;

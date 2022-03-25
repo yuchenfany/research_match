@@ -3,8 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
-function Home({ user, setUser, setStudy }) { // add props user
+function ParticipantHome({
+  user, setUser, setStudy, setStatus,
+}) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -19,10 +22,24 @@ function Home({ user, setUser, setStudy }) { // add props user
       },
     });
     const json = await data.json();
-    setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
-    return json.enrolled;
-    // Hardcoded:
-    // return [0, 1, 2, 3];
+    setUser({
+      username: user.username,
+      password: user.password,
+      enrolled: json.enrolled,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
+      type: user.type,
+    });
+    // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
+    return json?.enrolled ?? [];
   }
 
   // gets individual study by id
@@ -51,14 +68,18 @@ function Home({ user, setUser, setStudy }) { // add props user
   }, []);
 
   function goToStudy(studyId) {
-    console.log(studyId);
     setStudy({ studyId });
+    if (user.enrolled.indexOf(studyId) > -1) {
+      setStatus({ isEnrolled: true });
+    } else {
+      setStatus({ isEnrolled: false });
+    }
     navigate(`/study/${studyId}`);
   }
 
   return (
     <div className="Home">
-      <div className="nav">nav</div>
+      <NavBar user={user} />
       <div className="study-flex">
         <div className="header-left">Enrolled Studies</div>
         <div>
@@ -94,4 +115,4 @@ function Home({ user, setUser, setStudy }) { // add props user
   );
 }
 
-export default Home;
+export default ParticipantHome;
