@@ -20,7 +20,13 @@ function NavBar({ user, setUser }) {
       >
         EDIT PROFILE
       </button>
-      <button type="button" className="account-btn">DELETE ACCOUNT</button>
+      <button
+        type="button"
+        className="account-btn"
+        onClick={async () => { navigate('/delete-account', { user, setUser }); }}
+      >
+        DELETE ACCOUNT
+      </button>
       <button
         type="button"
         className="logout-btn"
@@ -45,6 +51,15 @@ function NavBar({ user, setUser }) {
         }}
       >
         HOME
+      </button>
+      <button
+        type="button"
+        className="nav-btn"
+        onClick={async () => {
+          navigate('/display-studies');
+        }}
+      >
+        STUDIES
       </button>
       <button type="button" className="nav-btn">MESSAGES</button>
       <button

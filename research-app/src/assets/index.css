@@ -119,6 +119,26 @@ code {
   height: 2rem;
 }
 
+.goback-btn {
+    width: 85px;
+    height: 35px;
+    border: solid 1px #5ABFB7;
+    border-radius: 40px;
+    color: black;
+    background-color: #5ABFB7;
+    font-size: 14px;
+  }
+
+  .delete-btn {
+    width: 85px;
+    height: 35px;
+    border: solid 1px #ca8247;
+    border-radius: 20px;
+    color: black;
+    background-color: #ca8247;
+    font-size: 14px;
+  }
+
 .Login {
   display: flex;
   flex-direction: column;
@@ -229,7 +249,7 @@ code {
     font-size: 14px;
     letter-spacing: 1px;
     margin: 25px 25px 25px auto;
-  }
+}
 
 .view-button:hover {
   cursor: pointer;

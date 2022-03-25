@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
 function DisplayStudies({ user, setUser, setStudy }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
@@ -60,7 +61,7 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
 
   return (
     <div className="Home">
-      <div className="nav">nav</div>
+      <NavBar user={user} />
       <div className="study-flex">
         <div className="header-left">Eligible Studies</div>
         <div>

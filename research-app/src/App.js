@@ -16,10 +16,13 @@ import Study from './components/Study';
 import Dashboard from './components/Dashboard';
 import AddStudy from './components/AddStudy';
 import DisplayStudies from './components/DisplayStudies';
+import DeleteAccount from './components/DeleteAccount';
 
 function App() {
   const [user, setUser] = useState({ username: 'newmia', password: 'newmiapassword', enrolled: [] });
   const [user2, setUserTags] = useState({ username: 'newmia', password: 'newmiapassword', tags: [] });
+  // const [deleteUser, setUserDelete] =
+  // useState({ username: 'testuser', password: 'testuserpassword' });
   const [study, setStudy] = useState({
     studyId: '',
     participants: [''],
@@ -41,6 +44,7 @@ function App() {
         <Route exact path="/participant-profile" element={<ParticipantProfile user={user} setUser={setUser} />} />
         <Route exact path="/researcher-profile" element={<ResearcherProfile user={user} setUser={setUser} />} />
         <Route exact path="/dashboard" element={<Dashboard user={user} />} />
+        <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
         <Route exact path="/display-studies" element={<DisplayStudies user={user2} setUser={setUserTags} setStudy={setStudy} />} />
       </Routes>
     </div>

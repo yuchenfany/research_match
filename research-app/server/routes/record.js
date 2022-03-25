@@ -165,4 +165,15 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
 //   });
 // });
 
+recordRoutes.route("/record/delete/:id").delete((req, response) => {
+    let db_connect = dbo.getDb();
+    let myquery = { username: req.params.id };
+    db_connect.collection("user-info").deleteOne(myquery, function (err, obj) {
+    if (err) throw err;
+        console.log("1 document deleted");
+        response.json(obj);
+     });
+});
+
+
 module.exports = recordRoutes;

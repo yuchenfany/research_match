@@ -19,11 +19,13 @@ studyRoutes.route('/study/:id').get((req, res) => {
     });
 });
 
+/*
 <<<<<<< HEAD
 // POST: add user to study's participants array
 =======
 // POST: update study's participants array
 >>>>>>> 95bd23770d3e9725bed2e43dfa8d7a0d0b1ec5b3
+*/
 studyRoutes.route('/study/:id/enroll').post((req, response) => {
   const dbConnect = dbo.getDb();
   const myquery = { studyId: req.body.studyId };
