@@ -12,6 +12,7 @@ import Create from './components/Create';
 import ParticipantProfile from './components/ParticipantProfile';
 import ResearcherProfile from './components/ResearcherProfile';
 import ResearcherEdit from './components/ResearcherEdit';
+import ParticipantEdit from './components/ParticipantEdit';
 import Type from './components/Type';
 import Study from './components/Study';
 import Dashboard from './components/Dashboard';
@@ -45,6 +46,7 @@ function App() {
         <Route exact path="/participant-profile" element={<ParticipantProfile user={user} setUser={setUser} />} />
         <Route exact path="/researcher-profile" element={<ResearcherProfile user={user} setUser={setUser} />} />
         <Route exact path="/researcher-edit" element={<ResearcherEdit user={user} setUser={setUser} />} />
+        <Route exact path="/participant-edit" element={<ParticipantEdit user={user} setUser={setUser} />} />
         <Route exact path="/dashboard" element={<Dashboard user={user} />} />
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
         <Route exact path="/display-studies" element={<DisplayStudies user={user2} setUser={setUserTags} setStudy={setStudy} />} />
