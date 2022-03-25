@@ -70,7 +70,7 @@ function ParticipantProfile({ user, setUser }) {
   ];
 
   const medTags = [
-    { label: 'Adderall', value: 'adderla' },
+    { label: 'Adderall', value: 'adderall' },
     { label: 'Prozac', value: 'prozac' },
     { label: 'Lexapro', value: 'lexapro' },
   ];

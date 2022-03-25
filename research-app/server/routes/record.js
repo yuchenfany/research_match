@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require('bcryptjs')
 
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
@@ -82,7 +83,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     username: req.body.username,
-    password: req.body.password,
+    password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
     age: req.body.age,
     heightFeet: req.body.heightFeet,
     heightInches: req.body.heightInches,
@@ -114,7 +115,7 @@ recordRoutes.route("/record/studies/:username").get(function (req, res) {
     )
 });
 
-// POST: add study to user's enrolled array
+// POST: update user's enrolled array
 recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) => {
   const dbConnect = dbo.getDb();
   const myquery = { username: req.body.username };

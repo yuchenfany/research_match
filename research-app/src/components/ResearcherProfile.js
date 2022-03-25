@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';

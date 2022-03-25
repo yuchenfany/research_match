@@ -26,14 +26,15 @@ function App() {
     researchers: [],
     tags: [],
   });
+  const [status, setStatus] = useState({ isEnrolled: false });
 
   return (
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
-        <Route exact path="/participant-home" element={<ParticipantHome user={user} setUser={setUser} setStudy={setStudy} />} />
+        <Route exact path="/participant-home" element={<ParticipantHome user={user} setUser={setUser} setStudy={setStudy} setStatus={setStatus} />} />
         <Route exact path="/researcher-home" element={<ResearcherHome user={user} setUser={setUser} setStudy={setStudy} />} />
-        <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} />} />
+        <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
         <Route exact path="/add-study" element={<AddStudy study={study} setStudy={setStudy} />} />
         <Route exact path="/type" element={<Type user={user} setUser={setUser} />} />

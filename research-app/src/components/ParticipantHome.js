@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
-function ParticipantHome({ user, setUser, setStudy }) { // add props user
+function ParticipantHome({ user, setUser, setStudy, setStatus }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -20,9 +21,7 @@ function ParticipantHome({ user, setUser, setStudy }) { // add props user
     });
     const json = await data.json();
     setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
-    return json.enrolled;
-    // Hardcoded:
-    // return [0, 1, 2, 3];
+    return json?.enrolled ?? [];
   }
 
   // gets individual study by id
@@ -51,14 +50,18 @@ function ParticipantHome({ user, setUser, setStudy }) { // add props user
   }, []);
 
   function goToStudy(studyId) {
-    console.log(studyId);
     setStudy({ studyId });
+    if (user.enrolled.indexOf(studyId) > -1) {
+      setStatus({ isEnrolled: true });
+    } else {
+      setStatus({ isEnrolled: false });
+    }
     navigate(`/study/${studyId}`);
   }
 
   return (
     <div className="Home">
-      <div className="nav">nav</div>
+      <NavBar user={user} />
       <div className="study-flex">
         <div className="header-left">Enrolled Studies</div>
         <div>
