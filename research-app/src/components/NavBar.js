@@ -16,7 +16,7 @@ function NavBar({ user, setUser }) {
       <button
         type="button"
         className="account-btn"
-        onClick={async () => { navigate('/profile', { user, setUser }); }}
+        onClick={async () => { navigate(`/${(user.type ?? 0) === 0 ? 'participant' : 'researcher'}-edit`); }}
       >
         EDIT PROFILE
       </button>

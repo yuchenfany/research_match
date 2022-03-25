@@ -5,7 +5,9 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
-function ParticipantHome({ user, setUser, setStudy, setStatus }) { // add props user
+function ParticipantHome({
+  user, setUser, setStudy, setStatus,
+}) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
@@ -20,7 +22,23 @@ function ParticipantHome({ user, setUser, setStudy, setStatus }) { // add props 
       },
     });
     const json = await data.json();
-    setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
+    setUser({
+      username: user.username,
+      password: user.password,
+      enrolled: json.enrolled,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
+      type: user.type,
+    });
+    // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
     return json?.enrolled ?? [];
   }
 

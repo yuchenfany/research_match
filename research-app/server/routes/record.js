@@ -153,6 +153,59 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
     });
 });
 
+// POST: update researcher's information on edit in profile
+recordRoutes.route('/record/researcher-edit/:username').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { username: req.body.username };
+
+  const newvalues = {
+    $set: {
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+      organization: req.body.organization,
+      type: req.body.type,
+    },
+  };
+  dbConnect
+    .collection('user-info')
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    });
+});
+
+// POST: update participant's information on edit in profile
+recordRoutes.route('/record/participant-edit/:username').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { username: req.body.username };
+
+  const newvalues = {
+    $set: {
+      username: req.body.username,
+      password: req.body.password,
+      enrolled: req.body.enrolled,
+      age: req.body.age,
+      heightFeet: req.body.heightFeet,
+      heightInches: req.body.heightInches,
+      weight: req.body.weight,
+      sex: req.body.sex,
+      gender: req.body.gender,
+      allergies: req.body.allergies,
+      phys: req.body.phys,
+      psych: req.body.psych,
+      med: req.body.med,
+      type: req.body.type,
+    },
+  };
+  dbConnect
+    .collection('user-info')
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    });
+});
+
 // Update user info PUT method
 // recordRoutes.route("/update/:id").post(function (req, response) {
 //   let db_connect = dbo.getDb();
