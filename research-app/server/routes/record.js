@@ -78,7 +78,7 @@ recordRoutes.route("/record/:id").get(function (req, res) {
       });
 });
 
-// Add user POST method
+// Add participant POST method
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
@@ -95,6 +95,24 @@ recordRoutes.route("/record/add").post(function (req, response) {
     psych: req.body.psych,
     med: req.body.med,
     enrolled: [],
+    type: req.body.type
+  };
+  db_connect.collection("user-info").insertOne(myobj, function (err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
+// Add researcher POST method
+recordRoutes.route("/record/add-researcher").post(function (req, response) {
+  console.log('POSTING RESEARCHER');
+  let db_connect = dbo.getDb();
+  let myobj = {
+    username: req.body.username,
+    password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
+    name: req.body.name,
+    organization: req.body.organization,
+    studies: [],
     type: req.body.type
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
