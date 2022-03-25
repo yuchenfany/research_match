@@ -19,7 +19,11 @@ studyRoutes.route('/study/:id').get((req, res) => {
     });
 });
 
+<<<<<<< HEAD
+// POST: add user to study's participants array
+=======
 // POST: update study's participants array
+>>>>>>> 95bd23770d3e9725bed2e43dfa8d7a0d0b1ec5b3
 studyRoutes.route('/study/:id/enroll').post((req, response) => {
   const dbConnect = dbo.getDb();
   const myquery = { studyId: req.body.studyId };
@@ -113,5 +117,21 @@ studyRoutes.route('/add-study').post((req, response) => {
     response.json(res);
   });
 });
+
+// get list of all studies
+studyRoutes.route('/study/tag/:id').get((req, res) => {
+    const dbConnect = dbo.getDb('research-app');
+    //const myquery = { tags: parseInt(req.params.id, 10) };
+    const myquery = { tags: req.params.id };
+    console.log(myquery);
+
+    dbConnect
+      .collection('studies')
+      .find(myquery)
+      .toArray((err, result) => {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
 
 module.exports = studyRoutes;
