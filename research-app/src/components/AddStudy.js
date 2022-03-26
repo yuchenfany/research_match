@@ -68,7 +68,7 @@ function AddStudy({ study, setStudy }) {
     }),
   };
   // async function getNextStudyID() {
-  //   const studyData = await fetch('http://localhost:5000/study/findMax', {
+  //   const studyData = await fetch('http://localhost:5000/findMax', {
   //     method: 'GET',
   //     headers: {
   //       'Content-Type': 'application/json',
@@ -78,18 +78,62 @@ function AddStudy({ study, setStudy }) {
   //   console.log(data);
   //   return data;
   // }
+
+  // async function addStudy() {
+  //   await fetch('http://localhost:5000/add-study', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(study),
+  //   })
+  //     .catch((e) => {
+  //       window.alert(e);
+  //     });
+
+  //   console.log('fetch is being called');
+  // }
   async function verify() {
-    console.log(JSON.stringify(study));
-    // console.log(JSON.stringify(getNextStudyID()));
-    // setStudy({
-    //   studyId: getNextStudyID(),
-    // });
+    const studyData = await fetch('http://localhost:5000/findMax', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await studyData.json();
+    const Id = data[0].studyId + 1;
+    console.log(Id);
+    // console.log(study.studyId);
+    // console.log(nextId);
+    setStudy({
+      title: study.title,
+      description: study.description,
+      compensation: study.compensation,
+      duration: study.duration,
+      tags: study.tags,
+      participants: study.participants,
+      studyId: Id,
+      researchers: study.researchers,
+    // }, () => {
+    //   addStudy();
+    });
+    const myobj = {
+      title: study.title,
+      description: study.description,
+      compensation: study.compensation,
+      duration: study.duration,
+      tags: study.tags,
+      participants: study.participants,
+      studyId: Id,
+      researchers: study.researchers,
+    };
+    console.log(Id);
     await fetch('http://localhost:5000/add-study', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(study),
+      body: JSON.stringify(myobj),
     })
       .catch((e) => {
         window.alert(e);
@@ -99,28 +143,18 @@ function AddStudy({ study, setStudy }) {
     return true;
   }
 
-  // async function getTagsArr(tags) {
-  //   const arr = [];
-
-  //   for (let i = 0; i < tags.length; i += 1) {
-  //     arr.push(tags[i].value);
-  //   }
-
-  //   return arr;
-  // }
-
   const updateTitle = async (event) => {
     console.log('UPDATE TITLE');
     console.log(event.target.value);
     setStudy({
       title: event.target.value,
-      // description: study.description,
-      // compensation: study.compensation,
-      // duration: study.duration,
-      // tags: study.tags,
-      // participants: study.participants,
-      // studyId: study.studyId,
-      // researchers: study.researchers,
+      description: study.description,
+      compensation: study.compensation,
+      duration: study.duration,
+      tags: study.tags,
+      participants: study.participants,
+      studyId: study.studyId,
+      researchers: study.researchers,
     });
   };
   const updateDescription = async (event) => {
