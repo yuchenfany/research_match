@@ -14,7 +14,7 @@ function Study({
   // const [study, setStudy] = useState({});
 
   async function getStudy() {
-    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+    const studyData = await fetch(`http://localhost:5000/record/${study.studyId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -5,34 +5,18 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 // study, setStudy,
-function AddStudy({ study, setStudy }) {
-  // const updateStudy = async () => {
-  //   setStudy({
-  //     title: '',
-  //     description: '',
-  //     compensation: '',
-  //     duration: '',
-  //     tags: [],
-  //     participants: [],
-  //     studyId: 4,
-  //     researchers: [],
+function AddStudy({ user, study, setStudy }) {
+  // async function getStudy() {
+  //   const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
   //   });
-  // };
+  //   const data = await studyData.json();
 
-  // useEffect(() => {
-  //   setStudy({
-  //     title: '',
-  //     description: '',
-  //     compensation: '',
-  //     duration: '',
-  //     tags: [],
-  //     participants: [],
-  //     studyId: 4,
-  //     researchers: [],
-  //   });
-  //   console.log('useEFfect is being run');
-  //   console.log(study.description);
-  // }, []);
+  //   return data;
+  // }
   const navigate = useNavigate();
   const Tags = [
     { label: 'Diabetes', value: 'diabetes' },
@@ -75,7 +59,6 @@ function AddStudy({ study, setStudy }) {
   //     },
   //   });
   //   const data = await studyData.json();
-  //   console.log(data);
   //   return data;
   // }
 
@@ -91,9 +74,9 @@ function AddStudy({ study, setStudy }) {
   //       window.alert(e);
   //     });
 
-  //   console.log('fetch is being called');
   // }
   async function verify() {
+    //finds maximum studyID in our collections
     const studyData = await fetch('http://localhost:5000/findMax', {
       method: 'GET',
       headers: {
@@ -101,10 +84,34 @@ function AddStudy({ study, setStudy }) {
       },
     });
     const data = await studyData.json();
+    //sets next ID
     const Id = data[0].studyId + 1;
-    console.log(Id);
-    // console.log(study.studyId);
-    // console.log(nextId);
+    //gets the userData
+    const userData = await fetch(`http://localhost:5000/record/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const currUser = await userData.json();
+    const currStudies = currUser.studies;
+    currStudies.push(Id);
+    const updatedUser = {
+      username: currUser.username,
+      password: currUser.password,
+      name: currUser.name,
+      organization: currUser.organization,
+      studies: currUser.studies,
+      type: currUser.type,
+    };
+    //Adds the new created study into the user's studies field
+    await fetch('http://localhost:5000/record/add-to-user-array', {
+      method: 'POST',
+      body: JSON.stringify(updatedUser),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     setStudy({
       title: study.title,
       description: study.description,
@@ -127,7 +134,7 @@ function AddStudy({ study, setStudy }) {
       studyId: Id,
       researchers: study.researchers,
     };
-    console.log(Id);
+    //creates a new study in the study collection
     await fetch('http://localhost:5000/add-study', {
       method: 'POST',
       headers: {
@@ -138,14 +145,10 @@ function AddStudy({ study, setStudy }) {
       .catch((e) => {
         window.alert(e);
       });
-
-    console.log('fetch is being called');
     return true;
   }
 
   const updateTitle = async (event) => {
-    console.log('UPDATE TITLE');
-    console.log(event.target.value);
     setStudy({
       title: event.target.value,
       description: study.description,
@@ -158,8 +161,6 @@ function AddStudy({ study, setStudy }) {
     });
   };
   const updateDescription = async (event) => {
-    console.log('UPDATE description');
-    console.log(event.target.value);
     setStudy({
       title: study.title,
       description: event.target.value,
@@ -219,7 +220,6 @@ function AddStudy({ study, setStudy }) {
 
   const updateTags = async (tags) => {
     const arr = await getTagsArr(tags);
-    console.log(arr);
     setStudy({
       title: study.title,
       description: study.description,

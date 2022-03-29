@@ -121,6 +121,26 @@ studyRoutes.route('/add-study').post((req, response) => {
   });
 });
 
+//adds study to researcher-study array
+// studyRoutes.route('/add-study-researcher').post((req, response) => {
+//   const dbConnect = dbo.getDb('research-app');
+//   const myobj = {
+//     title: req.body.title,
+//     description: req.body.description,
+//     compensation: req.body.compensation,
+//     duration: req.body.duration,
+//     tags: req.body.tags,
+//     participants: [''],
+//     studyId: req.body.studyId,
+//     researchers: req.body.researchers,
+//   };
+//   dbConnect.collection('studies').insertOne(myobj, function (err, res) {
+//     if (err) throw err;
+//     console.log('in backend, past error');
+//     response.json(res);
+//   });
+// });
+
 // get list of all studies
 studyRoutes.route('/study/tag/:id').get((req, res) => {
     const dbConnect = dbo.getDb('research-app');
