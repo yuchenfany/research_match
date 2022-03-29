@@ -205,7 +205,27 @@ recordRoutes.route('/record/participant-edit/:username').post((req, response) =>
       response.json(res);
     });
 });
-
+//adds study to researcher-study array
+recordRoutes.route('/record/add-to-user-array').post((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { username: req.body.username };
+  const newvalues = {
+    $set: {
+      title: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+      organization: req.body.organization,
+      studies: req.body.studies,
+      type: req.body.type,
+    },
+  };
+  dbConnect
+    .collection('user-info')
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    });
+});
 // Update user info PUT method
 // recordRoutes.route("/update/:id").post(function (req, response) {
 //   let db_connect = dbo.getDb();
