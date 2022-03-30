@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '../assets/index.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
 function Study({
@@ -14,14 +14,14 @@ function Study({
   // const [study, setStudy] = useState({});
 
   async function getStudy() {
-    const studyData = await fetch(`http://localhost:5000/record/${study.studyId}`, {
+    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
     const data = await studyData.json();
-
+    console.log(data);
     return data;
   }
 
@@ -45,7 +45,7 @@ function Study({
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
     };
-    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}/enroll`, {
+    await fetch(`http://localhost:5000/study/${parseInt(study.studyId, 10)}/enroll`, {
       method: 'POST',
       body: JSON.stringify(updatedStudy),
       headers: {
@@ -67,7 +67,7 @@ function Study({
       password: user.password,
       enrolled: updatedArray,
     };
-    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
+    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId, 10)}`, {
       method: 'POST',
       body: JSON.stringify(updatedUser),
       headers: {
@@ -93,7 +93,7 @@ function Study({
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
     };
-    await fetch(`http://localhost:5000/study/${parseInt(study.studyId)}/enroll`, {
+    await fetch(`http://localhost:5000/study/${parseInt(study.studyId, 10)}/enroll`, {
       method: 'POST',
       body: JSON.stringify(updatedStudy),
       headers: {
@@ -113,7 +113,7 @@ function Study({
       password: user.password,
       enrolled: updatedArray,
     };
-    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId)}`, {
+    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId, 10)}`, {
       method: 'POST',
       body: JSON.stringify(updatedUser),
       headers: {

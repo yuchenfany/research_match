@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 // study, setStudy,
-function AddStudy({ user, study, setStudy }) {
+function EditStudy({ study, setStudy }) {
   // async function getStudy() {
   //   const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
   //     method: 'GET',
@@ -76,42 +76,6 @@ function AddStudy({ user, study, setStudy }) {
 
   // }
   async function verify() {
-    // finds maximum studyID in our collections
-    const studyData = await fetch('http://localhost:5000/findMax', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await studyData.json();
-    // sets next ID
-    const Id = data[0].studyId + 1;
-    // gets the userData
-    const userData = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const currUser = await userData.json();
-    const currStudies = currUser.studies;
-    currStudies.push(Id);
-    const updatedUser = {
-      username: currUser.username,
-      password: currUser.password,
-      name: currUser.name,
-      organization: currUser.organization,
-      studies: currUser.studies,
-      type: currUser.type,
-    };
-    // Adds the new created study into the user's studies field
-    await fetch('http://localhost:5000/record/add-to-user-array', {
-      method: 'POST',
-      body: JSON.stringify(updatedUser),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
     setStudy({
       title: study.title,
       description: study.description,
@@ -119,7 +83,7 @@ function AddStudy({ user, study, setStudy }) {
       duration: study.duration,
       tags: study.tags,
       participants: study.participants,
-      studyId: Id,
+      studyId: study.studyId,
       researchers: study.researchers,
     // }, () => {
     //   addStudy();
@@ -131,11 +95,12 @@ function AddStudy({ user, study, setStudy }) {
       duration: study.duration,
       tags: study.tags,
       participants: study.participants,
-      studyId: Id,
+      studyId: study.studyId,
       researchers: study.researchers,
     };
-    // creates a new study in the study collection
-    await fetch('http://localhost:5000/add-study', {
+    console.log(myobj.title);
+    // edits the study
+    await fetch('http://localhost:5000/study/edit-study', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -242,13 +207,14 @@ function AddStudy({ user, study, setStudy }) {
   return (
     <div className="Profile">
       <div className="profile-flex">
-        <div className="header-left"> Create Study </div>
+        <div className="header-left"> Edit Study </div>
         <div className="title-row">
           <div>Title</div>
           <input
             className="input-field"
             type="text"
             id="title"
+            value={study.title}
             onChange={updateTitle}
           />
         </div>
@@ -258,6 +224,7 @@ function AddStudy({ user, study, setStudy }) {
             className="input-field"
             type="text"
             id="description"
+            value={study.description}
             onChange={updateDescription}
           />
           <div>Compensation</div>
@@ -265,6 +232,7 @@ function AddStudy({ user, study, setStudy }) {
             className="input-field"
             type="text"
             id="compensation"
+            value={study.compensation}
             onChange={updateCompensation}
           />
           <div>Duration</div>
@@ -272,6 +240,7 @@ function AddStudy({ user, study, setStudy }) {
             className="input-field"
             type="text"
             id="duration"
+            value={study.duration}
             onChange={updateDuration}
           />
           <div>Lead Researcher</div>
@@ -279,6 +248,7 @@ function AddStudy({ user, study, setStudy }) {
             className="input-field"
             type="text"
             id="researchers"
+            value={study.researchers}
             onChange={updateResearcher}
           />
         </div>
@@ -290,13 +260,14 @@ function AddStudy({ user, study, setStudy }) {
             options={Tags}
             isMulti
             onChange={(tags) => updateTags(tags)}
+            value={study.tags}
             styles={customStyles}
           />
         </div>
-        <input className="signup-button" type="submit" value="Add Study" onClick={handleSubmit} />
+        <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
       </div>
     </div>
   );
 }
 
-export default AddStudy;
+export default EditStudy;
