@@ -76,7 +76,7 @@ function AddStudy({ user, study, setStudy }) {
 
   // }
   async function verify() {
-    //finds maximum studyID in our collections
+    // finds maximum studyID in our collections
     const studyData = await fetch('http://localhost:5000/findMax', {
       method: 'GET',
       headers: {
@@ -84,9 +84,9 @@ function AddStudy({ user, study, setStudy }) {
       },
     });
     const data = await studyData.json();
-    //sets next ID
+    // sets next ID
     const Id = data[0].studyId + 1;
-    //gets the userData
+    // gets the userData
     const userData = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
       headers: {
@@ -104,7 +104,7 @@ function AddStudy({ user, study, setStudy }) {
       studies: currUser.studies,
       type: currUser.type,
     };
-    //Adds the new created study into the user's studies field
+    // Adds the new created study into the user's studies field
     await fetch('http://localhost:5000/record/add-to-user-array', {
       method: 'POST',
       body: JSON.stringify(updatedUser),
@@ -134,7 +134,7 @@ function AddStudy({ user, study, setStudy }) {
       studyId: Id,
       researchers: study.researchers,
     };
-    //creates a new study in the study collection
+    // creates a new study in the study collection
     await fetch('http://localhost:5000/add-study', {
       method: 'POST',
       headers: {
