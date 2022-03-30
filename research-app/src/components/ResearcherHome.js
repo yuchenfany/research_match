@@ -38,6 +38,7 @@ function ResearcherHome({ user, setUser, setStudy }) {
         'Content-Type': 'application/json',
       },
     });
+    console.log(data);
     return data.json();
   }
 
