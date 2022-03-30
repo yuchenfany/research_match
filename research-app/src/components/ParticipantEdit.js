@@ -316,6 +316,7 @@ function ParticipantEdit({ user, setUser }) {
             className="input-field"
             type="text"
             id="age"
+            value={user.age}
             onChange={updateAge}
           />
           <div>Height</div>
@@ -323,6 +324,7 @@ function ParticipantEdit({ user, setUser }) {
             className="input-field"
             type="text"
             id="age"
+            value={user.heightFeet}
             onChange={updateHeightFeet}
           />
           <div>ft</div>
@@ -330,6 +332,7 @@ function ParticipantEdit({ user, setUser }) {
             className="input-field"
             type="text"
             id="age"
+            value={user.heightInches}
             onChange={updateHeightInches}
           />
           <div>in</div>
@@ -338,6 +341,7 @@ function ParticipantEdit({ user, setUser }) {
             className="input-field"
             type="text"
             id="age"
+            value={user.Weight}
             onChange={updateWeight}
           />
           <div>lbs</div>
