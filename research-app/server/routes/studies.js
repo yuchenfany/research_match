@@ -104,8 +104,10 @@ studyRoutes.route('/study/edit-study').post((req, response) => {
 
 // delete study
 studyRoutes.route('/study/:id').delete((req, response) => {
+  console.log('READHED DELETE BACKEND');
+
   const dbConnect = dbo.getDb();
-  const myquery = { studyId: req.body.studyId };
+  const myquery = { studyId: parseInt(req.params.id, 10) };
   dbConnect.collection('studies').deleteOne(myquery, (err, obj) => {
     if (err) throw err;
     console.log('1 document deleted');

@@ -205,10 +205,11 @@ function EditStudy({ study, setStudy }) {
   }
 
   async function deleteStudy() {
-    const myobj = { studyId: study.studyId };
+    // const myobj = { studyId: study.studyId };
     await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'DELETE',
-      body: JSON.stringify(myobj),
+      // body: JSON.stringify(myobj),
+      body: null,
     });
   }
 
