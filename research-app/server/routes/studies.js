@@ -101,6 +101,18 @@ studyRoutes.route('/study/edit-study').post((req, response) => {
       response.json(res);
     });
 });
+
+// delete study
+studyRoutes.route('/study/:id').delete((req, response) => {
+  const dbConnect = dbo.getDb();
+  const myquery = { studyId: req.body.studyId };
+  dbConnect.collection('studies').deleteOne(myquery, (err, obj) => {
+    if (err) throw err;
+    console.log('1 document deleted');
+    response.json(obj);
+  });
+});
+
 // POST: add user to study's participants array
 // studyRoutes.route('/study/:id').post((req, response) => {
 //   const dbConnect = dbo.getDb();

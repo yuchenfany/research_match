@@ -204,6 +204,12 @@ function EditStudy({ study, setStudy }) {
     }
   }
 
+  async function deleteStudy() {
+    await fetch(`http://localhost:5000/study/${study.studyId}`, {
+      method: 'DELETE',
+    });
+  }
+
   return (
     <div className="Profile">
       <div className="profile-flex">
@@ -265,6 +271,7 @@ function EditStudy({ study, setStudy }) {
           />
         </div>
         <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
+        <input className="signup-button" type="button" value="Delete Study" onClick={deleteStudy} />
       </div>
     </div>
   );
