@@ -26,6 +26,8 @@ function ResearcherHome({ user, setUser, setStudy }) {
       studies: json.studies,
       type: user.type,
     });
+    console.log('in getStudyIds:');
+    console.log(json);
     // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
     return json?.studies ?? [];
   }
@@ -52,8 +54,16 @@ function ResearcherHome({ user, setUser, setStudy }) {
   }
 
   useEffect(() => {
+    console.log('SETTING ENROLLED STUDIES');
     getAllStudyJson()
       .then(setEnrolledStudies);
+    console.log('getAllStudyJson returns:');
+    console.log(getAllStudyJson());
+    console.log('ENROLLED STUDIES:');
+    console.log(enrolledStudies);
+    if (enrolledStudies.length === 0) {
+      console.log('enrolled studies is empty');
+    }
   }, []);
 
   function goToStudy(studyId) {

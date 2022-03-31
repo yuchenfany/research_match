@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 // study, setStudy,
-function EditStudy({ study, setStudy }) {
+function EditStudy({ user, study, setStudy }) {
   // async function getStudy() {
   //   const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
   //     method: 'GET',
@@ -211,6 +211,39 @@ function EditStudy({ study, setStudy }) {
       // body: JSON.stringify(myobj),
       body: null,
     });
+    navigate('/researcher-home');
+  }
+
+  async function updateResearcherStudies() {
+    const updatedStudies = user.studies.filter((e) => e !== study.studyId);
+    console.log('updatedStudies:');
+    console.log(updatedStudies);
+
+    const bodyObj = {
+      username: user.username,
+      password: user.password,
+      name: user.name,
+      organization: user.organization,
+      studies: updatedStudies,
+      type: user.type,
+      title: user.title,
+    };
+
+    await fetch(`http://localhost:5000/record/researcher-studies/${user.username}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyObj),
+    })
+      .catch((e) => {
+        window.alert(e);
+      });
+    return true;
+  }
+
+  async function handleDelete() {
+    deleteStudy().then(updateResearcherStudies());
   }
 
   return (
@@ -274,7 +307,7 @@ function EditStudy({ study, setStudy }) {
           />
         </div>
         <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
-        <input className="signup-button" type="button" value="Delete Study" onClick={deleteStudy} />
+        <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
       </div>
     </div>
   );
