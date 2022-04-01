@@ -50,11 +50,15 @@ function ResearcherEdit({ user, setUser }) {
   async function handleSubmit(event) {
     if (!isValidInput(user.name) || !isValidInput(user.organization)) {
       if (!isValidInput(user.name)) {
-        setNameErr({ message: 'Please enter your information' });
+        setNameErr({ message: 'Please enter your name' });
+      } else {
+        setNameErr({ message: '' });
       }
 
       if (!isValidInput(user.organization)) {
-        setOrgErr({ message: 'Please enter your information' });
+        setOrgErr({ message: 'Please enter your organization' });
+      } else {
+        setOrgErr({ message: '' });
       }
 
       event.preventDefault();

@@ -327,18 +327,26 @@ function ParticipantEdit({ user, setUser }) {
     || !isValidInput(user.heightInches)) {
       if (!isValidInput(user.age)) {
         setAgeErr({ message: 'Age: Enter a number' });
+      } else {
+        setAgeErr({ message: '' });
       }
 
       if (!isValidInput(user.weight)) {
         setWeightErr({ message: 'Weight: Enter a number' });
+      } else {
+        setWeightErr({ message: '' });
       }
 
       if (!isValidInput(user.heightFeet)) {
         setFeetErr({ message: 'Feet: Enter a number' });
+      } else {
+        setFeetErr({ message: '' });
       }
 
       if (!isValidInput(user.heightInches)) {
         setInchErr({ message: 'Inches: Enter a number' });
+      } else {
+        setInchErr({ message: '' });
       }
 
       event.preventDefault();

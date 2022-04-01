@@ -1,11 +1,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 
 function ResearcherProfile({ user, setUser }) {
   const navigate = useNavigate();
+  const [nameErr, setNameErr] = useState({ message: '' });
+  const [orgErr, setOrgErr] = useState({ message: '' });
+
+  const isValidInput = (input) => {
+    if (input === undefined) {
+      return false;
+    }
+
+    return !(input.length === 0);
+  };
 
   async function verify() {
     await fetch('http://localhost:5000/record/add-researcher', {
@@ -43,6 +53,22 @@ function ResearcherProfile({ user, setUser }) {
   };
 
   async function handleSubmit(event) {
+    if (!isValidInput(user.name) || !isValidInput(user.organization)) {
+      if (!isValidInput(user.name)) {
+        setNameErr({ message: 'Please enter your name' });
+      } else {
+        setNameErr({ message: '' });
+      }
+
+      if (!isValidInput(user.organization)) {
+        setOrgErr({ message: 'Please enter your organization' });
+      } else {
+        setOrgErr({ message: '' });
+      }
+
+      return;
+    }
+
     if (await verify()) {
       navigate('/researcher-home');
     } else {
@@ -64,6 +90,9 @@ function ResearcherProfile({ user, setUser }) {
           />
         </div>
         <div className="profile-row">
+          <span className="error-message">{nameErr.message}</span>
+        </div>
+        <div className="profile-row">
           <div className="input-label">Organization</div>
           <input
             className="profile-input"
@@ -73,7 +102,10 @@ function ResearcherProfile({ user, setUser }) {
           />
         </div>
         <div className="profile-row">
-          <input className="signup-button" type="submit" value="SIGN UP" onClick={handleSubmit} />
+          <span className="error-message">{orgErr.message}</span>
+        </div>
+        <div className="button-row">
+          <input className="update-button" type="submit" value="SIGN UP" onClick={handleSubmit} />
         </div>
       </div>
     </div>
