@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
 function ResearcherEdit({ user, setUser }) {
   const navigate = useNavigate();
+  const [nameErr, setNameErr] = useState({ message: '' });
+  const [orgErr, setOrgErr] = useState({ message: '' });
+
+  const isValidInput = (input) => !(input.length === 0);
 
   const updateResearcher = async (event) => {
     setUser({
@@ -44,6 +48,25 @@ function ResearcherEdit({ user, setUser }) {
   }
 
   async function handleSubmit(event) {
+    if (!isValidInput(user.name) || !isValidInput(user.organization)) {
+      if (!isValidInput(user.name)) {
+        console.log('SETTING NAME ERR');
+
+        setNameErr({ message: 'Please enter your information' });
+      }
+
+      console.log(user.organization);
+      if (!isValidInput(user.organization)) {
+        console.log('SETTING ORG ERR');
+
+        setOrgErr({ message: 'Please enter your information' });
+      }
+
+      event.preventDefault();
+
+      return;
+    }
+
     if (await postUserInfo()) {
       navigate('/researcher-home');
     } else {
@@ -74,6 +97,9 @@ function ResearcherEdit({ user, setUser }) {
           />
         </div>
         <div className="profile-row">
+          <span className="error-message">{nameErr.message}</span>
+        </div>
+        <div className="profile-row">
           <div className="input-label">Organization</div>
           <input
             className="profile-input"
@@ -82,6 +108,9 @@ function ResearcherEdit({ user, setUser }) {
             value={user.organization}
             onChange={updateOrganization}
           />
+        </div>
+        <div className="profile-row">
+          <span className="error-message">{orgErr.message}</span>
         </div>
         <div className="profile-row">
           <div className="button-row">
