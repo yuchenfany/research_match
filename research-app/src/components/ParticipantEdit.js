@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
+import NavBar from './NavBar';
 
 function ParticipantEdit({ user, setUser }) {
   const navigate = useNavigate();
@@ -308,7 +309,29 @@ function ParticipantEdit({ user, setUser }) {
     });
   };
 
-  async function handleSubmit(event) {
+  // preserve original state in case of cancel
+  let originalUser = {};
+
+  useEffect(() => {
+    originalUser = {
+      username: user.username,
+      password: user.password,
+      enrolled: user.enrolled,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
+      type: user.type,
+    };
+  }, []);
+
+  async function handleUpdate(event) {
     if (await postUserInfo()) {
       navigate('/participant-home');
     } else {
@@ -316,14 +339,20 @@ function ParticipantEdit({ user, setUser }) {
     }
   }
 
+  async function handleCancel() {
+    await setUser(originalUser);
+    navigate('/participant-home');
+  }
+
   return (
     <div className="ParticipantEdit">
+      <NavBar user={user} />
       <div className="profile-flex">
         <div className="header-left"> Edit User Profile </div>
         <div className="profile-row">
           <div>Age</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             value={user.age}
@@ -331,7 +360,7 @@ function ParticipantEdit({ user, setUser }) {
           />
           <div>Height</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             value={user.heightFeet}
@@ -339,7 +368,7 @@ function ParticipantEdit({ user, setUser }) {
           />
           <div>ft</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             value={user.heightInches}
@@ -348,7 +377,7 @@ function ParticipantEdit({ user, setUser }) {
           <div>in</div>
           <div>Weight</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             value={user.weight}
@@ -427,6 +456,7 @@ function ParticipantEdit({ user, setUser }) {
             isMulti
             onChange={(tags) => updatePhys(tags)}
             defaultValue={createObjectArr(user.phys)}
+            className="select-tags"
             styles={customStyles}
           />
         </div>
@@ -439,6 +469,7 @@ function ParticipantEdit({ user, setUser }) {
             isMulti
             onChange={(tags) => updatePsych(tags)}
             defaultValue={createObjectArr(user.psych)}
+            className="select-tags"
             styles={customStyles}
           />
         </div>
@@ -455,7 +486,10 @@ function ParticipantEdit({ user, setUser }) {
             styles={customStyles}
           />
         </div>
-        <input className="signup-button" type="submit" value="UPDATE" onClick={handleSubmit} />
+        <div className="button-row">
+          {/* <input className="cancel-button" type="submit" value="CANCEL" onClick={handleCancel} /> */}
+          <input className="update-button" type="submit" value="UPDATE" onClick={handleUpdate} />
+        </div>
       </div>
     </div>
   );
