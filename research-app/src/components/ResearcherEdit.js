@@ -50,15 +50,10 @@ function ResearcherEdit({ user, setUser }) {
   async function handleSubmit(event) {
     if (!isValidInput(user.name) || !isValidInput(user.organization)) {
       if (!isValidInput(user.name)) {
-        console.log('SETTING NAME ERR');
-
         setNameErr({ message: 'Please enter your information' });
       }
 
-      console.log(user.organization);
       if (!isValidInput(user.organization)) {
-        console.log('SETTING ORG ERR');
-
         setOrgErr({ message: 'Please enter your information' });
       }
 
