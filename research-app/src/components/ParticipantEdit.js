@@ -4,6 +4,7 @@ import React from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
+import NavBar from './NavBar';
 
 function ParticipantEdit({ user, setUser }) {
   const navigate = useNavigate();
@@ -74,6 +75,16 @@ function ParticipantEdit({ user, setUser }) {
     { label: 'Prozac', value: 'prozac' },
     { label: 'Lexapro', value: 'lexapro' },
   ];
+
+  const createObjectArr = (tags) => {
+    const arr = [];
+
+    for (let i = 0; i < tags.length; i += 1) {
+      arr.push({ label: (tags[i])[0].toUpperCase() + (tags[i]).substring(1), value: tags[i] });
+    }
+
+    return arr;
+  };
 
   async function postUserInfo() {
     await fetch(`http://localhost:5000/record/participant-edit/${user.username}`, {
@@ -298,7 +309,14 @@ function ParticipantEdit({ user, setUser }) {
     });
   };
 
-  async function handleSubmit(event) {
+  // // preserve original state in case of cancel
+  // let originalUser = {};
+
+  // useEffect(() => {
+  //   localStorage.setItem(user.username, user);
+  // }, []);
+
+  async function handleUpdate(event) {
     if (await postUserInfo()) {
       navigate('/participant-home');
     } else {
@@ -306,14 +324,22 @@ function ParticipantEdit({ user, setUser }) {
     }
   }
 
+  async function handleCancel() {
+    // retrieve stored state
+    const stored = JSON.parse(localStorage.getItem(user.username));
+    await setUser(stored);
+    navigate('/participant-home');
+  }
+
   return (
     <div className="ParticipantEdit">
+      <NavBar user={user} />
       <div className="profile-flex">
         <div className="header-left"> Edit User Profile </div>
         <div className="profile-row">
           <div>Age</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             value={user.age}
@@ -321,7 +347,7 @@ function ParticipantEdit({ user, setUser }) {
           />
           <div>Height</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             value={user.heightFeet}
@@ -329,7 +355,7 @@ function ParticipantEdit({ user, setUser }) {
           />
           <div>ft</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             value={user.heightInches}
@@ -338,10 +364,10 @@ function ParticipantEdit({ user, setUser }) {
           <div>in</div>
           <div>Weight</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
-            value={user.Weight}
+            value={user.weight}
             onChange={updateWeight}
           />
           <div>lbs</div>
@@ -354,6 +380,7 @@ function ParticipantEdit({ user, setUser }) {
               id="male"
               value="male"
               name="option"
+              defaultChecked={(user.sex === 'male') ? 'checked' : ''}
               onClick={() => updateBioSex('male')}
             />
             <div>Male</div>
@@ -364,6 +391,7 @@ function ParticipantEdit({ user, setUser }) {
               id="female"
               value="female"
               name="option"
+              defaultChecked={(user.sex === 'female') ? 'checked' : ''}
               onClick={() => updateBioSex('female')}
             />
             <div>Female</div>
@@ -374,6 +402,7 @@ function ParticipantEdit({ user, setUser }) {
               id="intersex"
               value="intersex"
               name="option"
+              defaultChecked={(user.sex === 'intersex') ? 'checked' : ''}
               onClick={() => updateBioSex('intersex')}
             />
             <div>Intersex</div>
@@ -385,6 +414,10 @@ function ParticipantEdit({ user, setUser }) {
             <Select
               options={genderOptions}
               onChange={(option) => updateGender(option.value)}
+              defaultValue={{
+                label: user.gender[0].toUpperCase() + user.gender.substring(1),
+                value: user.gender,
+              }}
               styles={customStyles}
             />
           </div>
@@ -397,6 +430,7 @@ function ParticipantEdit({ user, setUser }) {
             options={allergyTags}
             isMulti
             onChange={(tags) => updateAllergies(tags)}
+            defaultValue={createObjectArr(user.allergies)}
             styles={customStyles}
           />
         </div>
@@ -408,7 +442,9 @@ function ParticipantEdit({ user, setUser }) {
             options={physTags}
             isMulti
             onChange={(tags) => updatePhys(tags)}
+            defaultValue={createObjectArr(user.phys)}
             className="select-tags"
+            styles={customStyles}
           />
         </div>
         <div className="profile-row">
@@ -419,7 +455,9 @@ function ParticipantEdit({ user, setUser }) {
             options={psychTags}
             isMulti
             onChange={(tags) => updatePsych(tags)}
+            defaultValue={createObjectArr(user.psych)}
             className="select-tags"
+            styles={customStyles}
           />
         </div>
         <div className="profile-row">
@@ -430,10 +468,15 @@ function ParticipantEdit({ user, setUser }) {
             options={medTags}
             isMulti
             onChange={(tags) => updateMed(tags)}
+            defaultValue={createObjectArr(user.med)}
             className="select-tags"
+            styles={customStyles}
           />
         </div>
-        <input className="signup-button" type="submit" value="UPDATE" onClick={handleSubmit} />
+        <div className="button-row">
+          <input className="cancel-button" type="submit" value="CANCEL" onClick={handleCancel} />
+          <input className="update-button" type="submit" value="UPDATE" onClick={handleUpdate} />
+        </div>
       </div>
     </div>
   );
