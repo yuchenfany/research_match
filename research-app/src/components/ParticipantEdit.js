@@ -47,6 +47,7 @@ function ParticipantEdit({ user, setUser }) {
     { label: 'Transgender', value: 'transgender' },
     { label: 'Non-binary', value: 'nonbinary' },
     { label: 'Other', value: 'other' },
+    { label: 'Prefer not to answer', value: 'prefer not to answer' },
   ];
 
   const allergyTags = [

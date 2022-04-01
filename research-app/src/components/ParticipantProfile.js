@@ -11,8 +11,15 @@ function ParticipantProfile({ user, setUser }) {
   const [feetErr, setFeetErr] = useState({ message: '' });
   const [inchErr, setInchErr] = useState({ message: '' });
   const [weightErr, setWeightErr] = useState({ message: '' });
+  const [genderErr, setGenderErr] = useState({ message: '' });
 
-  const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
+  const isValidInput = (input) => {
+    if (input === undefined) {
+      return false;
+    }
+
+    return !(input.length === 0 || !input.match(/^[0-9]+$/));
+  };
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -46,6 +53,7 @@ function ParticipantProfile({ user, setUser }) {
     { label: 'Transgender', value: 'transgender' },
     { label: 'Non-binary', value: 'nonbinary' },
     { label: 'Other', value: 'other' },
+    { label: 'Prefer not to answer', value: 'prefer not to answer' },
   ];
 
   const allergyTags = [
@@ -331,6 +339,12 @@ function ParticipantProfile({ user, setUser }) {
         setInchErr({ message: '' });
       }
 
+      if (user.gender === undefined) {
+        setGenderErr({ message: 'Please make a selection' });
+      } else {
+        setGenderErr({ message: '' });
+      }
+
       event.preventDefault();
 
       return;
@@ -350,7 +364,7 @@ function ParticipantProfile({ user, setUser }) {
         <div className="profile-row">
           <div>Age</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateAge}
@@ -358,7 +372,7 @@ function ParticipantProfile({ user, setUser }) {
           <span className="error-message">{ageErr.message}</span>
           <div>Height</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateHeightFeet}
@@ -366,7 +380,7 @@ function ParticipantProfile({ user, setUser }) {
           <div>ft</div>
           <span className="error-message">{feetErr.message}</span>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateHeightInches}
@@ -375,7 +389,7 @@ function ParticipantProfile({ user, setUser }) {
           <span className="error-message">{inchErr.message}</span>
           <div>Weight</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateWeight}
@@ -392,6 +406,7 @@ function ParticipantProfile({ user, setUser }) {
               value="male"
               name="option"
               onClick={() => updateBioSex('male')}
+              defaultChecked="checked"
             />
             <div>Male</div>
           </label>
@@ -425,6 +440,9 @@ function ParticipantProfile({ user, setUser }) {
               styles={customStyles}
             />
           </div>
+        </div>
+        <div className="profile-row">
+          <span className="error-message">{genderErr.message}</span>
         </div>
         <div className="profile-row">
           <div>Allergies</div>
