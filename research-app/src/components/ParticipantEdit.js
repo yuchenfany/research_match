@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
@@ -8,6 +8,12 @@ import NavBar from './NavBar';
 
 function ParticipantEdit({ user, setUser }) {
   const navigate = useNavigate();
+  const [ageErr, setAgeErr] = useState({ message: '' });
+  const [feetErr, setFeetErr] = useState({ message: '' });
+  const [inchErr, setInchErr] = useState({ message: '' });
+  const [weightErr, setWeightErr] = useState({ message: '' });
+
+  const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -41,6 +47,7 @@ function ParticipantEdit({ user, setUser }) {
     { label: 'Transgender', value: 'transgender' },
     { label: 'Non-binary', value: 'nonbinary' },
     { label: 'Other', value: 'other' },
+    { label: 'Prefer not to answer', value: 'prefer not to answer' },
   ];
 
   const allergyTags = [
@@ -317,6 +324,37 @@ function ParticipantEdit({ user, setUser }) {
   // }, []);
 
   async function handleUpdate(event) {
+    if (!isValidInput(user.age) || !isValidInput(user.weight) || !isValidInput(user.heightFeet)
+    || !isValidInput(user.heightInches)) {
+      if (!isValidInput(user.age)) {
+        setAgeErr({ message: 'Age: Enter a number' });
+      } else {
+        setAgeErr({ message: '' });
+      }
+
+      if (!isValidInput(user.weight)) {
+        setWeightErr({ message: 'Weight: Enter a number' });
+      } else {
+        setWeightErr({ message: '' });
+      }
+
+      if (!isValidInput(user.heightFeet)) {
+        setFeetErr({ message: 'Feet: Enter a number' });
+      } else {
+        setFeetErr({ message: '' });
+      }
+
+      if (!isValidInput(user.heightInches)) {
+        setInchErr({ message: 'Inches: Enter a number' });
+      } else {
+        setInchErr({ message: '' });
+      }
+
+      event.preventDefault();
+
+      return;
+    }
+
     if (await postUserInfo()) {
       navigate('/participant-home');
     } else {
@@ -345,6 +383,7 @@ function ParticipantEdit({ user, setUser }) {
             value={user.age}
             onChange={updateAge}
           />
+          <span className="error-message">{ageErr.message}</span>
           <div>Height</div>
           <input
             className="small-input"
@@ -354,6 +393,7 @@ function ParticipantEdit({ user, setUser }) {
             onChange={updateHeightFeet}
           />
           <div>ft</div>
+          <span className="error-message">{feetErr.message}</span>
           <input
             className="small-input"
             type="text"
@@ -362,6 +402,7 @@ function ParticipantEdit({ user, setUser }) {
             onChange={updateHeightInches}
           />
           <div>in</div>
+          <span className="error-message">{inchErr.message}</span>
           <div>Weight</div>
           <input
             className="small-input"
@@ -371,6 +412,7 @@ function ParticipantEdit({ user, setUser }) {
             onChange={updateWeight}
           />
           <div>lbs</div>
+          <span className="error-message">{weightErr.message}</span>
         </div>
         <div className="profile-row">
           <div>Biological Sex</div>

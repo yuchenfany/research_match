@@ -1,12 +1,25 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
 function ParticipantProfile({ user, setUser }) {
   const navigate = useNavigate();
+  const [ageErr, setAgeErr] = useState({ message: '' });
+  const [feetErr, setFeetErr] = useState({ message: '' });
+  const [inchErr, setInchErr] = useState({ message: '' });
+  const [weightErr, setWeightErr] = useState({ message: '' });
+  const [genderErr, setGenderErr] = useState({ message: '' });
+
+  const isValidInput = (input) => {
+    if (input === undefined) {
+      return false;
+    }
+
+    return !(input.length === 0 || !input.match(/^[0-9]+$/));
+  };
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -40,6 +53,7 @@ function ParticipantProfile({ user, setUser }) {
     { label: 'Transgender', value: 'transgender' },
     { label: 'Non-binary', value: 'nonbinary' },
     { label: 'Other', value: 'other' },
+    { label: 'Prefer not to answer', value: 'prefer not to answer' },
   ];
 
   const allergyTags = [
@@ -299,6 +313,43 @@ function ParticipantProfile({ user, setUser }) {
   };
 
   async function handleSubmit(event) {
+    if (!isValidInput(user.age) || !isValidInput(user.weight) || !isValidInput(user.heightFeet)
+    || !isValidInput(user.heightInches)) {
+      if (!isValidInput(user.age)) {
+        setAgeErr({ message: 'Age: Enter a number' });
+      } else {
+        setAgeErr({ message: '' });
+      }
+
+      if (!isValidInput(user.weight)) {
+        setWeightErr({ message: 'Weight: Enter a number' });
+      } else {
+        setWeightErr({ message: '' });
+      }
+
+      if (!isValidInput(user.heightFeet)) {
+        setFeetErr({ message: 'Feet: Enter a number' });
+      } else {
+        setFeetErr({ message: '' });
+      }
+
+      if (!isValidInput(user.heightInches)) {
+        setInchErr({ message: 'Inches: Enter a number' });
+      } else {
+        setInchErr({ message: '' });
+      }
+
+      if (user.gender === undefined) {
+        setGenderErr({ message: 'Please make a selection' });
+      } else {
+        setGenderErr({ message: '' });
+      }
+
+      event.preventDefault();
+
+      return;
+    }
+
     if (await verify()) {
       navigate('/participant-home');
     } else {
@@ -313,34 +364,38 @@ function ParticipantProfile({ user, setUser }) {
         <div className="profile-row">
           <div>Age</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateAge}
           />
+          <span className="error-message">{ageErr.message}</span>
           <div>Height</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateHeightFeet}
           />
           <div>ft</div>
+          <span className="error-message">{feetErr.message}</span>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateHeightInches}
           />
           <div>in</div>
+          <span className="error-message">{inchErr.message}</span>
           <div>Weight</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="age"
             onChange={updateWeight}
           />
           <div>lbs</div>
+          <span className="error-message">{weightErr.message}</span>
         </div>
         <div className="profile-row">
           <div>Biological Sex</div>
@@ -351,6 +406,7 @@ function ParticipantProfile({ user, setUser }) {
               value="male"
               name="option"
               onClick={() => updateBioSex('male')}
+              defaultChecked="checked"
             />
             <div>Male</div>
           </label>
@@ -384,6 +440,9 @@ function ParticipantProfile({ user, setUser }) {
               styles={customStyles}
             />
           </div>
+        </div>
+        <div className="profile-row">
+          <span className="error-message">{genderErr.message}</span>
         </div>
         <div className="profile-row">
           <div>Allergies</div>
