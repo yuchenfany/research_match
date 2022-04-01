@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 // study, setStudy,
-function EditStudy({ study, setStudy }) {
+function EditStudy({ user, study, setStudy }) {
   // async function getStudy() {
   //   const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
   //     method: 'GET',
@@ -204,6 +204,47 @@ function EditStudy({ study, setStudy }) {
     }
   }
 
+  // deletes a study
+  async function deleteStudy() {
+    await fetch(`http://localhost:5000/study/${study.studyId}`, {
+      method: 'DELETE',
+      body: null,
+    });
+    navigate('/researcher-home');
+  }
+
+  // for deleting a study: updates a researcher's study array
+  async function updateResearcherStudies() {
+    const updatedStudies = user.studies.filter((e) => e !== study.studyId);
+
+    const bodyObj = {
+      username: user.username,
+      password: user.password,
+      name: user.name,
+      organization: user.organization,
+      studies: updatedStudies,
+      type: user.type,
+      title: user.title,
+    };
+
+    await fetch(`http://localhost:5000/record/researcher-studies/${user.username}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyObj),
+    })
+      .catch((e) => {
+        window.alert(e);
+      });
+    return true;
+  }
+
+  // calling delete study functions
+  async function handleDelete() {
+    deleteStudy().then(updateResearcherStudies());
+  }
+
   return (
     <div className="Profile">
       <div className="profile-flex">
@@ -265,6 +306,7 @@ function EditStudy({ study, setStudy }) {
           />
         </div>
         <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
+        <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
       </div>
     </div>
   );
