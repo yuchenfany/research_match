@@ -204,20 +204,18 @@ function EditStudy({ user, study, setStudy }) {
     }
   }
 
+  // deletes a study
   async function deleteStudy() {
-    // const myobj = { studyId: study.studyId };
     await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'DELETE',
-      // body: JSON.stringify(myobj),
       body: null,
     });
     navigate('/researcher-home');
   }
 
+  // for deleting a study: updates a researcher's study array
   async function updateResearcherStudies() {
     const updatedStudies = user.studies.filter((e) => e !== study.studyId);
-    console.log('updatedStudies:');
-    console.log(updatedStudies);
 
     const bodyObj = {
       username: user.username,
@@ -242,6 +240,7 @@ function EditStudy({ user, study, setStudy }) {
     return true;
   }
 
+  // calling delete study functions
   async function handleDelete() {
     deleteStudy().then(updateResearcherStudies());
   }
