@@ -3,6 +3,7 @@
 import React from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
 function ResearcherEdit({ user, setUser }) {
   const navigate = useNavigate();
@@ -50,8 +51,16 @@ function ResearcherEdit({ user, setUser }) {
     }
   }
 
+  async function handleCancel() {
+    // retrieve stored state
+    const stored = JSON.parse(localStorage.getItem(user.username));
+    await setUser(stored);
+    navigate('/researcher-home');
+  }
+
   return (
     <div className="ResearcherEdit">
+      <NavBar user={user} />
       <div className="profile-flex">
         <div className="header-left">Edit Researcher Profile</div>
         <div className="profile-row">
@@ -75,7 +84,10 @@ function ResearcherEdit({ user, setUser }) {
           />
         </div>
         <div className="profile-row">
-          <input className="signup-button" type="submit" value="UPDATE" onClick={handleSubmit} />
+          <div className="button-row">
+            <input className="cancel-button" type="submit" value="CANCEL" onClick={handleCancel} />
+            <input className="update-button" type="submit" value="UPDATE" onClick={handleSubmit} />
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
