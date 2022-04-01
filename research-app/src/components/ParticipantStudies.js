@@ -5,7 +5,7 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
-function ParticipantHome({
+function ParticipantStudies({
   user, setUser, setStudy, setStatus,
 }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
@@ -38,6 +38,7 @@ function ParticipantHome({
       med: user.med,
       type: user.type,
     });
+
     // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
     return json?.enrolled ?? [];
   }
@@ -115,4 +116,4 @@ function ParticipantHome({
   );
 }
 
-export default ParticipantHome;
+export default ParticipantStudies;

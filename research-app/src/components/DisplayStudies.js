@@ -21,10 +21,20 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
       },
     });
     const json = await data.json();
-    setUser({ username: user.username, password: user.password, tags: json.phys });
+
+    setUser({
+      username: user.username,
+      password: user.password,
+      phys: json.phys,
+      psych: json.psych,
+      med: json.med,
+    });
     // return json.tags; (once tags are implemented in phys)
     // Hardcoded:
-    return ['diabetes', 'brain'];
+    const userTags = user.phys.concat(user.psych.concat(user.med));
+    console.log(userTags);
+    console.log(user.phys);
+    return userTags;
   }
 
   // gets individual study by id
