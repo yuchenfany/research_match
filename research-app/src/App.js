@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import React, { useState } from 'react';
 import Login from './components/Login';
-import ParticipantHome from './components/ParticipantHome';
+import ParticipantStudies from './components/ParticipantStudies';
 import ResearcherHome from './components/ResearcherHome';
 import Create from './components/Create';
 import ParticipantProfile from './components/ParticipantProfile';
@@ -24,8 +24,15 @@ import DisplayStudies from './components/DisplayStudies';
 import DeleteAccount from './components/DeleteAccount';
 
 function App() {
-  const [user, setUser] = useState({ username: 'newmia', password: 'newmiapassword', enrolled: [] });
-  const [user2, setUserTags] = useState({ username: 'newmia', password: 'newmiapassword', tags: [] });
+  const [user, setUser] = useState({
+    username: 'participant',
+    password: 'participantpass',
+    enrolled: [],
+    phys: [],
+    psych: [],
+    med: [],
+    studies: [],
+  });
   // const [deleteUser, setUserDelete] =
   // useState({ username: 'testuser', password: 'testuserpassword' });
   const [study, setStudy] = useState({
@@ -40,7 +47,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
-        <Route exact path="/participant-home" element={<ParticipantHome user={user} setUser={setUser} setStudy={setStudy} setStatus={setStatus} />} />
+        <Route exact path="/participant-studies" element={<ParticipantStudies user={user} setUser={setUser} setStudy={setStudy} setStatus={setStatus} />} />
         <Route exact path="/researcher-home" element={<ResearcherHome user={user} setUser={setUser} setStudy={setStudy} />} />
         <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} />} />
         <Route exact path="/researcher-study/:id" element={<ResearcherStudy study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} />} />
@@ -54,7 +61,7 @@ function App() {
         <Route exact path="/participant-edit" element={<ParticipantEdit user={user} setUser={setUser} />} />
         <Route exact path="/dashboard" element={<Dashboard user={user} />} />
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
-        <Route exact path="/display-studies" element={<DisplayStudies user={user2} setUser={setUserTags} setStudy={setStudy} />} />
+        <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} />} />
       </Routes>
     </div>
   );

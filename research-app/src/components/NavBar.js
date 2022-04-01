@@ -90,10 +90,10 @@ function NavBar({ user, setUser }) {
         type="button"
         className="nav-btn"
         onClick={async () => {
-          navigate('/display-studies');
+          navigate('/participant-studies');
         }}
       >
-        STUDIES
+        MY STUDIES
       </button>
       <button type="button" className="nav-btn">MESSAGES</button>
       <button
