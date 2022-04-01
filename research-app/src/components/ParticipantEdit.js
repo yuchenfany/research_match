@@ -309,27 +309,12 @@ function ParticipantEdit({ user, setUser }) {
     });
   };
 
-  // preserve original state in case of cancel
-  let originalUser = {};
+  // // preserve original state in case of cancel
+  // let originalUser = {};
 
-  useEffect(() => {
-    originalUser = {
-      username: user.username,
-      password: user.password,
-      enrolled: user.enrolled,
-      age: user.age,
-      heightFeet: user.heightFeet,
-      heightInches: user.heightInches,
-      weight: user.weight,
-      sex: user.sex,
-      gender: user.gender,
-      allergies: user.allergies,
-      phys: user.phys,
-      psych: user.psych,
-      med: user.med,
-      type: user.type,
-    };
-  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem(user.username, user);
+  // }, []);
 
   async function handleUpdate(event) {
     if (await postUserInfo()) {
@@ -340,7 +325,9 @@ function ParticipantEdit({ user, setUser }) {
   }
 
   async function handleCancel() {
-    await setUser(originalUser);
+    // retrieve stored state
+    const stored = JSON.parse(localStorage.getItem(user.username));
+    await setUser(stored);
     navigate('/participant-home');
   }
 
@@ -487,7 +474,7 @@ function ParticipantEdit({ user, setUser }) {
           />
         </div>
         <div className="button-row">
-          {/* <input className="cancel-button" type="submit" value="CANCEL" onClick={handleCancel} /> */}
+          <input className="cancel-button" type="submit" value="CANCEL" onClick={handleCancel} />
           <input className="update-button" type="submit" value="UPDATE" onClick={handleUpdate} />
         </div>
       </div>

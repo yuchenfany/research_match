@@ -7,6 +7,28 @@ import '../assets/index.css';
 function NavBar({ user, setUser }) {
   const [accountToggled, setAccountToggled] = useState(false);
   const navigate = useNavigate();
+  const editProfile = () => {
+    const arr = {
+      username: user.username,
+      password: user.password,
+      enrolled: user.enrolled,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
+      type: user.type,
+    };
+
+    // store current state in case of 'Cancel'
+    localStorage.setItem(user.username, JSON.stringify(arr));
+    navigate(`/${(user.type ?? 0) === 0 ? 'participant' : 'researcher'}-edit`);
+  };
 
   const accountOptions = (
     <div
@@ -16,7 +38,7 @@ function NavBar({ user, setUser }) {
       <button
         type="button"
         className="account-btn"
-        onClick={async () => { navigate(`/${(user.type ?? 0) === 0 ? 'participant' : 'researcher'}-edit`); }}
+        onClick={editProfile}
       >
         EDIT PROFILE
       </button>
