@@ -75,6 +75,16 @@ function ParticipantEdit({ user, setUser }) {
     { label: 'Lexapro', value: 'lexapro' },
   ];
 
+  const createObjectArr = (tags) => {
+    const arr = [];
+
+    for (let i = 0; i < tags.length; i += 1) {
+      arr.push({ label: (tags[i])[0].toUpperCase() + (tags[i]).substring(1), value: tags[i] });
+    }
+
+    return arr;
+  };
+
   async function postUserInfo() {
     await fetch(`http://localhost:5000/record/participant-edit/${user.username}`, {
       method: 'POST',
@@ -341,7 +351,7 @@ function ParticipantEdit({ user, setUser }) {
             className="input-field"
             type="text"
             id="age"
-            value={user.Weight}
+            value={user.weight}
             onChange={updateWeight}
           />
           <div>lbs</div>
@@ -354,6 +364,7 @@ function ParticipantEdit({ user, setUser }) {
               id="male"
               value="male"
               name="option"
+              defaultChecked={(user.sex === 'male') ? 'checked' : ''}
               onClick={() => updateBioSex('male')}
             />
             <div>Male</div>
@@ -364,6 +375,7 @@ function ParticipantEdit({ user, setUser }) {
               id="female"
               value="female"
               name="option"
+              defaultChecked={(user.sex === 'female') ? 'checked' : ''}
               onClick={() => updateBioSex('female')}
             />
             <div>Female</div>
@@ -374,6 +386,7 @@ function ParticipantEdit({ user, setUser }) {
               id="intersex"
               value="intersex"
               name="option"
+              defaultChecked={(user.sex === 'intersex') ? 'checked' : ''}
               onClick={() => updateBioSex('intersex')}
             />
             <div>Intersex</div>
@@ -385,6 +398,10 @@ function ParticipantEdit({ user, setUser }) {
             <Select
               options={genderOptions}
               onChange={(option) => updateGender(option.value)}
+              defaultValue={{
+                label: user.gender[0].toUpperCase() + user.gender.substring(1),
+                value: user.gender,
+              }}
               styles={customStyles}
             />
           </div>
@@ -397,6 +414,7 @@ function ParticipantEdit({ user, setUser }) {
             options={allergyTags}
             isMulti
             onChange={(tags) => updateAllergies(tags)}
+            defaultValue={createObjectArr(user.allergies)}
             styles={customStyles}
           />
         </div>
@@ -408,7 +426,8 @@ function ParticipantEdit({ user, setUser }) {
             options={physTags}
             isMulti
             onChange={(tags) => updatePhys(tags)}
-            className="select-tags"
+            defaultValue={createObjectArr(user.phys)}
+            styles={customStyles}
           />
         </div>
         <div className="profile-row">
@@ -419,7 +438,8 @@ function ParticipantEdit({ user, setUser }) {
             options={psychTags}
             isMulti
             onChange={(tags) => updatePsych(tags)}
-            className="select-tags"
+            defaultValue={createObjectArr(user.psych)}
+            styles={customStyles}
           />
         </div>
         <div className="profile-row">
@@ -430,7 +450,9 @@ function ParticipantEdit({ user, setUser }) {
             options={medTags}
             isMulti
             onChange={(tags) => updateMed(tags)}
+            defaultValue={createObjectArr(user.med)}
             className="select-tags"
+            styles={customStyles}
           />
         </div>
         <input className="signup-button" type="submit" value="UPDATE" onClick={handleSubmit} />
