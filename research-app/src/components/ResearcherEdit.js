@@ -60,6 +60,7 @@ function ResearcherEdit({ user, setUser }) {
             className="profile-input"
             type="text"
             id="researcher"
+            value={user.name}
             onChange={updateResearcher}
           />
         </div>
@@ -69,6 +70,7 @@ function ResearcherEdit({ user, setUser }) {
             className="profile-input"
             type="text"
             id="organization"
+            value={user.organization}
             onChange={updateOrganization}
           />
         </div>
