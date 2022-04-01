@@ -66,6 +66,8 @@ function ResearcherProfile({ user, setUser }) {
         setOrgErr({ message: '' });
       }
 
+      event.preventDefault();
+
       return;
     }
 

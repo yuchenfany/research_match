@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
 function ParticipantProfile({ user, setUser }) {
   const navigate = useNavigate();
+  const [ageErr, setAgeErr] = useState({ message: '' });
+  const [feetErr, setFeetErr] = useState({ message: '' });
+  const [inchErr, setInchErr] = useState({ message: '' });
+  const [weightErr, setWeightErr] = useState({ message: '' });
+
+  const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -299,6 +305,37 @@ function ParticipantProfile({ user, setUser }) {
   };
 
   async function handleSubmit(event) {
+    if (!isValidInput(user.age) || !isValidInput(user.weight) || !isValidInput(user.heightFeet)
+    || !isValidInput(user.heightInches)) {
+      if (!isValidInput(user.age)) {
+        setAgeErr({ message: 'Age: Enter a number' });
+      } else {
+        setAgeErr({ message: '' });
+      }
+
+      if (!isValidInput(user.weight)) {
+        setWeightErr({ message: 'Weight: Enter a number' });
+      } else {
+        setWeightErr({ message: '' });
+      }
+
+      if (!isValidInput(user.heightFeet)) {
+        setFeetErr({ message: 'Feet: Enter a number' });
+      } else {
+        setFeetErr({ message: '' });
+      }
+
+      if (!isValidInput(user.heightInches)) {
+        setInchErr({ message: 'Inches: Enter a number' });
+      } else {
+        setInchErr({ message: '' });
+      }
+
+      event.preventDefault();
+
+      return;
+    }
+
     if (await verify()) {
       navigate('/participant-home');
     } else {
@@ -318,6 +355,7 @@ function ParticipantProfile({ user, setUser }) {
             id="age"
             onChange={updateAge}
           />
+          <span className="error-message">{ageErr.message}</span>
           <div>Height</div>
           <input
             className="input-field"
@@ -326,6 +364,7 @@ function ParticipantProfile({ user, setUser }) {
             onChange={updateHeightFeet}
           />
           <div>ft</div>
+          <span className="error-message">{feetErr.message}</span>
           <input
             className="input-field"
             type="text"
@@ -333,6 +372,7 @@ function ParticipantProfile({ user, setUser }) {
             onChange={updateHeightInches}
           />
           <div>in</div>
+          <span className="error-message">{inchErr.message}</span>
           <div>Weight</div>
           <input
             className="input-field"
@@ -341,6 +381,7 @@ function ParticipantProfile({ user, setUser }) {
             onChange={updateWeight}
           />
           <div>lbs</div>
+          <span className="error-message">{weightErr.message}</span>
         </div>
         <div className="profile-row">
           <div>Biological Sex</div>
