@@ -59,7 +59,7 @@ function Study({
       return array.concat(newElement);
     }
 
-    const updatedArray = updateArray(user.enrolled, [study.studyId]);
+    const updatedArray = updateArray(user.enrolled ?? [], [study.studyId]);
     await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
 
     const updatedUser = {

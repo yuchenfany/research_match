@@ -245,6 +245,69 @@ function EditStudy({ user, study, setStudy }) {
     deleteStudy().then(updateResearcherStudies());
   }
 
+  async function getParticipants() {
+    const response = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).catch((e) => { window.alert(e); });
+    const json = await response.json();
+    const participantIds = json?.participants ?? [];
+    const participants = await Promise.all(
+      participantIds.map(
+        async (id) => {
+          const participantData = await fetch(`http://localhost:5000/record/${id}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).catch((e) => { window.alert(e); });
+          const participant = await participantData.json();
+          return participant;
+        },
+      ),
+    );
+    return participants ?? [];
+  }
+
+  async function removeStudyForParticipants(participants) {
+    await Promise.all(
+      participants.map(
+        async (participant) => {
+          if (!participant) {
+            return;
+          }
+          const updatedStudies = participant.enrolled.filter((e) => e !== study.studyId) ?? [];
+          const bodyObj = participant;
+          bodyObj.enrolled = updatedStudies;
+          await fetch(`http://localhost:5000/record/participant-edit/${participant.username}`, {
+            method: 'POST',
+            body: JSON.stringify(bodyObj),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).catch((e) => { window.alert(e); });
+        },
+      ),
+    );
+  }
+
+  async function handleClose() {
+    await getParticipants().then((participants) => { removeStudyForParticipants(participants); });
+    const bodyObj = study;
+    bodyObj.closed = '1';
+    bodyObj.participants = [];
+    await fetch('http://localhost:5000/add-study', {
+      method: 'POST',
+      body: JSON.stringify(bodyObj),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).catch((e) => { window.alert(e); });
+    navigate('/researcher-home');
+  }
+
   return (
     <div className="Profile">
       <div className="profile-flex">
@@ -307,6 +370,7 @@ function EditStudy({ user, study, setStudy }) {
         </div>
         <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
         <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
+        <input className="signup-button" type="button" value="Close Study" onClick={handleClose} />
       </div>
     </div>
   );
