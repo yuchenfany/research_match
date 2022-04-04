@@ -145,7 +145,7 @@ studyRoutes.route('/add-study').post((req, response) => {
     compensation: req.body.compensation,
     duration: req.body.duration,
     tags: req.body.tags,
-    participants: [''],
+    participants: req.body.participants ?? [''],
     studyId: req.body.studyId,
     researchers: req.body.researchers,
   };
