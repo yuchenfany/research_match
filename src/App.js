@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect} from 'react';
 
 export default function App() {
@@ -18,30 +18,6 @@ export default function App() {
     return data;
   }
 
-  async function addStudy() {
-    const myobj = {
-      title: 'Test Study',
-      description: 'Test description',
-      compensation: '4 pennies',
-      duration: '4 hours',
-      tags: [],
-      participants: [],
-      studyId: 100,
-      researchers: [],
-    };
-
-    await fetch('http://localhost:5000/add-study', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(myobj),
-      })
-        .catch((e) => {
-          window.alert(e);
-        });
-  }
-
   useEffect(() => {
     getStudy()
       .then(setStudy);
@@ -51,7 +27,6 @@ export default function App() {
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
       <Text>{study.title}</Text> 
-      <Button title="Add Study" onPress={() => addStudy()} />
       <StatusBar style="auto" />
     </View>
   );

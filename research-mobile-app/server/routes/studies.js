@@ -137,6 +137,7 @@ studyRoutes.route('/study/:id').delete((req, response) => {
 //     });
 // });
 
+// add study
 studyRoutes.route('/add-study').post((req, response) => {
   const dbConnect = dbo.getDb('research-app');
   const myobj = {
