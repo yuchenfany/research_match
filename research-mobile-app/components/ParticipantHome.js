@@ -4,7 +4,8 @@
 import React, { useState, useEffect } from 'react';
 // import NavBar from './NavBar';
 
-function ParticipantHome({ user, setUser, study, setStudy, navigation }) { // add props user
+function ParticipantHome({ route, navigation }) { // add props user
+  let {user} = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
 
   console.log(user);
@@ -67,6 +68,11 @@ function ParticipantHome({ user, setUser, study, setStudy, navigation }) { // ad
 
   return (
     <div className="Home">
+      <h1>WELCOME {user.username}</h1>
+      <h2>You've officially been hacked and I now know your username is: </h2>
+      <h2>{user.username} </h2> 
+      <h2>and your password is: </h2> 
+      <h2>{user.password}</h2>
       {/* <NavBar user={user} /> */}
       <div className="study-flex">
         <div className="header-left">Eligible Studies</div>

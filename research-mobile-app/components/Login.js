@@ -2,6 +2,10 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
+import ParticipantHome from './ParticipantHome';
+import { NavigationContainer } from '@react-navigation/native';
+import  { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 function Login({ navigation }) {
   const [study, setStudy] = useState({
@@ -80,11 +84,7 @@ function Login({ navigation }) {
         console.log(user);
 
         navigation.navigate('ParticipantHome', {
-          navigation,
-          user,
-          setUser,
-          study,
-          setStudy,
+          user: user,
         });
       } else if (json.type === 1) {
         // makes sure all fields are available in home
@@ -161,4 +161,19 @@ function Login({ navigation }) {
   );
 }
 
-export default Login;
+// the app component will configure the screens and the routes
+
+// create a navigation stack --> refrences the thing
+const Stack = createNativeStackNavigator();
+export default function App() {
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator initialRouteName="Research Application">
+        <Stack.Screen name="Research Application" component={Login} />
+        <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+
+}
+// export default Login;
