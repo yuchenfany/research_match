@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
+import ResearcherHome from './ResearcherHome';
+
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -95,6 +97,10 @@ function Login({ navigation }) {
           organization: json.organization,
           type: json.type,
         });
+        console.log(user);
+        navigation.navigate('ResearcherHome', {
+          user: user,
+        });
         //navigate('/researcher-home');
       }
     } else {
@@ -171,6 +177,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Research Application">
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
       </Stack.Navigator>
     </NavigationContainer>
   );
