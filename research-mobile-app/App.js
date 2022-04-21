@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './components/Login'
 import ParticipantHome from './components/ParticipantHome'
+import Study from './components/Study'
 
 /* REFERENCE CODE
 import { NavigationContainer } from '@react-navigation/native';
@@ -35,6 +36,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />  
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="Study" component={Study} />
       </Stack.Navigator>
     </NavigationContainer>
   );
