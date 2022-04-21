@@ -61,11 +61,15 @@ function ParticipantHome({ route, navigation }) { // add props user
   //     .then(setEnrolledStudies);
   // }, []);
 
-//   function goToStudy(studyId) {
-//     console.log(studyId);
-//     setStudy({ studyId });
-//     navigate(`/study/${studyId}`);
-//   }
+  const goToStudy = (studyId) => {
+    // console.log(studyId);
+    // setStudy({ studyId });
+    // navigate(`/study/${studyId}`);
+    console.log('in goToStudy');
+    navigation.navigate('Study', {
+      user: user,
+    });
+  }
 
   const hardcodedStudy = () => {
     console.log('in hardcodedStudy');
@@ -73,10 +77,6 @@ function ParticipantHome({ route, navigation }) { // add props user
       user: user,
     });
     console.log('after navigation');
-  }
-
-  const testFunction = () => {
-    console.log('IN TEST FUNCTION');
   }
 
   const styles = StyleSheet.create({

@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Study({ route, navigation }) {
   let { user } = route.params;
   // Hardcoded:
-  const studyId = 2;
-  // const [study, setStudy] = useState({});
+  // const studyId = 2;
+  const [study, setStudy] = useState({ studyId: 2 });
 
   async function getStudy() {
     const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
