@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
+import Study from './Study'
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -171,6 +172,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Research Application">
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="Study" component={Study} />
       </Stack.Navigator>
     </NavigationContainer>
   );

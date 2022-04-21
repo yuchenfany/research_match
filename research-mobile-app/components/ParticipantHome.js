@@ -2,10 +2,11 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useState, useEffect } from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
 // import NavBar from './NavBar';
 
 function ParticipantHome({ route, navigation }) { // add props user
-  let {user} = route.params;
+  let { user } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
 
   console.log(user);
@@ -66,17 +67,32 @@ function ParticipantHome({ route, navigation }) { // add props user
 //     navigate(`/study/${studyId}`);
 //   }
 
+  const hardcodedStudy = () => {
+    console.log('in hardcodedStudy');
+    navigation.navigate('Study', {
+      user: user,
+    });
+    console.log('after navigation');
+  }
+
+  const styles = StyleSheet.create({
+    button: {
+      height: 100,
+      width: 300,
+    },
+  });
+
   return (
-    <div className="Home">
-      <h1>WELCOME {user.username}</h1>
-      <h2>You've officially been hacked and I now know your username is: </h2>
-      <h2>{user.username} </h2> 
-      <h2>and your password is: </h2> 
-      <h2>{user.password}</h2>
+    <View>
+      <Text>WELCOME {user.username}</Text>
+      <Text>You've officially been hacked and I now know your username is: </Text>
+      <Text>{user.username} </Text> 
+      <Text>and your password is: </Text> 
+      <Text>{user.password}</Text>
       {/* <NavBar user={user} /> */}
-      <div className="study-flex">
-        <div className="header-left">Eligible Studies</div>
-        <div>
+      <View>
+        <Text>Eligible Studies</Text>
+        {/* <div>
           {
           enrolledStudies.length === 0 ? []
             : enrolledStudies.map(
@@ -86,16 +102,18 @@ function ParticipantHome({ route, navigation }) { // add props user
                     <div key={singleStudy.studyId} className="study">
                       <div className="study-title">{singleStudy.title}</div>
                       <div className="study-tag">{singleStudy.tags}</div>
-                      {/* <button className="view-button" type="button" key={singleStudy.studyId} onClick={() => goToStudy(singleStudy.studyId)}>VIEW</button> */}
+                      <button className="view-button" type="button" key={singleStudy.studyId} onClick={() => goToStudy(singleStudy.studyId)}>VIEW</button>
                     </div>
                   ),
                 )
               ),
             )
           }
-        </div>
-      </div>
-    </div>
+        </div> */}
+        <Text>FOR TESTING STUDY.JS</Text>
+        <Button title="GO TO STUDY" onPress={hardcodedStudy} style={styles.button} />
+      </View>
+    </View>
   );
 }
 

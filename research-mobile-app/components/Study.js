@@ -2,15 +2,11 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useEffect } from 'react';
-import '../assets/index.css';
-// import { useNavigate } from 'react-router-dom';
 
-// TO DO: add back in studyId prop
-function Study({
-  study, setStudy, user, setUser, status, setStatus,
-}) {
+function Study({ route, navigation }) {
+  let { user } = route.params;
   // Hardcoded:
-  // const studyId = 0;
+  const studyId = 2;
   // const [study, setStudy] = useState({});
 
   async function getStudy() {
