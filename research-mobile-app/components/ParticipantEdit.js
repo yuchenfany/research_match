@@ -8,8 +8,21 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 function ParticipantHome({ route, navigation }) { // add props user
   let {user, setUser} = route.params;
   const[tempUser, setTempUser] = useState({
-      age: 0,
       username: user.username,
+      password: user.password, // NOTE: unhashes password
+      age: 0,
+      // enrolled: user.enrolled,
+      // age: user.age,
+      // heightFeet: user.heightFeet,
+      // heightInches: user.heightInches,
+      // weight: user.weight,
+      // sex: user.sex,
+      // gender: user.gender,
+      // allergies: user.allergies,
+      // phys: user.phys,
+      // psych: user.psych,
+      // med: user.med,
+      // type: user.type,
     }
   );
 
@@ -24,24 +37,26 @@ function ParticipantHome({ route, navigation }) { // add props user
 
     await setTempUser({
       username: tempUser.username,
-    //   password: user.password,
-    //   enrolled: user.enrolled,
+      password: tempUser.password,
       age: event.target.value,
-    //   heightFeet: user.heightFeet,
-    //   heightInches: user.heightInches,
-    //   weight: user.weight,
-    //   sex: user.sex,
-    //   gender: user.gender,
-    //   allergies: user.allergies,
-    //   phys: user.phys,
-    //   psych: user.psych,
-    //   med: user.med,
-    //   type: user.type,
+      // enrolled: tempUser.enrolled,
+      // heightFeet: tempUser.heightFeet,
+      // heightInches: tempUser.heightInches,
+      // weight: tempUser.weight,
+      // sex: tempUser.sex,
+      // gender: tempUser.gender,
+      // allergies: tempUser.allergies,
+      // phys: tempUser.phys,
+      // psych: tempUser.psych,
+      // med: tempUser.med,
+      // type: tempUser.type,
     });
 
     console.log('EVENT: AGE 2');
     console.log(tempUser.age);
     console.log(tempUser.username);
+    console.log(tempUser.password);
+    console.log(tempUser.sex);
   };
 
   const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));

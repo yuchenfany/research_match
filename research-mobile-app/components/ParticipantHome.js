@@ -10,6 +10,9 @@ function ParticipantHome({ route, navigation }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
 
   console.log(user);
+  console.log('PARTICIPANT HOME =================');
+  console.log(user.heightFeet);
+
 
   // gets list of studies that match user's tags
   async function getStudyIds() {

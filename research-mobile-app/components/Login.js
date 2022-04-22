@@ -87,6 +87,7 @@ function Login({ navigation }) {
         console.log(user);
         console.log('JSON USER LOGIN');
         console.log(json.age);
+        console.log(json.heightFeet);
 
         navigation.navigate('ParticipantHome', {
           user: user,
