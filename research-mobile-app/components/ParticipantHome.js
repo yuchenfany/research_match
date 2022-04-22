@@ -83,6 +83,7 @@ function ParticipantHome({ route, navigation }) { // add props user
 
   return (
     <View>
+      <Text>AGE {user.age}</Text>
       <Text>WELCOME {user.username}</Text>
       <Text>You've officially been hacked and I now know your username is: </Text>
       <Text>{user.username} </Text> 

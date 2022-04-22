@@ -85,6 +85,8 @@ function Login({ navigation }) {
         });
 
         console.log(user);
+        console.log('JSON USER LOGIN');
+        console.log(json.age);
 
         navigation.navigate('ParticipantHome', {
           user: user,
