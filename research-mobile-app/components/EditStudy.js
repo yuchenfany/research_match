@@ -252,7 +252,7 @@ function EditStudy({ route, navigation }) {
     console.log(updatedStudies);
 
     const bodyObj = {
-      // username: user.username,
+      username: user.username,
       // password: user.password,
       // name: user.name,
       // organization: user.organization,
