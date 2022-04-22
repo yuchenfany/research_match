@@ -5,7 +5,7 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 
 function ParticipantStudies({ route, navigation }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
-  const { user, setUser, setStudy, setStatus } = route.params;
+  const { user, setUser } = route.params;
 
   // gets list of all enrolled studies for user
   // NOTE: remove hardcoding once users are enrolled in studies
@@ -46,12 +46,12 @@ function ParticipantStudies({ route, navigation }) { // add props user
   }, []);
 
   function goToStudy(studyId) {
-    setStudy({ studyId });
-    if (user.enrolled.indexOf(studyId) > -1) {
-      setStatus({ isEnrolled: true });
-    } else {
-      setStatus({ isEnrolled: false });
-    }
+    // setStudy({ studyId });
+    // if (user.enrolled.indexOf(studyId) > -1) {
+    //   setStatus({ isEnrolled: true });
+    // } else {
+    //   setStatus({ isEnrolled: false });
+    // }
 	navigation.navigate('Study', route.params);
   }
 
@@ -70,7 +70,7 @@ function ParticipantStudies({ route, navigation }) { // add props user
 				  	className="view-button"
 					title="VIEW"
 					key={studyJson.studyId}
-					onClick={() => goToStudy(2)}
+					onPress={() => goToStudy(2)}
 				  >
 				  </Button>
                 </View>
@@ -84,7 +84,7 @@ function ParticipantStudies({ route, navigation }) { // add props user
         <Text className="header-left">For Testing Purposes: Delete Later</Text>
         <View className="study">
           <Text className="study-title">Sleep Research</Text>
-          <Button className="view-button" title="VIEW" key={2} onClick={() => goToStudy(2)}></Button>
+          <Button className="view-button" title="VIEW" key={2} onPress={() => goToStudy(2)}></Button>
         </View>
       </View>
       <View className="study-transfer">
@@ -94,7 +94,7 @@ function ParticipantStudies({ route, navigation }) { // add props user
           <Button
 		  	className="view-button"
 			title="Add Study"
-			onClick={() => navigation.push('AddStudy', route.params)}
+			onPress={() => navigation.push('AddStudy', route.params)}
 			>
 		  </Button>
         </View>
