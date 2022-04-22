@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
-// import NavBar from './NavBar';
+import NavBar from './NavBar';
 
 function ParticipantHome({ route, navigation }) { // add props user
   let { user, setUser } = route.params;
@@ -90,6 +90,7 @@ function ParticipantHome({ route, navigation }) { // add props user
 
   return (
     <View style={styles.button}>
+      <NavBar user={user} setUser={setUser} navigation={navigation} />
       <Button
         title="GO TO STUDY"
         onPress={() => hardcodedStudy()}
