@@ -9,7 +9,7 @@ function ResearcherStudy({ route, navigation}) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const navigate = useNavigate();
   async function getStudy() {
-    // console.log(studyId);
+    console.log(study.studyId);
     const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'GET',
       headers: {

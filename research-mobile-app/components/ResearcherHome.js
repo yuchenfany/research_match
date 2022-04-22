@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 function ResearcherHome({ route, navigation}) { // add props user
   let {user, setUser, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
+  // const [study2, setStudy2] = useState();
   // const navigate = useNavigate();
   async function getStudyIds() {
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
@@ -37,6 +38,7 @@ function ResearcherHome({ route, navigation}) { // add props user
       },
     });
     console.log(data);
+    // setStudy2(data.json());
     return data.json();
   }
 
@@ -54,11 +56,11 @@ function ResearcherHome({ route, navigation}) { // add props user
       .then(setEnrolledStudies);
   }, []);
 
-  function goToStudy(studyId) {
+  async function goToStudy(studyId) {
     setStudy({ studyId });
     navigation.navigate('ResearcherStudy', {
-      user: user,
-      study: getStudy(studyId), 
+      user: user, 
+      study: await getStudy(studyId), 
       setStudy: setStudy
     });  }
 
