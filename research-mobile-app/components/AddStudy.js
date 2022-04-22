@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 // import NavBar from './NavBar';
 
-function ResearcherHome({ route, navigation}) { // add props user
+function AddStudy({ route, navigation}) { // add props user
   let {user, setUser, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const navigate = useNavigate();
@@ -56,15 +56,12 @@ function ResearcherHome({ route, navigation}) { // add props user
 
   function goToStudy(studyId) {
     setStudy({ studyId });
-    navigation.navigate('ResearcherStudy', {
-      user: user,
-      study: getStudy(studyId), 
-      setStudy: setStudy
-    });  }
+    navigation.navigate(`/researcher-study/${studyId}`);
+  }
 
   return (
     <div className="ResearcherProfile">
-      <div className="header-left">Researcher Home</div>
+      <div className="header-left">Add Study Page</div>
       <div className="study-flex">
         <div className="header-left">Enrolled Studies</div>
         <div>
@@ -85,11 +82,11 @@ function ResearcherHome({ route, navigation}) { // add props user
         <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
         <div className="study">
           <div className="study-transfer">Go to Study Page</div>
-          <button className="view-button" type="button" onClick={() => navigation.navigate('AddStudy', {user: user, setUser: setUser, setStudy: setStudy})}>Add Study</button>
+          <button className="view-button" type="button" onClick={() => navigation.navigate('ResearcherHome', {user: user, setUser: setUser, setStudy: setStudy})}>Go back to Home</button>
         </div>
       </div>
     </div>
   );
 }
 
-export default ResearcherHome;
+export default AddStudy;

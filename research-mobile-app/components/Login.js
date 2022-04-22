@@ -5,6 +5,10 @@ import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
 import Study from './Study'
 import ResearcherHome from './ResearcherHome';
+import AddStudy from './AddStudy';
+import ResearcherStudy from './ResearcherStudy';
+
+
 
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -102,6 +106,8 @@ function Login({ navigation }) {
         console.log(user);
         navigation.navigate('ResearcherHome', {
           user: user,
+          setUser: setUser, 
+          setStudy: setStudy
         });
         //navigate('/researcher-home');
       }
@@ -181,6 +187,10 @@ export default function App() {
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
+        <Stack.Screen name="AddStudy" component={AddStudy} />
+        <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );
