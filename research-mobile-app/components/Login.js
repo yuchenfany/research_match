@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
 import ResearcherHome from './ResearcherHome';
+import ParticipantEdit from './ParticipantEdit';
 
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -87,6 +88,7 @@ function Login({ navigation }) {
 
         navigation.navigate('ParticipantHome', {
           user: user,
+          setUser: setUser,
         });
       } else if (json.type === 1) {
         // makes sure all fields are available in home
@@ -178,6 +180,7 @@ export default function App() {
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
+        <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
       </Stack.Navigator>
     </NavigationContainer>
   );

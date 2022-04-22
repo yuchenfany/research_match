@@ -2,10 +2,11 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useState, useEffect } from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
 // import NavBar from './NavBar';
 
 function ParticipantHome({ route, navigation }) { // add props user
-  let {user} = route.params;
+  let {user, setUser} = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
 
   console.log(user);
@@ -19,16 +20,22 @@ function ParticipantHome({ route, navigation }) { // add props user
       },
     });
     const json = await data.json();
+    console.log('JSON');
+    console.log(json.phys);
+    console.log('FIELD');
+    console.log(user.phys);
 
-    setUser({
+    await setUser({
       username: user.username,
       password: user.password,
       phys: json.phys,
       psych: json.psych,
       med: json.med,
     });
+
     // return json.tags; (once tags are implemented in phys)
-    const userTags = user.phys.concat(user.psych.concat(user.med));
+    // NOTE: changed from user.phys to json.phys etc
+    const userTags = json.phys.concat(json.psych.concat(json.med));
     console.log(userTags);
     console.log(user.phys);
     return userTags;
@@ -55,6 +62,14 @@ function ParticipantHome({ route, navigation }) { // add props user
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 
+  async function editProfile() {
+    console.log('EDIT NAVIGATING');
+    navigation.navigate('ParticipantEdit', {
+      user: user,
+      setUser,
+    });
+  }
+
   useEffect(() => {
     getAllStudyJson()
       .then(setEnrolledStudies);
@@ -67,15 +82,16 @@ function ParticipantHome({ route, navigation }) { // add props user
 //   }
 
   return (
-    <div className="Home">
-      <h1>WELCOME {user.username}</h1>
-      <h2>You've officially been hacked and I now know your username is: </h2>
-      <h2>{user.username} </h2> 
-      <h2>and your password is: </h2> 
-      <h2>{user.password}</h2>
+    <View>
+      <Text>WELCOME {user.username}</Text>
+      <Text>You've officially been hacked and I now know your username is: </Text>
+      <Text>{user.username} </Text> 
+      <Text>and your password is: </Text> 
+      <Text>{user.password}</Text>
       {/* <NavBar user={user} /> */}
-      <div className="study-flex">
-        <div className="header-left">Eligible Studies</div>
+      <View>
+        <Button title="EDIT PROFILE" onPress={() => editProfile()}/>
+        <Text className="header-left">Eligible Studies</Text>
         <div>
           {
           enrolledStudies.length === 0 ? []
@@ -94,8 +110,8 @@ function ParticipantHome({ route, navigation }) { // add props user
             )
           }
         </div>
-      </div>
-    </div>
+      </View>
+    </View>
   );
 }
 
