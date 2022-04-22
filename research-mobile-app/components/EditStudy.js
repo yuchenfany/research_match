@@ -18,9 +18,6 @@ function EditStudy({ route, navigation }) {
     researchers: study.researchers,
   });
 
-  console.log(study);
-  console.log(temp);
-
   // async function getStudy() {
   //   const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
   //     method: 'GET',
@@ -102,6 +99,7 @@ function EditStudy({ route, navigation }) {
     //   researchers: temp.researchers,
     // };
     // console.log(myobj.title);
+
     // edits the study
     await fetch('http://localhost:5000/study/edit-study', {
       method: 'POST',
@@ -117,64 +115,67 @@ function EditStudy({ route, navigation }) {
   }
 
   const updateTitle = async (event) => {
-    console.log('CALLING UPDATETITLE');
-    console.log(temp.title);
     await setTemp({
+      _id: temp._id,
       title: event.target.value,
-      // description: study.description,
-      // compensation: study.compensation,
-      // duration: study.duration,
-      // tags: study.tags,
-      // participants: study.participants,
-      // studyId: study.studyId,
-      // researchers: study.researchers,
+      description: temp.description,
+      compensation: temp.compensation,
+      duration: temp.duration,
+      tags: temp.tags,
+      participants: temp.participants,
+      studyId: temp.studyId,
+      researchers: temp.researchers,
     });
   };
   const updateDescription = async (event) => {
-    setStudy({
-      title: study.title,
+    await setTemp({
+      _id: temp._id,
+      title: temp.title,
       description: event.target.value,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
+      compensation: temp.compensation,
+      duration: temp.duration,
+      tags: temp.tags,
+      participants: temp.participants,
+      studyId: temp.studyId,
+      researchers: temp.researchers,
     });
   };
   const updateCompensation = async (event) => {
-    setStudy({
-      title: study.title,
-      description: study.description,
+    await setTemp({
+      _id: temp._id,
+      title: temp.title,
+      description: temp.description,
       compensation: event.target.value,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
+      duration: temp.duration,
+      tags: temp.tags,
+      participants: temp.participants,
+      studyId: temp.studyId,
+      researchers: temp.researchers,
     });
   };
   const updateDuration = async (event) => {
-    setStudy({
-      title: study.title,
-      description: study.description,
-      compensation: study.compensation,
+    await setTemp({
+      _id: temp._id,
+      title: temp.title,
+      description: temp.description,
+      compensation: temp.compensation,
       duration: event.target.value,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
+      tags: temp.tags,
+      participants: temp.participants,
+      studyId: temp.studyId,
+      researchers: temp.researchers,
     });
   };
   const updateResearcher = async (event) => {
-    setStudy({
-      title: study.title,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
+    await setTemp({
+      _id: temp._id,
+      title: temp.title,
+      description: temp.description,
+      compensation: temp.compensation,
+      duration: temp.duration,
+      tags: temp.tags,
+      participants: temp.participants,
+      studyId: temp.studyId,
       researchers: event.target.value,
     });
   };
