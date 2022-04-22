@@ -87,7 +87,7 @@ function ResearcherHome({ route, navigation}) { // add props user
         <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
         <div className="study">
           <div className="study-transfer">Go to Study Page</div>
-          <button className="view-button" type="button" onClick={() => navigation.navigate('AddStudy', {user: user, setUser: setUser, setStudy: setStudy})}>Add Study</button>
+          <button className="view-button" type="button" onClick={() => navigation.navigate('AddStudy', {user: user, setUser: setUser})}>Add Study</button>
         </div>
       </div>
     </div>
