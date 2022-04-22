@@ -5,10 +5,41 @@ import React, { useEffect, useState } from 'react';
 import { View, Button, Text } from 'react-native';
 
 function Study({ route, navigation }) {
-  let { user, setUser, status, setStatus } = route.params;
+  // let { user, setUser, status, setStatus } = route.params;
+  let { user, setUser } = route.params;
   // Hardcoded:
   // const studyId = 2;
   const [study, setStudy] = useState({ studyId: 2 });
+  const [status, setStatus] = useState({ isEnrolled: false });
+
+  // console.log('ENROLL STATUS');
+  // console.log(status.isEnrolled);
+
+  async function getUserStudies() {
+    console.log('GOING TO FETCH USER STUDIES');
+    const studyData = await fetch(`http://localhost:5000/record/studies/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await studyData.json();
+    console.log(data);
+    return data;
+  }
+
+  async function checkEnrollment() {
+    const userStudies = await getUserStudies();
+    const arr = userStudies.enrolled;
+    console.log(arr);
+    // const result = arr.find((element) => { element === study.studyId });
+    // console.log(result);
+    if (arr.includes(study.studyId)) {
+      console.log('SETTING TO TRUE');
+      await setStatus({ isEnrolled: true });
+    }
+    console.log('AFTER IF STATEMENT');
+  }
 
   async function getStudy() {
     const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
@@ -23,6 +54,8 @@ function Study({ route, navigation }) {
   }
 
   useEffect(() => {
+    checkEnrollment();
+    console.log(status.isEnrolled);
     getStudy()
       .then(setStudy);
   }, []);
@@ -118,13 +151,17 @@ function Study({ route, navigation }) {
   }
 
   async function enroll() {
-    await setStatus({ isEnrolled: true });
+    // await setStatus({ isEnrolled: true });
     enrollUpdateStudy().then(enrollUpdateUser());
+    console.log('should set isEnrolled to true');
+    console.log(status.isEnrolled);
   }
 
   async function drop() {
-    await setStatus({ isEnrolled: false });
+    // await setStatus({ isEnrolled: false });
     dropUpdateStudy().then(dropUpdateUser());
+    console.log('should set isEnrolled to false');
+    console.log(status.isEnrolled);
   }
 
   return (

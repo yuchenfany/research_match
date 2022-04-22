@@ -26,6 +26,7 @@ function Login({ navigation }) {
   });
   const [error, setError] = useState({ message: '' });
   // const [samePassword, setSamePassword] = useState(0);
+  // const [status, setStatus] = useState({ isEnrolled: false });
 
   async function handleSubmit(event) {
     console.log(user.username);
@@ -87,6 +88,8 @@ function Login({ navigation }) {
         navigation.navigate('ParticipantHome', {
           user: user,
           setUser: setUser,
+          // status: status,
+          // setStatus: setStatus,
         });
       } else if (json.type === 1) {
         // makes sure all fields are available in home
