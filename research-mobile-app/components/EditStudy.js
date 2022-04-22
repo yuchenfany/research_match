@@ -1,11 +1,26 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button } from 'react-native';
 // import Select from 'react-select';
 
 function EditStudy({ route, navigation }) {
-  let {user, study, setStudy } = route.params;
+  let {user, setUser, study, setStudy } = route.params;
+  const [temp, setTemp] = useState({
+    _id: study._id,
+    title: study.title,
+    description: study.description,
+    compensation: study.compensation,
+    duration: study.duration,
+    tags: study.tags,
+    participants: study.participants,
+    studyId: study.studyId,
+    researchers: study.researchers,
+  });
+
+  console.log(study);
+  console.log(temp);
+
   // async function getStudy() {
   //   const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
   //     method: 'GET',
@@ -76,36 +91,24 @@ function EditStudy({ route, navigation }) {
 
   // }
   async function verify() {
-    setStudy({
-      title: study.title,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
-    // }, () => {
-    //   addStudy();
-    });
-    const myobj = {
-      title: study.title,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
-    };
-    console.log(myobj.title);
+    // const myobj = {
+    //   title: temp.title,
+    //   description: temp.description,
+    //   compensation: temp.compensation,
+    //   duration: temp.duration,
+    //   tags: temp.tags,
+    //   participants: temp.participants,
+    //   studyId: temp.studyId,
+    //   researchers: temp.researchers,
+    // };
+    // console.log(myobj.title);
     // edits the study
     await fetch('http://localhost:5000/study/edit-study', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(myobj),
+      body: JSON.stringify(temp),
     })
       .catch((e) => {
         window.alert(e);
@@ -114,15 +117,17 @@ function EditStudy({ route, navigation }) {
   }
 
   const updateTitle = async (event) => {
-    setStudy({
+    console.log('CALLING UPDATETITLE');
+    console.log(temp.title);
+    await setTemp({
       title: event.target.value,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
+      // description: study.description,
+      // compensation: study.compensation,
+      // duration: study.duration,
+      // tags: study.tags,
+      // participants: study.participants,
+      // studyId: study.studyId,
+      // researchers: study.researchers,
     });
   };
   const updateDescription = async (event) => {
@@ -196,9 +201,15 @@ function EditStudy({ route, navigation }) {
       researchers: study.researchers,
     });
   };
+
   async function handleSubmit(event) {
     if (await verify()) {
-      navigate('/researcher-home');
+      await setStudy(temp);
+      navigation.navigate('ResearcherHome', {
+        user,
+        setUser,
+        setStudy,
+      });
     } else {
       event.preventDefault();
     }
@@ -210,7 +221,11 @@ function EditStudy({ route, navigation }) {
       method: 'DELETE',
       body: null,
     });
-    navigate('/researcher-home');
+    navigation.navigate('ResearcherHome', {
+      user,
+      setUser,
+      setStudy,
+    });
   }
 
   // for deleting a study: updates a researcher's study array
@@ -309,15 +324,15 @@ function EditStudy({ route, navigation }) {
   // }
 
   return (
-    <View>
-      <Text>EDIT STUDY: {study.title}</Text>
-      <View>
+    <div>
+      <div>EDIT STUDY: {study.title}</div>
+      <div>
           <div>Title:</div>
           <input
             className="small-input"
             type="text"
             id="title"
-            value={study.title}
+            value={temp.title}
             onChange={updateTitle}
           />
           <div>Description:</div>
@@ -325,7 +340,7 @@ function EditStudy({ route, navigation }) {
             className="small-input"
             type="text"
             id="description"
-            value={study.description}
+            value={temp.description}
             onChange={updateDescription}
           />
           <div>Compensation:</div>
@@ -333,7 +348,7 @@ function EditStudy({ route, navigation }) {
             className="small-input"
             type="text"
             id="compensation"
-            value={study.compensation}
+            value={temp.compensation}
             onChange={updateCompensation}
           />
           <div>Duration:</div>
@@ -341,7 +356,7 @@ function EditStudy({ route, navigation }) {
             className="small-input"
             type="text"
             id="duration"
-            value={study.duration}
+            value={temp.duration}
             onChange={updateDuration}
           />
           <div>Lead Researcher:</div>
@@ -349,12 +364,12 @@ function EditStudy({ route, navigation }) {
             className="small-input"
             type="text"
             id="researchers"
-            value={study.researchers}
+            value={temp.researchers}
             onChange={updateResearcher}
           />
-        </View>
-        <Button title="EDIT STUDY" onPress={() => handleSubmit()}/>
-    </View>
+        </div>
+        <Button title="EDIT STUDY" type="submit" onPress={() => handleSubmit()}/>
+    </div>
 
     // <div className="Profile">
     //   <div className="profile-flex">

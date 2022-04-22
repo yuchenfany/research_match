@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 // import NavBar from './NavBar';
 
 function ResearcherStudy({ route, navigation}) { // add props user
-  let {user, study, setStudy } = route.params;
+  let {user, setUser, study, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const navigate = useNavigate();
   async function getStudy() {
@@ -30,6 +30,7 @@ function ResearcherStudy({ route, navigation}) { // add props user
   const goToEditStudy = () => {
     navigation.navigate('EditStudy', {
       user,
+      setUser,
       study,
       setStudy,
     });
