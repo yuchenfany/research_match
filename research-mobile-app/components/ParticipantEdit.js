@@ -7,6 +7,11 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 
 function ParticipantHome({ route, navigation }) { // add props user
   let {user, setUser} = route.params;
+  const[tempUser, setTempUser] = useState({
+      age: 0,
+      username: user.username,
+    }
+  );
 
   const [ageErr, setAgeErr] = useState({ message: '' });
 //   const [feetErr, setFeetErr] = useState({ message: '' });
@@ -17,30 +22,33 @@ function ParticipantHome({ route, navigation }) { // add props user
     console.log('EVENT: AGE');
     console.log(event.target.value);
 
-    await setUser({
-      username: user.username,
-      password: user.password,
-      enrolled: user.enrolled,
+    await setTempUser({
+      username: tempUser.username,
+    //   password: user.password,
+    //   enrolled: user.enrolled,
       age: event.target.value,
-      heightFeet: user.heightFeet,
-      heightInches: user.heightInches,
-      weight: user.weight,
-      sex: user.sex,
-      gender: user.gender,
-      allergies: user.allergies,
-      phys: user.phys,
-      psych: user.psych,
-      med: user.med,
-      type: user.type,
+    //   heightFeet: user.heightFeet,
+    //   heightInches: user.heightInches,
+    //   weight: user.weight,
+    //   sex: user.sex,
+    //   gender: user.gender,
+    //   allergies: user.allergies,
+    //   phys: user.phys,
+    //   psych: user.psych,
+    //   med: user.med,
+    //   type: user.type,
     });
 
     console.log('EVENT: AGE 2');
-    console.log(user.age);
+    console.log(tempUser.age);
+    console.log(tempUser.username);
   };
 
   const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
 
   async function handleUpdate(event) {
+    console.log('=============HANDLE UPDATE REACHED=============');
+
     // if (!isValidInput(user.age) || !isValidInput(user.weight) || !isValidInput(user.heightFeet)
     // || !isValidInput(user.heightInches)) {
     //   if (!isValidInput(user.age)) {
@@ -72,7 +80,10 @@ function ParticipantHome({ route, navigation }) { // add props user
     //   return;
     // }
 
+
     if (await postUserInfo()) {
+        await setUser(tempUser);
+
         navigation.navigate('ParticipantHome', {
             user,
             setUser,
@@ -83,12 +94,14 @@ function ParticipantHome({ route, navigation }) { // add props user
   }
 
   async function postUserInfo() {
-    await fetch(`http://localhost:5000/record/participant-edit/${user.username}`, {
+    console.log('TEMP USER LOG');
+    // console.log(JSON.stringify(tempUser));
+    await fetch(`http://localhost:5000/record/participant-edit/${tempUser.username}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(tempUser),
     })
       .catch((e) => {
         window.alert(e);
