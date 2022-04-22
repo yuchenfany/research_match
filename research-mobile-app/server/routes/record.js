@@ -141,7 +141,7 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
   const newvalues = {
     $set: {
       username: req.body.username,
-      password: req.body.password,
+      // password: req.body.password,
       enrolled: req.body.enrolled,
     },
   };
@@ -182,13 +182,13 @@ recordRoutes.route('/record/researcher-studies/:username').post((req, response) 
 
   const newvalues = {
     $set: {
-      username: req.body.username,
-      password: req.body.password,
-      name: req.body.name,
-      organization: req.body.organization,
+      // username: req.body.username,
+      // password: req.body.password,
+      // name: req.body.name,
+      // organization: req.body.organization,
       studies: req.body.studies,
-      type: req.body.type,
-      title: req.body.title,
+      // type: req.body.type,
+      // title: req.body.title,
     },
   };
   dbConnect

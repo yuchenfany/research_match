@@ -1,0 +1,67 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+
+import React, { useState, useEffect } from 'react';
+// import NavBar from './NavBar';
+
+function ResearcherStudy({ route, navigation}) { // add props user
+  let {user, setUser, study, setStudy } = route.params;
+  const [enrolledStudies, setEnrolledStudies] = useState([]);
+  // const navigate = useNavigate();
+  async function getStudy() {
+    console.log(study.studyId);
+    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await studyData.json();
+    console.log(data);
+
+    return data;
+  }
+
+  useEffect(() => {
+    getStudy()
+      .then(setStudy);
+  }, []);
+
+  const goToEditStudy = () => {
+    navigation.navigate('EditStudy', {
+      user,
+      setUser,
+      study,
+      setStudy,
+    });
+  }
+
+  return (
+    <div className="Study Page">
+      {/* <div className="nav">nav</div> */}
+      {/* <NavBar user={user} /> */}
+      <div className="study-flex">
+        <div className="header-left">
+          {study.title}
+        </div>
+        <div>
+          Duration:
+          {study.duration}
+        </div>
+        <div>
+          Compensation:
+          {study.compensation}
+        </div>
+        <div> Researcher names: [this is the researcherStudy page] </div>
+        <button className="button" type="button" onClick={() => goToEditStudy()}>Edit Study</button>
+        <div className="header-small"> Description </div>
+        <div className="paragraph">
+          {study.description}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+export default ResearcherStudy;

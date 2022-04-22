@@ -4,13 +4,11 @@
 import React, { useState, useEffect } from 'react';
 // import NavBar from './NavBar';
 
-function ResearcherHome({ route, navigation }) { // add props user
-  let {user} = route.params;
+function ResearcherHome({ route, navigation}) { // add props user
+  let {user, setUser, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
-
-  console.log(user);
-
-  // gets list of studies that match user's tags
+  // const [study2, setStudy2] = useState();
+  // const navigate = useNavigate();
   async function getStudyIds() {
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
@@ -19,29 +17,28 @@ function ResearcherHome({ route, navigation }) { // add props user
       },
     });
     const json = await data.json();
-
     setUser({
       username: user.username,
       password: user.password,
-      phys: json.phys,
-      psych: json.psych,
-      med: json.med,
+      name: user.name,
+      organization: user.organization,
+      studies: json.studies,
+      type: user.type,
     });
-    // return json.tags; (once tags are implemented in phys)
-    const userTags = user.phys.concat(user.psych.concat(user.med));
-    console.log(userTags);
-    console.log(user.phys);
-    return userTags;
+    // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
+    return json?.studies ?? [];
   }
 
   // gets individual study by id
   async function getStudy(studyId) {
-    const data = await fetch(`http://localhost:5000/study/tag/${studyId}`, {
+    const data = await fetch(`http://localhost:5000/study/${studyId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
+    console.log(data);
+    // setStudy2(data.json());
     return data.json();
   }
 
@@ -49,9 +46,8 @@ function ResearcherHome({ route, navigation }) { // add props user
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
     console.log(user.username);
-    console.log(user.tags);
+    console.log(user.studies);
     console.log(studyIds);
-    // return Promise(getStudy(studyIds[0]));
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 
@@ -60,39 +56,39 @@ function ResearcherHome({ route, navigation }) { // add props user
       .then(setEnrolledStudies);
   }, []);
 
-//   function goToStudy(studyId) {
-//     console.log(studyId);
-//     setStudy({ studyId });
-//     navigate(`/study/${studyId}`);
-//   }
+  async function goToStudy(studyId) {
+    setStudy({ studyId });
+    navigation.navigate('ResearcherStudy', {
+      user: user, 
+      setUser,
+      study: await getStudy(studyId), 
+      setStudy: setStudy
+    });  }
 
   return (
-    <div className="Home">
-      <h1>RESEARCHER HOME</h1>
-      <h2>Username</h2>
-      <h2>{user.username} </h2> 
-      <h2>Password</h2> 
-      <h2>{user.password}</h2>
-      {/* <NavBar user={user} /> */}
+    <div className="ResearcherProfile">
+      <div className="header-left">Researcher Home</div>
       <div className="study-flex">
-        <div className="header-left">Eligible Studies</div>
+        <div className="header-left">Enrolled Studies</div>
         <div>
           {
           enrolledStudies.length === 0 ? []
             : enrolledStudies.map(
               (studyJson) => (
-                studyJson.map(
-                  (singleStudy) => (
-                    <div key={singleStudy.studyId} className="study">
-                      <div className="study-title">{singleStudy.title}</div>
-                      <div className="study-tag">{singleStudy.tags}</div>
-                      {/* <button className="view-button" type="button" key={singleStudy.studyId} onClick={() => goToStudy(singleStudy.studyId)}>VIEW</button> */}
-                    </div>
-                  ),
-                )
+                <div key={studyJson.studyId} className="study">
+                  <div className="study-title">{studyJson.title}</div>
+                  <button className="view-button" type="button" key={studyJson.studyId} onClick={() => goToStudy(studyJson.studyId)}>VIEW</button>
+                </div>
               ),
             )
           }
+        </div>
+      </div>
+      <div className="study-transfer">
+        <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
+        <div className="study">
+          <div className="study-transfer">Go to Study Page</div>
+          <button className="view-button" type="button" onClick={() => navigation.navigate('AddStudy', {user: user, setUser: setUser})}>Add Study</button>
         </div>
       </div>
     </div>

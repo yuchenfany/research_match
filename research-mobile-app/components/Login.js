@@ -3,8 +3,13 @@
 import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
+import ParticipantStudies from './ParticipantStudies';
+import Study from './Study'
 import ResearcherHome from './ResearcherHome';
 import ParticipantEdit from './ParticipantEdit';
+import AddStudy from './AddStudy';
+import ResearcherStudy from './ResearcherStudy';
+import EditStudy from './EditStudy';
 
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -100,11 +105,17 @@ function Login({ navigation }) {
           password: json.password,
           name: json.name,
           organization: json.organization,
+          studies: json.studies,
           type: json.type,
+          title: json.title,
         });
         console.log(user);
+        console.log(json.type);
+        console.log(user.type);
         navigation.navigate('ResearcherHome', {
           user: user,
+          setUser: setUser, 
+          setStudy: setStudy
         });
         //navigate('/researcher-home');
       }
@@ -182,8 +193,13 @@ export default function App() {
       <Stack.Navigator initialRouteName="Research Application">
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
+        <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
         <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
+        <Stack.Screen name="AddStudy" component={AddStudy} />
+        <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
+        <Stack.Screen name="EditStudy" component={EditStudy} />
       </Stack.Navigator>
     </NavigationContainer>
   );
