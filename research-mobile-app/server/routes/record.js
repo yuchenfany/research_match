@@ -177,8 +177,6 @@ recordRoutes.route('/record/researcher-edit/:username').post((req, response) => 
 
 // POST: update researcher's study array
 recordRoutes.route('/record/researcher-studies/:username').post((req, response) => {
-  console.log('===== IN BACKEND FOR RESEARCHER STUDIES =====');
-
   const dbConnect = dbo.getDb();
   const myquery = { username: req.body.username };
 
@@ -193,9 +191,6 @@ recordRoutes.route('/record/researcher-studies/:username').post((req, response) 
       // title: req.body.title,
     },
   };
-
-  console.log(newvalues);
-
   dbConnect
     .collection('user-info')
     .updateOne(myquery, newvalues, (err, res) => {
