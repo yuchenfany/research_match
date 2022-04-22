@@ -106,6 +106,8 @@ function Login({ navigation }) {
           title: json.title,
         });
         console.log(user);
+        console.log(json.type);
+        console.log(user.type);
         navigation.navigate('ResearcherHome', {
           user: user,
           setUser: setUser, 
