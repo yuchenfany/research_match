@@ -142,14 +142,14 @@ function Study({ route, navigation }) {
   }
 
   async function enroll() {
-    // await setStatus({ isEnrolled: true });
+    await setStatus({ isEnrolled: true });
     enrollUpdateStudy().then(enrollUpdateUser());
     console.log('should set isEnrolled to true');
     console.log(status.isEnrolled);
   }
 
   async function drop() {
-    // await setStatus({ isEnrolled: false });
+    await setStatus({ isEnrolled: false });
     dropUpdateStudy().then(dropUpdateUser());
     console.log('should set isEnrolled to false');
     console.log(status.isEnrolled);
