@@ -94,6 +94,15 @@ function ParticipantHome({ route, navigation }) { // add props user
         title="GO TO STUDY"
         onPress={() => hardcodedStudy()}
       />
+      <Button
+        title="My Enrolled Studies"
+        onPress={() => {
+          navigation.navigate('ParticipantStudies', {
+            user: user,
+            setUser: setUser,
+          });
+        }}
+      />
     </View>
   );
 

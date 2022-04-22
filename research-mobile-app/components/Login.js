@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
+import ParticipantStudies from './ParticipantStudies';
 import Study from './Study'
 import ResearcherHome from './ResearcherHome';
 
@@ -179,6 +180,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Research Application">
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
       </Stack.Navigator>
