@@ -5,15 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { View, Button, Text } from 'react-native';
 
 function Study({ route, navigation }) {
-  // let { user, setUser, status, setStatus } = route.params;
   let { user, setUser } = route.params;
+
   // Hardcoded:
-  // const studyId = 2;
   const [study, setStudy] = useState({ studyId: 2 });
   const [status, setStatus] = useState({ isEnrolled: false });
-
-  // console.log('ENROLL STATUS');
-  // console.log(status.isEnrolled);
 
   async function getUserStudies() {
     console.log('GOING TO FETCH USER STUDIES');
@@ -31,14 +27,9 @@ function Study({ route, navigation }) {
   async function checkEnrollment() {
     const userStudies = await getUserStudies();
     const arr = userStudies.enrolled;
-    console.log(arr);
-    // const result = arr.find((element) => { element === study.studyId });
-    // console.log(result);
     if (arr.includes(study.studyId)) {
-      console.log('SETTING TO TRUE');
       await setStatus({ isEnrolled: true });
     }
-    console.log('AFTER IF STATEMENT');
   }
 
   async function getStudy() {

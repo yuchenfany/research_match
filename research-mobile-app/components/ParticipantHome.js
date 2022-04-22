@@ -6,7 +6,7 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 // import NavBar from './NavBar';
 
 function ParticipantHome({ route, navigation }) { // add props user
-  let { user, setUser, status, setStatus } = route.params;
+  let { user, setUser } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
 
   console.log(user);
@@ -76,8 +76,6 @@ function ParticipantHome({ route, navigation }) { // add props user
     navigation.navigate('Study', {
       user: user,
       setUser: setUser,
-      // status: status,
-      // setStatus: setStatus,
     });
     console.log('after navigation');
   }
