@@ -7,6 +7,7 @@ import Login from './components/Login'
 import ParticipantHome from './components/ParticipantHome'
 import ParticipantStudies from './components/ParticipantStudies'
 import Study from './components/Study'
+import DeleteAccount from './components/DeleteAccount'
 
 /* REFERENCE CODE
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,6 +39,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />  
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
         <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
         <Stack.Screen name="Study" component={Study} />
       </Stack.Navigator>
     </NavigationContainer>
