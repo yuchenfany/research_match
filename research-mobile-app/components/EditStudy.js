@@ -7,6 +7,8 @@ import { View, Text, Button } from 'react-native';
 function EditStudy({ route, navigation }) {
   let {user, setUser, study, setStudy } = route.params;
 
+  console.log(user);
+
   const [temp, setTemp] = useState({
     _id: study._id,
     title: study.title,
@@ -245,16 +247,18 @@ function EditStudy({ route, navigation }) {
   // for deleting a study: updates a researcher's study array
   async function updateResearcherStudies() {
     const currStudies = await getStudyIds();
+    console.log(currStudies);
     const updatedStudies = currStudies.filter((e) => e !== study.studyId);
+    console.log(updatedStudies);
 
     const bodyObj = {
-      username: test.username,
-      password: test.password,
-      name: test.name,
-      organization: test.organization,
+      // username: user.username,
+      // password: user.password,
+      // name: user.name,
+      // organization: user.organization,
       studies: updatedStudies,
-      type: test.type,
-      title: test.title,
+      // type: user.type,
+      // title: user.title,
     };
 
     await fetch(`http://localhost:5000/record/researcher-studies/${user.username}`, {
