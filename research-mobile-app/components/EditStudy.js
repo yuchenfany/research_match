@@ -6,6 +6,9 @@ import { View, Text, Button } from 'react-native';
 
 function EditStudy({ route, navigation }) {
   let {user, setUser, study, setStudy } = route.params;
+
+  console.log(user.studies);
+
   const [temp, setTemp] = useState({
     _id: study._id,
     title: study.title,
@@ -370,6 +373,7 @@ function EditStudy({ route, navigation }) {
           />
         </div>
         <Button title="EDIT STUDY" type="submit" onPress={() => handleSubmit()}/>
+        <Button title="DELETE STUDY" type="button" onPress={() => handleDelete()}/>
     </div>
 
     // <div className="Profile">

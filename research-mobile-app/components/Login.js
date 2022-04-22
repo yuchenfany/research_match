@@ -101,7 +101,9 @@ function Login({ navigation }) {
           password: json.password,
           name: json.name,
           organization: json.organization,
+          studies: json.studies,
           type: json.type,
+          title: json.title,
         });
         console.log(user);
         navigation.navigate('ResearcherHome', {
