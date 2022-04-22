@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 // import Select from 'react-select';
 
 function EditStudy({ route, navigation }) {
@@ -245,137 +245,181 @@ function EditStudy({ route, navigation }) {
     deleteStudy().then(updateResearcherStudies());
   }
 
-  async function getParticipants() {
-    const response = await fetch(`http://localhost:5000/study/${study.studyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).catch((e) => { window.alert(e); });
-    const json = await response.json();
-    const participantIds = json?.participants ?? [];
-    const participants = await Promise.all(
-      participantIds.map(
-        async (id) => {
-          const participantData = await fetch(`http://localhost:5000/record/${id}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }).catch((e) => { window.alert(e); });
-          const participant = await participantData.json();
-          return participant;
-        },
-      ),
-    );
-    return participants ?? [];
-  }
+  // async function getParticipants() {
+  //   const response = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   }).catch((e) => { window.alert(e); });
+  //   const json = await response.json();
+  //   const participantIds = json?.participants ?? [];
+  //   const participants = await Promise.all(
+  //     participantIds.map(
+  //       async (id) => {
+  //         const participantData = await fetch(`http://localhost:5000/record/${id}`, {
+  //           method: 'GET',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //         }).catch((e) => { window.alert(e); });
+  //         const participant = await participantData.json();
+  //         return participant;
+  //       },
+  //     ),
+  //   );
+  //   return participants ?? [];
+  // }
 
-  async function removeStudyForParticipants(participants) {
-    await Promise.all(
-      participants.map(
-        async (participant) => {
-          if (!participant) {
-            return;
-          }
-          const updatedStudies = participant.enrolled.filter((e) => e !== study.studyId) ?? [];
-          const bodyObj = participant;
-          bodyObj.enrolled = updatedStudies;
-          await fetch(`http://localhost:5000/record/participant-edit/${participant.username}`, {
-            method: 'POST',
-            body: JSON.stringify(bodyObj),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }).catch((e) => { window.alert(e); });
-        },
-      ),
-    );
-  }
+  // async function removeStudyForParticipants(participants) {
+  //   await Promise.all(
+  //     participants.map(
+  //       async (participant) => {
+  //         if (!participant) {
+  //           return;
+  //         }
+  //         const updatedStudies = participant.enrolled.filter((e) => e !== study.studyId) ?? [];
+  //         const bodyObj = participant;
+  //         bodyObj.enrolled = updatedStudies;
+  //         await fetch(`http://localhost:5000/record/participant-edit/${participant.username}`, {
+  //           method: 'POST',
+  //           body: JSON.stringify(bodyObj),
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //         }).catch((e) => { window.alert(e); });
+  //       },
+  //     ),
+  //   );
+  // }
 
-  async function handleClose() {
-    await getParticipants().then((participants) => { removeStudyForParticipants(participants); });
-    const bodyObj = study;
-    bodyObj.closed = '1';
-    bodyObj.participants = [];
-    await fetch('http://localhost:5000/add-study', {
-      method: 'POST',
-      body: JSON.stringify(bodyObj),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).catch((e) => { window.alert(e); });
-    navigate('/researcher-home');
-  }
+  // async function handleClose() {
+  //   await getParticipants().then((participants) => { removeStudyForParticipants(participants); });
+  //   const bodyObj = study;
+  //   bodyObj.closed = '1';
+  //   bodyObj.participants = [];
+  //   await fetch('http://localhost:5000/add-study', {
+  //     method: 'POST',
+  //     body: JSON.stringify(bodyObj),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   }).catch((e) => { window.alert(e); });
+  //   navigate('/researcher-home');
+  // }
 
   return (
-    <div className="Profile">
+    <View>
+      <Text>EDIT STUDY: {study.title}</Text>
       <View>
-        <Text>{study.title}</Text>
-      </View>
-      {/* <div className="profile-flex">
-        <div className="header-left"> Edit Study </div>
-        <div className="title-row">
-          <div>Title</div>
+          <div>Title:</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="title"
             value={study.title}
             onChange={updateTitle}
           />
-        </div>
-        <div className="description-row">
-          <div>Description</div>
+          <div>Description:</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="description"
             value={study.description}
             onChange={updateDescription}
           />
-          <div>Compensation</div>
+          <div>Compensation:</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="compensation"
             value={study.compensation}
             onChange={updateCompensation}
           />
-          <div>Duration</div>
+          <div>Duration:</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="duration"
             value={study.duration}
             onChange={updateDuration}
           />
-          <div>Lead Researcher</div>
+          <div>Lead Researcher:</div>
           <input
-            className="input-field"
+            className="small-input"
             type="text"
             id="researchers"
             value={study.researchers}
             onChange={updateResearcher}
           />
-        </div>
-        <div className="profile-row">
-          <div>Tags</div>
-        </div>
-        <div className="profile-row">
-          <Select
-            options={Tags}
-            isMulti
-            onChange={(tags) => updateTags(tags)}
-            value={study.tags}
-            styles={customStyles}
-          />
-        </div>
-        <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
-        <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
-        <input className="signup-button" type="button" value="Close Study" onClick={handleClose} />
-      </div> */}
-    </div>
+        </View>
+        <Button title="EDIT STUDY" onPress={() => handleSubmit()}/>
+    </View>
+
+    // <div className="Profile">
+    //   <div className="profile-flex">
+    //     <div className="header-left"> Edit Study </div>
+    //     <div className="title-row">
+    //       <div>Title</div>
+    //       <input
+    //         className="input-field"
+    //         type="text"
+    //         id="title"
+    //         value={study.title}
+    //         onChange={updateTitle}
+    //       />
+    //     </div>
+    //     <div className="description-row">
+    //       <div>Description</div>
+    //       <input
+    //         className="input-field"
+    //         type="text"
+    //         id="description"
+    //         value={study.description}
+    //         onChange={updateDescription}
+    //       />
+    //       <div>Compensation</div>
+    //       <input
+    //         className="input-field"
+    //         type="text"
+    //         id="compensation"
+    //         value={study.compensation}
+    //         onChange={updateCompensation}
+    //       />
+    //       <div>Duration</div>
+    //       <input
+    //         className="input-field"
+    //         type="text"
+    //         id="duration"
+    //         value={study.duration}
+    //         onChange={updateDuration}
+    //       />
+    //       <div>Lead Researcher</div>
+    //       <input
+    //         className="input-field"
+    //         type="text"
+    //         id="researchers"
+    //         value={study.researchers}
+    //         onChange={updateResearcher}
+    //       />
+    //     </div>
+    //     <div className="profile-row">
+    //       <div>Tags</div>
+    //     </div>
+    //     <div className="profile-row">
+    //       <Select
+    //         options={Tags}
+    //         isMulti
+    //         onChange={(tags) => updateTags(tags)}
+    //         value={study.tags}
+    //         styles={customStyles}
+    //       />
+    //     </div>
+    //     <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
+    //     <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
+    //     <input className="signup-button" type="button" value="Close Study" onClick={handleClose} />
+    //   </div>
+    // </div>
   );
 }
 
