@@ -141,7 +141,7 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
   const newvalues = {
     $set: {
       username: req.body.username,
-      password: req.body.password,
+      // password: req.body.password,
       enrolled: req.body.enrolled,
     },
   };

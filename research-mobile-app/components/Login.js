@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
+import Study from './Study'
 import ResearcherHome from './ResearcherHome';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -87,6 +88,7 @@ function Login({ navigation }) {
 
         navigation.navigate('ParticipantHome', {
           user: user,
+          setUser: setUser,
         });
       } else if (json.type === 1) {
         // makes sure all fields are available in home
@@ -177,6 +179,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Research Application">
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
       </Stack.Navigator>
     </NavigationContainer>
