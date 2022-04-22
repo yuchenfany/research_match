@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { View, Button, Text } from 'react-native';
+import NavBar from './NavBar';
 
 function Study({ route, navigation }) {
   let { user, setUser } = route.params;
@@ -157,6 +158,7 @@ function Study({ route, navigation }) {
 
   return (
     <View>
+      <NavBar user={user} setUser={setUser} navigation={navigation} />
       <View>
         <Text>
           {study.title}

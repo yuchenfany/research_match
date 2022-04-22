@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
+import NavBar from './NavBar';
 
 function ParticipantStudies({ route, navigation }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
@@ -57,6 +58,7 @@ function ParticipantStudies({ route, navigation }) { // add props user
 
   return (
     <View className="Home">
+      <NavBar user={user} setUser={setUser} navigation={navigation} />
       <View className="study-flex">
         <Text className="header-left">Enrolled Studies</Text>
         <View>
