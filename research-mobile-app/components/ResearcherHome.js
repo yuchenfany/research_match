@@ -60,6 +60,7 @@ function ResearcherHome({ route, navigation}) { // add props user
     setStudy({ studyId });
     navigation.navigate('ResearcherStudy', {
       user: user, 
+      setUser,
       study: await getStudy(studyId), 
       setStudy: setStudy
     });  }

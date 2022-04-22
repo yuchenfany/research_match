@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 // import NavBar from './NavBar';
 
 function ResearcherStudy({ route, navigation}) { // add props user
-  let {user, study, setStudy } = route.params;
+  let {user, setUser, study, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const navigate = useNavigate();
   async function getStudy() {
@@ -27,6 +27,15 @@ function ResearcherStudy({ route, navigation}) { // add props user
       .then(setStudy);
   }, []);
 
+  const goToEditStudy = () => {
+    navigation.navigate('EditStudy', {
+      user,
+      setUser,
+      study,
+      setStudy,
+    });
+  }
+
   return (
     <div className="Study Page">
       {/* <div className="nav">nav</div> */}
@@ -44,7 +53,7 @@ function ResearcherStudy({ route, navigation}) { // add props user
           {study.compensation}
         </div>
         <div> Researcher names: [this is the researcherStudy page] </div>
-        <button className="button" type="button" onClick={() => navigation.navigate('/edit-study')}>Edit Study</button>
+        <button className="button" type="button" onClick={() => goToEditStudy()}>Edit Study</button>
         <div className="header-small"> Description </div>
         <div className="paragraph">
           {study.description}

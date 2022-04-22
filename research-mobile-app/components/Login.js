@@ -7,8 +7,7 @@ import Study from './Study'
 import ResearcherHome from './ResearcherHome';
 import AddStudy from './AddStudy';
 import ResearcherStudy from './ResearcherStudy';
-
-
+import EditStudy from './EditStudy';
 
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -189,8 +188,7 @@ export default function App() {
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
         <Stack.Screen name="AddStudy" component={AddStudy} />
         <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
-
-
+        <Stack.Screen name="EditStudy" component={EditStudy} />
       </Stack.Navigator>
     </NavigationContainer>
   );
