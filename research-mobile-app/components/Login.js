@@ -86,6 +86,7 @@ function Login({ navigation }) {
 
         navigation.navigate('ParticipantHome', {
           user: user,
+          setUser: setUser,
         });
       } else if (json.type === 1) {
         // makes sure all fields are available in home

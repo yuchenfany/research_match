@@ -2,9 +2,10 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useEffect, useState } from 'react';
+import { View, Button, Text } from 'react-native';
 
 function Study({ route, navigation }) {
-  let { user } = route.params;
+  let { user, setUser, status, setStatus } = route.params;
   // Hardcoded:
   // const studyId = 2;
   const [study, setStudy] = useState({ studyId: 2 });
@@ -56,11 +57,10 @@ function Study({ route, navigation }) {
     }
 
     const updatedArray = updateArray(user.enrolled ?? [], [study.studyId]);
-    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
+    await setUser({ username: user.username, enrolled: updatedArray });
 
     const updatedUser = {
       username: user.username,
-      password: user.password,
       enrolled: updatedArray,
     };
     await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId, 10)}`, {
@@ -102,11 +102,10 @@ function Study({ route, navigation }) {
     const index = user.enrolled.indexOf(study.studyId);
     const updatedArray = user.enrolled;
     updatedArray.splice(index, 1);
-    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
+    await setUser({ username: user.username, enrolled: updatedArray });
 
     const updatedUser = {
       username: user.username,
-      password: user.password,
       enrolled: updatedArray,
     };
     await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId, 10)}`, {
@@ -129,30 +128,29 @@ function Study({ route, navigation }) {
   }
 
   return (
-    <div className="Study Page">
-      <div className="nav">nav</div>
-      <div className="study-flex">
-        <div className="header-left">
+    <View>
+      <View>
+        <Text>
           {study.title}
-        </div>
-        <div>
+        </Text>
+        <Text>
           Duration:
           {study.duration}
-        </div>
-        <div>
+        </Text>
+        <Text>
           Compensation:
           {study.compensation}
-        </div>
-        <div> Researcher names: [ADD IN] </div>
+        </Text>
+        <Text> Researcher names: [ADD IN] </Text>
         {status.isEnrolled
-          ? <button className="button" type="button" onClick={() => drop()}>DROP</button>
-          : <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>}
-        <div className="header-small"> Description </div>
-        <div className="paragraph">
+          ? <Button title="DROP" type="button" onPress={() => drop()} />
+          : <Button title="ENROLL" type="button" onPress={() => enroll()} />}
+        <Text> Description </Text>
+        <Text>
           {study.description}
-        </div>
-      </div>
-    </div>
+        </Text>
+      </View>
+    </View>
   );
 }
 
