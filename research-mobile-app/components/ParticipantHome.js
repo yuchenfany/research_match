@@ -10,8 +10,12 @@ function ParticipantHome({ route, navigation }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
 
   console.log(user);
+  console.log('PARTICIPANT HOME =================');
+  console.log(user.heightFeet);
+
 
   // gets list of studies that match user's tags
+
   // async function getStudyIds() {
   //   const data = await fetch(`http://localhost:5000/record/${user.username}`, {
   //     method: 'GET',
@@ -71,6 +75,14 @@ function ParticipantHome({ route, navigation }) { // add props user
     });
   }
 
+  async function editProfile() {
+    console.log('EDIT NAVIGATING');
+    navigation.navigate('ParticipantEdit', {
+      user: user,
+      setUser,
+    });
+  }
+  
   const hardcodedStudy = () => {
     console.log('in hardcodedStudy');
     navigation.navigate('Study', {
@@ -91,6 +103,7 @@ function ParticipantHome({ route, navigation }) { // add props user
   return (
     <View style={styles.button}>
       <NavBar user={user} setUser={setUser} navigation={navigation} />
+      <Button title="EDIT PROFILE" onPress={() => editProfile()}/>
       <Button
         title="GO TO STUDY"
         onPress={() => hardcodedStudy()}

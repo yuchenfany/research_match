@@ -6,6 +6,7 @@ import ParticipantHome from './ParticipantHome';
 import ParticipantStudies from './ParticipantStudies';
 import Study from './Study'
 import ResearcherHome from './ResearcherHome';
+import ParticipantEdit from './ParticipantEdit';
 import AddStudy from './AddStudy';
 import ResearcherStudy from './ResearcherStudy';
 import EditStudy from './EditStudy';
@@ -89,6 +90,9 @@ function Login({ navigation }) {
         });
 
         console.log(user);
+        console.log('JSON USER LOGIN');
+        console.log(json.age);
+        console.log(json.heightFeet);
 
         navigation.navigate('ParticipantHome', {
           user: user,
@@ -192,6 +196,7 @@ export default function App() {
         <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
+        <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
         <Stack.Screen name="AddStudy" component={AddStudy} />
         <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
         <Stack.Screen name="EditStudy" component={EditStudy} />
