@@ -44,7 +44,7 @@ function DeleteAccount({ route, navigation }) { // add props user
 
   async function handleSubmit(event) {
     if (await verify()) {
-      navigate('/');
+        navigation.navigate('Research Application', { user, setUser });
     } else {
       event.preventDefault();
     }

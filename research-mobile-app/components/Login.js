@@ -10,6 +10,7 @@ import ParticipantEdit from './ParticipantEdit';
 import AddStudy from './AddStudy';
 import ResearcherStudy from './ResearcherStudy';
 import EditStudy from './EditStudy';
+import DeleteAccount from './DeleteAccount';
 
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -194,6 +195,7 @@ export default function App() {
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
         <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
         <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />

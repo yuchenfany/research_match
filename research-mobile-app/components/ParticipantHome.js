@@ -65,7 +65,10 @@ function ParticipantHome({ route, navigation }) { // add props user
   const goToStudy = (studyId) => {
      console.log(studyId);
      setStudy({ studyId });
-     navigate(`/study/${studyId}`);
+     navigation.navigate('Study', {
+        user: user,
+        setUser: setUser,
+      });
     console.log('in goToStudy');
     navigation.navigate('Study', {
       user: user,
