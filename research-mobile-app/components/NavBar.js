@@ -25,7 +25,7 @@ function NavBar({user, setUser, navigation}) {
       <Button
 	    title="DELETE ACCOUNT"
         className="account-btn"
-        onPress={async () => { /*navigation.push('Delete', { user, setUser });*/ }}
+        onPress={async () => { navigation.navigate('DeleteAccount', { user, setUser }); }}
       >
       </Button>
       <Button
