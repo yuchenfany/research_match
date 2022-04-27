@@ -87,7 +87,6 @@ code {
 }
 
 .account-btn:hover {
-  font-weight: bold;
   color: #FAFCFD;
   background-color: #5ABFB7;
 }
@@ -120,23 +119,36 @@ code {
 }
 
 .goback-btn {
-    width: 85px;
+    width: 10%;
     height: 35px;
-    border: solid 1px #5ABFB7;
-    border-radius: 40px;
-    color: black;
-    background-color: #5ABFB7;
+    background-color: #BBEFEB;
+    color: #103143;
+    border-style: none;
+    border-radius: 100px;
     font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+  }
+
+  .goback-btn:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
   }
 
   .delete-btn {
-    width: 85px;
+    width: 10%;
     height: 35px;
-    border: solid 1px #ca8247;
-    border-radius: 20px;
-    color: black;
-    background-color: #ca8247;
+    border: solid 1px #5ABFB7;
+    border-radius: 100px;
+    color: #5ABFB7;
+    background-color: #F3F8FA; 
     font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .delete-btn:hover {
+    background-color: #5ABFB7;
+    color: #F3F8FA; 
   }
 
 .Login {
