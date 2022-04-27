@@ -3,6 +3,8 @@
 
 import React, { useEffect } from 'react';
 import '../assets/index.css';
+import NavBar from './NavBar';
+
 // import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
@@ -134,7 +136,7 @@ function Study({
 
   return (
     <div className="Study Page">
-      <div className="nav">nav</div>
+      <NavBar user={user} setUser={setUser} />
       <div className="study-flex">
         <div className="header-left">
           {study.title}
