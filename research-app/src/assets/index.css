@@ -112,8 +112,17 @@ code {
 .logout-btn {
   border: solid 1px #5ABFB7;
   border-radius: 20px;
-  color: black;
+  color: white;
   background-color: #5ABFB7;
+  padding: 0.5rem;
+  height: 2rem;
+}
+
+.logout-btn:hover {
+  border: solid 1px #5ABFB7;
+  border-radius: 20px;
+  color: #5ABFB7;
+  background-color: white;
   padding: 0.5rem;
   height: 2rem;
 }
