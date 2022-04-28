@@ -172,14 +172,15 @@ function Login({ navigation }) {
     console.log('NAVIGATETO');
     console.log(jsonResult.age);
     if (type === 0) {
+      console.log(jsonResult);
       navigation.navigate('ParticipantHome', {
-        user,
-        setUser,
+        user: jsonResult,
+        setUser: setUser,
       });
     } else if (type === 1) {
       navigation.navigate('ResearcherHome', {
-        user,
-        setUser,
+        user: jsonResult,
+        setUser: setUser,
       });
     }
   };
