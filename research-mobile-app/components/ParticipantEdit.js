@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 // import NavBar from './NavBar';
 
 function ParticipantHome({ route, navigation }) { // add props user
@@ -13,56 +14,130 @@ function ParticipantHome({ route, navigation }) { // add props user
   
   const[tempUser, setTempUser] = useState({
       username: user.username,
-      password: user.password, // NOTE: unhashes password
+      password: user.password,
       age: user.age,
-      // enrolled: user.enrolled,
-      // age: user.age,
-      // heightFeet: user.heightFeet,
-      // heightInches: user.heightInches,
-      // weight: user.weight,
-      // sex: user.sex,
-      // gender: user.gender,
-      // allergies: user.allergies,
-      // phys: user.phys,
-      // psych: user.psych,
-      // med: user.med,
-      // type: user.type,
+      enrolled: user.enrolled,
+      age: user.age,
+      heightFeet: user.heightFeet,
+      heightInches: user.heightInches,
+      weight: user.weight,
+      sex: user.sex,
+      gender: user.gender,
+      allergies: user.allergies,
+      phys: user.phys,
+      psych: user.psych,
+      med: user.med,
+      type: user.type,
     }
   );
-
   const [ageErr, setAgeErr] = useState({ message: '' });
-//   const [feetErr, setFeetErr] = useState({ message: '' });
-//   const [inchErr, setInchErr] = useState({ message: '' });
-//   const [weightErr, setWeightErr] = useState({ message: '' });
+  const [feetErr, setFeetErr] = useState({ message: '' });
+  const [inchErr, setInchErr] = useState({ message: '' });
+  const [weightErr, setWeightErr] = useState({ message: '' });
+  const [sexErr, setSexErr] = useState({ message: '' });
+  const [genderErr, setGenderErr] = useState({ message: '' });
+  const [allergErr, setAllergErr] = useState({ message: '' });
+  const [physErr, setPhysErr] = useState({ message: '' });
+  const [psychErr, setPsychErr] = useState({ message: '' });
+  const [medErr, setMedErr] = useState({ message: '' });
 
   const updateAge = async (event) => {
-    console.log('EVENT: AGE');
-    console.log(event.target.value);
-
     await setTempUser({
       username: tempUser.username,
       password: tempUser.password,
       age: event.target.value,
-      // enrolled: tempUser.enrolled,
-      // heightFeet: tempUser.heightFeet,
-      // heightInches: tempUser.heightInches,
-      // weight: tempUser.weight,
-      // sex: tempUser.sex,
-      // gender: tempUser.gender,
-      // allergies: tempUser.allergies,
-      // phys: tempUser.phys,
-      // psych: tempUser.psych,
-      // med: tempUser.med,
-      // type: tempUser.type,
+      enrolled: tempUser.enrolled,
+      heightFeet: tempUser.heightFeet,
+      heightInches: tempUser.heightInches,
+      weight: tempUser.weight,
+      sex: tempUser.sex,
+      gender: tempUser.gender,
+      allergies: tempUser.allergies,
+      phys: tempUser.phys,
+      psych: tempUser.psych,
+      med: tempUser.med,
+      type: tempUser.type,
     });
-
-    console.log('EVENT: AGE 2');
-    console.log(tempUser.age);
-    console.log(tempUser.username);
-    console.log(tempUser.password);
-    console.log(tempUser.sex);
   };
 
+
+  const updateHeightFeet = async (event) => {
+    await setTempUser({
+      username: tempUser.username,
+      password: tempUser.password,
+      age: tempUser.age,
+      enrolled: tempUser.enrolled,
+      heightFeet: event.target.value,
+      heightInches: tempUser.heightInches,
+      weight: tempUser.weight,
+      sex: tempUser.sex,
+      gender: tempUser.gender,
+      allergies: tempUser.allergies,
+      phys: tempUser.phys,
+      psych: tempUser.psych,
+      med: tempUser.med,
+      type: tempUser.type,
+    });
+  };
+
+  const updateHeightInches = async (event) => {
+    await setTempUser({
+      username: tempUser.username,
+      password: tempUser.password,
+      age: tempUser.age,
+      enrolled: tempUser.enrolled,
+      heightFeet: tempUser.heightFeet,
+      heightInches: event.target.value,
+      weight: tempUser.weight,
+      sex: tempUser.sex,
+      gender: tempUser.gender,
+      allergies: tempUser.allergies,
+      phys: tempUser.phys,
+      psych: tempUser.psych,
+      med: tempUser.med,
+      type: tempUser.type,
+    });
+  };
+
+  const updateWeight = async (event) => {
+    await setTempUser({
+      username: tempUser.username,
+      password: tempUser.password,
+      age: tempUser.age,
+      enrolled: tempUser.enrolled,
+      heightFeet: tempUser.heightFeet,
+      heightInches: tempUser.heightInches,
+      weight: event.target.value,
+      sex: tempUser.sex,
+      gender: tempUser.gender,
+      allergies: tempUser.allergies,
+      phys: tempUser.phys,
+      psych: tempUser.psych,
+      med: tempUser.med,
+      type: tempUser.type,
+    });
+  };
+
+  const updateBioSex = async (value) => {
+    console.log('BIO SEx UPDATE');
+    console.log(value);
+    await setTempUser({
+      username: tempUser.username,
+      password: tempUser.password,
+      age: tempUser.age,
+      enrolled: tempUser.enrolled,
+      heightFeet: tempUser.heightFeet,
+      heightInches: tempUser.heightInches,
+      weight:  tempUser.weight,
+      sex: value,
+      gender: tempUser.gender,
+      allergies: tempUser.allergies,
+      phys: tempUser.phys,
+      psych: tempUser.psych,
+      med: tempUser.med,
+      type: tempUser.type,
+    });
+  };
   const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
 
   async function handleUpdate(event) {
@@ -104,7 +179,7 @@ function ParticipantHome({ route, navigation }) { // add props user
         await setUser(tempUser);
 
         navigation.navigate('ParticipantHome', {
-            user,
+            user: tempUser,
             setUser,
           });    
     } else {
@@ -149,10 +224,78 @@ function ParticipantHome({ route, navigation }) { // add props user
             className="small-input"
             type="text"
             id="age"
-            value={user.age}
+            defaultValue={user.age}
             onChange={updateAge}
           />
           <span className="error-message">{ageErr.message}</span>
+          <div>Height</div>
+          <input
+            className="small-input"
+            type="text"
+            id="age"
+            defaultValue={user.heightFeet}
+            onChange={updateHeightFeet}
+          />
+          <div>ft</div>
+          <span className="error-message">{feetErr.message}</span>
+          <input
+            className="small-input"
+            type="text"
+            id="age"
+            defaultValue={user.heightInches}
+            onChange={updateHeightInches}
+          />
+          <div>in</div>
+          <span className="error-message">{inchErr.message}</span>
+          <div>Weight</div>
+          <input
+            className="small-input"
+            type="text"
+            id="age"
+            defaultValue={user.weight}
+            onChange={updateWeight}
+          />
+          <div>lbs</div>
+          <span className="error-message">{weightErr.message}</span>
+          <div>Biological Sex</div>
+          <label htmlFor="form" className="radio-option">
+            <input
+              type="radio"
+              id="male"
+              value="male"
+              name="option"
+              defaultChecked={(user.sex === 'male') ? 'checked' : ''}
+              onClick={() => updateBioSex('male')}
+            />
+            <div>Male</div>
+          </label>
+          <label htmlFor="form" className="radio-option">
+            <input
+              type="radio"
+              id="female"
+              value="female"
+              name="option"
+              defaultChecked={(user.sex === 'female') ? 'checked' : ''}
+              onClick={() => updateBioSex('female')}
+            />
+            <div>Female</div>
+          </label>
+          <label htmlFor="form" className="radio-option">
+            <input
+              type="radio"
+              id="intersex"
+              value="intersex"
+              name="option"
+              defaultChecked={(user.sex === 'intersex') ? 'checked' : ''}
+              onClick={() => updateBioSex('intersex')}
+            />
+            <div>Intersex</div>
+          </label>
+          {/* <DropDownPicker
+            multiple={true}
+            min={0}
+            max={5}
+          /> */}
         </View>
         <Button title="UPDATE" onPress={() => handleUpdate()}/>
     </View>
