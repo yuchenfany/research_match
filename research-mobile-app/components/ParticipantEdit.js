@@ -7,10 +7,14 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 
 function ParticipantHome({ route, navigation }) { // add props user
   let {user, setUser} = route.params;
+  console.log('PARTICIPANT EDIT === = ====');
+  console.log(user.phys);
+  console.log(user.password);
+  
   const[tempUser, setTempUser] = useState({
       username: user.username,
       password: user.password, // NOTE: unhashes password
-      age: 0,
+      age: user.age,
       // enrolled: user.enrolled,
       // age: user.age,
       // heightFeet: user.heightFeet,

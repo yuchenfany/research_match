@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './components/Login'
 import ParticipantHome from './components/ParticipantHome'
+import ParticipantEdit from './components/ParticipantEdit'
 import ParticipantStudies from './components/ParticipantStudies'
 import Study from './components/Study'
 import DeleteAccount from './components/DeleteAccount'
@@ -38,6 +39,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />  
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
         <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
         <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
         <Stack.Screen name="Study" component={Study} />

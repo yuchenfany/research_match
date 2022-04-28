@@ -31,7 +31,18 @@ function Login({ navigation }) {
     psych: [],
     med: [],
     studies: [],
+    age: 800,
+    // heightFeet: 0,
+    // heightInches: 0,
+    // weight: 0,
+    // sex: '',
+    // gender: '',
+    // allergies: [],
+    // type: '',
   });
+
+  let jsonResult = '';
+
   const [error, setError] = useState({ message: '' });
   // const [samePassword, setSamePassword] = useState(0);
 
@@ -71,6 +82,8 @@ function Login({ navigation }) {
       event.preventDefault();
     //  } else if (bcrypt.compareSync(user.password, json.password)) { : CHANGE LATER 
     } else if (bcrypt.compareSync(user.password, json.password)) {
+      jsonResult = json;
+
       if (json.type === 0) {
         // makes sure all fields are available in home
         await setUser({
@@ -95,10 +108,12 @@ function Login({ navigation }) {
         console.log(json.age);
         console.log(json.heightFeet);
 
-        navigation.navigate('ParticipantHome', {
-          user: user,
-          setUser: setUser,
-        });
+        return 0;
+
+        // navigation.navigate('ParticipantHome', {
+        //   user,
+        //   setUser,
+        // });
       } else if (json.type === 1) {
         // makes sure all fields are available in home
         await setUser({
@@ -134,8 +149,10 @@ function Login({ navigation }) {
         username: event.target.value,
         password: user.password,
         enrolled: user.enrolled,
+        // age: 800,
       },
     );
+    console.log('USERNAME CHANGE====================');
   };
 
   const handleNameChangePassword = async (event) => {
@@ -144,14 +161,37 @@ function Login({ navigation }) {
         username: user.username,
         password: event.target.value,
         enrolled: user.enrolled,
+        // age: 800,
       },
     );
+
+    console.log('PASSWORD CHANGE====================');
   };
 
-  const handleAsync = (event) => {
+  const navigateTo = (type) => {
+    console.log('NAVIGATETO');
+    console.log(jsonResult.age);
+    if (type === 0) {
+      navigation.navigate('ParticipantHome', {
+        user,
+        setUser,
+      });
+    } else if (type === 1) {
+      navigation.navigate('ResearcherHome', {
+        user,
+        setUser,
+      });
+    }
+  };
+
+  const handleAsync = async (event) => {
     event.preventDefault();
     // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
-    handleSubmit(event);
+    console.log('BEFORE HANDLESUBMIT');
+    const type = await handleSubmit(event);
+    console.log('FINISHED HANDLESUBMIT');
+    console.log(type);
+    setTimeout(1000, navigateTo(type));
   };
 
   return (

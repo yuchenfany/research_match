@@ -22,18 +22,30 @@ function ParticipantHome({ route, navigation }) { // add props user
      });
      const json = await data.json();
      console.log(json)
+     console.log('PARTICIPANT HOME: AGE===================');
+     console.log(user.age);
 
      setUser({
-       username: user.username,
-       password: user.password,
+       username: json.username,
+       password: json.password,
        phys: json.phys,
        psych: json.psych,
        med: json.med,
+      //  age: json.age,
+      //  enrolled: json.enrolled,
+      //  heightFeet: json.heightFeet,
+      //  heightInches: json.heightInches,
+      //  weight: json.weight,
+      //  sex: json.sex,
+      //  gender: json.gender,
+      //  allergies: json.allergies,
+      //  type: json.type,
      });
+
   //   // return json.tags; (once tags are implemented in phys)
      //const userTags = user.phys.concat(user.psych.concat(user.med));
      //console.log(userTags);
-     console.log(json.phys);
+     console.log(json.password);
      return json.phys;
    }
 
@@ -50,6 +62,7 @@ function ParticipantHome({ route, navigation }) { // add props user
 
   // get all studies
    async function getAllStudyJson() {
+    //  setTimeout(5000);
      const studyIds = await getStudyIds();
      console.log(user.username);
      console.log(studyIds);
@@ -78,7 +91,7 @@ function ParticipantHome({ route, navigation }) { // add props user
   async function editProfile() {
     console.log('EDIT NAVIGATING');
     navigation.navigate('ParticipantEdit', {
-      user: user,
+      user,
       setUser,
     });
   }

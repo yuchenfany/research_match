@@ -9,6 +9,8 @@ function ResearcherHome({ route, navigation}) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const [study2, setStudy2] = useState();
   // const navigate = useNavigate();
+  console.log('RESEARCHER HOME: ORG');
+  console.log(user.organization);
   async function getStudyIds() {
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
