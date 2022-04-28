@@ -19,9 +19,10 @@ import ResearcherStudy from './components/ResearcherStudy';
 import Dashboard from './components/Dashboard';
 import AddStudy from './components/AddStudy';
 import EditStudy from './components/EditStudy';
-
+import Messages from './components/Messages';
 import DisplayStudies from './components/DisplayStudies';
 import DeleteAccount from './components/DeleteAccount';
+import Chat from './components/Chat';
 
 function App() {
   const [user, setUser] = useState({
@@ -42,6 +43,9 @@ function App() {
     tags: [],
   });
   const [status, setStatus] = useState({ isEnrolled: false });
+  // for chat
+  const [sender, setSender] = useState({ username: '', senderType: '' });
+  const [receiver, setReceiver] = useState({ username: '' });
 
   return (
     <div className="App">
@@ -62,6 +66,8 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard user={user} />} />
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
         <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} />} />
+        <Route exact path="/messages" element={<Messages user={user} sender={sender} setSender={setSender} receiver={receiver} setReceiver={setReceiver} />} />
+        <Route exact path="/chat" element={<Chat sender={sender} receiver={receiver} />} />
       </Routes>
     </div>
   );

@@ -95,7 +95,13 @@ function NavBar({ user, setUser }) {
       >
         MY STUDIES
       </button>
-      <button type="button" className="nav-btn">MESSAGES</button>
+      <button
+        type="button"
+        className="nav-btn"
+        onClick={async () => { navigate('/messages', { user }); }}
+      >
+        MESSAGES
+      </button>
       <button
         type="button"
         className="nav-btn"
