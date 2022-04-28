@@ -57,9 +57,6 @@ function ParticipantStudies({
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
-    console.log(user.username);
-    console.log(user.enrolled);
-    console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 

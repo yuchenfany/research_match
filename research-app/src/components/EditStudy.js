@@ -98,7 +98,6 @@ function EditStudy({ user, study, setStudy }) {
       studyId: study.studyId,
       researchers: study.researchers,
     };
-    console.log(myobj.title);
     // edits the study
     await fetch('http://localhost:5000/study/edit-study', {
       method: 'POST',

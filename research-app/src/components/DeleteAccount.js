@@ -10,7 +10,6 @@ function DeleteAccount({ user, setUser }) {
   const navigate = useNavigate();
 
   async function verify() {
-    console.log(JSON.stringify(user));
     // console.log(JSON.stringify(getNextStudyID()));
     // setStudy({
     //   studyId: getNextStudyID(),
@@ -21,7 +20,6 @@ function DeleteAccount({ user, setUser }) {
         'Content-Type': 'application/json',
       },
     });
-    console.log('delete is being called');
     return true;
   }
 

@@ -41,8 +41,6 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
     // return json.tags; (once tags are implemented in phys)
     // Hardcoded:
     const userTags = user.phys.concat(user.psych.concat(user.med));
-    console.log(userTags);
-    console.log(user.phys);
     return userTags;
   }
 
@@ -60,9 +58,6 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
-    console.log(user.username);
-    console.log(user.tags);
-    console.log(studyIds);
     // return Promise(getStudy(studyIds[0]));
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
@@ -73,7 +68,6 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
   }, []);
 
   function goToStudy(studyId) {
-    console.log(studyId);
     setStudy({ studyId });
     navigate(`/study/${studyId}`);
   }

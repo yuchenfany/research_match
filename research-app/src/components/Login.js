@@ -11,9 +11,6 @@ function Login({ user, setUser }) {
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(user.username);
-    console.log(user.password);
-
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
       event.preventDefault();
@@ -38,8 +35,6 @@ function Login({ user, setUser }) {
     });
 
     const json = await data.json();
-    console.log('JSON PASS ================');
-    console.log(json.password);
 
     // verification checks of username & password
     if (json === null) {
@@ -65,14 +60,6 @@ function Login({ user, setUser }) {
           med: json.med,
           type: json.type,
         });
-        console.log('TYPE');
-        console.log(json.type);
-        console.log(json.age);
-        console.log(json.heightFeet);
-        console.log(json.heightInches);
-        console.log(json.weight);
-        console.log(json.sex);
-        console.log(json.gender);
 
         navigate('/participant-home');
       } else if (json.type === 1) {
@@ -87,7 +74,6 @@ function Login({ user, setUser }) {
         navigate('/researcher-home');
       }
     } else {
-      console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });
       event.preventDefault();
     }

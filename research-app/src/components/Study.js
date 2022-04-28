@@ -23,7 +23,6 @@ function Study({
       },
     });
     const data = await studyData.json();
-    console.log(data);
     return data;
   }
 
