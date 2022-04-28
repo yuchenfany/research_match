@@ -12,6 +12,12 @@ function ParticipantEdit({ user, setUser }) {
   const [feetErr, setFeetErr] = useState({ message: '' });
   const [inchErr, setInchErr] = useState({ message: '' });
   const [weightErr, setWeightErr] = useState({ message: '' });
+  const [sexErr, setSexErr] = useState({ message: '' });
+  const [genderErr, setGenderErr] = useState({ message: '' });
+  const [allergErr, setAllergErr] = useState({ message: '' });
+  const [physErr, setPhysErr] = useState({ message: '' });
+  const [psychErr, setPsychErr] = useState({ message: '' });
+  const [medErr, setMedErr] = useState({ message: '' });
 
   const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
 
@@ -325,7 +331,10 @@ function ParticipantEdit({ user, setUser }) {
 
   async function handleUpdate(event) {
     if (!isValidInput(user.age) || !isValidInput(user.weight) || !isValidInput(user.heightFeet)
-    || !isValidInput(user.heightInches)) {
+    || !isValidInput(user.heightInches) || user.gender === undefined || user.sex === undefined
+    || user.allergies === undefined || user.allergies.length === 0 || user.phys === undefined
+    || user.phys.length === 0 || user.psych === undefined || user.psych.length === 0
+    || user.med === undefined || user.med.length === 0) {
       if (!isValidInput(user.age)) {
         setAgeErr({ message: 'Age: Enter a number' });
       } else {
@@ -348,6 +357,42 @@ function ParticipantEdit({ user, setUser }) {
         setInchErr({ message: 'Inches: Enter a number' });
       } else {
         setInchErr({ message: '' });
+      }
+
+      if (user.gender === undefined) {
+        setGenderErr({ message: 'Please make a selection' });
+      } else {
+        setGenderErr({ message: '' });
+      }
+
+      if (user.sex === undefined) {
+        setSexErr({ message: 'Please make a selection' });
+      } else {
+        setSexErr({ message: '' });
+      }
+
+      if (user.allergies === undefined || user.allergies.length === 0) {
+        setAllergErr({ message: 'Please make a selection or select "None"' });
+      } else {
+        setAllergErr({ message: '' });
+      }
+
+      if (user.phys === undefined || user.phys.length === 0) {
+        setPhysErr({ message: 'Please make a selection or select "None"' });
+      } else {
+        setPhysErr({ message: '' });
+      }
+
+      if (user.psych === undefined || user.psych.length === 0) {
+        setPsychErr({ message: 'Please make a selection or select "None"' });
+      } else {
+        setPsychErr({ message: '' });
+      }
+
+      if (user.med === undefined || user.med.length === 0) {
+        setMedErr({ message: 'Please make a selection or select "None"' });
+      } else {
+        setMedErr({ message: '' });
       }
 
       event.preventDefault();
@@ -451,6 +496,9 @@ function ParticipantEdit({ user, setUser }) {
           </label>
         </div>
         <div className="profile-row">
+          <span className="error-message">{sexErr.message}</span>
+        </div>
+        <div className="profile-row">
           <div>Gender</div>
           <div className="dropdown">
             <Select
@@ -465,7 +513,11 @@ function ParticipantEdit({ user, setUser }) {
           </div>
         </div>
         <div className="profile-row">
+          <span className="error-message">{genderErr.message}</span>
+        </div>
+        <div className="profile-row">
           <div>Allergies</div>
+          <span className="error-message">{allergErr.message}</span>
         </div>
         <div className="profile-row">
           <Select
@@ -478,6 +530,7 @@ function ParticipantEdit({ user, setUser }) {
         </div>
         <div className="profile-row">
           <div>Medical Conditions (Physical)</div>
+          <span className="error-message">{physErr.message}</span>
         </div>
         <div className="profile-row">
           <Select
@@ -491,6 +544,7 @@ function ParticipantEdit({ user, setUser }) {
         </div>
         <div className="profile-row">
           <div>Medical Conditions (Psychological)</div>
+          <span className="error-message">{psychErr.message}</span>
         </div>
         <div className="profile-row">
           <Select
@@ -504,6 +558,7 @@ function ParticipantEdit({ user, setUser }) {
         </div>
         <div className="profile-row">
           <div>Medications</div>
+          <span className="error-message">{medErr.message}</span>
         </div>
         <div className="profile-row">
           <Select

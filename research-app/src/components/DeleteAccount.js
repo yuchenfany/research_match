@@ -47,7 +47,6 @@ function DeleteAccount({ user, setUser }) {
       >
         Go back
       </button>
-      <div> </div>
       <button
         type="button"
         className="delete-btn"

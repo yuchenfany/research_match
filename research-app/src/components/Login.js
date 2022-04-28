@@ -38,6 +38,8 @@ function Login({ user, setUser }) {
     });
 
     const json = await data.json();
+    console.log('JSON PASS ================');
+    console.log(json.password);
 
     // verification checks of username & password
     if (json === null) {
