@@ -67,7 +67,7 @@ function App() {
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
         <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} />} />
         <Route exact path="/messages" element={<Messages user={user} sender={sender} setSender={setSender} receiver={receiver} setReceiver={setReceiver} />} />
-        <Route exact path="/chat" element={<Chat sender={sender} receiver={receiver} />} />
+        <Route exact path="/chat" element={<Chat sender={sender} receiver={receiver} setSender={setSender} setReceiver={setReceiver} />} />
       </Routes>
     </div>
   );

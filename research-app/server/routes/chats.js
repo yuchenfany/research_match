@@ -45,13 +45,12 @@ messageRoutes.route('/chats').get((req, res) => {
 messageRoutes.route('/chats/get/:user/:researcher').get((req, res) => {
   const dbConnect = dbo.getDb();
   const { user, researcher } = req.params;
-  const query = { 'user.username': user, 'researcher.username': researcher };
-
+  const query = { user, researcher };
   dbConnect
     .collection('chats')
-    .find(query)
-    .toArray((err, result) => {
+    .findOne(query, (err, result) => {
       if (err) throw err;
+      console.log(result);
       res.json(result);
     });
 });
@@ -62,13 +61,14 @@ messageRoutes.route('/chats/send').post((req) => {
   const {
     sender, senderType, receiver, text,
   } = req.body;
+  console.log(senderType);
   const user = senderType === 0 ? sender : receiver;
   const researcher = senderType === 1 ? sender : receiver;
   const message = { sender, timestamp: Date.now(), text };
   dbConnect
     .collection('chats')
     .updateOne(
-      { 'user.username': user, 'researcher.username': researcher },
+      { user, researcher },
       { $push: { messages: message } },
       { upsert: true },
     );
