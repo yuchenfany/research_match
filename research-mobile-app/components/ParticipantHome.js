@@ -135,7 +135,7 @@ function ParticipantHome({ route, navigation }) { // add props user
           }}
         />
       </View>
-      <Text>Eligible Studies</Text>
+      <Text style={styles.header}>Eligible Studies</Text>
           <div>
             {
             enrolledStudies.length === 0 ? []
