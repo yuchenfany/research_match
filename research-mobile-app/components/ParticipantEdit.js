@@ -6,18 +6,11 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 // import NavBar from './NavBar';
 
-function ParticipantHome({ route, navigation }) { // add props user
+function ParticipantEdit({ route, navigation }) { // add props user
   let {user, setUser} = route.params;
   console.log('PARTICIPANT EDIT === = ====');
   console.log(user.phys);
   console.log(user.password);
-
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
   
   const[tempUser, setTempUser] = useState({
       username: user.username,
@@ -299,22 +292,17 @@ function ParticipantHome({ route, navigation }) { // add props user
             <div>Intersex</div>
           </label>
           {/* <DropDownPicker
-            multiple={true}
-            min={0}
-            max={5}
-          /> */}
-          <DropDownPicker
-            items={setItems}
+            items={[{label: 'Apple', value: 'apple'}, {label: 'Banana', value: 'banana'}]}
             defaultValue="item1"
             containerStyle={{height: 40}}
             style={{backgroundColor: '#BBEFEB'}}
             dropDownStyle={{backgroundColor: '#BBEFEB'}}
-          />
+          /> */}
         </View>
-        <div className="spacer"></div>
-        {/* <Button title="UPDATE" onPress={() => handleUpdate()}/> */}
+        {/* <div className="spacer"></div> */}
+        <Button title="UPDATE" onPress={() => handleUpdate()}/>
     </View>
   );
 }
 
-export default ParticipantHome;
+export default ParticipantEdit;

@@ -66,13 +66,22 @@ function ResearcherHome({ route, navigation}) { // add props user
       setUser,
       study: await getStudy(studyId), 
       setStudy: setStudy
-    });  }
+    });
+  }
+
+    // async function editProfile() {
+    //   console.log('EDIT NAVIGATING');
+    //   navigation.navigate('ResearcherEdit', {
+    //     user,
+    //     setUser,
+    //   });
+    // }
 
     async function editProfile() {
       console.log('EDIT NAVIGATING');
       navigation.navigate('ResearcherEdit', {
-        user,
-        setUser,
+        user: user,
+        setUser: setUser,
       });
     }
 

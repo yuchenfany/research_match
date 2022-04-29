@@ -7,6 +7,7 @@ import ParticipantStudies from './ParticipantStudies';
 import Study from './Study'
 import ResearcherHome from './ResearcherHome';
 import ParticipantEdit from './ParticipantEdit';
+import ResearcherEdit from './ResearcherEdit';
 import AddStudy from './AddStudy';
 import ResearcherStudy from './ResearcherStudy';
 import EditStudy from './EditStudy';
@@ -128,12 +129,8 @@ function Login({ navigation }) {
         console.log(user);
         console.log(json.type);
         console.log(user.type);
-        navigation.navigate('ResearcherHome', {
-          user: user,
-          setUser: setUser, 
-          setStudy: setStudy
-        });
-        //navigate('/researcher-home');
+
+        return 1;
       }
     } else {
       console.log('INCORRECT PASSWORD');
@@ -149,7 +146,6 @@ function Login({ navigation }) {
         username: event.target.value,
         password: user.password,
         enrolled: user.enrolled,
-        // age: 800,
       },
     );
     console.log('USERNAME CHANGE====================');
@@ -161,7 +157,6 @@ function Login({ navigation }) {
         username: user.username,
         password: event.target.value,
         enrolled: user.enrolled,
-        // age: 800,
       },
     );
 
@@ -181,6 +176,7 @@ function Login({ navigation }) {
       navigation.navigate('ResearcherHome', {
         user: jsonResult,
         setUser: setUser,
+        setStudy: setStudy,
       });
     }
   };
@@ -240,6 +236,7 @@ export default function App() {
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
         <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
+        <Stack.Screen name="ResearcherEdit" component={ResearcherEdit} />
         <Stack.Screen name="AddStudy" component={AddStudy} />
         <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
         <Stack.Screen name="EditStudy" component={EditStudy} />
