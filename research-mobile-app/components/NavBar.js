@@ -41,10 +41,16 @@ function NavBar({user, setUser, navigation}) {
     setAccountToggled(!accountToggled);
   };
 
+  const studyListButton = (user.type ?? 0) ? <Button
+      title="MY STUDIES"
+      className="nav-btn"
+      onPress={async () => {navigation.push('ParticipantStudies', { user, setUser });}}
+    ></Button> : null;
+
   return (
     <View className="nav" style={{display: 'flex', flexDirection: 'row', marginBottom: '0.5rem'}}>
       <Button
-	  	title="HOME"
+	  	  title="HOME"
         className="nav-btn"
         onPress={async () => {
 			navigation.push(
@@ -53,14 +59,7 @@ function NavBar({user, setUser, navigation}) {
 			);
         }}
       >
-      </Button>
-      <Button
-	    title="MY STUDIES"
-        className="nav-btn"
-        onPress={async () => {
-			navigation.push('ParticipantStudies', { user, setUser });
-        }}
-      >
+      {studyListButton}
       </Button>
       <Button title="MESSAGES" className="nav-btn"></Button>
       <Button title="ACCOUNT" className="account-btn" onPress={toggleAccountOptions}></Button>
