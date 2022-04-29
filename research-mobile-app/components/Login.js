@@ -7,6 +7,7 @@ import ParticipantStudies from './ParticipantStudies';
 import Study from './Study'
 import ResearcherHome from './ResearcherHome';
 import ParticipantEdit from './ParticipantEdit';
+import ResearcherEdit from './ResearcherEdit';
 import AddStudy from './AddStudy';
 import ResearcherStudy from './ResearcherStudy';
 import EditStudy from './EditStudy';
@@ -33,6 +34,9 @@ function Login({ navigation }) {
     studies: [],
     type: 0
   });
+
+  let jsonResult = '';
+
   const [error, setError] = useState({ message: '' });
   // const [samePassword, setSamePassword] = useState(0);
 
@@ -68,6 +72,8 @@ function Login({ navigation }) {
       event.preventDefault();
     //  } else if (bcrypt.compareSync(user.password, json.password)) { : CHANGE LATER 
     } else if (bcrypt.compareSync(user.password, json.password)) {
+      jsonResult = json;
+
       if (json.type === 0) {
         // makes sure all fields are available in home
         const updatedUser = {
@@ -88,10 +94,7 @@ function Login({ navigation }) {
         };
         setUser(updatedUser);
 
-        navigation.navigate('ParticipantHome', {
-          user: updatedUser,
-          setUser: setUser,
-        });
+        return 0;
       } else if (json.type === 1) {
         // makes sure all fields are available in home
         const updatedUser = {
@@ -102,13 +105,9 @@ function Login({ navigation }) {
           studies: json.studies,
           type: json.type,
           title: json.title,
-        };
-        setUser(updatedUser);
-        navigation.navigate('ResearcherHome', {
-          user: updatedUser,
-          setUser: setUser, 
-          setStudy: setStudy
         });
+
+        return 1;
       }
     } else {
       setError({ message: 'Incorrect password' });
@@ -118,21 +117,54 @@ function Login({ navigation }) {
 
   // update username as it's being entered
   const handleNameChange = async (event) => {
-    const updatedUser = user;
-    updatedUser.username = event.target.value;
-    setUser(updatedUser);
+    setUser(
+      {
+        username: event.target.value,
+        password: user.password,
+        enrolled: user.enrolled,
+      },
+    );
+    console.log('USERNAME CHANGE====================');
   };
 
   const handleNameChangePassword = async (event) => {
-    const updatedUser = user;
-    updatedUser.password = event.target.value;
-    setUser(updatedUser);
+    setUser(
+      {
+        username: user.username,
+        password: event.target.value,
+        enrolled: user.enrolled,
+      },
+    );
+
+    console.log('PASSWORD CHANGE====================');
   };
 
-  const handleAsync = (event) => {
+  const navigateTo = (type) => {
+    console.log('NAVIGATETO');
+    console.log(jsonResult.age);
+    if (type === 0) {
+      console.log(jsonResult);
+      navigation.navigate('ParticipantHome', {
+        user: jsonResult,
+        setUser: setUser,
+      });
+    } else if (type === 1) {
+      navigation.navigate('ResearcherHome', {
+        user: jsonResult,
+        setUser: setUser,
+        setStudy: setStudy,
+      });
+    }
+  };
+
+  const handleAsync = async (event) => {
     event.preventDefault();
     // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
-    handleSubmit(event);
+    console.log('BEFORE HANDLESUBMIT');
+    const type = await handleSubmit(event);
+    console.log('FINISHED HANDLESUBMIT');
+    console.log(type);
+    setTimeout(1000, navigateTo(type));
   };
 
   return (
@@ -180,6 +212,7 @@ export default function App() {
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
         <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
+        <Stack.Screen name="ResearcherEdit" component={ResearcherEdit} />
         <Stack.Screen name="AddStudy" component={AddStudy} />
         <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
         <Stack.Screen name="EditStudy" component={EditStudy} />

@@ -10,6 +10,8 @@ function ResearcherHome({ route, navigation}) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const [study2, setStudy2] = useState();
   // const navigate = useNavigate();
+  console.log('RESEARCHER HOME: ORG');
+  console.log(user.organization);
   async function getStudyIds() {
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
@@ -59,12 +61,30 @@ function ResearcherHome({ route, navigation}) { // add props user
       setUser,
       study: await getStudy(studyId), 
       setStudy: setStudy
-    });  }
+    });
+  }
+
+    // async function editProfile() {
+    //   console.log('EDIT NAVIGATING');
+    //   navigation.navigate('ResearcherEdit', {
+    //     user,
+    //     setUser,
+    //   });
+    // }
+
+    async function editProfile() {
+      console.log('EDIT NAVIGATING');
+      navigation.navigate('ResearcherEdit', {
+        user: user,
+        setUser: setUser,
+      });
+    }
 
   console.log(user);
   return (
     <View className="ResearcherProfile">
       <NavBar user={user} setUser={setUser} navigation={navigation} />
+      <Button title="EDIT PROFILE" onPress={() => editProfile()}/>
       <Text className="header-left">Researcher Home</Text>
       <div className="study-flex">
         <Text className="header-left">Enrolled Studies</Text>
