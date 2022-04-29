@@ -32,14 +32,7 @@ function Login({ navigation }) {
     psych: [],
     med: [],
     studies: [],
-    age: 800,
-    // heightFeet: 0,
-    // heightInches: 0,
-    // weight: 0,
-    // sex: '',
-    // gender: '',
-    // allergies: [],
-    // type: '',
+    type: 0
   });
 
   let jsonResult = '';
@@ -48,9 +41,6 @@ function Login({ navigation }) {
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(user.username);
-    console.log(user.password);
-
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
       event.preventDefault();
@@ -75,7 +65,6 @@ function Login({ navigation }) {
     });
 
     const json = await data.json();
-    console.log(json);
 
     // verification checks of username & password
     if (json === null) {
@@ -87,7 +76,7 @@ function Login({ navigation }) {
 
       if (json.type === 0) {
         // makes sure all fields are available in home
-        await setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           enrolled: json.enrolled,
@@ -102,22 +91,13 @@ function Login({ navigation }) {
           psych: json.psych,
           med: json.med,
           type: json.type,
-        });
-
-        console.log(user);
-        console.log('JSON USER LOGIN');
-        console.log(json.age);
-        console.log(json.heightFeet);
+        };
+        setUser(updatedUser);
 
         return 0;
-
-        // navigation.navigate('ParticipantHome', {
-        //   user,
-        //   setUser,
-        // });
       } else if (json.type === 1) {
         // makes sure all fields are available in home
-        await setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           name: json.name,
@@ -126,14 +106,10 @@ function Login({ navigation }) {
           type: json.type,
           title: json.title,
         });
-        console.log(user);
-        console.log(json.type);
-        console.log(user.type);
 
         return 1;
       }
     } else {
-      console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });
       event.preventDefault();
     }

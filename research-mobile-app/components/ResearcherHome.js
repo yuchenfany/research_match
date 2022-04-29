@@ -3,10 +3,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
-// import NavBar from './NavBar';
+import NavBar from './NavBar';
 
 function ResearcherHome({ route, navigation}) { // add props user
-  let {user, setUser, setStudy } = route.params;
+  let { user, setUser, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const [study2, setStudy2] = useState();
   // const navigate = useNavigate();
@@ -40,17 +40,12 @@ function ResearcherHome({ route, navigation}) { // add props user
         'Content-Type': 'application/json',
       },
     });
-    console.log(data);
-    // setStudy2(data.json());
     return data.json();
   }
 
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
-    console.log(user.username);
-    console.log(user.studies);
-    console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 
@@ -85,20 +80,27 @@ function ResearcherHome({ route, navigation}) { // add props user
       });
     }
 
+  console.log(user);
   return (
-    <div className="ResearcherProfile">
-      <div className="header-left">Researcher Home</div>
+    <View className="ResearcherProfile">
+      <NavBar user={user} setUser={setUser} navigation={navigation} />
       <Button title="EDIT PROFILE" onPress={() => editProfile()}/>
+      <Text className="header-left">Researcher Home</Text>
       <div className="study-flex">
-        <div className="header-left">Enrolled Studies</div>
+        <Text className="header-left">Enrolled Studies</Text>
         <div>
           {
           enrolledStudies.length === 0 ? []
             : enrolledStudies.map(
               (studyJson) => (
                 <div key={studyJson.studyId} className="study">
-                  <div className="study-title">{studyJson.title}</div>
-                  <button className="view-button" type="button" key={studyJson.studyId} onClick={() => goToStudy(studyJson.studyId)}>VIEW</button>
+                  <Text className="study-title">{studyJson.title}</Text>
+                  <Button 
+                    className="view-button"
+                    type="button"
+                    key={studyJson.studyId}
+                    onClick={() => goToStudy(studyJson.studyId)}
+                  >VIEW</Button>
                 </div>
               ),
             )
@@ -108,11 +110,14 @@ function ResearcherHome({ route, navigation}) { // add props user
       <div className="study-transfer">
         <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
         <div className="study">
-          <div className="study-transfer">Go to Study Page</div>
-          <button className="view-button" type="button" onClick={() => navigation.navigate('AddStudy', {user: user, setUser: setUser})}>Add Study</button>
+          <Text className="study-transfer">Go to Study Page</Text>
+          <Button
+            className="view-button"
+            onClick={() => navigation.navigate('AddStudy', {user: user, setUser: setUser})}
+          >Add Study</Button>
         </div>
       </div>
-    </div>
+    </View>
   );
 }
 
