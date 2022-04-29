@@ -192,32 +192,8 @@ function Login({ navigation }) {
         <TextInput style={styles.inputField} type="text" id="username" onChange={handleNameChangePassword} />
         <Text style={styles.errorMessage}>{error.message}</Text>
         <View style={styles.button}>
-          <Button type="submit" color='#103143' title="SUBMIT" onPress={(event) => handleAsync(event)} />
+          <Button type="submit" color='#103143' title="SUBMIT" onPress={handleAsync} />
         </View>
-
-        {/* <form onSubmit={handleAsync}>
-          <label className="login-label" htmlFor="username">
-            <div className="username-wrapper">
-              <p className="field-label">USERNAME</p>
-              <input
-                className="input-field"
-                type="text"
-                id="username"
-                onChange={handleNameChange}
-              />
-              <p className="field-label">PASSWORD</p>
-              <input
-                className="input-field"
-                type="text"
-                id="password"
-                onChange={handleNameChangePassword}
-              />
-              <span className="error-message">{error.message}</span>
-            </div>
-            <input className="button" type="submit" value="SUBMIT" />
-            <div className="spacer" />
-          </label>
-        </form> */}
       </View>
     </View>
   );
