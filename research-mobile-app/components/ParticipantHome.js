@@ -93,52 +93,68 @@ function ParticipantHome({ route, navigation }) { // add props user
   }
 
   const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      marginBottom: 20,
+      color: '#103143',
+    },
     button: {
-      height: 100,
-      width: 300,
-      marginBottom: 200,
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
     },
   });
 
   return (
-    <View style={styles.button}>
+    <View style={styles.container}>
       <NavBar user={user} setUser={setUser} navigation={navigation} />
-      <Button title="EDIT PROFILE" onPress={() => editProfile()}/>
-      <Button
-        title="GO TO STUDY"
-        onPress={() => hardcodedStudy()}
-      />
-      <Button
-        title="My Enrolled Studies"
-        onPress={() => {
-          navigation.navigate('ParticipantStudies', {
-            user: user,
-            setUser: setUser,
-          });
-        }}
-      />
-    <View>
-    <Text>Eligible Studies</Text>
-         <div>
-           {
-           enrolledStudies.length === 0 ? []
-             : enrolledStudies.map(
-               (studyJson) => (
-                 studyJson.map(
-                   (singleStudy) => (
-                     <div key={singleStudy.studyId} className="study">
-                       <div className="study-title">{singleStudy.title}</div>
-                       <div className="study-tag">{singleStudy.tags}</div>
-                       <button className="view-button" type="button" key={singleStudy.studyId} onClick={() => goToStudy(singleStudy.studyId)}>VIEW</button>
-                     </div>
-                   ),
-                 )
-               ),
-             )
-           }
-         </div>
+      <View style={styles.button}>
+        <Button title="EDIT PROFILE" color='#103143' onPress={() => editProfile()}/>
+      </View>
+      <View style={styles.button}>
+        <Button title="GO TO STUDY" color='#103143' onPress={() => hardcodedStudy()} />
+      </View>
+      <View style={styles.button}>
+        <Button
+          title="My Enrolled Studies"
+          color='#103143'
+          onPress={() => {
+            navigation.navigate('ParticipantStudies', {
+              user: user,
+              setUser: setUser,
+            });
+          }}
+        />
+      </View>
+      <Text>Eligible Studies</Text>
+          <div>
+            {
+            enrolledStudies.length === 0 ? []
+              : enrolledStudies.map(
+                (studyJson) => (
+                  studyJson.map(
+                    (singleStudy) => (
+                      <div key={singleStudy.studyId} className="study">
+                        <div className="study-title">{singleStudy.title}</div>
+                        <div className="study-tag">{singleStudy.tags}</div>
+                        <button className="view-button" type="button" key={singleStudy.studyId} onClick={() => goToStudy(singleStudy.studyId)}>VIEW</button>
+                      </div>
+                    ),
+                  )
+                ),
+              )
+            }
+          </div>
 
-    </View>
     </View>
   );
 
