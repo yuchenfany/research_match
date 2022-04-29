@@ -6,6 +6,7 @@ import  { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './components/Login'
 import ParticipantHome from './components/ParticipantHome'
 import ParticipantEdit from './components/ParticipantEdit'
+import ResearcherEdit from './components/ResearcherEdit'
 import ParticipantStudies from './components/ParticipantStudies'
 import Study from './components/Study'
 import DeleteAccount from './components/DeleteAccount'
@@ -42,6 +43,7 @@ export default function App() {
         <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
         <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
         <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
+        <Stack.Screen name="ResearcherEdit" component={ResearcherEdit} />
         <Stack.Screen name="Study" component={Study} />
       </Stack.Navigator>
     </NavigationContainer>

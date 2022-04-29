@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useState, useEffect } from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
 // import NavBar from './NavBar';
 
 function ResearcherHome({ route, navigation}) { // add props user
@@ -67,9 +68,18 @@ function ResearcherHome({ route, navigation}) { // add props user
       setStudy: setStudy
     });  }
 
+    async function editProfile() {
+      console.log('EDIT NAVIGATING');
+      navigation.navigate('ResearcherEdit', {
+        user,
+        setUser,
+      });
+    }
+
   return (
     <div className="ResearcherProfile">
       <div className="header-left">Researcher Home</div>
+      <Button title="EDIT PROFILE" onPress={() => editProfile()}/>
       <div className="study-flex">
         <div className="header-left">Enrolled Studies</div>
         <div>

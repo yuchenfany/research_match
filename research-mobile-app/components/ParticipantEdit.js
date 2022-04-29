@@ -11,6 +11,13 @@ function ParticipantHome({ route, navigation }) { // add props user
   console.log('PARTICIPANT EDIT === = ====');
   console.log(user.phys);
   console.log(user.password);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Apple', value: 'apple'},
+    {label: 'Banana', value: 'banana'}
+  ]);
   
   const[tempUser, setTempUser] = useState({
       username: user.username,
@@ -296,8 +303,16 @@ function ParticipantHome({ route, navigation }) { // add props user
             min={0}
             max={5}
           /> */}
+          <DropDownPicker
+            items={setItems}
+            defaultValue="item1"
+            containerStyle={{height: 40}}
+            style={{backgroundColor: '#BBEFEB'}}
+            dropDownStyle={{backgroundColor: '#BBEFEB'}}
+          />
         </View>
-        <Button title="UPDATE" onPress={() => handleUpdate()}/>
+        <div className="spacer"></div>
+        {/* <Button title="UPDATE" onPress={() => handleUpdate()}/> */}
     </View>
   );
 }
