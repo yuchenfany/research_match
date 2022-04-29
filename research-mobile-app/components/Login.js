@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
+import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
 import ParticipantStudies from './ParticipantStudies';
@@ -135,33 +136,90 @@ function Login({ navigation }) {
     handleSubmit(event);
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+    },
+    login: {
+      marginLeft: 40,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      marginBottom: 20,
+      color: '#103143',
+    },
+    loginLabel: {
+      fontSize: 12,
+      fontWeight: 500,
+      marginBottom: 5,
+      color: '#103143',
+    },
+    inputField: {
+      width: 275,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginBottom: 10,
+      borderRadius: 3,
+      color: '#103143',
+    },
+    errorMessage: {
+      marginTop: 10,
+      color: '#F13E3E',
+      fontWeight: 400,
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+  });
+
   return (
-    <div className="Login">
-      <p className="header">Research Match</p>
-      <form onSubmit={handleAsync}>
-        <label className="login-label" htmlFor="username">
-          <div className="username-wrapper">
-            <p className="field-label">USERNAME</p>
-            <input
-              className="input-field"
-              type="text"
-              id="username"
-              onChange={handleNameChange}
-            />
-            <p className="field-label">PASSWORD</p>
-            <input
-              className="input-field"
-              type="text"
-              id="password"
-              onChange={handleNameChangePassword}
-            />
-            <span className="error-message">{error.message}</span>
-          </div>
-          <input className="button" type="submit" value="SUBMIT" />
-          <div className="spacer" />
-        </label>
-      </form>
-    </div>
+    <View style={styles.container}>
+      <View style={styles.login}>
+        <Text style={styles.header}>Research Match</Text>
+        <Text style={styles.loginLabel}>USERNAME</Text>
+        <TextInput style={styles.inputField} type="text" id="username" onChange={handleNameChange} />
+        <Text style={styles.loginLabel}>PASSWORD</Text>
+        <TextInput style={styles.inputField} type="text" id="username" onChange={handleNameChangePassword} />
+        <Text style={styles.errorMessage}>{error.message}</Text>
+        <View style={styles.button}>
+          <Button type="submit" color='#103143' title="SUBMIT" onPress={(event) => handleAsync(event)} />
+        </View>
+
+        {/* <form onSubmit={handleAsync}>
+          <label className="login-label" htmlFor="username">
+            <div className="username-wrapper">
+              <p className="field-label">USERNAME</p>
+              <input
+                className="input-field"
+                type="text"
+                id="username"
+                onChange={handleNameChange}
+              />
+              <p className="field-label">PASSWORD</p>
+              <input
+                className="input-field"
+                type="text"
+                id="password"
+                onChange={handleNameChangePassword}
+              />
+              <span className="error-message">{error.message}</span>
+            </div>
+            <input className="button" type="submit" value="SUBMIT" />
+            <div className="spacer" />
+          </label>
+        </form> */}
+      </View>
+    </View>
   );
 }
 
