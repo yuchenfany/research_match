@@ -141,7 +141,7 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
   const newvalues = {
     $set: {
       username: req.body.username,
-      password: req.body.password,
+      // password: req.body.password,
       enrolled: req.body.enrolled,
     },
   };
@@ -182,13 +182,13 @@ recordRoutes.route('/record/researcher-studies/:username').post((req, response) 
 
   const newvalues = {
     $set: {
-      username: req.body.username,
-      password: req.body.password,
-      name: req.body.name,
-      organization: req.body.organization,
+      // username: req.body.username,
+      // password: req.body.password,
+      // name: req.body.name,
+      // organization: req.body.organization,
       studies: req.body.studies,
-      type: req.body.type,
-      title: req.body.title,
+      // type: req.body.type,
+      // title: req.body.title,
     },
   };
   dbConnect
@@ -201,6 +201,8 @@ recordRoutes.route('/record/researcher-studies/:username').post((req, response) 
 
 // POST: update participant's information on edit in profile
 recordRoutes.route('/record/participant-edit/:username').post((req, response) => {
+  console.log('=================REACHED BACKEND PARTICIPANT EDIT=================');
+
   const dbConnect = dbo.getDb();
   const myquery = { username: req.body.username };
 
@@ -222,6 +224,8 @@ recordRoutes.route('/record/participant-edit/:username').post((req, response) =>
       type: req.body.type,
     },
   };
+  console.log('BACKEND PRINT');
+  console.log(newvalues);
   dbConnect
     .collection('user-info')
     .updateOne(myquery, newvalues, (err, res) => {

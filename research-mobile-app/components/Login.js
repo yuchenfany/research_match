@@ -1,19 +1,46 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../assets/index.css';
 import bcrypt from 'bcryptjs';
+import ParticipantHome from './ParticipantHome';
+import ParticipantStudies from './ParticipantStudies';
+import Study from './Study'
+import ResearcherHome from './ResearcherHome';
+import ParticipantEdit from './ParticipantEdit';
+import ResearcherEdit from './ResearcherEdit';
+import AddStudy from './AddStudy';
+import ResearcherStudy from './ResearcherStudy';
+import EditStudy from './EditStudy';
+import DeleteAccount from './DeleteAccount';
 
-function Login({ user, setUser }) {
+import { NavigationContainer } from '@react-navigation/native';
+import  { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+function Login({ navigation }) {
+  const [study, setStudy] = useState({
+    studyId: '',
+    participants: [''],
+    researchers: [],
+    tags: [],
+  });
+  const [user, setUser] = useState({
+    username: 'participant',
+    password: 'participantpass',
+    enrolled: [],
+    phys: [],
+    psych: [],
+    med: [],
+    studies: [],
+    type: 0
+  });
+
+  let jsonResult = '';
+
   const [error, setError] = useState({ message: '' });
-  const navigate = useNavigate();
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(user.username);
-    console.log(user.password);
-
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
       event.preventDefault();
@@ -38,18 +65,18 @@ function Login({ user, setUser }) {
     });
 
     const json = await data.json();
-    console.log('JSON PASS ================');
-    console.log(json.password);
 
     // verification checks of username & password
     if (json === null) {
       setError({ message: 'User does not exist' });
       event.preventDefault();
-    // } else if (user.password === json.password) {
+    //  } else if (bcrypt.compareSync(user.password, json.password)) { : CHANGE LATER 
     } else if (bcrypt.compareSync(user.password, json.password)) {
+      jsonResult = json;
+
       if (json.type === 0) {
         // makes sure all fields are available in home
-        setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           enrolled: json.enrolled,
@@ -64,30 +91,25 @@ function Login({ user, setUser }) {
           psych: json.psych,
           med: json.med,
           type: json.type,
-        });
-        console.log('TYPE');
-        console.log(json.type);
-        console.log(json.age);
-        console.log(json.heightFeet);
-        console.log(json.heightInches);
-        console.log(json.weight);
-        console.log(json.sex);
-        console.log(json.gender);
+        };
+        setUser(updatedUser);
 
-        navigate('/participant-home');
+        return 0;
       } else if (json.type === 1) {
         // makes sure all fields are available in home
-        setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           name: json.name,
           organization: json.organization,
+          studies: json.studies,
           type: json.type,
+          title: json.title,
         });
-        navigate('/researcher-home');
+
+        return 1;
       }
     } else {
-      console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });
       event.preventDefault();
     }
@@ -102,6 +124,7 @@ function Login({ user, setUser }) {
         enrolled: user.enrolled,
       },
     );
+    console.log('USERNAME CHANGE====================');
   };
 
   const handleNameChangePassword = async (event) => {
@@ -112,16 +135,36 @@ function Login({ user, setUser }) {
         enrolled: user.enrolled,
       },
     );
+
+    console.log('PASSWORD CHANGE====================');
   };
 
-  const handleAsync = (event) => {
+  const navigateTo = (type) => {
+    console.log('NAVIGATETO');
+    console.log(jsonResult.age);
+    if (type === 0) {
+      console.log(jsonResult);
+      navigation.navigate('ParticipantHome', {
+        user: jsonResult,
+        setUser: setUser,
+      });
+    } else if (type === 1) {
+      navigation.navigate('ResearcherHome', {
+        user: jsonResult,
+        setUser: setUser,
+        setStudy: setStudy,
+      });
+    }
+  };
+
+  const handleAsync = async (event) => {
     event.preventDefault();
     // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
-    handleSubmit(event);
-  };
-
-  const goToCreate = () => {
-    navigate('/create');
+    console.log('BEFORE HANDLESUBMIT');
+    const type = await handleSubmit(event);
+    console.log('FINISHED HANDLESUBMIT');
+    console.log(type);
+    setTimeout(1000, navigateTo(type));
   };
 
   return (
@@ -148,11 +191,34 @@ function Login({ user, setUser }) {
           </div>
           <input className="button" type="submit" value="SUBMIT" />
           <div className="spacer" />
-          <button className="link" type="button" onClick={goToCreate}>New user sign-up</button>
         </label>
       </form>
     </div>
   );
 }
 
-export default Login;
+// the app component will configure the screens and the routes
+
+// create a navigation stack --> refrences the thing
+const Stack = createNativeStackNavigator();
+export default function App() {
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator initialRouteName="Research Application">
+        <Stack.Screen name="Research Application" component={Login} />
+        <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
+        <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
+        <Stack.Screen name="Study" component={Study} />
+        <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
+        <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
+        <Stack.Screen name="ResearcherEdit" component={ResearcherEdit} />
+        <Stack.Screen name="AddStudy" component={AddStudy} />
+        <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
+        <Stack.Screen name="EditStudy" component={EditStudy} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+
+}
+// export default Login;
