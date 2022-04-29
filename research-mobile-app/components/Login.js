@@ -31,14 +31,12 @@ function Login({ navigation }) {
     psych: [],
     med: [],
     studies: [],
+    type: 0
   });
   const [error, setError] = useState({ message: '' });
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(user.username);
-    console.log(user.password);
-
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
       event.preventDefault();
@@ -63,7 +61,6 @@ function Login({ navigation }) {
     });
 
     const json = await data.json();
-    console.log(json);
 
     // verification checks of username & password
     if (json === null) {
@@ -73,7 +70,7 @@ function Login({ navigation }) {
     } else if (bcrypt.compareSync(user.password, json.password)) {
       if (json.type === 0) {
         // makes sure all fields are available in home
-        await setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           enrolled: json.enrolled,
@@ -88,20 +85,16 @@ function Login({ navigation }) {
           psych: json.psych,
           med: json.med,
           type: json.type,
-        });
-
-        console.log(user);
-        console.log('JSON USER LOGIN');
-        console.log(json.age);
-        console.log(json.heightFeet);
+        };
+        setUser(updatedUser);
 
         navigation.navigate('ParticipantHome', {
-          user: user,
+          user: updatedUser,
           setUser: setUser,
         });
       } else if (json.type === 1) {
         // makes sure all fields are available in home
-        await setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           name: json.name,
@@ -109,19 +102,15 @@ function Login({ navigation }) {
           studies: json.studies,
           type: json.type,
           title: json.title,
-        });
-        console.log(user);
-        console.log(json.type);
-        console.log(user.type);
+        };
+        setUser(updatedUser);
         navigation.navigate('ResearcherHome', {
-          user: user,
+          user: updatedUser,
           setUser: setUser, 
           setStudy: setStudy
         });
-        //navigate('/researcher-home');
       }
     } else {
-      console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });
       event.preventDefault();
     }
@@ -129,23 +118,15 @@ function Login({ navigation }) {
 
   // update username as it's being entered
   const handleNameChange = async (event) => {
-    setUser(
-      {
-        username: event.target.value,
-        password: user.password,
-        enrolled: user.enrolled,
-      },
-    );
+    const updatedUser = user;
+    updatedUser.username = event.target.value;
+    setUser(updatedUser);
   };
 
   const handleNameChangePassword = async (event) => {
-    setUser(
-      {
-        username: user.username,
-        password: event.target.value,
-        enrolled: user.enrolled,
-      },
-    );
+    const updatedUser = user;
+    updatedUser.password = event.target.value;
+    setUser(updatedUser);
   };
 
   const handleAsync = (event) => {
