@@ -106,7 +106,7 @@ function Login({ navigation }) {
           studies: json.studies,
           type: json.type,
           title: json.title,
-        });
+        };
 
         return 1;
       }
