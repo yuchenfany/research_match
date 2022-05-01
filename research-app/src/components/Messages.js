@@ -15,12 +15,20 @@ function Messages({
   // REMEMBER TO SET SENDER AND RECEIVER HERE -> (remember to set sender type)
   // HARDCODING SENDER / RECEIVER -> replace this later
   useEffect(() => {
-    setSender({ username: 'senderUsername', type: 0 });
-    setReceiver({ username: 'receiverUsername', type: 1 });
+    if (user.type === 0) {
+      setSender({ username: user.username, type: 0 });
+      setReceiver({ username: 'receiverUsername', type: 1 });
+    }
+    else {
+      setSender({ username: receiver.username, type: 0 });
+      setReceiver({ username: user.username, type: 1 });
+    }
   }, []);
 
   // TODO: unhardcode this later
   function goToChatHardcode() {
+    console.log(sender);
+    console.log(receiver);
     navigate('/chat');
   }
 
@@ -30,7 +38,7 @@ function Messages({
       <div>{user.username}</div>
       <div>{sender.username}</div>
       <div>{receiver.username}</div>
-      <button className="link" type="button" onClick={goToChatHardcode}>HARDCODED CHAT</button>
+      <button className="link" type="button" onClick={goToChatHardcode}>HARDCODED CHAT with current user and recieverUsername</button>
     </div>
   );
 }

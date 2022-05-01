@@ -181,7 +181,7 @@ studyRoutes.route('/study/tag/:id').get((req, res) => {
     const dbConnect = dbo.getDb('research-app');
     //const myquery = { tags: parseInt(req.params.id, 10) };
     const myquery = { tags: req.params.id };
-    console.log(myquery);
+    // console.log(myquery);
 
     dbConnect
       .collection('studies')

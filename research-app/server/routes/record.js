@@ -68,7 +68,7 @@ recordRoutes.route("/record").get(function (req, res) {
 // User GET by id method
 recordRoutes.route("/record/:id").get(function (req, res) {
   let db_connect = dbo.getDb("research-app");
-  console.log(req.params.id);
+  // console.log(req.params.id);
   let myquery = { username: req.params.id};
   db_connect
       .collection("user-info")

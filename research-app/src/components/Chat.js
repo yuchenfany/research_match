@@ -62,6 +62,7 @@ function Chat({ sender, receiver }) {
       text: message,
       // attachment:
     };
+    console.log(messageObject);
 
     await fetch('http://localhost:5000/chats/send', {
       method: 'POST',
