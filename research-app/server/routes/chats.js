@@ -46,14 +46,14 @@ messageRoutes.route('/chats/get/:user/:researcher').get((req, res) => {
   const dbConnect = dbo.getDb();
   const { user, researcher } = req.params;
   const query = { researcher, user };
-  console.log("user");
-  console.log(user);
-  console.log(researcher);
+  // console.log("user");
+  // console.log(user);
+  // console.log(researcher);
   dbConnect
     .collection('chats')
     .findOne(query, (err, result) => {
       if (err) throw err;
-      console.log(result);
+      // console.log(result);
       res.json(result);
     });
 });
@@ -68,6 +68,7 @@ messageRoutes.route('/chats/send').post((req) => {
   const user = senderType === 0 ? sender : receiver;
   const researcher = senderType === 1 ? sender : receiver;
   const message = { sender, timestamp: Date.now(), text };
+  console.log(message);
   dbConnect
     .collection('chats')
     .updateOne(
