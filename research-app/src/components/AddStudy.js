@@ -120,7 +120,7 @@ function AddStudy({ user, study, setStudy }) {
       tags: study.tags,
       participants: study.participants,
       studyId: Id,
-      researchers: study.researchers,
+      researchers: user.name,
     // }, () => {
     //   addStudy();
     });
@@ -132,7 +132,7 @@ function AddStudy({ user, study, setStudy }) {
       tags: study.tags,
       participants: study.participants,
       studyId: Id,
-      researchers: study.researchers,
+      researchers: user.name,
     };
     // creates a new study in the study collection
     await fetch('http://localhost:5000/add-study', {
@@ -157,7 +157,7 @@ function AddStudy({ user, study, setStudy }) {
       tags: study.tags,
       participants: study.participants,
       studyId: study.studyId,
-      researchers: study.researchers,
+      researchers: user.name,
     });
   };
   const updateDescription = async (event) => {
@@ -169,7 +169,7 @@ function AddStudy({ user, study, setStudy }) {
       tags: study.tags,
       participants: study.participants,
       studyId: study.studyId,
-      researchers: study.researchers,
+      researchers: user.name,
     });
   };
   const updateCompensation = async (event) => {
@@ -181,7 +181,7 @@ function AddStudy({ user, study, setStudy }) {
       tags: study.tags,
       participants: study.participants,
       studyId: study.studyId,
-      researchers: study.researchers,
+      researchers: user.name,
     });
   };
   const updateDuration = async (event) => {
@@ -193,21 +193,21 @@ function AddStudy({ user, study, setStudy }) {
       tags: study.tags,
       participants: study.participants,
       studyId: study.studyId,
-      researchers: study.researchers,
+      researchers: user.name,
     });
   };
-  const updateResearcher = async (event) => {
-    setStudy({
-      title: study.title,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: study.tags,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: event.target.value,
-    });
-  };
+  // const updateResearcher = async (event) => {
+  //   setStudy({
+  //     title: study.title,
+  //     description: study.description,
+  //     compensation: study.compensation,
+  //     duration: study.duration,
+  //     tags: study.tags,
+  //     participants: study.participants,
+  //     studyId: study.studyId,
+  //     researchers: event.target.value,
+  //   });
+  // };
   async function getTagsArr(tags) {
     const arr = [];
 
@@ -273,13 +273,6 @@ function AddStudy({ user, study, setStudy }) {
             type="text"
             id="duration"
             onChange={updateDuration}
-          />
-          <div>Lead Researcher</div>
-          <input
-            className="input-field"
-            type="text"
-            id="researchers"
-            onChange={updateResearcher}
           />
         </div>
         <div className="profile-row">

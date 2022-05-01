@@ -102,13 +102,6 @@ function ParticipantStudies({
           <button className="view-button" type="button" key={2} onClick={() => goToStudy(2)}>VIEW</button>
         </div>
       </div>
-      <div className="study-transfer">
-        <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
-        <div className="study">
-          <div className="study-transfer">Go to Study Page</div>
-          <button className="view-button" type="button" onClick={() => navigate('/add-study')}>Add Study</button>
-        </div>
-      </div>
     </div>
   );
 }
