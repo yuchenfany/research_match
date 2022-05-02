@@ -50,8 +50,39 @@ function ResearcherHome({ user, setUser, setStudy }) {
     console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
+    // gets number of messages that user has received
+    async function getNumMessages() {
+      const data = await fetch(`http://localhost:5000/chats/getNumMessages/${user.username}`, {
+        method: 'GET',
+        headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    setUser(user);
+    const json = await data.json();
+    const messageCounts = json ?? [0];
+    return messageCounts[0]?.messages;
+  }
+  
+  const renderNotification = () => <div>NOTIFICATION TESTING For Researcher :)</div>;
+  
+  async function checkNotifications() {
+    getNumMessages().then(
+      (num) => {
+        // console.log(num);
+        // console.log(user.messages);
+        setNotification(num !== user.messages);
+      },
+    );
+  }
+
+  function refresh() {
+    setInterval(checkNotifications, 1000);
+  }
 
   useEffect(() => {
+    refresh();
+
     getAllStudyJson()
       .then(setEnrolledStudies);
   }, []);
@@ -64,6 +95,7 @@ function ResearcherHome({ user, setUser, setStudy }) {
   return (
     <div className="ResearcherProfile">
       <NavBar user={user} />
+      <div>{notification ? renderNotification() : ''}</div>
       <div className="header-left">Researcher Home</div>
       <div className="study-flex">
         <div className="header-left">My Studies</div>

@@ -93,16 +93,16 @@ messageRoutes.route('/chats/getNumMessages/:user').get((req, res) => {
 
   // if we want to move everything to the backend
   dbConnect
-    .collection('chats')
-    .aggregate([
-      { $unwind: '$messages' },
-      { $match: { 'messages.sender': user } },
-      { $count: 'messages' },
-    ])
-    .toArray((err, result) => {
-      if (err) throw err;
-      res.json(result);
-    });
-});
+  .collection('chats')
+  .aggregate([
+    { $match: { $or: [{ user }, { researcher: user }] } },
+    { $unwind: '$messages' },
+    { $match: { sender: { $nin: [user] } } },
+    { $count: 'messages' },
+  ])
+  .toArray((err, result) => {
+    if (err) throw err;
+    res.json(result);
+  });
 
 module.exports = messageRoutes;

@@ -39,6 +39,7 @@ function ResearcherProfile({ user, setUser }) {
       name: event.target.value,
       organization: user.organization,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -49,6 +50,7 @@ function ResearcherProfile({ user, setUser }) {
       name: user.name,
       organization: event.target.value,
       type: user.type,
+      messages: 0,
     });
   };
 

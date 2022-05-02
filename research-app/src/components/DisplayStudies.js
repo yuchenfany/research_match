@@ -96,9 +96,7 @@ function DisplayStudies({
 
   useEffect(() => {
     refresh();
-  }, []);
 
-  useEffect(() => {
     getAllStudyJson()
       .then(setEnrolledStudies);
   }, []);
