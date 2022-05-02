@@ -104,5 +104,6 @@ messageRoutes.route('/chats/getNumMessages/:user').get((req, res) => {
     if (err) throw err;
     res.json(result);
   });
+});
 
 module.exports = messageRoutes;
