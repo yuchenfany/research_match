@@ -47,7 +47,7 @@ function Messages({ user }) {
                       type="button"
                       onClick={() => navigate(
                         '/chat',
-                        { state: { sender: user, receiverName } },
+                        { state: { receiverName } },
                       )}
                     >
                       VIEW

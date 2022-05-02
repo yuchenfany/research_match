@@ -6,9 +6,12 @@ import NavBar from './NavBar';
 
 import '../assets/index.css';
 
-function Chat() {
+function Chat({ sender, setSender, setNotification }) {
   const { state } = useLocation();
-  const { sender, receiverName, setNotification } = state;
+  const {
+    receiverName,
+    // setNotification
+  } = state;
 
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
@@ -34,11 +37,7 @@ function Chat() {
     return json?.messages ?? []; // returns messages array
   }
 
-  async function messageRetrieval() {
-    getMessages()
-      .then(setChats);
-  }
-
+  // gets number of messages that user has received
   async function getNumMessages() {
     const data = await fetch(`http://localhost:5000/chats/getNumMessages/${sender.username}`, {
       method: 'GET',
@@ -46,18 +45,22 @@ function Chat() {
         'Content-Type': 'application/json',
       },
     });
-    const resultArr = await data.json();
-    let numMessages = 0;
-    for (let i = 0; i < resultArr.length; i += 1) {
-      numMessages += resultArr[i].messages.length;
-    }
-    return numMessages;
+    const json = await data.json();
+    const messageCounts = json ?? [0];
+    return messageCounts[0]?.messages;
   }
 
   async function updateNumberOfMessages() {
     const newNumMessages = await getNumMessages();
+    if (sender.messages === newNumMessages) {
+      setNotification(false);
+      return;
+    }
     const updatedUser = JSON.parse(JSON.stringify(sender));
     updatedUser.messages = newNumMessages;
+    console.log(sender);
+    setSender(updatedUser);
+    setNotification(false);
     await fetch('http://localhost:5000/record/updateMessages', {
       method: 'POST',
       headers: {
@@ -65,14 +68,18 @@ function Chat() {
       },
       body: JSON.stringify(updatedUser),
     });
-    setNotification(false);
+  }
+
+  async function messageRetrieval() {
+    getMessages()
+      .then(setChats);
+    updateNumberOfMessages();
   }
 
   async function reloadMessages() {
     if (!nIntervId) {
       nIntervId = setInterval(messageRetrieval, 1000);
     }
-    updateNumberOfMessages();
   }
 
   useEffect(() => {
@@ -106,6 +113,7 @@ function Chat() {
       },
       body: JSON.stringify(messageObject),
     });
+
     setMessage('');
     navigate('/participant-home');
   }

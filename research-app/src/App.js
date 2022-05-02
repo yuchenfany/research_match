@@ -45,10 +45,7 @@ function App() {
   });
   const [status, setStatus] = useState({ isEnrolled: false });
   // for chat
-  const [sender, setSender] = useState({ username: '', senderType: '' });
-  const [receiverName, setReceiverName] = useState('');
   const [notification, setNotification] = useState(false);
-
 
   return (
     <div className="App">
@@ -70,7 +67,7 @@ function App() {
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
         <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} setNotification={setNotification}/>} />
         <Route exact path="/messages" element={<Messages user={user} />} />
-        <Route exact path="/chat" element={<Chat sender={user} receiverName={receiverName} setNotification={setNotification} />} />
+        <Route exact path="/chat" element={<Chat sender={user} setSender={setUser} setNotification={setNotification} />} />
       </Routes>
     </div>
   );
