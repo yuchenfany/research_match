@@ -87,6 +87,8 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
   async function checkNotifications() {
     getNumMessages().then(
       (num) => {
+        console.log(num);
+        console.log(user);
         if (num !== user.messages) {
           setNotification(true);
         }

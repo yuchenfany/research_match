@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 
 // TO DO: add back in studyId prop
 function Study({
-  study, setStudy, user, setUser, status, setStatus, setSender, setReceiver,
+  study, setStudy, user, setUser, status, setStatus,
 }) {
   // Hardcoded:
   // const studyId = 0;
@@ -134,11 +134,7 @@ function Study({
   }
 
   async function goToChat() {
-    await setSender({ username: user.username, type: 0 });
-    await setReceiver({ username: study.researchers[0], type: 1 });
-    console.log(study.researchers[0]);
-    console.log(user);
-    navigate('/chat');
+    navigate('/chat', { state: { sender: user, receiverName: study.researchers[0] } });
   }
 
   return (

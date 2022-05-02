@@ -24,12 +24,13 @@ Objects:
 // GET method: all chats that the user has
 messageRoutes.route('/chats').get((req, res) => {
   const dbConnect = dbo.getDb();
-  const { sender } = req.body;
+  const { senderName, senderType } = req.query;
+
   let query;
-  if (sender.type === 1) {
-    query = { user: sender };
+  if (parseInt(senderType, 10) === 0) {
+    query = { user: senderName };
   } else {
-    query = { researcher: sender };
+    query = { researcher: senderName };
   }
 
   dbConnect
@@ -46,14 +47,11 @@ messageRoutes.route('/chats/get/:user/:researcher').get((req, res) => {
   const dbConnect = dbo.getDb();
   const { user, researcher } = req.params;
   const query = { researcher, user };
-  // console.log("user");
-  // console.log(user);
-  // console.log(researcher);
+
   dbConnect
     .collection('chats')
     .findOne(query, (err, result) => {
       if (err) throw err;
-      // console.log(result);
       res.json(result);
     });
 });
@@ -64,11 +62,9 @@ messageRoutes.route('/chats/send').post((req) => {
   const {
     sender, senderType, receiver, text,
   } = req.body;
-  // console.log(senderType);
   const user = senderType === 0 ? sender : receiver;
   const researcher = senderType === 1 ? sender : receiver;
   const message = { sender, timestamp: Date.now(), text };
-  console.log(message);
   dbConnect
     .collection('chats')
     .updateOne(

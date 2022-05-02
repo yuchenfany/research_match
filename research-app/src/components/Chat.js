@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import NavBar from './NavBar';
 
 import '../assets/index.css';
 
-function Chat({ sender, receiver }) {
+function Chat() {
+  const { state } = useLocation();
+  const { sender, receiverName } = state;
+
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   // use below for displaying chat history
@@ -18,8 +22,8 @@ function Chat({ sender, receiver }) {
   };
 
   async function getMessages() {
-    const user = sender.type === 0 ? sender.username : receiver.username;
-    const researcher = sender.type === 1 ? sender.username : receiver.username;
+    const user = sender.type === 0 ? sender.username : receiverName;
+    const researcher = sender.type === 1 ? sender.username : receiverName;
     const data = await fetch(`http://localhost:5000/chats/get/${user}/${researcher}`, {
       method: 'GET',
       headers: {
@@ -89,11 +93,10 @@ function Chat({ sender, receiver }) {
     const messageObject = {
       sender: sender.username,
       senderType: sender.type,
-      receiver: receiver.username,
+      receiver: receiverName,
       text: message,
       // attachment:
     };
-    console.log(messageObject);
 
     await fetch('http://localhost:5000/chats/send', {
       method: 'POST',
@@ -124,6 +127,7 @@ function Chat({ sender, receiver }) {
 
   return (
     <div>
+      <NavBar user={sender} />
       <p>INDIVIDUAL CHAT</p>
       { chatsDisplay }
       <input
