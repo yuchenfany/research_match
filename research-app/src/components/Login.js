@@ -59,6 +59,7 @@ function Login({ user, setUser }) {
           psych: json.psych,
           med: json.med,
           type: json.type,
+          messages: json.messages,
         });
 
         navigate('/participant-home');

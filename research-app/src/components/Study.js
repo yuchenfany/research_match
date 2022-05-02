@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 
 // TO DO: add back in studyId prop
 function Study({
-  study, setStudy, user, setUser, status, setStatus, sender, receiver, setSender, setReceiver,
+  study, setStudy, user, setUser, status, setStatus, setSender, setReceiver,
 }) {
   // Hardcoded:
   // const studyId = 0;
@@ -156,7 +156,10 @@ function Study({
           Compensation:
           {study.compensation}
         </div>
-        <div> Researcher names: [ADD IN] </div>
+        <div>
+          Researcher names:
+          [ADD IN]
+        </div>
         {status.isEnrolled
           ? <button className="button" type="button" onClick={() => drop()}>DROP</button>
           : <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>}

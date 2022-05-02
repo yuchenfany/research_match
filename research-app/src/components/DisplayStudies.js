@@ -8,6 +8,7 @@ import NavBar from './NavBar';
 
 function DisplayStudies({ user, setUser, setStudy }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
+  const [notification, setNotification] = useState(false);
   const navigate = useNavigate();
 
   // gets list of studies that match user's tags
@@ -62,7 +63,51 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 
+  // gets number of messages that user has received
+  async function getNumMessages() {
+    const data = await fetch(`http://localhost:5000/chats/getNumMessages/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const resultArr = await data.json();
+    let numMessages = 0;
+    // resultArr.forEach(chat => numMessages += chat.messages.length);
+
+    for (let i = 0; i < resultArr.length; i += 1) {
+      numMessages += resultArr[i].messages.length;
+    }
+
+    return numMessages;
+  }
+
+  const renderNotification = () => <div>NOTIFICATION TESTING :)</div>;
+
+  async function checkNotifications() {
+    getNumMessages().then(
+      (num) => {
+        if (num !== user.messages) {
+          setNotification(true);
+        }
+      },
+    );
+  }
+
+  function refresh() {
+    setInterval(checkNotifications, 1000);
+  }
+
   useEffect(() => {
+    refresh();
+
+    // getNumMessages().then(
+    //   (num) => {
+    //     if (num !== user.messages) {
+    //       setNotification(true);
+    //     }
+    //   }
+    // );
     getAllStudyJson()
       .then(setEnrolledStudies);
   }, []);
@@ -75,6 +120,7 @@ function DisplayStudies({ user, setUser, setStudy }) { // add props user
   return (
     <div className="Home">
       <NavBar user={user} />
+      <div>{notification ? renderNotification() : ''}</div>
       <div className="study-flex">
         <div className="header-left">Eligible Studies</div>
         <div>

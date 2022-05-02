@@ -78,4 +78,39 @@ messageRoutes.route('/chats/send').post((req) => {
     );
 });
 
+messageRoutes.route('/chats/getNumMessages/:user').get((req, res) => {
+  const dbConnect = dbo.getDb();
+  const {user} = req.params;
+  const query = { user };
+  const numMessages = 0;
+  console.log(query);
+  dbConnect
+    .collection('chats')
+    .find(query)
+    .toArray((err, result) => {
+      console.log(result);
+      if (err) throw err;
+      res.json(result);
+      //for each chat in result: 
+      //numMessages = numMessages + req.
+    });
+  
+
+  // if we want to move everything to the backend
+  /*dbConnect
+    .collection('chats')
+    .aggregate(
+      { $match: { user: user } },
+      { $unwind: "$messages"},
+      { $group: { _id: "messages.sender", count: { $sum: 1 }} }
+    )
+    .toArray((err, result) => {
+      console.log(result);
+      if (err) throw err;
+      res.json(result);
+      //for each chat in result: 
+      //numMessages = numMessages + req.
+    });*/
+});
+
 module.exports = messageRoutes;
