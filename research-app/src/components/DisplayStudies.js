@@ -10,6 +10,8 @@ function DisplayStudies({
   user, setUser, setStudy, notification, setNotification,
 }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
+  const [notificationDS, setNotificationDS] = useState(false);
+
   const navigate = useNavigate();
 
   // gets list of studies that match user's tags
@@ -39,6 +41,7 @@ function DisplayStudies({
       phys: json.phys,
       psych: json.psych,
       med: json.med,
+      messages: json.messages,
     });
     // return json.tags; (once tags are implemented in phys)
     // Hardcoded:
@@ -83,9 +86,10 @@ function DisplayStudies({
   async function checkNotifications() {
     getNumMessages().then(
       (num) => {
-        // console.log(num);
-        // console.log(user.messages);
-        setNotification(num !== user.messages);
+        console.log(num);
+        console.log(user.messages);
+        setNotificationDS(num !== user.messages);
+        console.log(notificationDS);
       },
     );
   }
@@ -109,7 +113,7 @@ function DisplayStudies({
   return (
     <div className="Home">
       <NavBar user={user} />
-      <div>{notification ? renderNotification() : ''}</div>
+      <div>{notificationDS ? renderNotification() : ''}</div>
       <div className="study-flex">
         <div className="header-left">Eligible Studies</div>
         <div>

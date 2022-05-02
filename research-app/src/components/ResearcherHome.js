@@ -9,6 +9,8 @@ import NavBar from './NavBar';
 
 function ResearcherHome({ user, setUser, setStudy, notification, setNotification }) {
   const [enrolledStudies, setEnrolledStudies] = useState([]);
+  const [notificationRH, setNotificationRH] = useState(false);
+
   const navigate = useNavigate();
   async function getStudyIds() {
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
@@ -58,7 +60,7 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
         'Content-Type': 'application/json',
       },
     });
-    setUser(user);
+    // setUser(user);
     const json = await data.json();
     const messageCounts = json ?? [0];
     return messageCounts[0]?.messages;
@@ -69,9 +71,9 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   async function checkNotifications() {
     getNumMessages().then(
       (num) => {
-        // console.log(num);
-        // console.log(user.messages);
-        setNotification(num !== user.messages);
+        console.log(num);
+        console.log(user.messages);
+        setNotificationRH(num !== user.messages);
       },
     );
   }
@@ -95,7 +97,7 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   return (
     <div className="ResearcherProfile">
       <NavBar user={user} />
-      <div>{notification ? renderNotification() : ''}</div>
+      <div>{notificationRH ? renderNotification() : ''}</div>
       <div className="header-left">Researcher Home</div>
       <div className="study-flex">
         <div className="header-left">My Studies</div>

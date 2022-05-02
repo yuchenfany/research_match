@@ -6,7 +6,7 @@ import NavBar from './NavBar';
 
 import '../assets/index.css';
 
-function Chat({ sender, setSender, setNotification }) {
+function Chat({ sender, setSender, setNotification, user, setUser }) {
   const { state } = useLocation();
   const {
     receiverName,
@@ -56,11 +56,13 @@ function Chat({ sender, setSender, setNotification }) {
       setNotification(false);
       return;
     }
-    const updatedUser = JSON.parse(JSON.stringify(sender));
-    updatedUser.messages = newNumMessages;
-    console.log(sender);
-    setSender(updatedUser);
-    setNotification(false);
+    const updatedUser = JSON.parse(JSON.stringify(user));
+    updatedUser.messages = await newNumMessages;
+    console.log("updating user prop");
+    console.log(newNumMessages);
+    await setSender(updatedUser);
+    await setNotification(false);
+    await setUser(updatedUser);
     await fetch('http://localhost:5000/record/updateMessages', {
       method: 'POST',
       headers: {

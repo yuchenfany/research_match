@@ -71,6 +71,7 @@ function Login({ user, setUser }) {
           name: json.name,
           organization: json.organization,
           type: json.type,
+          messages: json.messages,
         });
         navigate('/researcher-home');
       }
