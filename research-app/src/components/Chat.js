@@ -58,7 +58,6 @@ function Chat({ sender, setSender, setNotification }) {
     }
     const updatedUser = JSON.parse(JSON.stringify(sender));
     updatedUser.messages = newNumMessages;
-    console.log(sender);
     setSender(updatedUser);
     setNotification(false);
     await fetch('http://localhost:5000/record/updateMessages', {
@@ -105,7 +104,7 @@ function Chat({ sender, setSender, setNotification }) {
     reader.onload = () => {
       setFile(reader.result);
     };
-    reader.readAsBinaryString(attachment);
+    reader.readAsDataURL(attachment);
   }
 
   async function handleSubmit(event) {
@@ -130,6 +129,33 @@ function Chat({ sender, setSender, setNotification }) {
     });
   }
 
+  const getMedia = (entry) => {
+    if (!entry.attachment) {
+      return null;
+    }
+    const type = entry.attachment.split(':')[1].split('/')[0];
+    if (type === 'image') {
+      return (<img src={entry.attachment} alt="attachment" />);
+    }
+    if (type === 'audio') {
+      return (
+        <audio className="chat-media" controls>
+          <source src={entry.attachment} />
+          <track src="" kind="captions" srcLang="en" label="English" />
+        </audio>
+      );
+    }
+    if (type === 'video') {
+      return (
+        <video className="chat-media" controls autoPlay>
+          <source src={entry.attachment} type={entry.attachment.split(':')[1].split(';')[0]} />
+          <track src="" kind="captions" srcLang="en" label="English" />
+        </video>
+      );
+    }
+    return null;
+  };
+
   const chatsDisplay = (
     <div>
       <div className="chat-history">
@@ -145,11 +171,10 @@ function Chat({ sender, setSender, setNotification }) {
                 </p>
                 <div
                   key={entry.timestamp}
-                  className={
-                    entry.sender === sender ? 'sender-chat' : 'receiver-chat'
-                  }
+                  className={entry.sender === sender.username ? 'sender-chat' : 'receiver-chat'}
                 >
                   {entry.text}
+                  {getMedia(entry)}
                 </div>
               </div>
             ),

@@ -506,6 +506,8 @@ code {
   border-radius: 3px;
   padding: 1rem;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .sender-chat {
@@ -518,6 +520,8 @@ code {
   border-radius: 3px;
   padding: 1rem;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-input-container {
@@ -541,4 +545,9 @@ code {
 
 .chat-timestamp {
   font-size: 10px;
+}
+
+.chat-media {
+  max-width: 95%; 
+  max-height: 50%;
 }
