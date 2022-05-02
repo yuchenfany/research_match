@@ -144,17 +144,19 @@ function Study({
         <div className="header-left">
           {study.title}
         </div>
-        <div>
-          Duration:
-          {study.duration}
-        </div>
-        <div>
-          Compensation:
-          {study.compensation}
-        </div>
-        <div>
-          Researcher names:
-          [ADD IN]
+        <div className="study-information">
+          <div>
+            Duration: &nbsp;
+            {study.duration}
+          </div>
+          <div>
+            Compensation: &nbsp;
+            {study.compensation}
+          </div>
+          <div>
+            Researcher names: &nbsp;
+            {study.researchers.join(', ')}
+          </div>
         </div>
         {status.isEnrolled
           ? <button className="button" type="button" onClick={() => drop()}>DROP</button>

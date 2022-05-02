@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 
 import '../assets/index.css';
@@ -13,7 +13,6 @@ function Chat({ sender, setSender, setNotification }) {
     // setNotification
   } = state;
 
-  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   // use below for displaying chat history
   const [chats, setChats] = useState([]);
@@ -94,8 +93,8 @@ function Chat({ sender, setSender, setNotification }) {
   // Handle notification things
 
   async function handleSubmit(event) {
+    event.preventDefault();
     if (message.length === 0) {
-      event.preventDefault();
       return;
     }
     const messageObject = {
@@ -105,7 +104,7 @@ function Chat({ sender, setSender, setNotification }) {
       text: message,
       // attachment:
     };
-
+    setMessage('');
     await fetch('http://localhost:5000/chats/send', {
       method: 'POST',
       headers: {
@@ -113,9 +112,6 @@ function Chat({ sender, setSender, setNotification }) {
       },
       body: JSON.stringify(messageObject),
     });
-
-    setMessage('');
-    navigate('/participant-home');
   }
 
   const chatsDisplay = (
