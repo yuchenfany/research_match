@@ -75,7 +75,7 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   
   const renderNotification = () => (
     <Popup
-      open={showPopup}
+      open={notificationRH}
       modal
       nested
     >
