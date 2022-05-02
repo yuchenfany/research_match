@@ -6,9 +6,10 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
-function DisplayStudies({ user, setUser, setStudy }) { // add props user
+function DisplayStudies({
+  user, setUser, setStudy, notification, setNotification,
+}) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
-  const [notification, setNotification] = useState(false);
   const navigate = useNavigate();
 
   // gets list of studies that match user's tags

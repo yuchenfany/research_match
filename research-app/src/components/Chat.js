@@ -8,7 +8,7 @@ import '../assets/index.css';
 
 function Chat() {
   const { state } = useLocation();
-  const { sender, receiverName } = state;
+  const { sender, receiverName, setNotification } = state;
 
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
@@ -65,6 +65,7 @@ function Chat() {
       },
       body: JSON.stringify(updatedUser),
     });
+    setNotification(false);
   }
 
   async function reloadMessages() {
