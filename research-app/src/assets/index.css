@@ -533,3 +533,7 @@ code {
   color: #103143;
   border-radius: 3px;
 }
+
+.chat-timestamp {
+  font-size: 10px;
+}

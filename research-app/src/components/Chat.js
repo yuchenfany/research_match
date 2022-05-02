@@ -125,13 +125,20 @@ function Chat({ sender, setSender, setNotification }) {
         chats.length === 0 ? []
           : chats.map(
             (entry) => (
-              <div
-                key={entry.timestamp}
-                className={
-                  entry.text?.includes('ello') ?? false ? 'receiver-chat' : 'sender-chat'
-                }
-              >
-                {entry.text}
+              <div>
+                <p className="chat-timestamp">
+                  {
+                    `${(new Date(entry.timestamp)).getMonth()}/${(new Date(entry.timestamp)).getDate()}/22 ${(new Date(entry.timestamp)).toLocaleTimeString('en-US')}`
+                  }
+                </p>
+                <div
+                  key={entry.timestamp}
+                  className={
+                    entry.text?.includes('ello') ?? false ? 'receiver-chat' : 'sender-chat'
+                  }
+                >
+                  {entry.text}
+                </div>
               </div>
             ),
           )
