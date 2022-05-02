@@ -139,6 +139,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -158,6 +159,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -177,6 +179,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -196,6 +199,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -215,6 +219,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -234,6 +239,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -255,6 +261,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -276,6 +283,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -297,6 +305,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: arr,
       med: user.med,
       type: user.type,
+      messages: 0,
     });
   };
 
@@ -318,6 +327,7 @@ function ParticipantProfile({ user, setUser }) {
       psych: user.psych,
       med: arr,
       type: user.type,
+      messages: 0,
     });
   };
 

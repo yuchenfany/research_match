@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useState, useEffect } from 'react';
-// import NavBar from './NavBar';
+import NavBar from './NavBar';
 
 function ResearcherStudy({ route, navigation}) { // add props user
   let {user, setUser, study, setStudy } = route.params;
@@ -37,29 +37,28 @@ function ResearcherStudy({ route, navigation}) { // add props user
   }
 
   return (
-    <div className="Study Page">
-      {/* <div className="nav">nav</div> */}
-      {/* <NavBar user={user} /> */}
-      <div className="study-flex">
-        <div className="header-left">
+    <View className="Study Page">
+      <NavBar user={user} setUser={setUser} navigation={navigation} />
+      <View className="study-flex">
+        <Text className="header-left">
           {study.title}
-        </div>
-        <div>
+        </Text>
+        <Text>
           Duration:
           {study.duration}
-        </div>
-        <div>
+        </Text>
+        <Text>
           Compensation:
           {study.compensation}
-        </div>
-        <div> Researcher names: [this is the researcherStudy page] </div>
-        <button className="button" type="button" onClick={() => goToEditStudy()}>Edit Study</button>
-        <div className="header-small"> Description </div>
-        <div className="paragraph">
+        </Text>
+        <Text> Researcher names: [this is the researcherStudy page] </Text>
+        <Button className="button" onClick={() => goToEditStudy()}>Edit Study</Button>
+        <Text className="header-small"> Description </Text>
+        <Text className="paragraph">
           {study.description}
-        </div>
-      </div>
-    </div>
+        </Text>
+      </View>
+    </View>
   );
 }
 

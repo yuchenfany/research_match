@@ -152,7 +152,10 @@ function Study({
           Compensation:
           {study.compensation}
         </div>
-        <div> Researcher names: [ADD IN] </div>
+        <div>
+          Researcher names:
+          [ADD IN]
+        </div>
         {status.isEnrolled
           ? <button className="button" type="button" onClick={() => drop()}>DROP</button>
           : <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>}

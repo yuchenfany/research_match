@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
 
-function NavBar({user, setUser, navigation}) {
+function NavBar({ user, setUser, navigation }) {
   const [accountToggled, setAccountToggled] = useState(false);
   const editProfile = () => {
     // store current state in case of 'Cancel'
@@ -41,29 +41,65 @@ function NavBar({user, setUser, navigation}) {
     setAccountToggled(!accountToggled);
   };
 
+  const studyListButton = (user.type ?? 0) ? <Button
+    title="MY STUDIES"
+    className="nav-btn"
+    onPress={async () => {navigation.push('ParticipantStudies', { user, setUser });}}
+  ></Button> : null;
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+    },
+    nav: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginBottom: 10,
+      width: 275,
+    },
+    navButton: {
+      marginRight: 10,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      marginBottom: 20,
+      color: '#103143',
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+  });
+
   return (
-    <View className="nav" style={{display: 'flex', flexDirection: 'row', marginBottom: '0.5rem'}}>
-      <Button
-	  	title="HOME"
-        className="nav-btn"
-        onPress={async () => {
-			navigation.push(
-				`${(user.type ?? 0) === 0 ? 'Participant' : 'Researcher'}Home`,
-				{ user, setUser }
-			);
-        }}
-      >
-      </Button>
-      <Button
-	    title="MY STUDIES"
-        className="nav-btn"
-        onPress={async () => {
-			navigation.push('ParticipantStudies', { user, setUser });
-        }}
-      >
-      </Button>
-      <Button title="MESSAGES" className="nav-btn"></Button>
-      <Button title="ACCOUNT" className="account-btn" onPress={toggleAccountOptions}></Button>
+    <View style={styles.nav}>
+      <View style={styles.navButton}>
+        <Button
+          title='HOME'
+          color='#103143'
+          onPress={async () => {
+            navigation.push(
+              `${(user.type ?? 0) === 0 ? 'Participant' : 'Researcher'}Home`,
+              { user, setUser }
+            );
+          }}
+        >
+        {studyListButton}
+        </Button>
+      </View>
+      <View style={styles.navButton}>
+        <Button title='MESSAGES' color='#103143' />
+      </View>
+      <View style={styles.navButton}>
+        <Button title='ACCOUNT' color='#103143' onPress={toggleAccountOptions} />
+      </View>
       {accountOptions}
     </View>
   );

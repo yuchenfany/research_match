@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
+import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
 import ParticipantStudies from './ParticipantStudies';
 import Study from './Study'
 import ResearcherHome from './ResearcherHome';
 import ParticipantEdit from './ParticipantEdit';
+import ResearcherEdit from './ResearcherEdit';
 import AddStudy from './AddStudy';
 import ResearcherStudy from './ResearcherStudy';
 import EditStudy from './EditStudy';
@@ -31,14 +33,15 @@ function Login({ navigation }) {
     psych: [],
     med: [],
     studies: [],
+    type: 0
   });
+
+  let jsonResult = '';
+
   const [error, setError] = useState({ message: '' });
   // const [samePassword, setSamePassword] = useState(0);
 
   async function handleSubmit(event) {
-    console.log(user.username);
-    console.log(user.password);
-
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
       event.preventDefault();
@@ -63,7 +66,6 @@ function Login({ navigation }) {
     });
 
     const json = await data.json();
-    console.log(json);
 
     // verification checks of username & password
     if (json === null) {
@@ -71,9 +73,11 @@ function Login({ navigation }) {
       event.preventDefault();
     //  } else if (bcrypt.compareSync(user.password, json.password)) { : CHANGE LATER 
     } else if (bcrypt.compareSync(user.password, json.password)) {
+      jsonResult = json;
+
       if (json.type === 0) {
         // makes sure all fields are available in home
-        await setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           enrolled: json.enrolled,
@@ -88,20 +92,13 @@ function Login({ navigation }) {
           psych: json.psych,
           med: json.med,
           type: json.type,
-        });
+        };
+        setUser(updatedUser);
 
-        console.log(user);
-        console.log('JSON USER LOGIN');
-        console.log(json.age);
-        console.log(json.heightFeet);
-
-        navigation.navigate('ParticipantHome', {
-          user: user,
-          setUser: setUser,
-        });
+        return 0;
       } else if (json.type === 1) {
         // makes sure all fields are available in home
-        await setUser({
+        const updatedUser = {
           username: json.username,
           password: json.password,
           name: json.name,
@@ -109,19 +106,11 @@ function Login({ navigation }) {
           studies: json.studies,
           type: json.type,
           title: json.title,
-        });
-        console.log(user);
-        console.log(json.type);
-        console.log(user.type);
-        navigation.navigate('ResearcherHome', {
-          user: user,
-          setUser: setUser, 
-          setStudy: setStudy
-        });
-        //navigate('/researcher-home');
+        };
+
+        return 1;
       }
     } else {
-      console.log('INCORRECT PASSWORD');
       setError({ message: 'Incorrect password' });
       event.preventDefault();
     }
@@ -136,6 +125,7 @@ function Login({ navigation }) {
         enrolled: user.enrolled,
       },
     );
+    console.log('USERNAME CHANGE====================');
   };
 
   const handleNameChangePassword = async (event) => {
@@ -146,41 +136,98 @@ function Login({ navigation }) {
         enrolled: user.enrolled,
       },
     );
+
+    console.log('PASSWORD CHANGE====================');
   };
 
-  const handleAsync = (event) => {
+  const navigateTo = (type) => {
+    console.log('NAVIGATETO');
+    console.log(jsonResult.age);
+    if (type === 0) {
+      console.log(jsonResult);
+      navigation.navigate('ParticipantHome', {
+        user: jsonResult,
+        setUser: setUser,
+      });
+    } else if (type === 1) {
+      navigation.navigate('ResearcherHome', {
+        user: jsonResult,
+        setUser: setUser,
+        setStudy: setStudy,
+      });
+    }
+  };
+
+  const handleAsync = async (event) => {
     event.preventDefault();
     // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
-    handleSubmit(event);
+    console.log('BEFORE HANDLESUBMIT');
+    const type = await handleSubmit(event);
+    console.log('FINISHED HANDLESUBMIT');
+    console.log(type);
+    setTimeout(1000, navigateTo(type));
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+    },
+    login: {
+      marginLeft: 40,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      marginBottom: 20,
+      color: '#103143',
+    },
+    loginLabel: {
+      fontSize: 12,
+      fontWeight: 500,
+      marginBottom: 5,
+      color: '#103143',
+    },
+    inputField: {
+      width: 275,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginBottom: 10,
+      borderRadius: 3,
+      color: '#103143',
+    },
+    errorMessage: {
+      marginTop: 10,
+      color: '#F13E3E',
+      fontWeight: 400,
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+  });
+
   return (
-    <div className="Login">
-      <p className="header">Research Match</p>
-      <form onSubmit={handleAsync}>
-        <label className="login-label" htmlFor="username">
-          <div className="username-wrapper">
-            <p className="field-label">USERNAME</p>
-            <input
-              className="input-field"
-              type="text"
-              id="username"
-              onChange={handleNameChange}
-            />
-            <p className="field-label">PASSWORD</p>
-            <input
-              className="input-field"
-              type="text"
-              id="password"
-              onChange={handleNameChangePassword}
-            />
-            <span className="error-message">{error.message}</span>
-          </div>
-          <input className="button" type="submit" value="SUBMIT" />
-          <div className="spacer" />
-        </label>
-      </form>
-    </div>
+    <View style={styles.container}>
+      <View style={styles.login}>
+        <Text style={styles.header}>Research Match</Text>
+        <Text style={styles.loginLabel}>USERNAME</Text>
+        <TextInput style={styles.inputField} type="text" id="username" onChange={handleNameChange} />
+        <Text style={styles.loginLabel}>PASSWORD</Text>
+        <TextInput style={styles.inputField} type="text" id="username" onChange={handleNameChangePassword} />
+        <Text style={styles.errorMessage}>{error.message}</Text>
+        <View style={styles.button}>
+          <Button type="submit" color='#103143' title="SUBMIT" onPress={handleAsync} />
+        </View>
+      </View>
+    </View>
   );
 }
 
@@ -199,6 +246,7 @@ export default function App() {
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="ResearcherHome" component={ResearcherHome} />
         <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
+        <Stack.Screen name="ResearcherEdit" component={ResearcherEdit} />
         <Stack.Screen name="AddStudy" component={AddStudy} />
         <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
         <Stack.Screen name="EditStudy" component={EditStudy} />
