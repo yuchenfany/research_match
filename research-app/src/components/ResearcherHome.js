@@ -4,12 +4,13 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import NavBar from './NavBar';
-
 
 function ResearcherHome({ user, setUser, setStudy, notification, setNotification }) {
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const [notificationRH, setNotificationRH] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
   async function getStudyIds() {
@@ -65,8 +66,43 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
     const messageCounts = json ?? [0];
     return messageCounts[0]?.messages;
   }
+
+  useEffect(() => {
+    if (notificationRH) {
+      setShowPopup(!showPopup);
+    }
+  }, []);
   
-  const renderNotification = () => <div>NOTIFICATION TESTING For Researcher :)</div>;
+  const renderNotification = () => (
+    <Popup
+      open={showPopup}
+      modal
+      nested
+    >
+      {(close) => (
+        <div className="modal">
+          <button className="close" onClick={close}> &times; </button>
+          <div className="header"> Notification </div>
+          <div className="content">
+            {' '}
+            New message received
+          </div>
+        </div>
+      )}
+    </Popup>
+  );
+
+  async function checkNotifications() {
+    getNumMessages().then(
+      (num) => {
+        console.log(num);
+        console.log(user.messages);
+        setNotificationDS(num !== user.messages);
+        console.log(notificationDS);
+      },
+    );
+  }
+
   
   async function checkNotifications() {
     getNumMessages().then(

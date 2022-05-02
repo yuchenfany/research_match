@@ -4,13 +4,15 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import NavBar from './NavBar';
 
 function DisplayStudies({
-  user, setUser, setStudy, notification, setNotification,
+  user, setUser, setStudy,
 }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const [notificationDS, setNotificationDS] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
 
@@ -81,7 +83,31 @@ function DisplayStudies({
     return messageCounts[0]?.messages;
   }
 
-  const renderNotification = () => <div>NOTIFICATION TESTING :)</div>;
+  useEffect(() => {
+    setShowPopup(!showPopup);
+  }, []);
+
+  const renderNotification = () => (
+    <Popup
+      open={notificationDS}
+      modal
+      nested
+    >
+      {(close) => (
+        <div className="modal">
+          <button type="button" className="close" onClick={close}> &times; </button>
+          <div className="header"> Notification </div>
+          <div className="content">
+            {' '}
+            New message received
+          </div>
+        </div>
+      )}
+    </Popup>
+  );
+
+  const renderNotification2 = () => (<div className="header-left">Real Notificaiton shown</div>
+  );
 
   async function checkNotifications() {
     getNumMessages().then(
@@ -100,7 +126,6 @@ function DisplayStudies({
 
   useEffect(() => {
     refresh();
-
     getAllStudyJson()
       .then(setEnrolledStudies);
   }, []);
@@ -114,6 +139,7 @@ function DisplayStudies({
     <div className="Home">
       <NavBar user={user} />
       <div>{notificationDS ? renderNotification() : ''}</div>
+      {/* <div>{notificationDS ? renderNotification2() : ''}</div> */}
       <div className="study-flex">
         <div className="header-left">Eligible Studies</div>
         <div>
