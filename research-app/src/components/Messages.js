@@ -18,8 +18,7 @@ function Messages({
     if (user.type === 0) {
       setSender({ username: user.username, type: 0 });
       setReceiver({ username: 'receiverUsername', type: 1 });
-    }
-    else {
+    } else {
       setSender({ username: receiver.username, type: 0 });
       setReceiver({ username: user.username, type: 1 });
     }
