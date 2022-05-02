@@ -72,15 +72,10 @@ function DisplayStudies({
         'Content-Type': 'application/json',
       },
     });
-    const resultArr = await data.json();
-    let numMessages = 0;
-    // resultArr.forEach(chat => numMessages += chat.messages.length);
-
-    for (let i = 0; i < resultArr.length; i += 1) {
-      numMessages += resultArr[i].messages.length;
-    }
-
-    return numMessages;
+    setUser(user);
+    const json = await data.json();
+    const messageCounts = json ?? [0];
+    return messageCounts[0]?.messages;
   }
 
   const renderNotification = () => <div>NOTIFICATION TESTING :)</div>;
@@ -88,11 +83,9 @@ function DisplayStudies({
   async function checkNotifications() {
     getNumMessages().then(
       (num) => {
-        console.log(num);
-        console.log(user);
-        if (num !== user.messages) {
-          setNotification(true);
-        }
+        // console.log(num);
+        // console.log(user.messages);
+        setNotification(num !== user.messages);
       },
     );
   }
@@ -103,14 +96,9 @@ function DisplayStudies({
 
   useEffect(() => {
     refresh();
+  }, []);
 
-    // getNumMessages().then(
-    //   (num) => {
-    //     if (num !== user.messages) {
-    //       setNotification(true);
-    //     }
-    //   }
-    // );
+  useEffect(() => {
     getAllStudyJson()
       .then(setEnrolledStudies);
   }, []);
