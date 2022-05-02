@@ -16,6 +16,7 @@ function Chat({
   } = state;
 
   const [message, setMessage] = useState('');
+  const [file, setFile] = useState();
   // use below for displaying chat history
   const [chats, setChats] = useState([]);
   let nIntervId; // TODO
@@ -96,6 +97,21 @@ function Chat({
 
   // Handle notification things
 
+  async function handleFile(event) {
+    if (!event.target.files) {
+      return;
+    }
+    const attachment = event.target.files[0];
+
+    console.log(attachment);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFile(reader.result);
+    };
+    reader.readAsDataURL(attachment);
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (message.length === 0) {
@@ -106,7 +122,7 @@ function Chat({
       senderType: sender.type,
       receiver: receiverName,
       text: message,
-      // attachment:
+      attachment: file,
     };
     setMessage('');
     await fetch('http://localhost:5000/chats/send', {
@@ -117,6 +133,33 @@ function Chat({
       body: JSON.stringify(messageObject),
     });
   }
+
+  const getMedia = (entry) => {
+    if (!entry.attachment) {
+      return null;
+    }
+    const type = entry.attachment.split(':')[1].split('/')[0];
+    if (type === 'image') {
+      return (<img src={entry.attachment} alt="attachment" />);
+    }
+    if (type === 'audio') {
+      return (
+        <audio className="chat-media" controls>
+          <source src={entry.attachment} />
+          <track src="" kind="captions" srcLang="en" label="English" />
+        </audio>
+      );
+    }
+    if (type === 'video') {
+      return (
+        <video className="chat-media" controls autoPlay>
+          <source src={entry.attachment} type={entry.attachment.split(':')[1].split(';')[0]} />
+          <track src="" kind="captions" srcLang="en" label="English" />
+        </video>
+      );
+    }
+    return null;
+  };
 
   const chatsDisplay = (
     <div>
@@ -133,11 +176,10 @@ function Chat({
                 </p>
                 <div
                   key={entry.timestamp}
-                  className={
-                    entry.sender === sender ? 'sender-chat' : 'receiver-chat'
-                  }
+                  className={entry.sender === sender.username ? 'sender-chat' : 'receiver-chat'}
                 >
                   {entry.text}
+                  {getMedia(entry)}
                 </div>
               </div>
             ),
@@ -159,6 +201,13 @@ function Chat({
           id="chat-message"
           value={message}
           onChange={handleMessageChange}
+        />
+        <input
+          className="chat-input-field"
+          type="file"
+          id="chat-attachment"
+          accept="image/png, image/jpeg, audio/*, video/*"
+          onChange={handleFile}
         />
         <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
       </div>
