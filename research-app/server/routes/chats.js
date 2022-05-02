@@ -95,8 +95,9 @@ messageRoutes.route('/chats/getNumMessages/:user').get((req, res) => {
   dbConnect
     .collection('chats')
     .aggregate([
+      { $match: { $or: [{ user }, { researcher: user }] } },
       { $unwind: '$messages' },
-      { $match: { 'messages.sender': user } },
+      { $match: { sender: { $nin: [user] } } },
       { $count: 'messages' },
     ])
     .toArray((err, result) => {
