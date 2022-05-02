@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
 
-function ResearcherHome({ user, setUser, setStudy }) {
+function ResearcherHome({ user, setUser, setStudy, notification, setNotification }) {
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
   async function getStudyIds() {
