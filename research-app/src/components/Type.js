@@ -8,8 +8,6 @@ function Type({ user, setUser }) {
   const navigate = useNavigate();
 
   function goToProfile() {
-    console.log('USER TYPE');
-    console.log(user.type);
     if (user.type === 0) {
       navigate('/participant-profile');
     } else if (user.type === 1) {

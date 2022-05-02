@@ -3,17 +3,17 @@
 
 import React, { useEffect } from 'react';
 import '../assets/index.css';
+import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
-
-// import { useNavigate } from 'react-router-dom';
 
 // TO DO: add back in studyId prop
 function Study({
-  study, setStudy, user, setUser, status, setStatus,
+  study, setStudy, user, setUser, status, setStatus, setSender, setReceiver,
 }) {
   // Hardcoded:
   // const studyId = 0;
   // const [study, setStudy] = useState({});
+  const navigate = useNavigate();
 
   async function getStudy() {
     const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
@@ -23,7 +23,6 @@ function Study({
       },
     });
     const data = await studyData.json();
-    console.log(data);
     return data;
   }
 
@@ -134,6 +133,14 @@ function Study({
     dropUpdateStudy().then(dropUpdateUser());
   }
 
+  async function goToChat() {
+    await setSender({ username: user.username, type: 0 });
+    await setReceiver({ username: study.researchers[0], type: 1 });
+    console.log(study.researchers[0]);
+    console.log(user);
+    navigate('/chat');
+  }
+
   return (
     <div className="Study Page">
       <NavBar user={user} setUser={setUser} />
@@ -149,13 +156,23 @@ function Study({
           Compensation:
           {study.compensation}
         </div>
-        <div> Researcher names: [ADD IN] </div>
+        <div>
+          Researcher names:
+          [ADD IN]
+        </div>
         {status.isEnrolled
           ? <button className="button" type="button" onClick={() => drop()}>DROP</button>
           : <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>}
         <div className="header-small"> Description </div>
         <div className="paragraph">
           {study.description}
+        </div>
+        <div className="study-flex">
+          <div className="header-left">Message Researcher</div>
+          <div className="study">
+            <div className="study-title">Sleep Research</div>
+            <button className="view-button" type="button" key={2} onClick={() => goToChat()}>Message Researcher</button>
+          </div>
         </div>
       </div>
     </div>

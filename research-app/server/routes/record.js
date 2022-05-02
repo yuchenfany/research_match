@@ -68,7 +68,7 @@ recordRoutes.route("/record").get(function (req, res) {
 // User GET by id method
 recordRoutes.route("/record/:id").get(function (req, res) {
   let db_connect = dbo.getDb("research-app");
-  console.log(req.params.id);
+  // console.log(req.params.id);
   let myquery = { username: req.params.id};
   db_connect
       .collection("user-info")
@@ -95,7 +95,8 @@ recordRoutes.route("/record/add").post(function (req, response) {
     psych: req.body.psych,
     med: req.body.med,
     enrolled: [],
-    type: req.body.type
+    type: req.body.type,
+    messages: 0,
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -290,5 +291,20 @@ recordRoutes.route("/record/delete/:id").delete((req, response) => {
      });
 });
 
+// update the user's number of messages POST method
+recordRoutes.route("/record/updateMessages").post(function (req, response) {
+  console.log('updating messages')
+  const myquery = { username: req.body.username };
+  const newvalues = {
+    $set: {
+      messages: req.body.messages,
+    },
+  };
+  let db_connect = dbo.getDb();
+  db_connect.collection("user-info").updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
 
 module.exports = recordRoutes;

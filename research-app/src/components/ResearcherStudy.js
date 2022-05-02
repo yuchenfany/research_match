@@ -10,10 +10,6 @@ function ResearcherStudy({
   study, setStudy, user,
 }) {
   const navigate = useNavigate();
-  // Hardcoded:
-  // const studyId = 0;
-  // const [study, setStudy] = useState({});
-
   async function getStudy() {
     const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
       method: 'GET',
@@ -22,7 +18,6 @@ function ResearcherStudy({
       },
     });
     const data = await studyData.json();
-    console.log(data);
 
     return data;
   }

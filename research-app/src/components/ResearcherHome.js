@@ -66,7 +66,7 @@ function ResearcherHome({ user, setUser, setStudy }) {
       <NavBar user={user} />
       <div className="header-left">Researcher Home</div>
       <div className="study-flex">
-        <div className="header-left">Enrolled Studies</div>
+        <div className="header-left">My Studies</div>
         <div>
           {
           enrolledStudies.length === 0 ? []

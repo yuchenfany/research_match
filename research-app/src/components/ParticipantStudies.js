@@ -57,9 +57,6 @@ function ParticipantStudies({
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
-    console.log(user.username);
-    console.log(user.enrolled);
-    console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 
@@ -103,13 +100,6 @@ function ParticipantStudies({
         <div className="study">
           <div className="study-title">Sleep Research</div>
           <button className="view-button" type="button" key={2} onClick={() => goToStudy(2)}>VIEW</button>
-        </div>
-      </div>
-      <div className="study-transfer">
-        <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
-        <div className="study">
-          <div className="study-transfer">Go to Study Page</div>
-          <button className="view-button" type="button" onClick={() => navigate('/add-study')}>Add Study</button>
         </div>
       </div>
     </div>
