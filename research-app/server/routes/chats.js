@@ -60,11 +60,13 @@ messageRoutes.route('/chats/get/:user/:researcher').get((req, res) => {
 messageRoutes.route('/chats/send').post((req) => {
   const dbConnect = dbo.getDb('research-app');
   const {
-    sender, senderType, receiver, text,
+    sender, senderType, receiver, text, attachment,
   } = req.body;
   const user = senderType === 0 ? sender : receiver;
   const researcher = senderType === 1 ? sender : receiver;
-  const message = { sender, timestamp: Date.now(), text };
+  const message = {
+    sender, timestamp: Date.now(), text, attachment,
+  };
   dbConnect
     .collection('chats')
     .updateOne(

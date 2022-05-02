@@ -14,6 +14,7 @@ function Chat({ sender, setSender, setNotification }) {
   } = state;
 
   const [message, setMessage] = useState('');
+  const [file, setFile] = useState();
   // use below for displaying chat history
   const [chats, setChats] = useState([]);
   let nIntervId; // TODO
@@ -92,6 +93,21 @@ function Chat({ sender, setSender, setNotification }) {
 
   // Handle notification things
 
+  async function handleFile(event) {
+    if (!event.target.files) {
+      return;
+    }
+    const attachment = event.target.files[0];
+
+    console.log(attachment);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFile(reader.result);
+    };
+    reader.readAsBinaryString(attachment);
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (message.length === 0) {
@@ -102,7 +118,7 @@ function Chat({ sender, setSender, setNotification }) {
       senderType: sender.type,
       receiver: receiverName,
       text: message,
-      // attachment:
+      attachment: file,
     };
     setMessage('');
     await fetch('http://localhost:5000/chats/send', {
@@ -130,7 +146,7 @@ function Chat({ sender, setSender, setNotification }) {
                 <div
                   key={entry.timestamp}
                   className={
-                    entry.text?.includes('ello') ?? false ? 'receiver-chat' : 'sender-chat'
+                    entry.sender === sender ? 'sender-chat' : 'receiver-chat'
                   }
                 >
                   {entry.text}
@@ -155,6 +171,13 @@ function Chat({ sender, setSender, setNotification }) {
           id="chat-message"
           value={message}
           onChange={handleMessageChange}
+        />
+        <input
+          className="chat-input-field"
+          type="file"
+          id="chat-attachment"
+          accept="image/png, image/jpeg, audio/*, video/*"
+          onChange={handleFile}
         />
         <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
       </div>
