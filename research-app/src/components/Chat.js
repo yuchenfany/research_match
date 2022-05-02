@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 
 import '../assets/index.css';
@@ -13,7 +13,6 @@ function Chat({ sender, setSender, setNotification, user, setUser }) {
     // setNotification
   } = state;
 
-  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   // use below for displaying chat history
   const [chats, setChats] = useState([]);
@@ -96,8 +95,8 @@ function Chat({ sender, setSender, setNotification, user, setUser }) {
   // Handle notification things
 
   async function handleSubmit(event) {
+    event.preventDefault();
     if (message.length === 0) {
-      event.preventDefault();
       return;
     }
     const messageObject = {
@@ -107,7 +106,7 @@ function Chat({ sender, setSender, setNotification, user, setUser }) {
       text: message,
       // attachment:
     };
-
+    setMessage('');
     await fetch('http://localhost:5000/chats/send', {
       method: 'POST',
       headers: {
@@ -115,20 +114,30 @@ function Chat({ sender, setSender, setNotification, user, setUser }) {
       },
       body: JSON.stringify(messageObject),
     });
-
-    setMessage('');
-    navigate('/participant-home');
   }
 
   const chatsDisplay = (
     <div>
-      <p>CHAT HISTORY BEGINS HERE</p>
-      <div>
+      <div className="chat-history">
         {
         chats.length === 0 ? []
           : chats.map(
             (entry) => (
-              <div key={entry.timestamp} className="study">{entry.text}</div>
+              <div>
+                <p className="chat-timestamp">
+                  {
+                    `${(new Date(entry.timestamp)).getMonth()}/${(new Date(entry.timestamp)).getDate()}/22 ${(new Date(entry.timestamp)).toLocaleTimeString('en-US')}`
+                  }
+                </p>
+                <div
+                  key={entry.timestamp}
+                  className={
+                    entry.text?.includes('ello') ?? false ? 'receiver-chat' : 'sender-chat'
+                  }
+                >
+                  {entry.text}
+                </div>
+              </div>
             ),
           )
         }
@@ -139,17 +148,18 @@ function Chat({ sender, setSender, setNotification, user, setUser }) {
   return (
     <div>
       <NavBar user={sender} />
-      <p>INDIVIDUAL CHAT</p>
+      <p className="subheader">{receiverName}</p>
       { chatsDisplay }
-      <input
-        className="input-field"
-        type="text"
-        id="chat-message"
-        // value={message !== '' ? message : ''}
-        value={message}
-        onChange={handleMessageChange}
-      />
-      <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
+      <div className="chat-input-container">
+        <input
+          className="chat-input-field"
+          type="text"
+          id="chat-message"
+          value={message}
+          onChange={handleMessageChange}
+        />
+        <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
+      </div>
     </div>
   );
 }
