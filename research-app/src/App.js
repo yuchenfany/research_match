@@ -52,7 +52,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
         <Route exact path="/participant-studies" element={<ParticipantStudies user={user} setUser={setUser} setStudy={setStudy} setStatus={setStatus} />} />
-        <Route exact path="/researcher-home" element={<ResearcherHome user={user} setUser={setUser} setStudy={setStudy} />} />
+        <Route exact path="/researcher-home" element={<ResearcherHome user={user} setUser={setUser} setStudy={setStudy} notification={notification} setNotification={setNotification}/>} />
         <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} />} />
         <Route exact path="/researcher-study/:id" element={<ResearcherStudy study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
@@ -65,9 +65,9 @@ function App() {
         <Route exact path="/participant-edit" element={<ParticipantEdit user={user} setUser={setUser} />} />
         <Route exact path="/dashboard" element={<Dashboard user={user} />} />
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
-        <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} setNotification={setNotification}/>} />
+        <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} notification={notification} setNotification={setNotification}/>} />
         <Route exact path="/messages" element={<Messages user={user} />} />
-        <Route exact path="/chat" element={<Chat sender={user} setSender={setUser} setNotification={setNotification} />} />
+        <Route exact path="/chat" element={<Chat sender={user} setSender={setUser} setNotification={setNotification} user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );

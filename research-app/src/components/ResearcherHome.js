@@ -4,11 +4,14 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import NavBar from './NavBar';
 
-
-function ResearcherHome({ user, setUser, setStudy }) {
+function ResearcherHome({ user, setUser, setStudy, notification, setNotification }) {
   const [enrolledStudies, setEnrolledStudies] = useState([]);
+  const [notificationRH, setNotificationRH] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
   const navigate = useNavigate();
   async function getStudyIds() {
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
@@ -50,8 +53,74 @@ function ResearcherHome({ user, setUser, setStudy }) {
     console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
+    // gets number of messages that user has received
+    async function getNumMessages() {
+      const data = await fetch(`http://localhost:5000/chats/getNumMessages/${user.username}`, {
+        method: 'GET',
+        headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    // setUser(user);
+    const json = await data.json();
+    const messageCounts = json ?? [0];
+    return messageCounts[0]?.messages;
+  }
 
   useEffect(() => {
+    if (notificationRH) {
+      setShowPopup(!showPopup);
+    }
+  }, []);
+  
+  const renderNotification = () => (
+    <Popup
+      open={notificationRH}
+      modal
+      nested
+    >
+      {(close) => (
+        <div className="modal">
+          <button className="close" onClick={close}> &times; </button>
+          <div className="header"> Notification </div>
+          <div className="content">
+            {' '}
+            New message received
+          </div>
+        </div>
+      )}
+    </Popup>
+  );
+
+  async function checkNotifications() {
+    getNumMessages().then(
+      (num) => {
+        console.log(num);
+        console.log(user.messages);
+        setNotificationDS(num !== user.messages);
+        console.log(notificationDS);
+      },
+    );
+  }
+
+  
+  async function checkNotifications() {
+    getNumMessages().then(
+      (num) => {
+        console.log(num);
+        console.log(user.messages);
+        setNotificationRH(num !== user.messages);
+      },
+    );
+  }
+
+  function refresh() {
+    setInterval(checkNotifications, 1000);
+  }
+
+  useEffect(() => {
+    refresh();
+
     getAllStudyJson()
       .then(setEnrolledStudies);
   }, []);
@@ -64,6 +133,7 @@ function ResearcherHome({ user, setUser, setStudy }) {
   return (
     <div className="ResearcherProfile">
       <NavBar user={user} />
+      <div>{notificationRH ? renderNotification() : ''}</div>
       <div className="header-left">Researcher Home</div>
       <div className="study-flex">
         <div className="header-left">My Studies</div>
