@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import './assets/App.css';
@@ -45,7 +46,7 @@ function App() {
   const [status, setStatus] = useState({ isEnrolled: false });
   // for chat
   const [sender, setSender] = useState({ username: '', senderType: '' });
-  const [receiver, setReceiver] = useState({ username: '' });
+  const [receiverName, setReceiverName] = useState('');
 
   return (
     <div className="App">
@@ -53,7 +54,7 @@ function App() {
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
         <Route exact path="/participant-studies" element={<ParticipantStudies user={user} setUser={setUser} setStudy={setStudy} setStatus={setStatus} />} />
         <Route exact path="/researcher-home" element={<ResearcherHome user={user} setUser={setUser} setStudy={setStudy} />} />
-        <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} sender={sender} setSender={setSender} receiver={receiver} setReceiver={setReceiver} />} />
+        <Route exact path="/study/:id" element={<Study study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} />} />
         <Route exact path="/researcher-study/:id" element={<ResearcherStudy study={study} setStudy={setStudy} user={user} setUser={setUser} status={status} setStatus={setStatus} />} />
         <Route exact path="/create" element={<Create user={user} setUser={setUser} />} />
         <Route exact path="/add-study" element={<AddStudy user={user} study={study} setStudy={setStudy} />} />
@@ -66,8 +67,8 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard user={user} />} />
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
         <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} />} />
-        <Route exact path="/messages" element={<Messages user={user} sender={sender} setSender={setSender} receiver={receiver} setReceiver={setReceiver} />} />
-        <Route exact path="/chat" element={<Chat sender={sender} receiver={receiver} setSender={setSender} setReceiver={setReceiver} />} />
+        <Route exact path="/messages" element={<Messages user={user} />} />
+        <Route exact path="/chat" element={<Chat sender={user} receiverName={receiverName} />} />
       </Routes>
     </div>
   );

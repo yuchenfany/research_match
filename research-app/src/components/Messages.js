@@ -1,43 +1,63 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
-// TODO: add { useState }
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 import '../assets/index.css';
 
-// TODO: add setSender and setReceiver props
-function Messages({
-  user, sender, receiver, setSender, setReceiver,
-}) {
+function Messages({ user }) {
   const navigate = useNavigate();
+  const [chatsList, setChatsList] = useState([]);
 
-  // REMEMBER TO SET SENDER AND RECEIVER HERE -> (remember to set sender type)
-  // HARDCODING SENDER / RECEIVER -> replace this later
-  useEffect(() => {
-    if (user.type === 0) {
-      setSender({ username: user.username, type: 0 });
-      setReceiver({ username: 'receiverUsername', type: 1 });
-    } else {
-      setSender({ username: receiver.username, type: 0 });
-      setReceiver({ username: user.username, type: 1 });
-    }
-  }, []);
-
-  // TODO: unhardcode this later
-  function goToChatHardcode() {
-    console.log(sender);
-    console.log(receiver);
-    navigate('/chat');
+  async function getChats() {
+    const allChats = await fetch(
+      `http://localhost:5000/chats?senderName=${user.username}&senderType=${user.type}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    const data = await allChats.json();
+    return data;
   }
+
+  useEffect(() => {
+    getChats()
+      .then(setChatsList);
+  }, []);
 
   return (
     <div className="Messages">
-      <div className="header">MESSAGE</div>
-      <div>{user.username}</div>
-      <div>{sender.username}</div>
-      <div>{receiver.username}</div>
-      <button className="link" type="button" onClick={goToChatHardcode}>HARDCODED CHAT with current user and recieverUsername</button>
+      <NavBar user={user} />
+      <div className="study-flex">
+        <div className="header-left">My Messages</div>
+        <div>
+          {chatsList.length === 0 ? []
+            : chatsList.map(
+              (chat) => {
+                const receiverName = user.type === 0 ? chat.researcher : chat.user;
+                return (
+                  <div key={receiverName} className="study">
+                    <div className="study-title">{receiverName}</div>
+                    <button
+                      className="view-button"
+                      type="button"
+                      onClick={() => navigate(
+                        '/chat',
+                        { state: { sender: user, receiverName } },
+                      )}
+                    >
+                      VIEW
+                    </button>
+                  </div>
+                );
+              },
+            )}
+        </div>
+      </div>
     </div>
   );
 }
