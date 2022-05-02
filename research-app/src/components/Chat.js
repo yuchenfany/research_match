@@ -6,7 +6,9 @@ import NavBar from './NavBar';
 
 import '../assets/index.css';
 
-function Chat({ sender, setSender, setNotification }) {
+function Chat({
+  sender, setSender, setNotification, user, setUser,
+}) {
   const { state } = useLocation();
   const {
     receiverName,
@@ -24,9 +26,9 @@ function Chat({ sender, setSender, setNotification }) {
   };
 
   async function getMessages() {
-    const user = sender.type === 0 ? sender.username : receiverName;
+    const userField = sender.type === 0 ? sender.username : receiverName;
     const researcher = sender.type === 1 ? sender.username : receiverName;
-    const data = await fetch(`http://localhost:5000/chats/get/${user}/${researcher}`, {
+    const data = await fetch(`http://localhost:5000/chats/get/${userField}/${researcher}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -55,11 +57,13 @@ function Chat({ sender, setSender, setNotification }) {
       setNotification(false);
       return;
     }
-    const updatedUser = JSON.parse(JSON.stringify(sender));
-    updatedUser.messages = newNumMessages;
-    console.log(sender);
-    setSender(updatedUser);
-    setNotification(false);
+    const updatedUser = JSON.parse(JSON.stringify(user));
+    updatedUser.messages = await newNumMessages;
+    console.log('updating user prop');
+    console.log(newNumMessages);
+    await setSender(updatedUser);
+    await setNotification(false);
+    await setUser(updatedUser);
     await fetch('http://localhost:5000/record/updateMessages', {
       method: 'POST',
       headers: {
@@ -130,7 +134,7 @@ function Chat({ sender, setSender, setNotification }) {
                 <div
                   key={entry.timestamp}
                   className={
-                    entry.text?.includes('ello') ?? false ? 'receiver-chat' : 'sender-chat'
+                    entry.sender === sender ? 'sender-chat' : 'receiver-chat'
                   }
                 >
                   {entry.text}

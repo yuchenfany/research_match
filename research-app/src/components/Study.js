@@ -134,7 +134,7 @@ function Study({
   }
 
   async function goToChat() {
-    navigate('/chat', { state: { sender: user, receiverName: study.researchers[0] } });
+    navigate('/chat', { state: { sender: user, receiverName: study.researchers } });
   }
 
   return (

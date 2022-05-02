@@ -114,7 +114,8 @@ recordRoutes.route("/record/add-researcher").post(function (req, response) {
     name: req.body.name,
     organization: req.body.organization,
     studies: [],
-    type: req.body.type
+    type: req.body.type,
+    messages: 0,
   };
   db_connect.collection("user-info").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -293,7 +294,6 @@ recordRoutes.route("/record/delete/:id").delete((req, response) => {
 
 // update the user's number of messages POST method
 recordRoutes.route("/record/updateMessages").post(function (req, response) {
-  console.log('updating messages')
   const myquery = { username: req.body.username };
   const newvalues = {
     $set: {
