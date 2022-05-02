@@ -120,13 +120,19 @@ function Chat({ sender, setSender, setNotification }) {
 
   const chatsDisplay = (
     <div>
-      <p>CHAT HISTORY BEGINS HERE</p>
-      <div>
+      <div className="chat-history">
         {
         chats.length === 0 ? []
           : chats.map(
             (entry) => (
-              <div key={entry.timestamp} className="study">{entry.text}</div>
+              <div
+                key={entry.timestamp}
+                className={
+                  entry.text?.includes('ello') ?? false ? 'receiver-chat' : 'sender-chat'
+                }
+              >
+                {entry.text}
+              </div>
             ),
           )
         }
@@ -137,17 +143,18 @@ function Chat({ sender, setSender, setNotification }) {
   return (
     <div>
       <NavBar user={sender} />
-      <p>INDIVIDUAL CHAT</p>
+      <p className="subheader">{receiverName}</p>
       { chatsDisplay }
-      <input
-        className="input-field"
-        type="text"
-        id="chat-message"
-        // value={message !== '' ? message : ''}
-        value={message}
-        onChange={handleMessageChange}
-      />
-      <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
+      <div className="chat-input-container">
+        <input
+          className="chat-input-field"
+          type="text"
+          id="chat-message"
+          value={message}
+          onChange={handleMessageChange}
+        />
+        <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
+      </div>
     </div>
   );
 }
