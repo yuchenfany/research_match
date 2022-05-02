@@ -202,14 +202,13 @@ function Chat({
           value={message}
           onChange={handleMessageChange}
         />
+        <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
         <input
-          className="chat-input-field"
           type="file"
           id="chat-attachment"
           accept="image/png, image/jpeg, audio/*, video/*"
           onChange={handleFile}
         />
-        <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
       </div>
     </div>
   );
