@@ -95,7 +95,13 @@ function NavBar({ user, setUser, navigation }) {
         </Button>
       </View>
       <View style={styles.navButton}>
-        <Button title='MESSAGES' color='#103143' />
+        <Button
+          title='MESSAGES'
+          color='#103143'
+          onPress={async () => {
+            navigation.push('Messages', { user });
+          }}
+        />
       </View>
       <View style={styles.navButton}>
         <Button title='ACCOUNT' color='#103143' onPress={toggleAccountOptions} />

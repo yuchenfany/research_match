@@ -64,8 +64,8 @@ function ParticipantHome({ route, navigation }) { // add props user
    async function getAllStudyJson() {
     //  setTimeout(5000);
      const studyIds = await getStudyIds();
-     console.log(user.username);
-     console.log(studyIds);
+    //  console.log(user.username);
+    //  console.log(studyIds);
      // return Promise(getStudy(studyIds[0]));
      return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
    }

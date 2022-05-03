@@ -5,7 +5,7 @@ import { View, Text, Button } from 'react-native';
 // import Select from 'react-select';
 
 function EditStudy({ route, navigation }) {
-  let {user, setUser, study, setStudy } = route.params;
+  let { user, setUser, study, setStudy } = route.params;
 
   const [temp, setTemp] = useState({
     _id: study._id,

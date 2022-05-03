@@ -13,6 +13,8 @@ import AddStudy from './AddStudy';
 import ResearcherStudy from './ResearcherStudy';
 import EditStudy from './EditStudy';
 import DeleteAccount from './DeleteAccount';
+import Messages from './Messages';
+import Chat from './Chat';
 
 import { NavigationContainer } from '@react-navigation/native';
 import  { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -250,6 +252,8 @@ export default function App() {
         <Stack.Screen name="AddStudy" component={AddStudy} />
         <Stack.Screen name="ResearcherStudy" component={ResearcherStudy} />
         <Stack.Screen name="EditStudy" component={EditStudy} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Messages" component={Messages} />
       </Stack.Navigator>
     </NavigationContainer>
   );
