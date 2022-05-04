@@ -1,36 +1,24 @@
-/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
+import { deleteUser } from '../modules/auth-api';
 
 function DeleteAccount({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
   const navigate = useNavigate();
 
-  async function verify() {
-    // console.log(JSON.stringify(getNextStudyID()));
-    // setStudy({
-    //   studyId: getNextStudyID(),
-    // });
-    const data = await fetch(`http://localhost:5000/record/delete/${user.username}`, {
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return true;
-  }
-
   async function handleSubmit(event) {
-    if (await verify()) {
+    const res = await deleteUser(user);
+    if (res === true) {
+      setUser({});
       navigate('/');
     } else {
       event.preventDefault();
+      setError(res);
     }
-}
-
+  }
 
   return (
     <div className="Create">
@@ -52,6 +40,7 @@ function DeleteAccount({ user, setUser }) {
       >
         Delete account
       </button>
+      <p>{error}</p>
     </div>
   );
 }

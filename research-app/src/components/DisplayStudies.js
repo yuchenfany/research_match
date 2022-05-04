@@ -6,6 +6,8 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import NavBar from './NavBar';
+import { getAllStudyJsonByTag } from '../modules/participant-api';
+import { getNumMessages } from '../modules/chat-api';
 
 function DisplayStudies({
   user, setUser, setStudy,
@@ -15,73 +17,6 @@ function DisplayStudies({
   const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
-
-  // gets list of studies that match user's tags
-  // NOTE: remove hardcoding once users have tags
-
-  async function getStudyIds() {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-
-    setUser({
-      username: user.username,
-      password: user.password,
-      enrolled: user.enrolled,
-      age: user.age,
-      heightFeet: user.heightFeet,
-      heightInches: user.heightInches,
-      weight: user.weight,
-      sex: user.sex,
-      gender: user.gender,
-      allergies: user.allergies,
-      type: user.type,
-      phys: json.phys,
-      psych: json.psych,
-      med: json.med,
-      messages: json.messages,
-    });
-    // return json.tags; (once tags are implemented in phys)
-    // Hardcoded:
-    const userTags = user.phys.concat(user.psych.concat(user.med));
-    return userTags;
-  }
-
-  // gets individual study by id
-  async function getStudy(studyId) {
-    const data = await fetch(`http://localhost:5000/study/tag/${studyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return data.json();
-  }
-
-  // get all studies
-  async function getAllStudyJson() {
-    const studyIds = await getStudyIds();
-    // return Promise(getStudy(studyIds[0]));
-    return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
-  }
-
-  // gets number of messages that user has received
-  async function getNumMessages() {
-    const data = await fetch(`http://localhost:5000/chats/getNumMessages/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    setUser(user);
-    const json = await data.json();
-    const messageCounts = json ?? [0];
-    return messageCounts[0]?.messages;
-  }
 
   useEffect(() => {
     setShowPopup(!showPopup);
@@ -107,12 +42,9 @@ function DisplayStudies({
   );
 
   async function checkNotifications() {
-    getNumMessages().then(
+    getNumMessages(user).then(
       (num) => {
-        console.log(num);
-        console.log(user.messages);
         setNotificationDS(num !== user.messages);
-        // console.log(notificationDS);
       },
     );
   }
@@ -123,7 +55,7 @@ function DisplayStudies({
 
   useEffect(() => {
     refresh();
-    getAllStudyJson()
+    getAllStudyJsonByTag(user, setUser)
       .then(setEnrolledStudies);
   }, []);
 
