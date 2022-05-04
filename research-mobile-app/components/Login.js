@@ -218,7 +218,7 @@ function Login({ navigation }) {
         <TextInput style={styles.inputField} type="text" id="username" onChange={handleNameChangePassword} />
         <Text style={styles.errorMessage}>{error.message}</Text>
         <View style={styles.button}>
-          <Button type="submit" color='#103143' title="SUBMIT" onPress={handleAsync} />
+          <Button type="submit" color="#103143" title="SUBMIT" onPress={handleAsync} />
         </View>
       </View>
     </View>
