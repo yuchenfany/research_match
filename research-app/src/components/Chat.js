@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 
 import '../assets/index.css';
+import { getMessages, updateNumberOfMessages } from '../modules/chat-api';
 
 function Chat({
   sender, setSender, setNotification, user, setUser,
@@ -26,58 +27,10 @@ function Chat({
     setMessage(event.target.value);
   };
 
-  async function getMessages() {
-    const userField = sender.type === 0 ? sender.username : receiverName;
-    const researcher = sender.type === 1 ? sender.username : receiverName;
-    const data = await fetch(`http://localhost:5000/chats/get/${userField}/${researcher}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    return json?.messages ?? []; // returns messages array
-  }
-
-  // gets number of messages that user has received
-  async function getNumMessages() {
-    const data = await fetch(`http://localhost:5000/chats/getNumMessages/${sender.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    const messageCounts = json ?? [0];
-    return messageCounts[0]?.messages;
-  }
-
-  async function updateNumberOfMessages() {
-    const newNumMessages = await getNumMessages();
-    if (sender.messages === newNumMessages) {
-      setNotification(false);
-      return;
-    }
-    const updatedUser = JSON.parse(JSON.stringify(user));
-    updatedUser.messages = await newNumMessages;
-    console.log('updating user prop');
-    console.log(newNumMessages);
-    await setSender(updatedUser);
-    await setNotification(false);
-    await setUser(updatedUser);
-    await fetch('http://localhost:5000/record/updateMessages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedUser),
-    });
-  }
-
   async function messageRetrieval() {
-    getMessages()
+    getMessages(sender, receiverName)
       .then(setChats);
-    updateNumberOfMessages();
+    updateNumberOfMessages(sender, setSender, setNotification, user, setUser);
   }
 
   async function reloadMessages() {
@@ -89,13 +42,6 @@ function Chat({
   useEffect(() => {
     reloadMessages();
   }, []);
-
-  // useEffect(() => {
-  //   reloadMessages()
-  //     .then(setChats);
-  // }, []);
-
-  // Handle notification things
 
   async function handleFile(event) {
     if (!event.target.files) {
@@ -168,14 +114,13 @@ function Chat({
         chats.length === 0 ? []
           : chats.map(
             (entry) => (
-              <div>
+              <div key={entry.timestamp}>
                 <p className="chat-timestamp">
                   {
                     `${(new Date(entry.timestamp)).getMonth()}/${(new Date(entry.timestamp)).getDate()}/22 ${(new Date(entry.timestamp)).toLocaleTimeString('en-US')}`
                   }
                 </p>
                 <div
-                  key={entry.timestamp}
                   className={entry.sender === sender.username ? 'sender-chat' : 'receiver-chat'}
                 >
                   {entry.text}

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
+import { postUserInfo } from '../modules/user-api';
 
 function ResearcherProfile({ user, setUser }) {
   const navigate = useNavigate();
@@ -16,21 +17,6 @@ function ResearcherProfile({ user, setUser }) {
 
     return !(input.length === 0);
   };
-
-  async function verify() {
-    await fetch('http://localhost:5000/record/add-researcher', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .catch((e) => {
-        window.alert(e);
-      });
-
-    return true;
-  }
 
   const updateResearcher = async (event) => {
     setUser({
@@ -73,7 +59,7 @@ function ResearcherProfile({ user, setUser }) {
       return;
     }
 
-    if (await verify()) {
+    if (await postUserInfo(user)) {
       navigate('/researcher-home');
     } else {
       event.preventDefault();

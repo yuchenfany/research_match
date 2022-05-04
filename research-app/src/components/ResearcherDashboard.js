@@ -4,60 +4,26 @@ import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import NavBar from './NavBar';
 
+import { getResearcherNumStudies, getResearcherNumParticipants } from '../modules/user-api';
+import { getNumMessagesSent } from '../modules/chat-api';
+
 function ResearcherDashboard({ user }) {
   const [numStudies, setNumStudies] = useState(0);
   const [numParticipants, setNumParticipants] = useState(0);
   const [numMessages, setNumMessages] = useState(0);
 
-  async function getNumMessagesSent() {
-    const data = await fetch(`http://localhost:5000/chats/getNumMessagesSent/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    const messageCounts = json ?? [{ messages: 0 }];
-    return messageCounts[0]?.messages;
-  }
-
-  async function getNumStudies() {
-    const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    return json?.length ?? 0;
-  }
-
-  async function getNumParticipants() {
-    const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    if (!json) {
-      return 0;
-    }
-    return json.reduce((acc, obj) => acc + (obj?.participants?.length ?? 0), 0);
-  }
-
   useEffect(() => {
-    getNumStudies()
+    getResearcherNumStudies(user)
       .then(setNumStudies);
   }, []);
 
   useEffect(() => {
-    getNumMessagesSent()
+    getNumMessagesSent(user)
       .then(setNumMessages);
   }, []);
 
   useEffect(() => {
-    getNumParticipants()
+    getResearcherNumParticipants(user)
       .then(setNumParticipants);
   }, []);
 

@@ -1,9 +1,10 @@
-/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
+
+import { userExists } from '../modules/user-api';
 
 function Create({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
@@ -24,17 +25,6 @@ function Create({ user, setUser }) {
     }
     return !(user.password.length < 6 || !user.password.match(/^[0-9a-zA-Z]+$/));
   };
-
-  async function userExists() {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).catch((e) => {});
-    
-    return await data.json() != null;
-  }
 
   async function handleSubmit(event) {
     if (user.username.length === 0 && user.password.length === 0) {
@@ -57,7 +47,7 @@ function Create({ user, setUser }) {
     }
 
     // all information is valid, continue
-    if (await userExists()) {
+    if (await userExists(user)) {
       setError({ message: 'Username is already taken' });
     } else {
       navigate('/type');

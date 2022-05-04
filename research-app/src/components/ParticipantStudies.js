@@ -5,59 +5,19 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
+import { getEnrolledStudyIds } from '../modules/user-api';
+import { getStudyById } from '../modules/study-api';
+
 function ParticipantStudies({
   user, setUser, setStudy, setStatus,
 }) { // add props user
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   const navigate = useNavigate();
 
-  // gets list of all enrolled studies for user
-  // NOTE: remove hardcoding once users are enrolled in studies
-
-  async function getStudyIds() {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    setUser({
-      username: user.username,
-      password: user.password,
-      enrolled: json.enrolled,
-      age: user.age,
-      heightFeet: user.heightFeet,
-      heightInches: user.heightInches,
-      weight: user.weight,
-      sex: user.sex,
-      gender: user.gender,
-      allergies: user.allergies,
-      phys: user.phys,
-      psych: user.psych,
-      med: user.med,
-      type: user.type,
-    });
-
-    // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
-    return json?.enrolled ?? [];
-  }
-
-  // gets individual study by id
-  async function getStudy(studyId) {
-    const data = await fetch(`http://localhost:5000/study/${studyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return data.json();
-  }
-
   // get all studies
   async function getAllStudyJson() {
-    const studyIds = await getStudyIds();
-    return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
+    const studyIds = await getEnrolledStudyIds(user, setUser);
+    return Promise.all(studyIds.map((studyId) => getStudyById(studyId)));
   }
 
   useEffect(() => {

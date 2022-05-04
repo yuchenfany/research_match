@@ -5,34 +5,21 @@ import React, { useEffect } from 'react';
 import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
+import { getStudyById, updateEnrolledStudy } from '../modules/study-api';
+import { updateEnrolledUser } from '../modules/user-api';
 
-// TO DO: add back in studyId prop
 function Study({
   study, setStudy, user, setUser, status, setStatus,
 }) {
-  // Hardcoded:
-  // const studyId = 0;
-  // const [study, setStudy] = useState({});
   const navigate = useNavigate();
 
-  async function getStudy() {
-    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await studyData.json();
-    return data;
-  }
-
   useEffect(() => {
-    getStudy()
+    getStudyById(study.studyId)
       .then(setStudy);
   }, []);
 
   async function enrollUpdateStudy() {
-    const currStudy = await getStudy();
+    const currStudy = await getStudyById(study.studyId);
     const currParticipants = currStudy.participants;
     currParticipants.push(user.username);
 
@@ -46,13 +33,7 @@ function Study({
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
     };
-    await fetch(`http://localhost:5000/study/${parseInt(study.studyId, 10)}/enroll`, {
-      method: 'POST',
-      body: JSON.stringify(updatedStudy),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    updateEnrolledStudy(updatedStudy);
   }
 
   async function enrollUpdateUser() {
@@ -61,24 +42,18 @@ function Study({
     }
 
     const updatedArray = updateArray(user.enrolled ?? [], [study.studyId]);
-    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
+    setUser({ username: user.username, password: user.password, enrolled: updatedArray });
 
     const updatedUser = {
       username: user.username,
       password: user.password,
       enrolled: updatedArray,
     };
-    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId, 10)}`, {
-      method: 'POST',
-      body: JSON.stringify(updatedUser),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    updateEnrolledUser(study.studyId, updatedUser);
   }
 
   async function dropUpdateStudy() {
-    const currStudy = await getStudy();
+    const currStudy = await getStudyById(study.studyId);
     const currParticipants = currStudy.participants;
     const index = currParticipants.indexOf(user.username);
 
@@ -94,13 +69,8 @@ function Study({
       studyId: currStudy.studyId,
       researchers: currStudy.researchers,
     };
-    await fetch(`http://localhost:5000/study/${parseInt(study.studyId, 10)}/enroll`, {
-      method: 'POST',
-      body: JSON.stringify(updatedStudy),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+
+    enrollUpdateStudy(updatedStudy);
   }
 
   async function dropUpdateUser() {
@@ -114,13 +84,8 @@ function Study({
       password: user.password,
       enrolled: updatedArray,
     };
-    await fetch(`http://localhost:5000/record/enroll/${user.username}/${parseInt(study.studyId, 10)}`, {
-      method: 'POST',
-      body: JSON.stringify(updatedUser),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+
+    enrollUpdateUser(study.studyId, updatedUser);
   }
 
   async function enroll() {
@@ -142,7 +107,7 @@ function Study({
       <NavBar user={user} setUser={setUser} />
       <div className="study-flex">
         <div className="header-left">
-          {study.title}
+          {study?.title}
         </div>
         <div className="study-information">
           <div>
@@ -158,12 +123,12 @@ function Study({
             {study?.researchers}
           </div>
         </div>
-        {status.isEnrolled
+        {status?.isEnrolled
           ? <button className="button" type="button" onClick={() => drop()}>DROP</button>
           : <button className="button" type="button" onClick={() => enroll()}>ENROLL</button>}
         <div className="header-small"> Description </div>
         <div className="paragraph">
-          {study.description}
+          {study?.description}
         </div>
         <div className="study-flex">
           <div className="header-left">Message Researcher</div>

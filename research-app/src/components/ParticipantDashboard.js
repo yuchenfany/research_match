@@ -4,73 +4,31 @@ import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import NavBar from './NavBar';
 
+import { getUserTags, getUserInfo } from '../modules/user-api';
+import { getStudyByTag } from '../modules/study-api';
+import { getNumMessagesSent } from '../modules/chat-api';
+
 function ParticipantDashboard({ user }) {
   const [totalCompensation, setTotalCompensation] = useState(0);
   const [numEnrolled, setNumEnrolled] = useState(0);
   const [numRecommended, setNumRecommended] = useState(0);
   const [numMessages, setNumMessages] = useState(0);
 
-  async function getStudyIds() {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    const userTags = json.phys.concat(json.psych.concat(json.med));
-    return userTags;
-  }
-
-  // gets individual study by id
-  async function getStudy(studyId) {
-    const data = await fetch(`http://localhost:5000/study/tag/${studyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return data.json();
-  }
-
   // get all studies
   async function getNumRecommended() {
-    const studyIds = await getStudyIds();
-    const studiesByTag = await Promise.all(studyIds.map((studyId) => getStudy(studyId)));
+    const tags = await getUserTags(user);
+    const studiesByTag = await Promise.all(tags.map((tag) => getStudyByTag(tag)));
     const allStudies = studiesByTag.flat();
     return allStudies?.length ?? 0;
   }
 
-  async function getNumMessagesSent() {
-    const data = await fetch(`http://localhost:5000/chats/getNumMessagesSent/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    const messageCounts = json ?? [{ messages: 0 }];
-    return messageCounts[0]?.messages;
-  }
-
-  async function getUserInfo() {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    return json;
-  }
-
   async function getNumStudies() {
-    const data = await getUserInfo();
+    const data = await getUserInfo(user);
     return data?.enrolled?.length ?? 0;
   }
 
   async function getTotalCompensation() {
-    const data = await getUserInfo();
+    const data = await getUserInfo(user);
     return data?.compensation?.length ?? 0;
   }
 
@@ -90,7 +48,7 @@ function ParticipantDashboard({ user }) {
   }, []);
 
   useEffect(() => {
-    getNumMessagesSent()
+    getNumMessagesSent(user)
       .then(setNumMessages);
   }, []);
 

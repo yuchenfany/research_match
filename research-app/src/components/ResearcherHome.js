@@ -6,6 +6,9 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import NavBar from './NavBar';
+import { getResearcherStudies } from '../modules/user-api';
+import { getStudyById} from '../modules/study-api';
+import { getNumMessages } from '../modules/chat-api';
 
 function ResearcherHome({ user, setUser, setStudy, notification, setNotification }) {
   const [enrolledStudies, setEnrolledStudies] = useState([]);
@@ -13,58 +16,14 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
-  async function getStudyIds() {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    setUser({
-      username: user.username,
-      password: user.password,
-      name: user.name,
-      organization: user.organization,
-      studies: json.studies,
-      type: user.type,
-    });
-    // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
-    return json?.studies ?? [];
-  }
-
-  // gets individual study by id
-  async function getStudy(studyId) {
-    const data = await fetch(`http://localhost:5000/study/${studyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log(data);
-    return data.json();
-  }
 
   // get all studies
   async function getAllStudyJson() {
-    const studyIds = await getStudyIds();
+    const studyIds = await getResearcherStudies(user, setUser);
     console.log(user.username);
     console.log(user.studies);
     console.log(studyIds);
-    return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
-  }
-    // gets number of messages that user has received
-    async function getNumMessages() {
-      const data = await fetch(`http://localhost:5000/chats/getNumMessages/${user.username}`, {
-        method: 'GET',
-        headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    // setUser(user);
-    const json = await data.json();
-    const messageCounts = json ?? [0];
-    return messageCounts[0]?.messages;
+    return Promise.all(studyIds.map((studyId) => getStudyById(studyId)));
   }
 
   useEffect(() => {
@@ -93,23 +52,12 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   );
 
   async function checkNotifications() {
-    getNumMessages().then(
+    getNumMessages(user).then(
       (num) => {
         console.log(num);
         console.log(user.messages);
         setNotificationDS(num !== user.messages);
         console.log(notificationDS);
-      },
-    );
-  }
-
-  
-  async function checkNotifications() {
-    getNumMessages().then(
-      (num) => {
-        console.log(num);
-        console.log(user.messages);
-        setNotificationRH(num !== user.messages);
       },
     );
   }
@@ -120,7 +68,6 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
 
   useEffect(() => {
     refresh();
-
     getAllStudyJson()
       .then(setEnrolledStudies);
   }, []);

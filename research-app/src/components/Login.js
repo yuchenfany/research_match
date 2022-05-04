@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 import bcrypt from 'bcryptjs';
 
+import { getUserInfo } from '../modules/user-api';
+
 function Login({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
   const navigate = useNavigate();
@@ -27,14 +29,7 @@ function Login({ user, setUser }) {
       return;
     }
 
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const json = await data.json();
+    const json = await getUserInfo(user);
 
     // verification checks of username & password
     if (json === null) {
