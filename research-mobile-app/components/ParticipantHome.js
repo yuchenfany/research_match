@@ -168,7 +168,7 @@ function ParticipantHome({ route, navigation }) { // add props user
                 (studyJson) => (
                   studyJson.map(
                     (singleStudy) => (
-                      <View key={singleStudy.studyId} className="study" style={styles.studyCard}>
+                      <View key={singleStudy.studyId} style={styles.studyCard}>
                         <Text color="#103143">{singleStudy.title}</Text>
                         <View style={styles.rightFlex}>
                           <Text style={styles.tag} color="#103143">{singleStudy.tags}</Text>

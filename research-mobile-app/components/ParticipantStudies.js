@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import {
+  View, Button, Text, StyleSheet,
+} from 'react-native';
 import NavBar from './NavBar';
 
 function ParticipantStudies({ route, navigation }) { // add props user
@@ -9,7 +11,6 @@ function ParticipantStudies({ route, navigation }) { // add props user
   const { user, setUser } = route.params;
 
   // gets list of all enrolled studies for user
-  // NOTE: remove hardcoding once users are enrolled in studies
 
   async function getStudyIds() {
     const data = await fetch(`http://localhost:5000/record/${user.username}`, {
@@ -19,7 +20,7 @@ function ParticipantStudies({ route, navigation }) { // add props user
       },
     });
     const json = await data.json();
-	user.enrolled = json.enrolled;
+    user.enrolled = json.enrolled;
     setUser(user);
     return json?.enrolled ?? [];
   }
@@ -47,14 +48,70 @@ function ParticipantStudies({ route, navigation }) { // add props user
   }, []);
 
   function goToStudy(studyId) {
-    // setStudy({ studyId });
-    // if (user.enrolled.indexOf(studyId) > -1) {
-    //   setStatus({ isEnrolled: true });
-    // } else {
-    //   setStatus({ isEnrolled: false });
-    // }
-	navigation.navigate('Study', route.params);
+    navigation.navigate('Study', {
+      user,
+      setUser,
+      studyId,
+    });
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+      padding: 20,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      marginBottom: 20,
+      color: '#103143',
+    },
+    studyCard: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderRadius: 5,
+      borderWidth: 1,
+      paddingTop: 10,
+      paddingBottom: 18,
+      paddingRight: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+      width: 600,
+    },
+    rightFlex: {
+      marginLeft: 'auto',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+    viewButton: {
+      right: 0,
+      width: 100,
+      height: 25,
+      fontSize: 10,
+      letterSpacing: 1,
+      marginLeft: 'auto',
+    },
+    tag: {
+      height: 30,
+      borderColor: '#808A8F',
+      borderRadius: 5,
+      borderWidth: 1,
+      padding: 5,
+      marginRight: 10,
+    },
+  });
 
   return (
     <View className="Home">
@@ -63,22 +120,23 @@ function ParticipantStudies({ route, navigation }) { // add props user
         <Text className="header-left">Enrolled Studies</Text>
         <View>
           {
-          enrolledStudies.length === 0 ? []
-            : enrolledStudies.map(
-              (studyJson) => (
-                <View key={studyJson.studyId} className="study">
-                  <Text className="study-title">{studyJson.title}</Text>
-                  <Button
-				  	className="view-button"
-					title="VIEW"
-					key={studyJson.studyId}
-					onPress={() => goToStudy(2)}
-				  >
-				  </Button>
-                </View>
-              ),
-            )
-          }
+              enrolledStudies.length === 0 ? []
+                : enrolledStudies.map(
+                  (studyJson) => (
+                    studyJson.map(
+                      (singleStudy) => (
+                        <View key={singleStudy.studyId} style={styles.studyCard}>
+                          <Text color="#103143">{singleStudy.title}</Text>
+                          <View style={styles.rightFlex}>
+                            <Text style={styles.tag} color="#103143">{singleStudy.tags}</Text>
+                            <Button style={styles.viewButton} type="button" title="VIEW" key={singleStudy.studyId} color="#103143" onPress={() => goToStudy(singleStudy.studyId)} />
+                          </View>
+                        </View>
+                      ),
+                    )
+                  ),
+                )
+              }
         </View>
       </View>
 
