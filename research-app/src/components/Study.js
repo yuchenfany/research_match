@@ -168,7 +168,6 @@ function Study({
         <div className="study-flex">
           <div className="header-left">Message Researcher</div>
           <div className="study">
-            <div className="study-title">Sleep Research</div>
             <button className="view-button" type="button" key={2} onClick={() => goToChat()}>Message Researcher</button>
           </div>
         </div>
