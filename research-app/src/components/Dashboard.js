@@ -8,18 +8,49 @@ function Dashboard({ user }) {
   const [totalCompensation, setTotalCompensation] = useState(0);
   const [numEnrolled, setNumEnrolled] = useState(0);
   const [numRecommended, setNumRecommended] = useState(0);
-  const [numMessages] = useState(0);
+  const [numMessages, setNumMessages] = useState(0);
 
-  // Fake for now by getting all studies
-  async function getStudiesLength() {
-    const data = await fetch('http://localhost:5000/study', {
+  async function getStudyIds() {
+    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
     const json = await data.json();
-    return json?.length ?? 0;
+    const userTags = json.phys.concat(json.psych.concat(json.med));
+    return userTags;
+  }
+
+  // gets individual study by id
+  async function getStudy(studyId) {
+    const data = await fetch(`http://localhost:5000/study/tag/${studyId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return data.json();
+  }
+
+  // get all studies
+  async function getNumRecommended() {
+    const studyIds = await getStudyIds();
+    const studiesByTag = await Promise.all(studyIds.map((studyId) => getStudy(studyId)));
+    const allStudies = studiesByTag.flat();
+    return allStudies?.length ?? 0;
+  }
+
+  async function getNumMessagesSent() {
+    const data = await fetch(`http://localhost:5000/chats/getNumMessagesSent/${user.username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const json = await data.json();
+    const messageCounts = json ?? [{ messages: 0 }];
+    return messageCounts[0]?.messages;
   }
 
   async function getUserInfo() {
@@ -54,8 +85,13 @@ function Dashboard({ user }) {
   }, []);
 
   useEffect(() => {
-    getStudiesLength()
+    getNumRecommended()
       .then(setNumRecommended);
+  }, []);
+
+  useEffect(() => {
+    getNumMessagesSent()
+      .then(setNumMessages);
   }, []);
 
   const cards = [

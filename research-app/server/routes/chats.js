@@ -79,33 +79,37 @@ messageRoutes.route('/chats/send').post((req) => {
 messageRoutes.route('/chats/getNumMessages/:user').get((req, res) => {
   const dbConnect = dbo.getDb();
   const { user } = req.params;
-  // const query = { user };
-  // const numMessages = 0;
-  // console.log(query);
-  // dbConnect
-  //   .collection('chats')
-  //   .find(query)
-  //   .toArray((err, result) => {
-  //     // console.log(result);
-  //     if (err) throw err;
-  //     res.json(result);
-  //     //for each chat in result:
-  //     //numMessages = numMessages + req.
-  //   });
 
-  // if we want to move everything to the backend
   dbConnect
-  .collection('chats')
-  .aggregate([
-    { $match: { $or: [{ user }, { researcher: user }] } },
-    { $unwind: '$messages' },
-    { $match: { sender: { $nin: [user] } } },
-    { $count: 'messages' },
-  ])
-  .toArray((err, result) => {
-    if (err) throw err;
-    res.json(result);
-  });
+    .collection('chats')
+    .aggregate([
+      { $match: { $or: [{ user }, { researcher: user }] } },
+      { $unwind: '$messages' },
+      { $match: { sender: { $nin: [user] } } }, // functionally same as nothing
+      // { $match: { 'messages.sender': { $nin: [user] } } }, // actually gets num received
+      { $count: 'messages' },
+    ])
+    .toArray((err, result) => {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
+messageRoutes.route('/chats/getNumMessagesSent/:user').get((req, res) => {
+  const dbConnect = dbo.getDb();
+  const { user } = req.params;
+
+  dbConnect
+    .collection('chats')
+    .aggregate([
+      { $unwind: '$messages' },
+      { $match: { 'messages.sender': user } },
+      { $count: 'messages' },
+    ])
+    .toArray((err, result) => {
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
 module.exports = messageRoutes;
