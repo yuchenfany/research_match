@@ -22,7 +22,6 @@ function ParticipantStudies({ route, navigation }) { // add props user
     const json = await data.json();
     user.enrolled = json.enrolled;
     setUser(user);
-    console.log(json?.enrolled ?? []);
     return json?.enrolled ?? [];
   }
 
@@ -40,8 +39,6 @@ function ParticipantStudies({ route, navigation }) { // add props user
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
-    console.log(studyIds);
-    // await setEnrolledStudies();
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 
@@ -117,10 +114,10 @@ function ParticipantStudies({ route, navigation }) { // add props user
   });
 
   return (
-    <View className="Home">
+    <View style={styles.container}>
       <NavBar user={user} setUser={setUser} navigation={navigation} />
-      <View className="study-flex">
-        <Text className="header-left">Enrolled Studies</Text>
+      <View>
+        <Text style={styles.header}>Enrolled Studies</Text>
         <View>
           {
               enrolledStudies.length === 0 ? []
@@ -136,26 +133,6 @@ function ParticipantStudies({ route, navigation }) { // add props user
                   ),
                 )
               }
-        </View>
-      </View>
-
-      <View className="study-flex">
-        <Text className="header-left">For Testing Purposes: Delete Later</Text>
-        <View className="study">
-          <Text className="study-title">Sleep Research</Text>
-          <Button className="view-button" title="VIEW" key={2} onPress={() => goToStudy(2)}></Button>
-        </View>
-      </View>
-      <View className="study-transfer">
-        <Text className="header-left">For Testing Purposes: Directs to Add Study Page</Text>
-        <View className="study">
-          <Text className="study-transfer">Go to Study Page</Text>
-          <Button
-		  	className="view-button"
-			title="Add Study"
-			onPress={() => navigation.push('AddStudy', route.params)}
-			>
-		  </Button>
         </View>
       </View>
     </View>
