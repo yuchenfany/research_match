@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
 import NavBar from './NavBar';
 
-function ResearcherHome({ route, navigation}) { // add props user
+function ResearcherHome({ route, navigation }) { // add props user
   let { user, setUser, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
   // const [study2, setStudy2] = useState();
@@ -95,12 +95,12 @@ function ResearcherHome({ route, navigation}) { // add props user
               (studyJson) => (
                 <div key={studyJson.studyId} className="study">
                   <Text className="study-title">{studyJson.title}</Text>
-                  <Button 
+                  <Button
                     className="view-button"
                     type="button"
                     key={studyJson.studyId}
-                    onClick={() => goToStudy(studyJson.studyId)}
-                  >VIEW</Button>
+                    onPress={() => goToStudy(studyJson.studyId)}
+                  />
                 </div>
               ),
             )
@@ -113,8 +113,9 @@ function ResearcherHome({ route, navigation}) { // add props user
           <Text className="study-transfer">Go to Study Page</Text>
           <Button
             className="view-button"
-            onClick={() => navigation.navigate('AddStudy', {user: user, setUser: setUser})}
-          >Add Study</Button>
+            onPress={() => navigation.navigate('AddStudy', { user, setUser })}
+            title="ADD STUDY"
+          />
         </div>
       </div>
     </View>

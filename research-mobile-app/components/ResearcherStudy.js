@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useState, useEffect } from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
 import NavBar from './NavBar';
 
 function ResearcherStudy({ route, navigation}) { // add props user

@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import NavBar from './NavBar';
 
-function AddStudy({ route, navigation}) { // add props user
-  let {user, setUser} = route.params;
+function AddStudy({ route, navigation }) { // add props user
+  const { user, setUser } = route.params;
   const [study, setStudy] = useState([]);
   // const Tags = [
   //   { label: 'Diabetes', value: 'diabetes' },
@@ -131,15 +131,12 @@ function AddStudy({ route, navigation}) { // add props user
       body: JSON.stringify(myobj),
     })
       .catch((e) => {
-        window.alert(e);
+        throw new Error(e);
       });
     return true;
   }
 
   const updateTitle = async (event) => {
-    console.log(event.target.value);
-    console.log(study);
-
     setStudy({
       title: event.target.value,
       description: study.description,
@@ -152,7 +149,6 @@ function AddStudy({ route, navigation}) { // add props user
     });
   };
   const updateDescription = async (event) => {
-    console.log(event.target.value);
     setStudy({
       title: study.title,
       description: event.target.value,
@@ -200,35 +196,36 @@ function AddStudy({ route, navigation}) { // add props user
       researchers: event.target.value,
     });
   };
-  async function getTagsArr(tags) {
-    const arr = [];
+  // async function getTagsArr(tags) {
+  //   const arr = [];
 
-    for (let i = 0; i < tags.length; i += 1) {
-      arr.push(tags[i].value);
-    }
+  //   for (let i = 0; i < tags.length; i += 1) {
+  //     arr.push(tags[i].value);
+  //   }
 
-    return arr;
-  }
+  //   return arr;
+  // }
 
-  const updateTags = async (tags) => {
-    const arr = await getTagsArr(tags);
-    setStudy({
-      title: study.title,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: arr,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
-    });
-  };
+  // const updateTags = async (tags) => {
+  //   const arr = await getTagsArr(tags);
+  //   setStudy({
+  //     title: study.title,
+  //     description: study.description,
+  //     compensation: study.compensation,
+  //     duration: study.duration,
+  //     tags: arr,
+  //     participants: study.participants,
+  //     studyId: study.studyId,
+  //     researchers: study.researchers,
+  //   });
+  // };
+
   async function handleSubmit(event) {
     if (await verify()) {
       navigation.navigate('ResearcherHome', {
-        user: user, 
-        setUser: setUser,
-        setStudy: setStudy
+        user,
+        setUser,
+        setStudy,
       });
     } else {
       event.preventDefault();
@@ -281,8 +278,7 @@ function AddStudy({ route, navigation}) { // add props user
         <div className="profile-row">
           <div>Tags</div>
         </div>
-        <div className="profile-row">
-        </div>
+        <div className="profile-row" />
         <input className="signup-button" type="submit" value="Add Study" onClick={handleSubmit} />
       </div>
     </div>

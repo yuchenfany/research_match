@@ -231,7 +231,7 @@ function Login({ navigation }) {
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer independent={true}>
+    <NavigationContainer independent>
       <Stack.Navigator initialRouteName="Research Application">
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
