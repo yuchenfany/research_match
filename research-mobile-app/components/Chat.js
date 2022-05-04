@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text } from 'react-native';
 import NavBar from './NavBar';
 
 function Chat({ route, navigation }) {
@@ -28,7 +29,6 @@ function Chat({ route, navigation }) {
       },
     });
     const json = await data.json();
-    console.log(json);
     return json?.messages ?? []; // returns messages array
   }
 
@@ -113,6 +113,15 @@ function Chat({ route, navigation }) {
     return null;
   };
 
+  const styles = StyleSheet.create({
+    senderChat: {
+      color: 'blue',
+    },
+    receiverChat: {
+      color: 'red',
+    },
+  });
+
   const chatsDisplay = (
     <div>
       <div className="chat-history">
@@ -126,13 +135,13 @@ function Chat({ route, navigation }) {
                     `${(new Date(entry.timestamp)).getMonth()}/${(new Date(entry.timestamp)).getDate()}/22 ${(new Date(entry.timestamp)).toLocaleTimeString('en-US')}`
                   }
                 </p>
-                <div
+                <Text
                   key={entry.timestamp}
-                  className={entry.sender === sender.username ? 'sender-chat' : 'receiver-chat'}
+                  style={entry.sender === sender.username ? styles.senderChat : styles.receiverChat}
                 >
                   {entry.text}
                   {getMedia(entry)}
-                </div>
+                </Text>
               </div>
             ),
           )
@@ -144,7 +153,9 @@ function Chat({ route, navigation }) {
   return (
     <div>
       <NavBar user={sender} />
-      <title>{receiverName}</title>
+      <header>
+        <h1>{receiverName}</h1> 
+      </header>
       { chatsDisplay }
       <div className="chat-input-container">
         <input

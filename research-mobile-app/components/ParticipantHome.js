@@ -6,10 +6,8 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 import NavBar from './NavBar';
 
 function ParticipantHome({ route, navigation }) { // add props user
-  let { user, setUser } = route.params;
+  let { user, setUser, setStudy } = route.params;
   const [enrolledStudies, setEnrolledStudies] = useState([]);
-
-  console.log(user);
 
   // gets list of studies that match user's tags
 
@@ -21,9 +19,6 @@ function ParticipantHome({ route, navigation }) { // add props user
        },
      });
      const json = await data.json();
-     console.log(json)
-     console.log('PARTICIPANT HOME: AGE===================');
-     console.log(user.age);
 
      setUser({
        username: json.username,
@@ -44,8 +39,6 @@ function ParticipantHome({ route, navigation }) { // add props user
 
   //   // return json.tags; (once tags are implemented in phys)
      //const userTags = user.phys.concat(user.psych.concat(user.med));
-     //console.log(userTags);
-     console.log(json.password);
      return json.phys;
    }
 
@@ -64,8 +57,6 @@ function ParticipantHome({ route, navigation }) { // add props user
    async function getAllStudyJson() {
     //  setTimeout(5000);
      const studyIds = await getStudyIds();
-    //  console.log(user.username);
-    //  console.log(studyIds);
      // return Promise(getStudy(studyIds[0]));
      return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
    }
@@ -76,33 +67,19 @@ function ParticipantHome({ route, navigation }) { // add props user
    }, []);
 
   const goToStudy = (studyId) => {
-     console.log(studyId);
      setStudy({ studyId });
      navigation.navigate('Study', {
         user: user,
         setUser: setUser,
+        studyId: studyId,
       });
-    console.log('in goToStudy');
-    navigation.navigate('Study', {
-      user: user,
-    });
   }
 
   async function editProfile() {
-    console.log('EDIT NAVIGATING');
     navigation.navigate('ParticipantEdit', {
       user,
       setUser,
     });
-  }
-  
-  const hardcodedStudy = () => {
-    console.log('in hardcodedStudy');
-    navigation.navigate('Study', {
-      user: user,
-      setUser: setUser,
-    });
-    console.log('after navigation');
   }
 
   const styles = StyleSheet.create({
@@ -134,9 +111,6 @@ function ParticipantHome({ route, navigation }) { // add props user
         <Button title="EDIT PROFILE" color='#103143' onPress={() => editProfile()}/>
       </View>
       <View style={styles.button}>
-        <Button title="GO TO STUDY" color='#103143' onPress={() => hardcodedStudy()} />
-      </View>
-      <View style={styles.button}>
         <Button
           title="My Enrolled Studies"
           color='#103143'
@@ -159,7 +133,7 @@ function ParticipantHome({ route, navigation }) { // add props user
                       <div key={singleStudy.studyId} className="study">
                         <div className="study-title">{singleStudy.title}</div>
                         <div className="study-tag">{singleStudy.tags}</div>
-                        <button className="view-button" type="button" key={singleStudy.studyId} onClick={() => goToStudy(singleStudy.studyId)}>VIEW</button>
+                        <Button style={styles.button} type="button" title="VIEW" key={singleStudy.studyId} onPress={() => goToStudy(singleStudy.studyId)} />
                       </div>
                     ),
                   )
@@ -170,41 +144,6 @@ function ParticipantHome({ route, navigation }) { // add props user
 
     </View>
   );
-
-  // return (
-  //   <View>
-  //     <Text>WELCOME {user.username}</Text>
-  //     <Text>You've officially been hacked and I now know your username is: </Text>
-  //     <Text>{user.username} </Text> 
-  //     <Text>and your password is: </Text> 
-  //     <Text>{user.password}</Text>
-  //     {/* <NavBar user={user} /> */}
-  //     <View>
-  //       <Text>Eligible Studies</Text>
-  //       <div>
-  //         {
-  //         enrolledStudies.length === 0 ? []
-  //           : enrolledStudies.map(
-  //             (studyJson) => (
-  //               studyJson.map(
-  //                 (singleStudy) => (
-  //                   <div key={singleStudy.studyId} className="study">
-  //                     <div className="study-title">{singleStudy.title}</div>
-  //                     <div className="study-tag">{singleStudy.tags}</div>
-  //                     <button className="view-button" type="button" key={singleStudy.studyId} onClick={() => goToStudy(singleStudy.studyId)}>VIEW</button>
-  //                   </div>
-  //                 ),
-  //               )
-  //             ),
-  //           )
-  //         }
-  //       </div>
-  //       <Text>FOR TESTING STUDY.JS</Text>
-  //       <Button title="GO TO STUDY" onPress={() => testFunction()} style={styles.button} />
-  //       <Button title="Button Testing" onPress={() => console.log('PRESSED FOR BUTTON')} />
-  //     </View>
-  //   </View>
-  // );
 }
 
 export default ParticipantHome;

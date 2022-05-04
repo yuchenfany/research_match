@@ -6,14 +6,13 @@ import { View, Button, Text } from 'react-native';
 import NavBar from './NavBar';
 
 function Study({ route, navigation }) {
-  let { user, setUser } = route.params;
+  let { user, setUser, studyId } = route.params;
 
   // Hardcoded:
-  const [study, setStudy] = useState({ studyId: 2 });
+  const [study, setStudy] = useState({ studyId: studyId });
   const [status, setStatus] = useState({ isEnrolled: false });
 
   async function getUserStudies() {
-    console.log('GOING TO FETCH USER STUDIES');
     const studyData = await fetch(`http://localhost:5000/record/studies/${user.username}`, {
       method: 'GET',
       headers: {
@@ -21,7 +20,6 @@ function Study({ route, navigation }) {
       },
     });
     const data = await studyData.json();
-    console.log(data);
     return data;
   }
 
@@ -34,20 +32,18 @@ function Study({ route, navigation }) {
   }
 
   async function getStudy() {
-    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+    const studyData = await fetch(`http://localhost:5000/study/${studyId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
     const data = await studyData.json();
-    console.log(data);
     return data;
   }
 
   useEffect(() => {
     checkEnrollment();
-    console.log(status.isEnrolled);
     getStudy()
       .then(setStudy);
   }, []);
@@ -143,17 +139,13 @@ function Study({ route, navigation }) {
   }
 
   async function enroll() {
-    await setStatus({ isEnrolled: true });
+    setStatus({ isEnrolled: true });
     enrollUpdateStudy().then(enrollUpdateUser());
-    console.log('should set isEnrolled to true');
-    console.log(status.isEnrolled);
   }
 
   async function drop() {
-    await setStatus({ isEnrolled: false });
+    setStatus({ isEnrolled: false });
     dropUpdateStudy().then(dropUpdateUser());
-    console.log('should set isEnrolled to false');
-    console.log(status.isEnrolled);
   }
 
   return (
@@ -161,24 +153,31 @@ function Study({ route, navigation }) {
       <NavBar user={user} setUser={setUser} navigation={navigation} />
       <View>
         <Text>
-          {study.title}
+          {study?.title ?? ''}
         </Text>
         <Text>
           Duration:
-          {study.duration}
+          {study?.duration ?? ''}
         </Text>
         <Text>
           Compensation:
-          {study.compensation}
+          {study?.compensation ?? ''}
         </Text>
-        <Text> Researcher names: [ADD IN] </Text>
+        <Text> Researcher names: {study?.researchers ?? ''} </Text>
         {status.isEnrolled
           ? <Button title="DROP" type="button" onPress={() => drop()} />
           : <Button title="ENROLL" type="button" onPress={() => enroll()} />}
         <Text> Description </Text>
         <Text>
-          {study.description}
+          {study?.description}
         </Text>
+          <Text>Message Researcher</Text>
+          <Button title="MESSAGE RESEARCHER" type="button" key={2} 
+          onPress={() => navigation.navigate('Chat', {
+            sender: user,
+            receiverName: study?.researchers ?? 'receiverUsername',
+          })} 
+          />
       </View>
     </View>
   );

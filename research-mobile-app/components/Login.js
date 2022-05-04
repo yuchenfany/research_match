@@ -127,7 +127,6 @@ function Login({ navigation }) {
         enrolled: user.enrolled,
       },
     );
-    console.log('USERNAME CHANGE====================');
   };
 
   const handleNameChangePassword = async (event) => {
@@ -138,18 +137,14 @@ function Login({ navigation }) {
         enrolled: user.enrolled,
       },
     );
-
-    console.log('PASSWORD CHANGE====================');
   };
 
   const navigateTo = (type) => {
-    console.log('NAVIGATETO');
-    console.log(jsonResult.age);
     if (type === 0) {
-      console.log(jsonResult);
       navigation.navigate('ParticipantHome', {
         user: jsonResult,
         setUser: setUser,
+        setStudy: setStudy,
       });
     } else if (type === 1) {
       navigation.navigate('ResearcherHome', {
@@ -163,10 +158,7 @@ function Login({ navigation }) {
   const handleAsync = async (event) => {
     event.preventDefault();
     // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
-    console.log('BEFORE HANDLESUBMIT');
     const type = await handleSubmit(event);
-    console.log('FINISHED HANDLESUBMIT');
-    console.log(type);
     setTimeout(1000, navigateTo(type));
   };
 
