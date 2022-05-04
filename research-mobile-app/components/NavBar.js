@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import {
+  View, Button, StyleSheet,
+} from 'react-native';
 
 function NavBar({ user, setUser, navigation }) {
   const [accountToggled, setAccountToggled] = useState(false);
@@ -10,42 +12,6 @@ function NavBar({ user, setUser, navigation }) {
     // localStorage.setItem(user.username, JSON.stringify(user));
     // navigate(`/${(user.type ?? 0) === 0 ? 'participant' : 'researcher'}-edit`);
   };
-
-  const accountOptions = (
-    <View
-      className="acct-options"
-      style={{ display: accountToggled ? 'flex' : 'none', flexDirection: 'row' }}
-    >
-      <Button
-	    title="EDIT PROFILE"
-        className="account-btn"
-        onPress={editProfile}
-      >
-      </Button>
-      <Button
-	    title="DELETE ACCOUNT"
-        className="account-btn"
-        onPress={async () => { navigation.navigate('DeleteAccount', { user, setUser }); }}
-      >
-      </Button>
-      <Button
-	    title="LOGOUT"
-        className="logout-btn"
-        onPress={async () => { navigation.navigate('Research Application', { user, setUser }); }}
-      >
-      </Button>
-    </View>
-  );
-
-  const toggleAccountOptions = () => {
-    setAccountToggled(!accountToggled);
-  };
-
-  const studyListButton = (user.type ?? 0) ? <Button
-    title="MY STUDIES"
-    className="nav-btn"
-    onPress={async () => {navigation.push('ParticipantStudies', { user, setUser });}}
-  ></Button> : null;
 
   const styles = StyleSheet.create({
     container: {
@@ -76,35 +42,85 @@ function NavBar({ user, setUser, navigation }) {
       letterSpacing: 1,
       marginTop: 10,
     },
+    optionButtons: {
+      width: 150,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginRight: 10,
+    },
   });
+
+  const accountOptions = (
+    <View
+      style={{ display: accountToggled ? 'flex' : 'none', flexDirection: 'row' }}
+    >
+      <View style={styles.optionButtons}>
+        <Button
+          title="EDIT PROFILE"
+          color="#103143"
+          onPress={editProfile}
+        />
+      </View>
+      <View style={styles.optionButtons}>
+        <Button
+          title="DELETE ACCOUNT"
+          color="#103143"
+          onPress={async () => { navigation.navigate('DeleteAccount', { user, setUser }); }}
+        />
+      </View>
+      <View style={styles.optionButtons}>
+        <Button
+          title="LOGOUT"
+          color="#103143"
+          onPress={async () => { navigation.navigate('Research Application', { user, setUser }); }}
+        />
+      </View>
+    </View>
+  );
+
+  const toggleAccountOptions = () => {
+    setAccountToggled(!accountToggled);
+  };
+
+  const studyListButton = (user.type ?? 0)
+    ? (
+      <View style={styles.optionButtons}>
+        <Button
+          title="MY STUDIES"
+          color="#103143"
+          onPress={async () => { navigation.push('ParticipantStudies', { user, setUser }); }}
+        />
+      </View>
+    ) : null;
 
   return (
     <View style={styles.nav}>
       <View style={styles.navButton}>
         <Button
-          title='HOME'
-          color='#103143'
+          title="HOME"
+          color="#103143"
           onPress={async () => {
             navigation.push(
               `${(user.type ?? 0) === 0 ? 'Participant' : 'Researcher'}Home`,
-              { user, setUser }
+              { user, setUser },
             );
           }}
         >
-        {studyListButton}
+          {studyListButton}
         </Button>
       </View>
       <View style={styles.navButton}>
         <Button
-          title='MESSAGES'
-          color='#103143'
+          title="MESSAGES"
+          color="#103143"
           onPress={async () => {
             navigation.push('Messages', { user });
           }}
         />
       </View>
       <View style={styles.navButton}>
-        <Button title='ACCOUNT' color='#103143' onPress={toggleAccountOptions} />
+        <Button title="ACCOUNT" color="#103143" onPress={toggleAccountOptions} />
       </View>
       {accountOptions}
     </View>
