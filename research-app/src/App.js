@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import './assets/App.css';
 import {
-  Routes, Route,
+  Routes, Route, BrowserRouter
 } from 'react-router-dom';
 import React, { useState } from 'react';
 import Login from './components/Login';
@@ -49,6 +49,7 @@ function App() {
   const [notification, setNotification] = useState(false);
 
   return (
+    <BrowserRouter>
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Login user={user} setUser={setUser} />} />
@@ -72,6 +73,7 @@ function App() {
         <Route exact path="/chat" element={<Chat sender={user} setSender={setUser} setNotification={setNotification} user={user} setUser={setUser} />} />
       </Routes>
     </div>
+    </BrowserRouter>
   );
 }
 
