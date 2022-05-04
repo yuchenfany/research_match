@@ -22,10 +22,11 @@ function ParticipantStudies({ route, navigation }) { // add props user
     const json = await data.json();
     user.enrolled = json.enrolled;
     setUser(user);
+    console.log(json?.enrolled ?? []);
     return json?.enrolled ?? [];
   }
 
-  // gets inViewidual study by id
+  // gets individual study by id
   async function getStudy(studyId) {
     const data = await fetch(`http://localhost:5000/study/${studyId}`, {
       method: 'GET',
@@ -39,6 +40,8 @@ function ParticipantStudies({ route, navigation }) { // add props user
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
+    console.log(studyIds);
+    // await setEnrolledStudies();
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
 
@@ -122,18 +125,14 @@ function ParticipantStudies({ route, navigation }) { // add props user
           {
               enrolledStudies.length === 0 ? []
                 : enrolledStudies.map(
-                  (studyJson) => (
-                    studyJson.map(
-                      (singleStudy) => (
-                        <View key={singleStudy.studyId} style={styles.studyCard}>
-                          <Text color="#103143">{singleStudy.title}</Text>
-                          <View style={styles.rightFlex}>
-                            <Text style={styles.tag} color="#103143">{singleStudy.tags}</Text>
-                            <Button style={styles.viewButton} type="button" title="VIEW" key={singleStudy.studyId} color="#103143" onPress={() => goToStudy(singleStudy.studyId)} />
-                          </View>
-                        </View>
-                      ),
-                    )
+                  (singleStudy) => (
+                    <View key={singleStudy.studyId} style={styles.studyCard}>
+                      <Text color="#103143">{singleStudy.title}</Text>
+                      <View style={styles.rightFlex}>
+                        <Text style={styles.tag} color="#103143">{singleStudy.tags}</Text>
+                        <Button style={styles.viewButton} type="button" title="VIEW" key={singleStudy.studyId} color="#103143" onPress={() => goToStudy(singleStudy.studyId)} />
+                      </View>
+                    </View>
                   ),
                 )
               }

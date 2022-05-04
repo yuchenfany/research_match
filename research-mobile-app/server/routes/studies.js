@@ -179,18 +179,17 @@ studyRoutes.route('/add-study').post((req, response) => {
 
 // get list of all studies
 studyRoutes.route('/study/tag/:id').get((req, res) => {
-    const dbConnect = dbo.getDb('research-app');
-    //const myquery = { tags: parseInt(req.params.id, 10) };
-    const myquery = { tags: req.params.id };
-    console.log(myquery);
+  const dbConnect = dbo.getDb('research-app');
+  // const myquery = { tags: parseInt(req.params.id, 10) };
+  const myquery = { tags: req.params.id };
 
-    dbConnect
-      .collection('studies')
-      .find(myquery)
-      .toArray((err, result) => {
-        if (err) throw err;
-        res.json(result);
-      });
-  });
+  dbConnect
+    .collection('studies')
+    .find(myquery)
+    .toArray((err, result) => {
+      if (err) throw err;
+      res.json(result);
+    });
+});
 
 module.exports = studyRoutes;

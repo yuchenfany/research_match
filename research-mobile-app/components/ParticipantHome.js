@@ -44,7 +44,7 @@ function ParticipantHome({ route, navigation }) { // add props user
     return json.phys;
   }
 
-  // gets individual study by id
+  // gets individual study by id and tag
   async function getStudy(studyId) {
     const data = await fetch(`http://localhost:5000/study/tag/${studyId}`, {
       method: 'GET',
