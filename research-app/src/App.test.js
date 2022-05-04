@@ -2,10 +2,14 @@
  * @jest-environment jsdom
  */
 
- import  { render, screen } from '@testing-library/react';
- import '@testing-library/jest-dom';
- import renderer from 'react-test-renderer';
- import App from './App';
+/* eslint-disable react/jsx-filename-extension */
+
+// import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import renderer from 'react-test-renderer';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
 
 // test('renders learn react link', () => {
 //   render(<App />);
@@ -14,7 +18,11 @@
 // });
 
 test('snapshot test', () => {
-  const component = renderer.create(<App />);
+  const component = renderer.create(
+    <Router>
+      <App />
+    </Router>,
+  );
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
-  });
+});

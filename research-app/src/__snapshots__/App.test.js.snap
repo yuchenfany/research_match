@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="Login"
+  >
+    <p
+      className="header"
+    >
+      Research Match
+    </p>
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="login-label"
+        htmlFor="username"
+      >
+        <div
+          className="username-wrapper"
+        >
+          <p
+            className="field-label"
+          >
+            USERNAME
+          </p>
+          <input
+            className="input-field"
+            id="username"
+            onChange={[Function]}
+            type="text"
+          />
+          <p
+            className="field-label"
+          >
+            PASSWORD
+          </p>
+          <input
+            className="input-field"
+            id="password"
+            onChange={[Function]}
+            type="text"
+          />
+          <span
+            className="error-message"
+          >
+            
+          </span>
+        </div>
+        <input
+          className="button"
+          type="submit"
+          value="SUBMIT"
+        />
+        <div
+          className="spacer"
+        />
+        <button
+          className="link"
+          onClick={[Function]}
+          type="button"
+        >
+          New user sign-up
+        </button>
+      </label>
+    </form>
+  </div>
+</div>
+`;

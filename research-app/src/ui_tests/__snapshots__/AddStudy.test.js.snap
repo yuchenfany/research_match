@@ -73,7 +73,7 @@ exports[`snapshot test 1`] = `
       >
         <span
           className="css-1f43avz-a11yText-A11yText"
-          id="react-select-9-live-region"
+          id="react-select-8-live-region"
         />
         <span
           aria-atomic="false"
@@ -91,7 +91,7 @@ exports[`snapshot test 1`] = `
           >
             <div
               className=" css-14el2xx-placeholder"
-              id="react-select-9-placeholder"
+              id="react-select-8-placeholder"
             >
               Select...
             </div>
@@ -101,17 +101,17 @@ exports[`snapshot test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-controls="react-select-9-listbox"
-                aria-describedby="react-select-9-placeholder"
+                aria-controls="react-select-8-listbox"
+                aria-describedby="react-select-8-placeholder"
                 aria-expanded={false}
                 aria-haspopup={true}
-                aria-owns="react-select-9-listbox"
+                aria-owns="react-select-8-listbox"
                 autoCapitalize="none"
                 autoComplete="off"
                 autoCorrect="off"
                 className=""
                 disabled={false}
-                id="react-select-9-input"
+                id="react-select-8-input"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
