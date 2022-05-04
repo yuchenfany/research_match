@@ -106,16 +106,13 @@ function DisplayStudies({
     </Popup>
   );
 
-  const renderNotification2 = () => (<div className="header-left">Real Notificaiton shown</div>
-  );
-
   async function checkNotifications() {
     getNumMessages().then(
       (num) => {
         console.log(num);
         console.log(user.messages);
         setNotificationDS(num !== user.messages);
-        console.log(notificationDS);
+        // console.log(notificationDS);
       },
     );
   }

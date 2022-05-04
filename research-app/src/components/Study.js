@@ -147,15 +147,15 @@ function Study({
         <div className="study-information">
           <div>
             Duration: &nbsp;
-            {study.duration}
+            {study?.duration}
           </div>
           <div>
             Compensation: &nbsp;
-            {study.compensation}
+            {study?.compensation}
           </div>
           <div>
             Researcher names: &nbsp;
-            {study.researchers.join(', ')}
+            {study?.researchers}
           </div>
         </div>
         {status.isEnrolled

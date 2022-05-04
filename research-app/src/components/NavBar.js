@@ -86,15 +86,21 @@ function NavBar({ user, setUser }) {
       >
         HOME
       </button>
-      <button
-        type="button"
-        className="nav-btn"
-        onClick={async () => {
-          navigate('/participant-studies');
-        }}
-      >
-        MY STUDIES
-      </button>
+      {
+        (user.type ?? 0) === 1
+          ? null
+          : (
+            <button
+              type="button"
+              className="nav-btn"
+              onClick={async () => {
+                navigate('/participant-studies');
+              }}
+            >
+              MY STUDIES
+            </button>
+          )
+      }
       <button
         type="button"
         className="nav-btn"
@@ -105,7 +111,9 @@ function NavBar({ user, setUser }) {
       <button
         type="button"
         className="nav-btn"
-        onClick={async () => { navigate('/dashboard', { user }); }}
+        onClick={async () => {
+          navigate(`/${(user.type ?? 0) === 0 ? 'participant' : 'researcher'}-dashboard`, { user });
+        }}
       >
         ANALYTICS
       </button>

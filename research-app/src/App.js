@@ -17,7 +17,8 @@ import ParticipantEdit from './components/ParticipantEdit';
 import Type from './components/Type';
 import Study from './components/Study';
 import ResearcherStudy from './components/ResearcherStudy';
-import Dashboard from './components/Dashboard';
+import ResearcherDashboard from './components/ResearcherDashboard';
+import ParticipantDashboard from './components/ParticipantDashboard';
 import AddStudy from './components/AddStudy';
 import EditStudy from './components/EditStudy';
 import Messages from './components/Messages';
@@ -63,7 +64,8 @@ function App() {
         <Route exact path="/researcher-profile" element={<ResearcherProfile user={user} setUser={setUser} />} />
         <Route exact path="/researcher-edit" element={<ResearcherEdit user={user} setUser={setUser} />} />
         <Route exact path="/participant-edit" element={<ParticipantEdit user={user} setUser={setUser} />} />
-        <Route exact path="/dashboard" element={<Dashboard user={user} />} />
+        <Route exact path="/participant-dashboard" element={<ParticipantDashboard user={user} />} />
+        <Route exact path="/researcher-dashboard" element={<ResearcherDashboard user={user} />} />
         <Route exact path="/delete-account" element={<DeleteAccount user={user} setUser={setUser} />} />
         <Route exact path="/participant-home" element={<DisplayStudies user={user} setUser={setUser} setStudy={setStudy} notification={notification} setNotification={setNotification}/>} />
         <Route exact path="/messages" element={<Messages user={user} />} />
