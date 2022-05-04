@@ -106,8 +106,9 @@ function DisplayStudies({
     </Popup>
   );
 
+  /*
   const renderNotification2 = () => (<div className="header-left">Real Notificaiton shown</div>
-  );
+  ); */
 
   async function checkNotifications() {
     getNumMessages().then(

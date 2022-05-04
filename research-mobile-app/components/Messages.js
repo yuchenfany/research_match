@@ -45,7 +45,6 @@ function Messages({ user }) {
                     <button
                       className="view-button"
                       type="button"
-                      id="view-button"
                       onClick={() => navigate(
                         '/chat',
                         { state: { receiverName } },

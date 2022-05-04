@@ -62,7 +62,7 @@ function Type({ user, setUser }) {
         />
         <div>Participant</div>
       </label>
-      <input className="confirm-button" type="submit" value="CONFIRM" onClick={goToProfile} />
+      <input className="confirm-button" id="confirm-button" type="submit" value="CONFIRM" onClick={goToProfile} />
     </div>
   );
 }

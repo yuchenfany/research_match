@@ -89,7 +89,7 @@ function ResearcherProfile({ user, setUser }) {
           <input
             className="profile-input"
             type="text"
-            id="researcher"
+            id="name"
             onChange={updateResearcher}
           />
         </div>
@@ -109,7 +109,7 @@ function ResearcherProfile({ user, setUser }) {
           <span className="error-message">{orgErr.message}</span>
         </div>
         <div className="button-row">
-          <input className="update-button" type="submit" value="SIGN UP" onClick={handleSubmit} />
+          <input className="update-button" id="signup-button" type="submit" value="SIGN UP" onClick={handleSubmit} />
         </div>
       </div>
     </div>

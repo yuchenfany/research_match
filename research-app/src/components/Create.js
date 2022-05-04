@@ -117,7 +117,7 @@ function Create({ user, setUser }) {
             />
             <span className="error-message">{error.message}</span>
           </div>
-          <input className="button" type="submit" value="CREATE ACCOUNT" />
+          <input className="button" id="create-button" type="submit" value="CREATE ACCOUNT" />
         </label>
         <div className="spacer" />
         <button className="link" type="button" onClick={backToLogin}>Back to login</button>
