@@ -24,8 +24,9 @@ import AddStudy from '../components/AddStudy';
 test('Create Study header', () => {
   render(
     <Router>
-        <AddStudy />
-    </Router>);
+      <AddStudy />
+    </Router>,
+  );
   const header = screen.getByText('Create Study');
   expect(header).toBeInTheDocument();
 });
@@ -33,8 +34,9 @@ test('Create Study header', () => {
 test('Title label', () => {
   render(
     <Router>
-        <AddStudy />
-    </Router>);  
+      <AddStudy />
+    </Router>,
+  );
   const label = screen.getByText('Title');
   expect(label).toBeInTheDocument();
 });
@@ -42,32 +44,39 @@ test('Title label', () => {
 test('Description label', () => {
   render(
     <Router>
-        <AddStudy />
-    </Router>);  const label = screen.getByText('Description');
+      <AddStudy />
+    </Router>,
+  );
+  const label = screen.getByText('Description');
   expect(label).toBeInTheDocument();
 });
 
 test('Compensation label', () => {
   render(
     <Router>
-        <AddStudy />
-    </Router>);  const label = screen.getByText('Compensation');
+      <AddStudy />
+    </Router>,
+  );
+  const label = screen.getByText('Compensation');
   expect(label).toBeInTheDocument();
 });
 
 test('Duration label', () => {
   render(
     <Router>
-        <AddStudy />
-    </Router>);  const label = screen.getByText('Duration');
+      <AddStudy />
+    </Router>,
+  );
+  const label = screen.getByText('Duration');
   expect(label).toBeInTheDocument();
 });
 
 test('Tags label', () => {
   render(
     <Router>
-        <AddStudy />
-    </Router>);  
+      <AddStudy />
+    </Router>,
+  );
   const label = screen.getByText('Tags');
   expect(label).toBeInTheDocument();
 });
@@ -75,20 +84,22 @@ test('Tags label', () => {
 test('should be able to type input', () => {
   render(
     <Router>
-        <AddStudy />
-    </Router>);
+      <AddStudy />
+    </Router>,
+  );
   // const input = screen.getByPlaceholderText('title');
   // fireEvent.change(input, { target: { value: 'test input' } });
   // expect(input.value).toBe('test input');
 
-  expect(screen.getByDisplayValue('test')).toHaveAttribute('id', 'title');
+  expect(screen.getByDisplayValue('title')).toHaveAttribute('id', 'title');
 });
 
 test('snapshot test', () => {
   const component = renderer.create(
     <Router>
-        <AddStudy />
-    </Router>);
+      <AddStudy />
+    </Router>,
+  );
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
