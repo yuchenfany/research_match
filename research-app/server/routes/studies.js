@@ -191,4 +191,17 @@ studyRoutes.route('/study/tag/:id').get((req, res) => {
     });
 });
 
+studyRoutes.route('/study/researcher/:researcher').get((req, res) => {
+  const dbConnect = dbo.getDb('research-app');
+  const myquery = { researchers: req.params.researcher };
+
+  dbConnect
+    .collection('studies')
+    .find(myquery)
+    .toArray((err, result) => {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
 module.exports = studyRoutes;

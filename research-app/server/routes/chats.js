@@ -85,8 +85,6 @@ messageRoutes.route('/chats/getNumMessages/:user').get((req, res) => {
     .aggregate([
       { $match: { $or: [{ user }, { researcher: user }] } },
       { $unwind: '$messages' },
-      { $match: { sender: { $nin: [user] } } }, // functionally same as nothing
-      // { $match: { 'messages.sender': { $nin: [user] } } }, // actually gets num received
       { $count: 'messages' },
     ])
     .toArray((err, result) => {

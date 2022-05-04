@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import NavBar from './NavBar';
 
-function Dashboard({ user }) {
+function ParticipantDashboard({ user }) {
   const [totalCompensation, setTotalCompensation] = useState(0);
   const [numEnrolled, setNumEnrolled] = useState(0);
   const [numRecommended, setNumRecommended] = useState(0);
@@ -121,4 +121,4 @@ function Dashboard({ user }) {
   );
 }
 
-export default Dashboard;
+export default ParticipantDashboard;
