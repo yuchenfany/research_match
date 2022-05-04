@@ -1,11 +1,10 @@
-/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
-import {userExists} from '../modules/auth-api';
+import { userExists } from '../modules/user-api';
 
 function Create({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
@@ -26,8 +25,6 @@ function Create({ user, setUser }) {
     }
     return !(user.password.length < 6 || !user.password.match(/^[0-9a-zA-Z]+$/));
   };
-
-  
 
   async function handleSubmit(event) {
     if (user.username.length === 0 && user.password.length === 0) {

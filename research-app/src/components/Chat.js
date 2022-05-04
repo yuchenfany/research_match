@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 
 import '../assets/index.css';
-import { getMessages, getNumMessages, updateNumberOfMessages } from '../modules/chat-api';
+import { getMessages, updateNumberOfMessages } from '../modules/chat-api';
 
 function Chat({
   sender, setSender, setNotification, user, setUser,
@@ -114,14 +114,13 @@ function Chat({
         chats.length === 0 ? []
           : chats.map(
             (entry) => (
-              <div>
+              <div key={entry.timestamp}>
                 <p className="chat-timestamp">
                   {
                     `${(new Date(entry.timestamp)).getMonth()}/${(new Date(entry.timestamp)).getDate()}/22 ${(new Date(entry.timestamp)).toLocaleTimeString('en-US')}`
                   }
                 </p>
                 <div
-                  key={entry.timestamp}
                   className={entry.sender === sender.username ? 'sender-chat' : 'receiver-chat'}
                 >
                   {entry.text}

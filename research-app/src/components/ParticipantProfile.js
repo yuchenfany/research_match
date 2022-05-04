@@ -5,6 +5,8 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 
+import { postUserInfo } from '../modules/user-api';
+
 function ParticipantProfile({ user, setUser }) {
   const navigate = useNavigate();
   const [ageErr, setAgeErr] = useState({ message: '' });
@@ -97,21 +99,6 @@ function ParticipantProfile({ user, setUser }) {
     { label: 'Lexapro', value: 'lexapro' },
     { label: 'None', value: 'none' },
   ];
-
-  async function verify() {
-    await fetch('http://localhost:5000/record/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .catch((e) => {
-        window.alert(e);
-      });
-
-    return true;
-  }
 
   async function getTagsArr(tags) {
     const arr = [];
@@ -402,7 +389,7 @@ function ParticipantProfile({ user, setUser }) {
       return;
     }
 
-    if (await verify()) {
+    if (await postUserInfo(user)) {
       navigate('/participant-home');
     } else {
       event.preventDefault();

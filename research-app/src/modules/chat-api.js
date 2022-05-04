@@ -45,4 +45,32 @@ export async function updateNumberOfMessages(sender, setSender, setNotification,
   });
 }
 
-export default { getMessages, getNumMessages, updateNumberOfMessages };
+export async function getChats(user) {
+  const allChats = await fetch(
+    `http://localhost:5000/chats?senderName=${user.username}&senderType=${user.type}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  const data = await allChats.json();
+  return data;
+}
+
+export async function getNumMessagesSent(user) {
+  const data = await fetch(`http://localhost:5000/chats/getNumMessagesSent/${user.username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await data.json();
+  const messageCounts = json ?? [{ messages: 0 }];
+  return messageCounts[0]?.messages;
+}
+
+export default {
+  getMessages, getNumMessages, updateNumberOfMessages, getChats,
+};

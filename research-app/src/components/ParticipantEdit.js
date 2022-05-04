@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 import NavBar from './NavBar';
 
+import { updateUserInfo } from '../modules/user-api';
+
 function ParticipantEdit({ user, setUser }) {
   const navigate = useNavigate();
   const [ageErr, setAgeErr] = useState({ message: '' });
@@ -98,21 +100,6 @@ function ParticipantEdit({ user, setUser }) {
 
     return arr;
   };
-
-  async function postUserInfo() {
-    await fetch(`http://localhost:5000/record/participant-edit/${user.username}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .catch((e) => {
-        window.alert(e);
-      });
-
-    return true;
-  }
 
   async function getTagsArr(tags) {
     const arr = [];
@@ -400,7 +387,7 @@ function ParticipantEdit({ user, setUser }) {
       return;
     }
 
-    if (await postUserInfo()) {
+    if (await updateUserInfo(user)) {
       navigate('/participant-home');
     } else {
       event.preventDefault();

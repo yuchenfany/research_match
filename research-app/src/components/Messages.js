@@ -6,26 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import '../assets/index.css';
 
+import { getChats } from '../modules/chat-api';
+
 function Messages({ user }) {
   const navigate = useNavigate();
   const [chatsList, setChatsList] = useState([]);
 
-  async function getChats() {
-    const allChats = await fetch(
-      `http://localhost:5000/chats?senderName=${user.username}&senderType=${user.type}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-    const data = await allChats.json();
-    return data;
-  }
-
   useEffect(() => {
-    getChats()
+    getChats(user)
       .then(setChatsList);
   }, []);
 

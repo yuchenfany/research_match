@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
-import { deleteUser } from '../modules/auth-api';
+import { deleteUser } from '../modules/user-api';
 
 function DeleteAccount({ user, setUser }) {
   const [error, setError] = useState({ message: '' });

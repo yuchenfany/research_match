@@ -3,7 +3,7 @@
 import React from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
-import { addStudy } from '../modules/researcher-api';
+import { addStudy } from '../modules/study-api';
 import '../assets/index.css';
 
 function AddStudy({ user, study, setStudy }) {

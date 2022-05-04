@@ -1,8 +1,10 @@
 /* eslint-disable */ 
 // https://www.npmjs.com/package/jest-fetch-mock
+
 import api from './chat-api';
 import axios from 'axios';
 import MockAdaptor from 'axios-mock-adapter';
+import { enableFetchMocks } from 'jest-fetch-mock'
 
 import {test, expect, beforeAll} from '@jest/globals';
 import data from '../assets/questions.json';
@@ -10,8 +12,7 @@ import data from '../assets/questions.json';
 let mock;
 
 beforeAll(() => {
-  mock = new MockAdaptor(axios);
-  require('jest-fetch-mock').enableMocks()
+    require('jest-fetch-mock').enableMocks()
 });
 
 

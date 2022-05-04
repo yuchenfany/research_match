@@ -4,26 +4,16 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
 import NavBar from './NavBar';
+import { getStudyById } from '../modules/study-api';
 
 // TO DO: add back in studyId prop
 function ResearcherStudy({
   study, setStudy, user,
 }) {
   const navigate = useNavigate();
-  async function getStudy() {
-    const studyData = await fetch(`http://localhost:5000/study/${study.studyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await studyData.json();
-
-    return data;
-  }
 
   useEffect(() => {
-    getStudy()
+    getStudyById(study.studyId)
       .then(setStudy);
   }, []);
 

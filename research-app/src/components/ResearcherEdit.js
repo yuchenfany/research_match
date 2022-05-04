@@ -5,6 +5,8 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
+import { updateUserInfo } from '../modules/user-api';
+
 function ResearcherEdit({ user, setUser }) {
   const navigate = useNavigate();
   const [nameErr, setNameErr] = useState({ message: '' });
@@ -32,21 +34,6 @@ function ResearcherEdit({ user, setUser }) {
     });
   };
 
-  async function postUserInfo() {
-    await fetch(`http://localhost:5000/record/researcher-edit/${user.username}`, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .catch((e) => {
-        window.alert(e);
-      });
-
-    return true;
-  }
-
   async function handleSubmit(event) {
     if (!isValidInput(user.name) || !isValidInput(user.organization)) {
       if (!isValidInput(user.name)) {
@@ -66,7 +53,7 @@ function ResearcherEdit({ user, setUser }) {
       return;
     }
 
-    if (await postUserInfo()) {
+    if (await updateUserInfo(user)) {
       navigate('/researcher-home');
     } else {
       event.preventDefault();

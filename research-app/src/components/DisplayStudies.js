@@ -6,7 +6,7 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import NavBar from './NavBar';
-import { getAllStudyJsonByTag } from '../modules/participant-api';
+import { getAllStudyJsonByTag } from '../modules/study-api';
 import { getNumMessages } from '../modules/chat-api';
 
 function DisplayStudies({
