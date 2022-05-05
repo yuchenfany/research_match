@@ -20,7 +20,6 @@ studyRoutes.route('/study/:id').get((req, res) => {
 });
 
 /*
-
 // POST: update study's participants array
 */
 studyRoutes.route('/study/:id/enroll').post((req, response) => {
@@ -63,12 +62,12 @@ studyRoutes.route('/study').get((req, res) => {
 // finds maximum studyId
 studyRoutes.route('/findMax').get((req, res) => {
   const dbConnect = dbo.getDb('research-app');
-  dbConnect.collection('studies').find().sort({studyId:-1}).limit(1)
-  .toArray((err, result) => {
-    if (err) throw err;
-    res.json(result);
-  });
-  // console.log(data); 
+  dbConnect.collection('studies').find().sort({ studyId: -1 }).limit(1)
+    .toArray((err, result) => {
+      if (err) throw err;
+      res.json(result);
+    });
+  // console.log(data);
   // res.json(data);
   // dbConnect.findOne()
   // .sort('-studyId')  // give me the max
@@ -77,6 +76,7 @@ studyRoutes.route('/findMax').get((req, res) => {
   //   res.json(result);
   // });
 });
+
 // edits study
 studyRoutes.route('/study/edit-study').post((req, response) => {
   const dbConnect = dbo.getDb();
@@ -150,14 +150,13 @@ studyRoutes.route('/add-study').post((req, response) => {
     studyId: req.body.studyId,
     researchers: req.body.researchers,
   };
-  dbConnect.collection('studies').insertOne(myobj, function (err, res) {
+  dbConnect.collection('studies').insertOne(myobj, (err, res) => {
     if (err) throw err;
-    console.log('in backend, past error');
     response.json(res);
   });
 });
 
-//adds study to researcher-study array
+// adds study to researcher-study array
 // studyRoutes.route('/add-study-researcher').post((req, response) => {
 //   const dbConnect = dbo.getDb('research-app');
 //   const myobj = {
