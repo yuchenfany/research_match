@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="Study Page"
+>
+  <div
+    className="nav"
+  >
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      HOME
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MY STUDIES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MESSAGES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ANALYTICS
+    </button>
+    <button
+      className="account-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ACCOUNT
+    </button>
+    <div
+      className="acct-options"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        EDIT PROFILE
+      </button>
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        DELETE ACCOUNT
+      </button>
+      <button
+        className="logout-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        LOGOUT
+      </button>
+    </div>
+  </div>
+  <div
+    className="study-flex"
+  >
+    <div
+      className="header-left"
+    />
+    <div>
+      Duration:
+    </div>
+    <div>
+      Compensation:
+    </div>
+    <div>
+       Researcher names: [this is the researcherStudy page] 
+    </div>
+    <button
+      className="button"
+      onClick={[Function]}
+      type="button"
+    >
+      Edit Study
+    </button>
+    <div
+      className="header-small"
+    >
+       Description 
+    </div>
+    <div
+      className="paragraph"
+    />
+  </div>
+</div>
+`;
