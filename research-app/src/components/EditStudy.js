@@ -315,6 +315,7 @@ function EditStudy({ user, study, setStudy }) {
           <div>Title</div>
           <input
             className="input-field"
+            title="title"
             type="text"
             id="title"
             value={study.title}
@@ -325,6 +326,7 @@ function EditStudy({ user, study, setStudy }) {
           <div>Description</div>
           <input
             className="input-field"
+            title="description"
             type="text"
             id="description"
             value={study.description}
@@ -333,6 +335,7 @@ function EditStudy({ user, study, setStudy }) {
           <div>Compensation</div>
           <input
             className="input-field"
+            title="compensation"
             type="text"
             id="compensation"
             value={study.compensation}
@@ -341,6 +344,7 @@ function EditStudy({ user, study, setStudy }) {
           <div>Duration</div>
           <input
             className="input-field"
+            title="duration"
             type="text"
             id="duration"
             value={study.duration}
@@ -349,6 +353,7 @@ function EditStudy({ user, study, setStudy }) {
           <div>Lead Researcher</div>
           <input
             className="input-field"
+            title="researchers"
             type="text"
             id="researchers"
             value={study.researchers}
@@ -364,10 +369,11 @@ function EditStudy({ user, study, setStudy }) {
             isMulti
             onChange={(tags) => updateTags(tags)}
             value={study.tags}
+            title="tags"
             styles={customStyles}
           />
         </div>
-        <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
+        <input className="signup-button" type="submit" value="Update" onClick={handleSubmit} />
         <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
         <input className="signup-button" type="button" value="Close Study" onClick={handleClose} />
       </div>

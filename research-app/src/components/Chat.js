@@ -192,13 +192,17 @@ function Chat({
   return (
     <div>
       <NavBar user={sender} />
-      <p className="subheader">{receiverName}</p>
+      <p className="subheader">
+        Conversation with:
+        {receiverName}
+      </p>
       { chatsDisplay }
       <div className="chat-input-container">
         <input
           className="chat-input-field"
           type="text"
           id="chat-message"
+          title="chat-input"
           value={message}
           onChange={handleMessageChange}
         />

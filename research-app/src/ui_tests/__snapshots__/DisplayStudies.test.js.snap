@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+Array [
+  <div
+    className="Home"
+  >
+    <div
+      className="nav"
+    >
+      <button
+        className="nav-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        HOME
+      </button>
+      <button
+        className="nav-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        MY STUDIES
+      </button>
+      <button
+        className="nav-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        MESSAGES
+      </button>
+      <button
+        className="nav-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        ANALYTICS
+      </button>
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        ACCOUNT
+      </button>
+      <div
+        className="acct-options"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <button
+          className="account-btn"
+          onClick={[Function]}
+          type="button"
+        >
+          EDIT PROFILE
+        </button>
+        <button
+          className="account-btn"
+          onClick={[Function]}
+          type="button"
+        >
+          DELETE ACCOUNT
+        </button>
+        <button
+          className="logout-btn"
+          onClick={[Function]}
+          type="button"
+        >
+          LOGOUT
+        </button>
+      </div>
+    </div>
+    <div>
+      
+    </div>
+    <div
+      className="study-flex"
+    >
+      <div
+        className="header-left"
+      >
+        Eligible Studies
+      </div>
+      <div />
+    </div>
+  </div>,
+  <div
+    className="nav"
+  >
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      HOME
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MY STUDIES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MESSAGES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ANALYTICS
+    </button>
+    <button
+      className="account-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ACCOUNT
+    </button>
+    <div
+      className="acct-options"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        EDIT PROFILE
+      </button>
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        DELETE ACCOUNT
+      </button>
+      <button
+        className="logout-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        LOGOUT
+      </button>
+    </div>
+  </div>,
+]
+`;

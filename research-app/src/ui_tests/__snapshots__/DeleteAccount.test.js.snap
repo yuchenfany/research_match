@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="Create"
+>
+  <p
+    className="header"
+  >
+    Are you sure you want to delete your account?
+  </p>
+  <button
+    className="goback-btn"
+    onClick={[Function]}
+    type="button"
+  >
+    Go back
+  </button>
+  <button
+    className="delete-btn"
+    onClick={[Function]}
+    type="button"
+  >
+    Delete account
+  </button>
+</div>
+`;

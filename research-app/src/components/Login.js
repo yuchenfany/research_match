@@ -124,6 +124,7 @@ function Login({ user, setUser }) {
               type="text"
               id="username"
               onChange={handleNameChange}
+              placeholder="username"
             />
             <p className="field-label">PASSWORD</p>
             <input
@@ -131,6 +132,7 @@ function Login({ user, setUser }) {
               type="text"
               id="password"
               onChange={handleNameChangePassword}
+              placeholder="password"
             />
             <span className="error-message">{error.message}</span>
           </div>

@@ -31,6 +31,7 @@ exports[`snapshot test 1`] = `
             className="input-field"
             id="username"
             onChange={[Function]}
+            placeholder="username"
             type="text"
           />
           <p
@@ -42,6 +43,7 @@ exports[`snapshot test 1`] = `
             className="input-field"
             id="password"
             onChange={[Function]}
+            placeholder="password"
             type="text"
           />
           <span
