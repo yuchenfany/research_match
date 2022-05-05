@@ -12,7 +12,7 @@ async function getMessages(sender, receiverName) {
   return json?.messages ?? []; // returns messages array
 }
 
-// gets number of messages that user has received
+// Gets number of messages that user has received
 async function getNumMessages(sender) {
   const data = await fetch(`http://localhost:5000/chats/getNumMessages/${sender.username}`, {
     method: 'GET',

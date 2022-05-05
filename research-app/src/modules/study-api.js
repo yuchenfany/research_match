@@ -1,6 +1,6 @@
 import { getUserTags } from './user-api';
 
-export async function addStudy(user, study, setStudy) {
+async function addStudy(user, study, setStudy) {
   // finds maximum studyID in our collections
   const studyData = await fetch('http://localhost:5000/findMax', {
     method: 'GET',
@@ -72,7 +72,7 @@ export async function addStudy(user, study, setStudy) {
   return true;
 }
 
-export async function editStudy(study, setStudy) {
+async function editStudy(study, setStudy) {
   setStudy({
     title: study.title,
     description: study.description,
@@ -108,7 +108,7 @@ export async function editStudy(study, setStudy) {
   return true;
 }
 
-export async function deleteStudy(study) {
+async function deleteStudy(study) {
   await fetch(`http://localhost:5000/study/${study.studyId}`, {
     method: 'DELETE',
     body: null,
@@ -119,7 +119,7 @@ export async function deleteStudy(study) {
 }
 
 // for deleting a study: updates a researcher's study array
-export async function updateResearcherStudies(user, study) {
+async function updateResearcherStudies(user, study) {
   const updatedStudies = user.studies.filter((e) => e !== study.studyId);
 
   const bodyObj = {
@@ -140,18 +140,18 @@ export async function updateResearcherStudies(user, study) {
     body: JSON.stringify(bodyObj),
   })
     .catch((e) => {
-      window.alert(e);
+      console.log(e);
     });
   return true;
 }
 
-export async function getStudyParticipants(study) {
+async function getStudyParticipants(study) {
   const response = await fetch(`http://localhost:5000/study/${study.studyId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  }).catch((e) => { window.alert(e); });
+  }).catch((e) => { console.log(e); });
   const json = await response.json();
   const participantIds = json?.participants ?? [];
   const participants = await Promise.all(
@@ -162,7 +162,7 @@ export async function getStudyParticipants(study) {
           headers: {
             'Content-Type': 'application/json',
           },
-        }).catch((e) => { window.alert(e); });
+        }).catch((e) => { console.log(e); });
         const participant = await participantData.json();
         return participant;
       },
@@ -171,7 +171,7 @@ export async function getStudyParticipants(study) {
   return participants ?? [];
 }
 
-export async function removeStudyForParticipants(study, participants) {
+async function removeStudyForParticipants(study, participants) {
   await Promise.all(
     participants.map(
       async (participant) => {
@@ -187,23 +187,23 @@ export async function removeStudyForParticipants(study, participants) {
           headers: {
             'Content-Type': 'application/json',
           },
-        }).catch((e) => { window.alert(e); });
+        }).catch((e) => { console.log(e); });
       },
     ),
   );
 }
 
-export async function closeStudy(bodyObj) {
+async function closeStudy(bodyObj) {
   await fetch('http://localhost:5000/add-study', {
     method: 'POST',
     body: JSON.stringify(bodyObj),
     headers: {
       'Content-Type': 'application/json',
     },
-  }).catch((e) => { window.alert(e); });
+  }).catch((e) => { console.log(e); });
 }
 
-export async function getStudyById(id) {
+async function getStudyById(id) {
   const data = await fetch(`http://localhost:5000/study/${id}`, {
     method: 'GET',
     headers: {
@@ -213,8 +213,8 @@ export async function getStudyById(id) {
   return data.json();
 }
 
-// gets a list of studies by tag
-export async function getStudyByTag(tag) {
+// Gets a list of studies by tag
+async function getStudyByTag(tag) {
   const data = await fetch(`http://localhost:5000/study/tag/${tag}`, {
     method: 'GET',
     headers: {
@@ -224,13 +224,13 @@ export async function getStudyByTag(tag) {
   return data.json();
 }
 
-// get all studies
-export async function getAllStudyJsonByTag(user, setUser) {
+// Get all studies
+async function getAllStudyJsonByTag(user, setUser) {
   const tags = await getUserTags(user, setUser);
   return Promise.all(tags.map((tag) => getStudyByTag(tag)));
 }
 
-export async function updateEnrolledStudy(bodyObj) {
+async function updateEnrolledStudy(bodyObj) {
   const { studyId } = bodyObj;
   await fetch(`http://localhost:5000/study/${studyId}/enroll`, {
     method: 'POST',
@@ -238,7 +238,51 @@ export async function updateEnrolledStudy(bodyObj) {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).catch((e) => { window.alert(e); });
+  }).catch((e) => { console.log(e); });
+}
+
+async function getResearcherNumStudies(user) {
+  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await data.json();
+  return json?.length ?? 0;
+}
+
+async function getResearcherNumParticipants(user) {
+  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await data.json();
+  if (!json) {
+    return 0;
+  }
+  return json.reduce((acc, obj) => acc + (obj?.participants?.length ?? 0), 0);
+}
+
+async function getResearcherNumTags(user) {
+  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await data.json();
+  if (!json) {
+    return 0;
+  }
+  const addAllToSet = (lst, set) => {
+    (lst ?? []).forEach(set.add, set);
+    return set;
+  };
+  const tags = json.reduce((acc, obj) => addAllToSet(obj?.tags ?? [], acc), new Set());
+  return tags.size;
 }
 
 export default {
@@ -250,5 +294,10 @@ export default {
   removeStudyForParticipants,
   closeStudy,
   getStudyById,
+  getStudyByTag,
+  getAllStudyJsonByTag,
   updateEnrolledStudy,
+  getResearcherNumStudies,
+  getResearcherNumParticipants,
+  getResearcherNumTags,
 };

@@ -54,10 +54,11 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   async function checkNotifications() {
     getNumMessages(user).then(
       (num) => {
-        console.log(num);
-        console.log(user.messages);
-        setNotificationDS(num !== user.messages);
-        console.log(notificationDS);
+        // console.log(num);
+        // console.log(user.messages);
+        // setNotificationDS(num !== user.messages);
+        setNotificationRH(num !== user.messages);
+        // console.log(notificationDS);
       },
     );
   }

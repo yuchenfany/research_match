@@ -113,7 +113,7 @@ async function postUserInfo(user) {
     });
 }
 
-// gets list of all enrolled studies for user
+// Gets list of all enrolled studies for user
 async function getEnrolledStudyIds(user, setUser) {
   const data = await fetch(`http://localhost:5000/record/${user.username}`, {
     method: 'GET',
@@ -142,7 +142,7 @@ async function getEnrolledStudyIds(user, setUser) {
   return json?.enrolled ?? [];
 }
 
-// gets list of all studies for researcher
+// Gets list of all studies for researcher
 async function getResearcherStudies(user, setUser) {
   const data = await fetch(`http://localhost:5000/record/${user.username}`, {
     method: 'GET',
@@ -159,33 +159,8 @@ async function getResearcherStudies(user, setUser) {
     studies: json.studies,
     type: user.type,
   });
-  // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
+
   return json?.studies ?? [];
-}
-
-async function getResearcherNumStudies(user) {
-  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const json = await data.json();
-  return json?.length ?? 0;
-}
-
-async function getResearcherNumParticipants(user) {
-  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const json = await data.json();
-  if (!json) {
-    return 0;
-  }
-  return json.reduce((acc, obj) => acc + (obj?.participants?.length ?? 0), 0);
 }
 
 export default {
@@ -198,6 +173,4 @@ export default {
   updateUserInfo,
   getEnrolledStudyIds,
   getResearcherStudies,
-  getResearcherNumStudies,
-  getResearcherNumParticipants,
 };

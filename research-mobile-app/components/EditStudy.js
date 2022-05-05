@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import {
+  View, Text, Button, TextInput, StyleSheet,
+} from 'react-native';
 // import Select from 'react-select';
 
 function EditStudy({ route, navigation }) {
-  let { user, setUser, study, setStudy } = route.params;
+  const {
+    user, setUser, study, setStudy,
+  } = route.params;
 
   const [temp, setTemp] = useState({
-    _id: study._id,
+    // _id: study._id,
     title: study.title,
     description: study.description,
     compensation: study.compensation,
@@ -31,39 +35,40 @@ function EditStudy({ route, navigation }) {
   //   return data;
   // }
 
-  const Tags = [
-    { label: 'Diabetes', value: 'diabetes' },
-    { label: 'Cancer', value: 'cancer' },
-    { label: 'Social', value: 'social' },
-    { label: 'placebo', value: 'placebo' },
-    { label: 'Brain', value: 'brain' },
-    { label: 'Physical', value: 'physical' },
-  ];
-  const customStyles = {
-    menu: (provided, state) => ({
-      ...provided,
-      width: 'state.selectProps.width,',
-      color: state.selectProps.menuColor,
-    }),
-    control: (provided, state) => ({
-      ...provided,
-      background: '#F9FFFE',
-      borderColor: '#808A8F',
-      fontSize: '14px',
-      boxShadow: state.isFocused ? null : null,
-    }),
-    multiValueLabel: (styles) => ({
-      ...styles,
-      backgroundColor: '#BBEFEB',
-    }),
-    multiValueRemove: (styles) => ({
-      ...styles,
-      backgroundColor: '#BBEFEB',
-      ':hover': {
-        color: '#4aa8a2',
-      },
-    }),
-  };
+  // const Tags = [
+  //   { label: 'Diabetes', value: 'diabetes' },
+  //   { label: 'Cancer', value: 'cancer' },
+  //   { label: 'Social', value: 'social' },
+  //   { label: 'placebo', value: 'placebo' },
+  //   { label: 'Brain', value: 'brain' },
+  //   { label: 'Physical', value: 'physical' },
+  // ];
+
+  // const customStyles = {
+  //   menu: (provided, state) => ({
+  //     ...provided,
+  //     width: 'state.selectProps.width,',
+  //     color: state.selectProps.menuColor,
+  //   }),
+  //   control: (provided, state) => ({
+  //     ...provided,
+  //     background: '#F9FFFE',
+  //     borderColor: '#808A8F',
+  //     fontSize: '14px',
+  //     boxShadow: state.isFocused ? null : null,
+  //   }),
+  //   multiValueLabel: (styles) => ({
+  //     ...styles,
+  //     backgroundColor: '#BBEFEB',
+  //   }),
+  //   multiValueRemove: (styles) => ({
+  //     ...styles,
+  //     backgroundColor: '#BBEFEB',
+  //     ':hover': {
+  //       color: '#4aa8a2',
+  //     },
+  //   }),
+  // };
   // async function getNextStudyID() {
   //   const studyData = await fetch('http://localhost:5000/findMax', {
   //     method: 'GET',
@@ -110,14 +115,14 @@ function EditStudy({ route, navigation }) {
       body: JSON.stringify(temp),
     })
       .catch((e) => {
-        window.alert(e);
+        throw new Error(e);
       });
     return true;
   }
 
   const updateTitle = async (event) => {
     await setTemp({
-      _id: temp._id,
+      // _id: temp._id,
       title: event.target.value,
       description: temp.description,
       compensation: temp.compensation,
@@ -130,7 +135,7 @@ function EditStudy({ route, navigation }) {
   };
   const updateDescription = async (event) => {
     await setTemp({
-      _id: temp._id,
+      // _id: temp._id,
       title: temp.title,
       description: event.target.value,
       compensation: temp.compensation,
@@ -143,7 +148,7 @@ function EditStudy({ route, navigation }) {
   };
   const updateCompensation = async (event) => {
     await setTemp({
-      _id: temp._id,
+      // _id: temp._id,
       title: temp.title,
       description: temp.description,
       compensation: event.target.value,
@@ -156,7 +161,7 @@ function EditStudy({ route, navigation }) {
   };
   const updateDuration = async (event) => {
     await setTemp({
-      _id: temp._id,
+      // _id: temp._id,
       title: temp.title,
       description: temp.description,
       compensation: temp.compensation,
@@ -167,42 +172,43 @@ function EditStudy({ route, navigation }) {
       researchers: temp.researchers,
     });
   };
-  const updateResearcher = async (event) => {
-    await setTemp({
-      _id: temp._id,
-      title: temp.title,
-      description: temp.description,
-      compensation: temp.compensation,
-      duration: temp.duration,
-      tags: temp.tags,
-      participants: temp.participants,
-      studyId: temp.studyId,
-      researchers: event.target.value,
-    });
-  };
-  async function getTagsArr(tags) {
-    const arr = [];
+  // const updateResearcher = async (event) => {
+  //   await setTemp({
+  //     // _id: temp._id,
+  //     title: temp.title,
+  //     description: temp.description,
+  //     compensation: temp.compensation,
+  //     duration: temp.duration,
+  //     tags: temp.tags,
+  //     participants: temp.participants,
+  //     studyId: temp.studyId,
+  //     researchers: event.target.value,
+  //   });
+  // };
 
-    for (let i = 0; i < tags.length; i += 1) {
-      arr.push(tags[i].value);
-    }
+  // async function getTagsArr(tags) {
+  //   const arr = [];
 
-    return arr;
-  }
+  //   for (let i = 0; i < tags.length; i += 1) {
+  //     arr.push(tags[i].value);
+  //   }
 
-  const updateTags = async (tags) => {
-    const arr = await getTagsArr(tags);
-    setStudy({
-      title: study.title,
-      description: study.description,
-      compensation: study.compensation,
-      duration: study.duration,
-      tags: arr,
-      participants: study.participants,
-      studyId: study.studyId,
-      researchers: study.researchers,
-    });
-  };
+  //   return arr;
+  // }
+
+  // const updateTags = async (tags) => {
+  //   const arr = await getTagsArr(tags);
+  //   setStudy({
+  //     title: study.title,
+  //     description: study.description,
+  //     compensation: study.compensation,
+  //     duration: study.duration,
+  //     tags: arr,
+  //     participants: study.participants,
+  //     studyId: study.studyId,
+  //     researchers: study.researchers,
+  //   });
+  // };
 
   async function handleSubmit(event) {
     if (await verify()) {
@@ -260,7 +266,7 @@ function EditStudy({ route, navigation }) {
       body: JSON.stringify(bodyObj),
     })
       .catch((e) => {
-        window.alert(e);
+        throw new Error(e);
       });
     return true;
   }
@@ -319,7 +325,8 @@ function EditStudy({ route, navigation }) {
   // }
 
   // async function handleClose() {
-  //   await getParticipants().then((participants) => { removeStudyForParticipants(participants); });
+  //   await getParticipants().then((participants) =>
+  // { removeStudyForParticipants(participants); });
   //   const bodyObj = study;
   //   bodyObj.closed = '1';
   //   bodyObj.participants = [];
@@ -333,119 +340,123 @@ function EditStudy({ route, navigation }) {
   //   navigate('/researcher-home');
   // }
 
-  return (
-    <div>
-      <div>EDIT STUDY: {study.title}</div>
-      <div>
-          <div>Title:</div>
-          <input
-            className="small-input"
-            type="text"
-            id="title"
-            value={temp.title}
-            onChange={updateTitle}
-          />
-          <div>Description:</div>
-          <input
-            className="small-input"
-            type="text"
-            id="description"
-            value={temp.description}
-            onChange={updateDescription}
-          />
-          <div>Compensation:</div>
-          <input
-            className="small-input"
-            type="text"
-            id="compensation"
-            value={temp.compensation}
-            onChange={updateCompensation}
-          />
-          <div>Duration:</div>
-          <input
-            className="small-input"
-            type="text"
-            id="duration"
-            value={temp.duration}
-            onChange={updateDuration}
-          />
-          <div>Lead Researcher:</div>
-          <input
-            className="small-input"
-            type="text"
-            id="researchers"
-            value={temp.researchers}
-            onChange={updateResearcher}
-          />
-        </div>
-        <Button title="EDIT STUDY" type="submit" onPress={() => handleSubmit()}/>
-        <Button title="DELETE STUDY" type="button" onPress={() => handleDelete()}/>
-    </div>
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+      padding: 20,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      color: '#103143',
+    },
+    subheader: {
+      fontSize: 16,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginBottom: 20,
+      color: '#103143',
+    },
+    studyCard: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderRadius: 5,
+      borderWidth: 1,
+      paddingTop: 10,
+      paddingBottom: 18,
+      paddingRight: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+      width: 500,
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+    viewButton: {
+      right: 0,
+      width: 100,
+      height: 25,
+      fontSize: 10,
+      letterSpacing: 1,
+      marginLeft: 'auto',
+    },
+    inputField: {
+      width: 275,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginBottom: 10,
+      borderRadius: 3,
+      color: '#103143',
+    },
+    smallInput: {
+      width: 40,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginBottom: 10,
+      borderRadius: 3,
+      color: '#103143',
+    },
+  });
 
-    // <div className="Profile">
-    //   <div className="profile-flex">
-    //     <div className="header-left"> Edit Study </div>
-    //     <div className="title-row">
-    //       <div>Title</div>
-    //       <input
-    //         className="input-field"
-    //         type="text"
-    //         id="title"
-    //         value={study.title}
-    //         onChange={updateTitle}
-    //       />
-    //     </div>
-    //     <div className="description-row">
-    //       <div>Description</div>
-    //       <input
-    //         className="input-field"
-    //         type="text"
-    //         id="description"
-    //         value={study.description}
-    //         onChange={updateDescription}
-    //       />
-    //       <div>Compensation</div>
-    //       <input
-    //         className="input-field"
-    //         type="text"
-    //         id="compensation"
-    //         value={study.compensation}
-    //         onChange={updateCompensation}
-    //       />
-    //       <div>Duration</div>
-    //       <input
-    //         className="input-field"
-    //         type="text"
-    //         id="duration"
-    //         value={study.duration}
-    //         onChange={updateDuration}
-    //       />
-    //       <div>Lead Researcher</div>
-    //       <input
-    //         className="input-field"
-    //         type="text"
-    //         id="researchers"
-    //         value={study.researchers}
-    //         onChange={updateResearcher}
-    //       />
-    //     </div>
-    //     <div className="profile-row">
-    //       <div>Tags</div>
-    //     </div>
-    //     <div className="profile-row">
-    //       <Select
-    //         options={Tags}
-    //         isMulti
-    //         onChange={(tags) => updateTags(tags)}
-    //         value={study.tags}
-    //         styles={customStyles}
-    //       />
-    //     </div>
-    //     <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
-    //     <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
-    //     <input className="signup-button" type="button" value="Close Study" onClick={handleClose} />
-    //   </div>
-    // </div>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>
+        Edit Study:
+        <Text>{' '}</Text>
+        {study.title}
+      </Text>
+      <Text color="#103143" marginTop="10">Title: </Text>
+      <TextInput
+        style={styles.inputField}
+        type="text"
+        id="title"
+        value={temp.title}
+        onChange={updateTitle}
+      />
+      <Text color="#103143" marginTop="10">Description: </Text>
+      <TextInput
+        style={styles.inputField}
+        type="text"
+        id="description"
+        value={temp.description}
+        onChange={updateDescription}
+      />
+      <Text color="#103143" marginTop="10">Compensation: </Text>
+      <TextInput
+        style={styles.smallInput}
+        type="text"
+        id="compensation"
+        value={temp.compensation}
+        onChange={updateCompensation}
+      />
+      <Text color="#103143" marginTop="10">Duration: </Text>
+      <TextInput
+        style={styles.smallInput}
+        type="text"
+        id="duration"
+        value={temp.duration}
+        onChange={updateDuration}
+      />
+      <View style={styles.button}>
+        <Button title="UPDATE" color="#103143" type="submit" onPress={() => handleSubmit()} />
+      </View>
+      <View style={styles.button}>
+        <Button title="DELETE STUDY" color="#103143" type="button" onPress={() => handleDelete()} />
+      </View>
+    </View>
   );
 }
 

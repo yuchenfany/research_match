@@ -49,6 +49,7 @@ function Study({
       password: user.password,
       enrolled: updatedArray,
     };
+
     updateEnrolledUser(study.studyId, updatedUser);
   }
 
@@ -77,7 +78,7 @@ function Study({
     const index = user.enrolled.indexOf(study.studyId);
     const updatedArray = user.enrolled;
     updatedArray.splice(index, 1);
-    await setUser({ username: user.username, password: user.password, enrolled: updatedArray });
+    setUser({ username: user.username, password: user.password, enrolled: updatedArray });
 
     const updatedUser = {
       username: user.username,
@@ -85,7 +86,7 @@ function Study({
       enrolled: updatedArray,
     };
 
-    enrollUpdateUser(study.studyId, updatedUser);
+    updateEnrolledUser(study.studyId, updatedUser);
   }
 
   async function enroll() {

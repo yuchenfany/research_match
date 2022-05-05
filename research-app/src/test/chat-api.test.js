@@ -1,3 +1,4 @@
+// import fetch from 'node-fetch';
 import { test, expect, beforeEach } from '@jest/globals';
 import api from '../modules/chat-api';
 
