@@ -132,6 +132,45 @@ test('Add Study sequence', async () => {
 //   // expect(screen.getByDisplayValue('title')).toHaveAttribute('id', 'title');
 // });
 
+/* eslint-disable */
+jest.mock('react-select', () => ({ options, value, onChange }) => {
+  function handleChange(event) {
+    const option = options.find(
+      (option) => option.value === event.currentTarget.value,
+    );
+    onChange(option);
+  }
+
+  return (
+    <select data-testid="select" value={value} onChange={handleChange}>
+      {options.map(({ label, value }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
+    </select>
+  );
+});
+/* eslint-enable */
+
+test('Add Study tags', () => {
+  const mockStudy = {
+    title: 'faketitle', description: 'fakedescription', compensation: 4, duration: 3, leadResearcher: 'fakelead',
+  };
+  const mockUser = {
+    username: '', password: '',
+  };
+  const mockSetStudy = jest.fn();
+  render(
+    <Router>
+      <AddStudy user={mockUser} study={mockStudy} setStudy={mockSetStudy} />
+    </Router>,
+  );
+  fireEvent.change(screen.getByTestId('select'), {
+    target: { value: 'diabetes' },
+  });
+});
+
 test('snapshot test', () => {
   const component = renderer.create(
     <Router>

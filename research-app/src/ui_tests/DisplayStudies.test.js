@@ -23,7 +23,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 test('Eligible studies header', () => {
-  const mockUser = { username: 'username', password: 'password', type: 0 };
+  const mockUser = { username: 'noti', password: 'notipass', type: 0 };
   const mockSetUser = jest.fn();
 
   render(
@@ -35,6 +35,21 @@ test('Eligible studies header', () => {
   const header = screen.getByText('Eligible Studies');
   expect(header).toBeInTheDocument();
 });
+
+// test('Eligible studies view button', () => {
+//   const mockUser = { username: 'noti', password: 'notipass', type: 0 };
+//   const mockSetUser = jest.fn();
+
+//   render(
+//     <Router>
+//       <DisplayStudies user={mockUser} setUser={mockSetUser} />
+//       <NavBar user={mockUser} setUser={mockSetUser} />
+//     </Router>,
+//   );
+//   screen.toBeInTheDocument(screen.getByText('Diabetic Research'));
+//   // const button = screen.getByText('VIEW');
+//   // fireEvent.click(button);
+// });
 
 test('snapshot test', () => {
   const mockUser = { username: 'username', password: 'password', type: 0 };
