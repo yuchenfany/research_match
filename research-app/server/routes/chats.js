@@ -104,7 +104,7 @@ messageRoutes.route('/chats/getNumMessagesSent/:user').get((req, res) => {
       { $unwind: '$messages' },
       // { $match: { sender: { $nin: [user] } } },
       { $count: 'messages' },
-      ])
+    ])
     .toArray((err, result) => {
       if (err) throw err;
       res.json(result);

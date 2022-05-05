@@ -9,42 +9,47 @@ const bcrypt = require('bcryptjs');
 const recordRoutes = express.Router();
 
 // Connect to DB
-const { ObjectId } = require('mongodb');
 const dbo = require('../db/conn');
 
+/* eslint-disable */
 // Helps convert the id from string to ObjectId for the _id.
+const ObjectId = require("mongodb").ObjectId;
+/* eslint-enable */
 
 // Login POST method
 recordRoutes.post('/login', (req, res) => {
-  const { username } = req.body;
+  const { username } = req.body.username;
   if (!username) {
     return res.status(401).json({ err: true, msg: 'Not valid login.' });
   }
-  const db_connect = dbo.getDb('research-app');
-  db_connect
+  const dbConnect = dbo.getDb('research-app');
+  dbConnect
     .collection('user-info')
     .findOne({ username }, (err, usr) => {
       if (err) {
         // console.log(err);
-        if (err == 'No such user') {
+        if (err === 'No such user') {
           return res.status(401).json({ err: true, msg: 'Your username/password combination does not match.' });
         }
         return res.status(500).json({ err: true, msg: 'There was an internal server error.' });
       }
       // var password = auth.hash(req.body.password);
-      if (usr.password !== password) {
+      if (usr.password !== req.body.password) {
         return res.status(401).json({ err: true, msg: 'Your username/password combination does not match.' });
       }
       req.session.user = usr;
       req.session.save(() => res.json({ msg: 'Logged in!', user: usr }));
-      io.sockets.emit('newLogin', { user: username });
+      // io.sockets.emit('newLogin', { user: username });
+      return true;
     });
+  return true;
 });
 
 // Find password GET method
 recordRoutes.route('/findPassword').get((req, res) => {
-  const db_connect = dbo.getDb('research-app');
-  db_connect
+  const { username } = req.body.username;
+  const dbConnect = dbo.getDb('research-app');
+  dbConnect
     .collection('user-info')
     .findOne({ username })
     .toArray((err, result) => {
@@ -55,8 +60,8 @@ recordRoutes.route('/findPassword').get((req, res) => {
 
 // Get user GET method
 recordRoutes.route('/record').get((req, res) => {
-  const db_connect = dbo.getDb('research-app');
-  db_connect
+  const dbConnect = dbo.getDb('research-app');
+  dbConnect
     .collection('user-info')
     .findOne({ username: req.username }, (err, result) => {
       if (err) throw err;
@@ -66,10 +71,9 @@ recordRoutes.route('/record').get((req, res) => {
 
 // User GET by id method
 recordRoutes.route('/record/:id').get((req, res) => {
-  const db_connect = dbo.getDb('research-app');
-  // console.log(req.params.id);
+  const dbConnect = dbo.getDb('research-app');
   const myquery = { username: req.params.id };
-  db_connect
+  dbConnect
     .collection('user-info')
     .findOne(myquery, (err, result) => {
       if (err) throw err;
@@ -79,7 +83,7 @@ recordRoutes.route('/record/:id').get((req, res) => {
 
 // Add participant POST method
 recordRoutes.route('/record/add').post((req, response) => {
-  const db_connect = dbo.getDb();
+  const dbConnect = dbo.getDb();
   const myobj = {
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
@@ -95,9 +99,8 @@ recordRoutes.route('/record/add').post((req, response) => {
     med: req.body.med,
     enrolled: [],
     type: req.body.type,
-    messages: 0,
   };
-  db_connect.collection('user-info').insertOne(myobj, (err, res) => {
+  dbConnect.collection('user-info').insertOne(myobj, (err, res) => {
     if (err) throw err;
     response.json(res);
   });
@@ -105,8 +108,7 @@ recordRoutes.route('/record/add').post((req, response) => {
 
 // Add researcher POST method
 recordRoutes.route('/record/add-researcher').post((req, response) => {
-  console.log('POSTING RESEARCHER');
-  const db_connect = dbo.getDb();
+  const dbConnect = dbo.getDb();
   const myobj = {
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
@@ -114,9 +116,8 @@ recordRoutes.route('/record/add-researcher').post((req, response) => {
     organization: req.body.organization,
     studies: [],
     type: req.body.type,
-    messages: 0,
   };
-  db_connect.collection('user-info').insertOne(myobj, (err, res) => {
+  dbConnect.collection('user-info').insertOne(myobj, (err, res) => {
     if (err) throw err;
     response.json(res);
   });
@@ -124,8 +125,8 @@ recordRoutes.route('/record/add-researcher').post((req, response) => {
 
 // get list of studies user is enrolled in
 recordRoutes.route('/record/studies/:username').get((req, res) => {
-  const db_connect = dbo.getDb('research-app');
-  db_connect
+  const dbConnect = dbo.getDb('research-app');
+  dbConnect
     .collection('user-info')
     .findOne({ username: req.params.username }, (err, result) => {
       if (err) throw err;
@@ -141,7 +142,7 @@ recordRoutes.route('/record/enroll/:username/:study_id').post((req, response) =>
   const newvalues = {
     $set: {
       username: req.body.username,
-      password: req.body.password,
+      // password: req.body.password,
       enrolled: req.body.enrolled,
     },
   };
@@ -182,13 +183,13 @@ recordRoutes.route('/record/researcher-studies/:username').post((req, response) 
 
   const newvalues = {
     $set: {
-      username: req.body.username,
-      password: req.body.password,
-      name: req.body.name,
-      organization: req.body.organization,
+      // username: req.body.username,
+      // password: req.body.password,
+      // name: req.body.name,
+      // organization: req.body.organization,
       studies: req.body.studies,
-      type: req.body.type,
-      title: req.body.title,
+      // type: req.body.type,
+      // title: req.body.title,
     },
   };
   dbConnect
@@ -229,6 +230,7 @@ recordRoutes.route('/record/participant-edit/:username').post((req, response) =>
       response.json(res);
     });
 });
+
 // adds study to researcher-study array
 recordRoutes.route('/record/add-to-user-array').post((req, response) => {
   const dbConnect = dbo.getDb();
@@ -281,27 +283,11 @@ recordRoutes.route('/record/add-to-user-array').post((req, response) => {
 // });
 
 recordRoutes.route('/record/delete/:id').delete((req, response) => {
-  const db_connect = dbo.getDb();
+  const dbConnect = dbo.getDb();
   const myquery = { username: req.params.id };
-  db_connect.collection('user-info').deleteOne(myquery, (err, obj) => {
+  dbConnect.collection('user-info').deleteOne(myquery, (err, obj) => {
     if (err) throw err;
-    console.log('1 document deleted');
     response.json(obj);
-  });
-});
-
-// update the user's number of messages POST method
-recordRoutes.route('/record/updateMessages').post((req, response) => {
-  const myquery = { username: req.body.username };
-  const newvalues = {
-    $set: {
-      messages: req.body.messages,
-    },
-  };
-  const db_connect = dbo.getDb();
-  db_connect.collection('user-info').updateOne(myquery, newvalues, (err, res) => {
-    if (err) throw err;
-    response.json(res);
   });
 });
 
