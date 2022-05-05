@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import '../assets/index.css';
 import NavBar from './NavBar';
 
-import { getResearcherNumStudies, getResearcherNumParticipants } from '../modules/user-api';
+import { getResearcherNumStudies, getResearcherNumParticipants, getResearcherNumTags } from '../modules/study-api';
 import { getNumMessagesSent } from '../modules/chat-api';
 
 function ResearcherDashboard({ user }) {
   const [numStudies, setNumStudies] = useState(0);
+  const [numTags, setNumTags] = useState(0);
   const [numParticipants, setNumParticipants] = useState(0);
   const [numMessages, setNumMessages] = useState(0);
 
@@ -27,10 +28,15 @@ function ResearcherDashboard({ user }) {
       .then(setNumParticipants);
   }, []);
 
+  useEffect(() => {
+    getResearcherNumTags(user)
+      .then(setNumTags);
+  }, []);
+
   const cards = [
-    ['TOTAL ?', `${0}`],
-    ['TOTAL NUMBER OF PARTICIPANTS', `${numParticipants} ${numParticipants === 1 ? 'study' : 'studies'}`],
     ['TOTAL STUDIES', `${numStudies} ${numStudies === 1 ? 'study' : 'studies'}`],
+    ['TOTAL TAGS', `${numTags} ${numTags === 1 ? 'tag' : 'tags'}`],
+    ['TOTAL NUMBER OF PARTICIPANTS', `${numParticipants} ${numParticipants === 1 ? 'participant' : 'participant'}`],
     ['TOTAL MESSAGES SENT', `${numMessages} ${numMessages === 1 ? 'message' : 'messages'}`],
   ].map(([name, content]) => (
     <div key={name} className="dash-card">

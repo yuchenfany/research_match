@@ -213,7 +213,7 @@ async function getStudyById(id) {
   return data.json();
 }
 
-// gets a list of studies by tag
+// Gets a list of studies by tag
 async function getStudyByTag(tag) {
   const data = await fetch(`http://localhost:5000/study/tag/${tag}`, {
     method: 'GET',
@@ -224,7 +224,7 @@ async function getStudyByTag(tag) {
   return data.json();
 }
 
-// get all studies
+// Get all studies
 async function getAllStudyJsonByTag(user, setUser) {
   const tags = await getUserTags(user, setUser);
   return Promise.all(tags.map((tag) => getStudyByTag(tag)));
@@ -241,6 +241,50 @@ async function updateEnrolledStudy(bodyObj) {
   }).catch((e) => { console.log(e); });
 }
 
+async function getResearcherNumStudies(user) {
+  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await data.json();
+  return json?.length ?? 0;
+}
+
+async function getResearcherNumParticipants(user) {
+  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await data.json();
+  if (!json) {
+    return 0;
+  }
+  return json.reduce((acc, obj) => acc + (obj?.participants?.length ?? 0), 0);
+}
+
+async function getResearcherNumTags(user) {
+  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const json = await data.json();
+  if (!json) {
+    return 0;
+  }
+  const addAllToSet = (lst, set) => {
+    (lst ?? []).forEach(set.add, set);
+    return set;
+  };
+  const tags = json.reduce((acc, obj) => addAllToSet(obj?.tags ?? [], acc), new Set());
+  return tags.size;
+}
+
 export {
   addStudy,
   editStudy,
@@ -253,4 +297,7 @@ export {
   getStudyByTag,
   getAllStudyJsonByTag,
   updateEnrolledStudy,
+  getResearcherNumStudies,
+  getResearcherNumParticipants,
+  getResearcherNumTags,
 };
