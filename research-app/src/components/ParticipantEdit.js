@@ -487,7 +487,7 @@ function ParticipantEdit({ user, setUser }) {
             />
             <div>Female</div>
           </label>
-          <label htmlFor="form" className="radio-option">
+          <label htmlFor="form" className="radio-option" title="intersex-form">
             <input
               type="radio"
               id="intersex"
@@ -513,6 +513,7 @@ function ParticipantEdit({ user, setUser }) {
                 value: user.gender,
               }}
               styles={customStyles}
+              id="gender"
             />
           </div>
         </div>
