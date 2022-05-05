@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
+import {
+  View, Button, Text, TextInput, StyleSheet,
+} from 'react-native';
 // import NavBar from './NavBar';
 
 function AddStudy({ route, navigation }) { // add props user
@@ -232,56 +235,124 @@ function AddStudy({ route, navigation }) { // add props user
     }
   }
 
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+      padding: 20,
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      color: '#103143',
+    },
+    subheader: {
+      fontSize: 16,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginBottom: 20,
+      marginRight: 10,
+      color: '#103143',
+    },
+    studyCard: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderRadius: 5,
+      borderWidth: 1,
+      paddingTop: 10,
+      paddingBottom: 18,
+      paddingRight: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+      width: 500,
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+    viewButton: {
+      right: 0,
+      width: 100,
+      height: 25,
+      fontSize: 10,
+      letterSpacing: 1,
+      marginLeft: 'auto',
+    },
+    inputField: {
+      width: 275,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginBottom: 10,
+      borderRadius: 3,
+      color: '#103143',
+    },
+  });
+
   return (
-    <div className="Profile">
-      <div className="profile-flex">
-        <div className="header-left"> Create Study </div>
-        <div className="title-row">
-          <div>Title</div>
-          <input
-            className="input-field"
-            type="text"
-            id="title"
-            onChange={updateTitle}
-          />
-        </div>
-        <div className="description-row">
-          <div>Description</div>
-          <input
-            className="input-field"
-            type="text"
-            id="description"
-            onChange={updateDescription}
-          />
-          <div>Compensation</div>
-          <input
-            className="input-field"
-            type="text"
-            id="compensation"
-            onChange={updateCompensation}
-          />
-          <div>Duration</div>
-          <input
-            className="input-field"
-            type="text"
-            id="duration"
-            onChange={updateDuration}
-          />
-          <div>Lead Researcher</div>
-          <input
-            className="input-field"
-            type="text"
-            id="researchers"
-            onChange={updateResearcher}
-          />
-        </div>
-        <div className="profile-row">
-          <div>Tags</div>
-        </div>
-        <div className="profile-row" />
-        <input className="signup-button" type="submit" value="Add Study" onClick={handleSubmit} />
-      </div>
-    </div>
+    <View style={styles.container}>
+      <Text style={styles.header}>Create Study</Text>
+      <View style={styles.row}>
+        <Text style={styles.subheader}>Title:</Text>
+        <TextInput
+          style={styles.inputField}
+          type="text"
+          id="title"
+          onChange={updateTitle}
+        />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.subheader}>Description:</Text>
+        <TextInput
+          style={styles.inputField}
+          type="text"
+          id="description"
+          onChange={updateDescription}
+        />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.subheader}>Compensation:</Text>
+        <TextInput
+          style={styles.inputField}
+          type="text"
+          id="compensation"
+          onChange={updateCompensation}
+        />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.subheader}>Duration:</Text>
+        <TextInput
+          style={styles.inputField}
+          type="text"
+          id="duration"
+          onChange={updateDuration}
+        />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.subheader}>Lead Researcher:</Text>
+        <TextInput
+          style={styles.inputField}
+          type="text"
+          id="researchers"
+          onChange={updateResearcher}
+        />
+      </View>
+      <View style={styles.button}>
+        <Button className="signup-button" color="#103143" type="submit" title="ADD STUDY" onPress={(e) => handleSubmit(e)} />
+      </View>
+    </View>
   );
 }
 
