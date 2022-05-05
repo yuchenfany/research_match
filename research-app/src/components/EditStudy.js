@@ -367,7 +367,7 @@ function EditStudy({ user, study, setStudy }) {
             styles={customStyles}
           />
         </div>
-        <input className="signup-button" type="submit" value="Edit Study" onClick={handleSubmit} />
+        <input className="signup-button" type="submit" value="Update" onClick={handleSubmit} />
         <input className="signup-button" type="button" value="Delete Study" onClick={handleDelete} />
         <input className="signup-button" type="button" value="Close Study" onClick={handleClose} />
       </div>
