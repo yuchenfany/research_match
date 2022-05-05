@@ -426,6 +426,7 @@ function ParticipantEdit({ user, setUser }) {
             type="text"
             id="age"
             value={user.age}
+            placeholder='age'
             onChange={updateAge}
           />
           <span className="error-message">{ageErr.message}</span>
@@ -434,6 +435,7 @@ function ParticipantEdit({ user, setUser }) {
             className="small-input"
             type="text"
             id="age"
+            placeholder='height'
             value={user.heightFeet}
             onChange={updateHeightFeet}
           />
@@ -443,6 +445,7 @@ function ParticipantEdit({ user, setUser }) {
             className="small-input"
             type="text"
             id="age"
+            placeholder='ft'
             value={user.heightInches}
             onChange={updateHeightInches}
           />
@@ -453,6 +456,7 @@ function ParticipantEdit({ user, setUser }) {
             className="small-input"
             type="text"
             id="age"
+            placeholder='weight'
             value={user.weight}
             onChange={updateWeight}
           />

@@ -41,16 +41,12 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
         'Content-Type': 'application/json',
       },
     });
-    console.log(data);
     return data.json();
   }
 
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getStudyIds();
-    console.log(user.username);
-    console.log(user.studies);
-    console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudy(studyId)));
   }
     // gets number of messages that user has received
@@ -95,10 +91,7 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   async function checkNotifications() {
     getNumMessages().then(
       (num) => {
-        console.log(num);
-        console.log(user.messages);
-        setNotificationDS(num !== user.messages);
-        console.log(notificationDS);
+        setNotificationRH(num !== user.messages);
       },
     );
   }
@@ -107,8 +100,6 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   async function checkNotifications() {
     getNumMessages().then(
       (num) => {
-        console.log(num);
-        console.log(user.messages);
         setNotificationRH(num !== user.messages);
       },
     );

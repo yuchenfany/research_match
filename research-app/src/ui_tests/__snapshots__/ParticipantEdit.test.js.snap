@@ -1,0 +1,822 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="ParticipantEdit"
+>
+  <div
+    className="nav"
+  >
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      HOME
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MY STUDIES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MESSAGES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ANALYTICS
+    </button>
+    <button
+      className="account-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ACCOUNT
+    </button>
+    <div
+      className="acct-options"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        EDIT PROFILE
+      </button>
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        DELETE ACCOUNT
+      </button>
+      <button
+        className="logout-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        LOGOUT
+      </button>
+    </div>
+  </div>
+  <div
+    className="profile-flex"
+  >
+    <div
+      className="header-left"
+    >
+       Edit User Profile 
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div>
+        Age
+      </div>
+      <input
+        className="small-input"
+        id="age"
+        onChange={[Function]}
+        placeholder="age"
+        type="text"
+        value="10"
+      />
+      <span
+        className="error-message"
+      >
+        
+      </span>
+      <div>
+        Height
+      </div>
+      <input
+        className="small-input"
+        id="age"
+        onChange={[Function]}
+        placeholder="height"
+        type="text"
+        value="10"
+      />
+      <div>
+        ft
+      </div>
+      <span
+        className="error-message"
+      >
+        
+      </span>
+      <input
+        className="small-input"
+        id="age"
+        onChange={[Function]}
+        placeholder="ft"
+        type="text"
+        value="10"
+      />
+      <div>
+        in
+      </div>
+      <span
+        className="error-message"
+      >
+        
+      </span>
+      <div>
+        Weight
+      </div>
+      <input
+        className="small-input"
+        id="age"
+        onChange={[Function]}
+        placeholder="weight"
+        type="text"
+        value="10"
+      />
+      <div>
+        lbs
+      </div>
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div>
+        Biological Sex
+      </div>
+      <label
+        className="radio-option"
+        htmlFor="form"
+      >
+        <input
+          defaultChecked="checked"
+          id="male"
+          name="option"
+          onClick={[Function]}
+          type="radio"
+          value="male"
+        />
+        <div>
+          Male
+        </div>
+      </label>
+      <label
+        className="radio-option"
+        htmlFor="form"
+      >
+        <input
+          defaultChecked=""
+          id="female"
+          name="option"
+          onClick={[Function]}
+          type="radio"
+          value="female"
+        />
+        <div>
+          Female
+        </div>
+      </label>
+      <label
+        className="radio-option"
+        htmlFor="form"
+      >
+        <input
+          defaultChecked=""
+          id="intersex"
+          name="option"
+          onClick={[Function]}
+          type="radio"
+          value="intersex"
+        />
+        <div>
+          Intersex
+        </div>
+      </label>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div>
+        Gender
+      </div>
+      <div
+        className="dropdown"
+      >
+        <div
+          className=" css-b62m3t-container"
+          onKeyDown={[Function]}
+        >
+          <span
+            className="css-1f43avz-a11yText-A11yText"
+            id="react-select-32-live-region"
+          />
+          <span
+            aria-atomic="false"
+            aria-live="polite"
+            aria-relevant="additions text"
+            className="css-1f43avz-a11yText-A11yText"
+          />
+          <div
+            className=" css-108aapi-control"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+          >
+            <div
+              className=" css-319lph-ValueContainer"
+            >
+              <div
+                className=" css-qc6sy-singleValue"
+              >
+                Male
+              </div>
+              <div
+                className=" css-6j8wv5-Input"
+                data-value=""
+              >
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="react-select-32-listbox"
+                  aria-expanded={false}
+                  aria-haspopup={true}
+                  aria-owns="react-select-32-listbox"
+                  autoCapitalize="none"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  className=""
+                  disabled={false}
+                  id="react-select-32-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  role="combobox"
+                  spellCheck="false"
+                  style={
+                    Object {
+                      "background": 0,
+                      "border": 0,
+                      "color": "inherit",
+                      "font": "inherit",
+                      "gridArea": "1 / 2",
+                      "label": "input",
+                      "margin": 0,
+                      "minWidth": "2px",
+                      "opacity": 1,
+                      "outline": 0,
+                      "padding": 0,
+                      "width": "100%",
+                    }
+                  }
+                  tabIndex={0}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              className=" css-1hb7zxy-IndicatorsContainer"
+            >
+              <span
+                className=" css-1okebmr-indicatorSeparator"
+              />
+              <div
+                aria-hidden="true"
+                className=" css-tlfecz-indicatorContainer"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="css-tj5bde-Svg"
+                  focusable="false"
+                  height={20}
+                  viewBox="0 0 20 20"
+                  width={20}
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div>
+        Allergies
+      </div>
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className=" css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-33-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-108aapi-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-14el2xx-placeholder"
+              id="react-select-33-placeholder"
+            >
+              Select...
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-controls="react-select-33-listbox"
+                aria-describedby="react-select-33-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                aria-owns="react-select-33-listbox"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-33-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-tj5bde-Svg"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div>
+        Medical Conditions (Physical)
+      </div>
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="select-tags css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-34-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-108aapi-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-14el2xx-placeholder"
+              id="react-select-34-placeholder"
+            >
+              Select...
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-controls="react-select-34-listbox"
+                aria-describedby="react-select-34-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                aria-owns="react-select-34-listbox"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-34-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-tj5bde-Svg"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div>
+        Medical Conditions (Psychological)
+      </div>
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="select-tags css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-35-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-108aapi-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-14el2xx-placeholder"
+              id="react-select-35-placeholder"
+            >
+              Select...
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-controls="react-select-35-listbox"
+                aria-describedby="react-select-35-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                aria-owns="react-select-35-listbox"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-35-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-tj5bde-Svg"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div>
+        Medications
+      </div>
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="select-tags css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-36-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-108aapi-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-14el2xx-placeholder"
+              id="react-select-36-placeholder"
+            >
+              Select...
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-controls="react-select-36-listbox"
+                aria-describedby="react-select-36-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                aria-owns="react-select-36-listbox"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-36-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-tj5bde-Svg"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="button-row"
+    >
+      <input
+        className="cancel-button"
+        onClick={[Function]}
+        type="submit"
+        value="CANCEL"
+      />
+      <input
+        className="update-button"
+        onClick={[Function]}
+        type="submit"
+        value="UPDATE"
+      />
+    </div>
+  </div>
+</div>
+`;

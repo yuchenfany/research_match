@@ -64,10 +64,7 @@ function ResearcherProfile({ user, setUser }) {
 
       if (!isValidInput(user.organization)) {
         setOrgErr({ message: 'Please enter your organization' });
-      } else {
-        setOrgErr({ message: '' });
       }
-
       event.preventDefault();
 
       return;
@@ -109,7 +106,7 @@ function ResearcherProfile({ user, setUser }) {
           <span className="error-message">{orgErr.message}</span>
         </div>
         <div className="button-row">
-          <input className="update-button" type="submit" value="SIGN UP" onClick={handleSubmit} />
+          <button className="update-button" type="submit" value="SIGN UP" onClick={handleSubmit}>SIGN UP</button>
         </div>
       </div>
     </div>

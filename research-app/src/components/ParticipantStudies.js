@@ -38,8 +38,6 @@ function ParticipantStudies({
       med: user.med,
       type: user.type,
     });
-
-    // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
     return json?.enrolled ?? [];
   }
 
@@ -67,10 +65,12 @@ function ParticipantStudies({
 
   function goToStudy(studyId) {
     setStudy({ studyId });
-    if (user.enrolled.indexOf(studyId) > -1) {
-      setStatus({ isEnrolled: true });
-    } else {
-      setStatus({ isEnrolled: false });
+    if (!studyId) {
+      if (user.enrolled.indexOf(studyId) > -1) {
+        setStatus({ isEnrolled: true });
+      } else {
+        setStatus({ isEnrolled: false });
+      }
     }
     navigate(`/study/${studyId}`);
   }
