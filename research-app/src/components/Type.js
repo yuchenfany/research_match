@@ -42,8 +42,10 @@ function Type({ user, setUser }) {
   return (
     <div className="Type">
       <div className="header-left">Select account type</div>
-      <label htmlFor="form" className="radio-option"> 
-        <input
+      <label htmlFor="form" className="radio-option">
+      <form>
+      <label>
+      researcher <input
           type="radio"
           key="researcher"
           id="researcher"
@@ -52,10 +54,14 @@ function Type({ user, setUser }) {
           name="researcher"
           onClick={() => updateType('researcher')}
         />
+      </label>
+      </form>
         <div>Researcher</div>
       </label>
       <label htmlFor="form" className="radio-option">
-        <input
+      <form>
+      <label>
+      participant <input
           type="radio"
           key="participant"
           id="participant"
@@ -64,6 +70,8 @@ function Type({ user, setUser }) {
           name="participant"
           onClick={() => updateType('participant')}
         />
+      </label>
+      </form>
         <div>Participant</div>
       </label>
       <button className="confirm-button" type="submit" value="CONFIRM" onClick={goToProfile}> CONFIRM</button>

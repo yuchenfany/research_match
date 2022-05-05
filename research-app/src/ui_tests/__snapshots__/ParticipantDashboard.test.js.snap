@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="Dashboard"
+>
+  <div
+    className="nav"
+  >
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      HOME
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MY STUDIES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MESSAGES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ANALYTICS
+    </button>
+    <button
+      className="account-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ACCOUNT
+    </button>
+    <div
+      className="acct-options"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        EDIT PROFILE
+      </button>
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        DELETE ACCOUNT
+      </button>
+      <button
+        className="logout-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        LOGOUT
+      </button>
+    </div>
+  </div>
+  <div
+    className="dashboard"
+  >
+    <h1
+      className="header-left"
+    >
+      Analytics
+    </h1>
+    <div
+      className="dash-flex"
+    >
+      <div
+        className="dash-card"
+      >
+        <h4>
+          TOTAL COMPENSATION EARNED
+        </h4>
+        <p>
+          $0
+        </p>
+      </div>
+      <div
+        className="dash-card"
+      >
+        <h4>
+          TOTAL ENROLLED STUDIES
+        </h4>
+        <p>
+          0 studies
+        </p>
+      </div>
+      <div
+        className="dash-card"
+      >
+        <h4>
+          TOTAL RECOMMENDED STUDIES
+        </h4>
+        <p>
+          0 studies
+        </p>
+      </div>
+      <div
+        className="dash-card"
+      >
+        <h4>
+          TOTAL MESSAGES SENT
+        </h4>
+        <p>
+          0 messages
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

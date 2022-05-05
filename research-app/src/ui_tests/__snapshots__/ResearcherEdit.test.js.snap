@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="ResearcherEdit"
+>
+  <div
+    className="nav"
+  >
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      HOME
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MY STUDIES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      MESSAGES
+    </button>
+    <button
+      className="nav-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ANALYTICS
+    </button>
+    <button
+      className="account-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      ACCOUNT
+    </button>
+    <div
+      className="acct-options"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        EDIT PROFILE
+      </button>
+      <button
+        className="account-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        DELETE ACCOUNT
+      </button>
+      <button
+        className="logout-btn"
+        onClick={[Function]}
+        type="button"
+      >
+        LOGOUT
+      </button>
+    </div>
+  </div>
+  <div
+    className="profile-flex"
+  >
+    <div
+      className="header-left"
+    >
+      Edit Researcher Profile
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="input-label"
+      >
+        Name
+      </div>
+      <input
+        className="profile-input"
+        id="researcher"
+        onChange={[Function]}
+        placeholder="name"
+        type="text"
+      />
+    </div>
+    <div
+      className="profile-row"
+    >
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="input-label"
+      >
+        Organization
+      </div>
+      <input
+        className="profile-input"
+        id="organization"
+        onChange={[Function]}
+        placeholder="organization"
+        type="text"
+      />
+    </div>
+    <div
+      className="profile-row"
+    >
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="button-row"
+      >
+        <button
+          className="cancel-button"
+          onClick={[Function]}
+          type="submit"
+          value="CANCEL"
+        >
+           CANCEL
+        </button>
+        <button
+          className="update-button"
+          onClick={[Function]}
+          type="submit"
+          value="UPDATE"
+        >
+           UPDATE
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

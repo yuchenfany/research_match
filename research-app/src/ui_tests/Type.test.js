@@ -56,21 +56,38 @@ test('Login Button',() => {
   expect(linkElement).toBeInTheDocument();
 });
 
-// test('Researcher Button',() => {
-//   const mockSetUser = jest.fn();
-//   const user1 = { username: 'user1', password: 'user1pass' };
-//   render(
-//     <Router>
-//       <Type setUser={mockSetUser} user={user1} />
-//     </Router>,
-//   );
-//   const linkElement = screen.getByRole('radio', {
-//     name: /researcher/i
-//   });
-//   fireEvent.click(linkElement);
-//   // expect(mockSetUser).toBeCalled();
-//   expect(linkElement).toBeInTheDocument();
-// });
+test('Researcher Button',() => {
+  const mockSetUser = jest.fn();
+  const user1 = { username: 'user1', password: 'user1pass' };
+  render(
+    <Router>
+      <Type setUser={mockSetUser} user={user1} />
+    </Router>,
+  );
+  const linkElement = screen.getByRole('radio', {
+    name: /researcher/i
+  });
+  fireEvent.click(linkElement);
+  // expect(mockSetUser).toBeCalled();
+  expect(linkElement).toBeInTheDocument();
+});
+
+test('Participant Button',() => {
+  const mockSetUser = jest.fn();
+  const user1 = { username: 'user1', password: 'user1pass' };
+  render(
+    <Router>
+      <Type setUser={mockSetUser} user={user1} />
+    </Router>,
+  );
+  const linkElement = screen.getByRole('radio', {
+    name: /participant/i
+  });
+  fireEvent.click(linkElement);
+  // expect(mockSetUser).toBeCalled();
+  expect(linkElement).toBeInTheDocument();
+});
+
 test('researcher clicked',() => {
   render(
     <Router>

@@ -13,14 +13,19 @@ exports[`snapshot test 1`] = `
     className="radio-option"
     htmlFor="form"
   >
-    <input
-      data-testid="researcher"
-      id="researcher"
-      name="researcher"
-      onClick={[Function]}
-      type="radio"
-      value="researcher"
-    />
+    <form>
+      <label>
+        researcher 
+        <input
+          data-testid="researcher"
+          id="researcher"
+          name="researcher"
+          onClick={[Function]}
+          type="radio"
+          value="researcher"
+        />
+      </label>
+    </form>
     <div>
       Researcher
     </div>
@@ -29,14 +34,19 @@ exports[`snapshot test 1`] = `
     className="radio-option"
     htmlFor="form"
   >
-    <input
-      data-testid="participant"
-      id="participant"
-      name="participant"
-      onClick={[Function]}
-      type="radio"
-      value="participant"
-    />
+    <form>
+      <label>
+        participant 
+        <input
+          data-testid="participant"
+          id="participant"
+          name="participant"
+          onClick={[Function]}
+          type="radio"
+          value="participant"
+        />
+      </label>
+    </form>
     <div>
       Participant
     </div>

@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="ResearcherProfile"
+>
+  <div
+    className="profile-flex"
+  >
+    <div
+      className="header-left"
+    >
+      Create Researcher Profile
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="input-label"
+      >
+        Name
+      </div>
+      <input
+        className="profile-input"
+        id="researcher"
+        onChange={[Function]}
+        type="text"
+      />
+    </div>
+    <div
+      className="profile-row"
+    >
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="profile-row"
+    >
+      <div
+        className="input-label"
+      >
+        Organization
+      </div>
+      <input
+        className="profile-input"
+        id="organization"
+        onChange={[Function]}
+        type="text"
+      />
+    </div>
+    <div
+      className="profile-row"
+    >
+      <span
+        className="error-message"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="button-row"
+    >
+      <button
+        className="update-button"
+        onClick={[Function]}
+        type="submit"
+        value="SIGN UP"
+      >
+        SIGN UP
+      </button>
+    </div>
+  </div>
+</div>
+`;

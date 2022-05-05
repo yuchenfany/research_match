@@ -54,23 +54,27 @@ function ResearcherEdit({ user, setUser }) {
       } else {
         setNameErr({ message: '' });
       }
+    // if (user.name.length === 0 || user.organization.length === 0) {
+    //   if (user.name.length === 0) {
+    //     setNameErr({ message: 'Please enter your name' });
+    //   } else {
+    //     setNameErr({ message: '' });
+    //   }
 
       if (!isValidInput(user.organization)) {
         setOrgErr({ message: 'Please enter your organization' });
       } else {
         setOrgErr({ message: '' });
       }
-
       event.preventDefault();
-
       return;
     }
-
     if (await postUserInfo()) {
       navigate('/researcher-home');
     } else {
       event.preventDefault();
     }
+    return;
   }
 
   async function handleCancel() {
@@ -92,6 +96,7 @@ function ResearcherEdit({ user, setUser }) {
             type="text"
             id="researcher"
             value={user.name}
+            placeholder="name"
             onChange={updateResearcher}
           />
         </div>
@@ -105,6 +110,7 @@ function ResearcherEdit({ user, setUser }) {
             type="text"
             id="organization"
             value={user.organization}
+            placeholder="organization"
             onChange={updateOrganization}
           />
         </div>
@@ -113,8 +119,8 @@ function ResearcherEdit({ user, setUser }) {
         </div>
         <div className="profile-row">
           <div className="button-row">
-            <input className="cancel-button" type="submit" value="CANCEL" onClick={handleCancel} />
-            <input className="update-button" type="submit" value="UPDATE" onClick={handleSubmit} />
+            <button className="cancel-button" type="submit" value="CANCEL" onClick={handleCancel}> CANCEL</button>
+            <button className="update-button" type="submit" value="UPDATE" onClick={handleSubmit}> UPDATE</button>
           </div>
         </div>
       </div>

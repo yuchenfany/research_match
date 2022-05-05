@@ -289,7 +289,6 @@ function ParticipantProfile({ user, setUser }) {
 
   const updatePsych = async (tags) => {
     const arr = await getTagsArr(tags);
-
     setUser({
       username: user.username,
       password: user.password,
@@ -360,7 +359,6 @@ function ParticipantProfile({ user, setUser }) {
       } else {
         setInchErr({ message: '' });
       }
-
       if (user.gender === undefined) {
         setGenderErr({ message: 'Please make a selection' });
       } else {
@@ -419,6 +417,7 @@ function ParticipantProfile({ user, setUser }) {
             className="small-input"
             type="text"
             id="age"
+            placeholder='age'
             onChange={updateAge}
           />
           <span className="error-message">{ageErr.message}</span>
@@ -427,6 +426,7 @@ function ParticipantProfile({ user, setUser }) {
             className="small-input"
             type="text"
             id="age"
+            placeholder='height'
             onChange={updateHeightFeet}
           />
           <div>ft</div>
@@ -435,6 +435,7 @@ function ParticipantProfile({ user, setUser }) {
             className="small-input"
             type="text"
             id="age"
+            placeholder='ft'
             onChange={updateHeightInches}
           />
           <div>in</div>
@@ -444,6 +445,7 @@ function ParticipantProfile({ user, setUser }) {
             className="small-input"
             type="text"
             id="age"
+            placeholder='weight'
             onChange={updateWeight}
           />
           <div>lbs</div>

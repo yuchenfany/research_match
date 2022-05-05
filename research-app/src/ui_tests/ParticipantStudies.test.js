@@ -12,7 +12,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import React from 'react';
 // import { jest } from '@jest/globals';
 
-import Study from '../components/Study';
+import ParticipantStudies from '../components/ParticipantStudies';
 
 // const mockedUsedNavigate = jest.fn();
 
@@ -21,7 +21,7 @@ import Study from '../components/Study';
 //   useNavigate: () => mockedUsedNavigate,
 // }));
 
-test('Title label', () => {
+test('Title For Testing Purposes: Delete Later', () => {
   const mockSetUser = jest.fn();
   const user1 = { username: 'user1', password: 'user1pass' };
   const mockSetStatus = jest.fn();
@@ -35,9 +35,9 @@ test('Title label', () => {
   };
     render(
         <Router>
-            <Study study={study} setStudy={mockSetStudy} user={user1} setUser={mockSetUser} status={status} setStatus={mockSetStatus} />
+            <ParticipantStudies  user={user1} setUser={mockSetUser} setStudy={mockSetStudy} setStatus={mockSetStatus} />
         </Router>);  
-  const label = screen.getByText("Description");
+  const label = screen.getByText("For Testing Purposes: Delete Later");
   expect(label).toBeInTheDocument();
 });
 
@@ -51,11 +51,11 @@ test('Title label', () => {
 // //   expect(screen.getByTestId('participant')).toBeChecked();
 // });
 
-test('Enroll Button',() => {
+test('View Button',() => {
   const mockSetUser = jest.fn();
   const user1 = { username: 'user1', password: 'user1pass' };
   const mockSetStatus = jest.fn();
-  const status = {isEnrolled: false};
+  const status = false;
   const mockSetStudy = jest.fn();
   const study = {
     studyId: '',
@@ -65,59 +65,13 @@ test('Enroll Button',() => {
   };
     render(
         <Router>
-            <Study study={study} setStudy={mockSetStudy} user={user1} setUser={mockSetUser} status={status} setStatus={mockSetStatus} />
+            <ParticipantStudies  user={user1} setUser={mockSetUser} setStudy={mockSetStudy} setStatus={mockSetStatus} />
         </Router>);  
   const linkElement = screen.getByRole('button', {
-    name: /enroll/i,
+    name: /view/i,
   });
   fireEvent.click(linkElement);
   expect(linkElement).toBeInTheDocument();
-});
-
-test('Message Researcher Button',() => {
-  const mockSetUser = jest.fn();
-  const user1 = { username: 'user1', password: 'user1pass', enrolled: [] };
-  const mockSetStatus = jest.fn();
-  const status = true;
-  const mockSetStudy = jest.fn();
-  const study = {
-    studyId: '',
-    participants: [''],
-    researchers: [],
-    tags: [],
-  };
-    render(
-        <Router>
-            <Study study={study} setStudy={mockSetStudy} user={user1} setUser={mockSetUser} status={status} setStatus={mockSetStatus} />
-        </Router>);  
-  const linkElement = screen.getByRole('button', {
-    name: /message researcher/i,
-  });
-  fireEvent.click(linkElement);
-  expect(linkElement).toBeInTheDocument();
-});
-
-test('Drop Button',() => {
-  const mockSetUser = jest.fn();
-  const user1 = { username: 'user1', password: 'user1pass', enrolled: [] };
-  const mockSetStatus = jest.fn();
-  const status = {isEnrolled: true};
-  const mockSetStudy = jest.fn();
-  const study = {
-    studyId: '',
-    participants: [''],
-    researchers: [],
-    tags: [],
-  };
-    render(
-        <Router>
-            <Study study={study} setStudy={mockSetStudy} user={user1} setUser={mockSetUser} status={status} setStatus={mockSetStatus} />
-        </Router>);  
-  const linkElement2 = screen.getByRole('button', {
-    name: /drop/i,
-  });
-  fireEvent.click(linkElement2);
-  expect(linkElement2).toBeInTheDocument();
 });
 
 // // test('Researcher Button',() => {
@@ -159,8 +113,12 @@ test('snapshot test', () => {
   };
   const component = renderer.create( 
     <Router>
-        <Study study={study} setStudy={mockSetStudy} user={user1} setUser={mockSetUser} status={status} setStatus={mockSetStatus} />
+        <ParticipantStudies  user={user1} setUser={mockSetUser} setStudy={mockSetStudy} setStatus={mockSetStatus} />
     </Router>);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+
+//TODO: 
+//1. Data not being accessed from queries

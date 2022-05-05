@@ -35,7 +35,6 @@ function Study({
     const currStudy = await getStudy();
     const currParticipants = currStudy.participants;
     currParticipants.push(user.username);
-
     const updatedStudy = {
       title: currStudy.title,
       description: currStudy.description,
