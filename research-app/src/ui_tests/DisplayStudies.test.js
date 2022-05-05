@@ -36,6 +36,19 @@ test('Eligible studies header', () => {
   expect(header).toBeInTheDocument();
 });
 
+test('Eligible studies header', async () => {
+  const mockUser = { username: 'noti', password: 'notipass', type: 0 };
+  const mockSetUser = jest.fn();
+
+  await render(
+    <Router>
+      <DisplayStudies user={mockUser} setUser={mockSetUser} />
+      <NavBar user={mockUser} setUser={mockSetUser} />
+    </Router>,
+  );
+  expect(mockSetUser).toHaveBeenCalled();
+});
+
 // test('Eligible studies view button', () => {
 //   const mockUser = { username: 'noti', password: 'notipass', type: 0 };
 //   const mockSetUser = jest.fn();
