@@ -6,6 +6,7 @@ const client = new MongoClient(Db, {
   useUnifiedTopology: true,
 });
 
+// eslint-disable-next-line no-underscore-dangle
 let _db;
 
 module.exports = {

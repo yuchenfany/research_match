@@ -1,35 +1,105 @@
-// jest --coverage --forceExit -- server.test.js
-import { test, expect, beforeAll } from '@jest/globals';
+// npx jest --coverage --forceExit -- server.test.js
+import { test, expect, beforeEach } from '@jest/globals';
 
 const request = require('supertest');
-// const { MongoClient } = require('mongodb');
-
-// import our web app
+const { MongoClient } = require('mongodb');
 const webapp = require('./server');
 
-// require('dotenv').config({ path: './config.env' });
-beforeAll(async () => {
-  // try{
-  //     const conn = (await MongoClient.connect(url,
-  //     {useNewUrlParser: true, useUnifiedTopology: true})).db();
-  //     console.log(`Connected to the database: ${conn.databaseName}`);
-  //     return conn;
-  // } catch(err){
-  //     console.error(err);
-  //     throw new Error('could not connect to the db');
-  // }
+const connect = async () => {
+  (await MongoClient.connect(
+    process.env.ATLAS_URI,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+  )).db();
+};
+
+beforeEach(async () => {
+  await connect();
+  webapp.listen();
 });
 
-/* **** USER ENDPOINTS **** */
-test('/login endpoint status code and response 404', () => request(webapp).post('/record/login')
-  .send({ username: '' }).expect(404)
-  .then((response) => expect(JSON.parse(response.text).error).toBe('username not provided')));
+const testUser = {
+  username: 'test',
+  password: 'testpass',
+  enrolled: [],
+  allergies: [],
+  phys: ['diabetes'],
+  psych: ['insomnia'],
+  med: ['lexapro'],
+  type: 0,
+};
 
-test('status code 201 and response', () => request(webapp).post('/login')
-  .send({ username: 'testuser', password: 'testuserpass' })
-  .expect(201) // test the response status code
-  // process the response
-  .then((response) => expect(JSON.parse(response.text).message).toContain('Player with id')));
+const testResearcher = {
+  username: 'rtest',
+  password: 'rtestpass',
+  organization: 'Penn',
+  studies: [2, 3, 5],
+  type: 1,
+};
+
+/* **** USER ENDPOINTS **** */
+test('/login: null 401', () => request(webapp).post('/login')
+  .send({ username: null }).expect(401)
+  .then((response) => {
+    expect(JSON.parse(response.text).err).toEqual(true);
+    expect(JSON.parse(response.text).msg).toEqual('Not valid login.');
+  }));
+
+test('/login: not exists 401', () => request(webapp).post('/login')
+  .send({ username: 'fakeuser', password: 'fakepass' }).expect(401)
+  .then((response) => {
+    // console.log(response);
+    expect(JSON.parse(response.text).err).toEqual(true);
+    expect(JSON.parse(response.text).msg).toEqual('Your username/password combination does not match.');
+  }));
+
+test('/login: invalid password 401', () => request(webapp).post('/login')
+  .send({ username: 'tester3', password: 'wrongpass' }).expect(401)
+  .then((response) => {
+    expect(JSON.parse(response.text).err).toEqual(true);
+    expect(JSON.parse(response.text).msg).toEqual('Your username/password combination does not match.');
+  }));
+
+// test('/record/add', () => request(webapp).post('/record/add')
+//   .send(testUser).expect(200)
+//   .then((response) => {
+//     expect(JSON.parse(response.text).err).toBeFalsy();
+//   }));
+
+// test('/record/add-researcher', () => request(webapp).post('/record/add-researcher')
+//   .send(testResearcher).expect(200)
+//   .then((response) => {
+//     expect(JSON.parse(response.text).err).toBeFalsy();
+//   }));
+
+test('/record/:id: get user', () => request(webapp).get('/record/test')
+  .expect(200)
+  .then((response) => {
+    expect(JSON.parse(response.text).result).toMatchObject(testUser);
+  }));
+
+test('/record/:id: get researcher', () => request(webapp).get('/record/rtest')
+  .expect(200)
+  .then((response) => {
+    expect(JSON.parse(response.text).result).toMatchObject(testResearcher);
+  }));
+
+test('/record/:id: nonexistent', () => request(webapp).get('/record/fakeuser')
+  .expect(200)); // ?
+
+test('/record/delete/:id: nonexistent', () => request(webapp).get('/record/delete/fakeuser')
+  .expect(404));
+
+test('/record/delete/:id: user', () => request(webapp).delete('/record/delete/test')
+  .expect(200)
+  .then((response) => {
+    expect(JSON.parse(response.text).result).toBeUndefined();
+  }));
+
+test('/record/delete/:id: researcher', () => request(webapp).delete('/record/delete/rtest')
+  .expect(200)
+  .then((response) => {
+    expect(JSON.parse(response.text).result).toBeUndefined();
+  }));
 
 /* **** STUDY ENDPOINTS **** */
 
