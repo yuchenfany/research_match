@@ -152,7 +152,6 @@ function Chat({ route, navigation }) {
 
   return (
     <div>
-      <NavBar user={sender} />
       <header>
         <h1>{receiverName}</h1> 
       </header>
