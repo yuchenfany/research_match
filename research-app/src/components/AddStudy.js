@@ -249,7 +249,6 @@ function AddStudy({ user, study, setStudy }) {
             className="input-field"
             type="text"
             id="title"
-            placeholder="title"
             onChange={updateTitle}
           />
         </div>

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="Type"
+>
+  <div
+    className="header-left"
+  >
+    Select account type
+  </div>
+  <label
+    className="radio-option"
+    htmlFor="form"
+  >
+    <input
+      id="researcher"
+      name="option"
+      onClick={[Function]}
+      type="radio"
+      value="researcher"
+    />
+    <div>
+      Researcher
+    </div>
+  </label>
+  <label
+    className="radio-option"
+    htmlFor="form"
+  >
+    <input
+      id="participant"
+      name="option"
+      onClick={[Function]}
+      type="radio"
+      value="participant"
+    />
+    <div>
+      Participant
+    </div>
+  </label>
+  <input
+    className="confirm-button"
+    onClick={[Function]}
+    type="submit"
+    value="CONFIRM"
+  />
+</div>
+`;

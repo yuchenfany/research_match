@@ -22,7 +22,6 @@ exports[`snapshot test 1`] = `
         className="input-field"
         id="title"
         onChange={[Function]}
-        placeholder="title"
         type="text"
       />
     </div>

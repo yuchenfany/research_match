@@ -8,6 +8,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/jest-dom';
 import renderer from 'react-test-renderer';
+import { BrowserRouter as Router } from 'react-router-dom';
 import React from 'react';
 // import { jest } from '@jest/globals';
 
@@ -25,7 +26,7 @@ test('Title label', () => {
         <Router>
             <Type />
         </Router>);  
-  const label = screen.getByText('Select Account Type');
+  const label = screen.getByText('Select account type');
   expect(label).toBeInTheDocument();
 });
 

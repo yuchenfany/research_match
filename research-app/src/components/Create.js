@@ -107,6 +107,7 @@ function Create({ user, setUser }) {
               type="text"
               id="username"
               onChange={handleNameChange}
+              placeholder="Create username"
             />
             <p className="field-label">CREATE PASSWORD</p>
             <input
@@ -114,6 +115,7 @@ function Create({ user, setUser }) {
               type="text"
               id="password"
               onChange={handleNameChangePassword}
+              placeholder="Create password"
             />
             <span className="error-message">{error.message}</span>
           </div>

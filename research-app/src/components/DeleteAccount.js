@@ -24,6 +24,7 @@ function DeleteAccount({ user, setUser }) {
   }
 
   async function handleSubmit(event) {
+    setUser(user); // for testing
     if (await verify()) {
       navigate('/');
     } else {
