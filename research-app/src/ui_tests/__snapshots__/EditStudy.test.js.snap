@@ -22,8 +22,9 @@ exports[`snapshot test 1`] = `
         className="input-field"
         id="title"
         onChange={[Function]}
+        title="title"
         type="text"
-        value="title"
+        value="faketitle"
       />
     </div>
     <div
@@ -36,8 +37,9 @@ exports[`snapshot test 1`] = `
         className="input-field"
         id="description"
         onChange={[Function]}
+        title="description"
         type="text"
-        value="description"
+        value="fakedescription"
       />
       <div>
         Compensation
@@ -46,7 +48,9 @@ exports[`snapshot test 1`] = `
         className="input-field"
         id="compensation"
         onChange={[Function]}
+        title="compensation"
         type="text"
+        value={4}
       />
       <div>
         Duration
@@ -55,8 +59,9 @@ exports[`snapshot test 1`] = `
         className="input-field"
         id="duration"
         onChange={[Function]}
+        title="duration"
         type="text"
-        value={0}
+        value={3}
       />
       <div>
         Lead Researcher
@@ -65,6 +70,7 @@ exports[`snapshot test 1`] = `
         className="input-field"
         id="researchers"
         onChange={[Function]}
+        title="researchers"
         type="text"
       />
     </div>
@@ -84,7 +90,7 @@ exports[`snapshot test 1`] = `
       >
         <span
           className="css-1f43avz-a11yText-A11yText"
-          id="react-select-3-live-region"
+          id="react-select-9-live-region"
         />
         <span
           aria-atomic="false"
@@ -102,7 +108,7 @@ exports[`snapshot test 1`] = `
           >
             <div
               className=" css-14el2xx-placeholder"
-              id="react-select-3-placeholder"
+              id="react-select-9-placeholder"
             >
               Select...
             </div>
@@ -112,17 +118,17 @@ exports[`snapshot test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-controls="react-select-3-listbox"
-                aria-describedby="react-select-3-placeholder"
+                aria-controls="react-select-9-listbox"
+                aria-describedby="react-select-9-placeholder"
                 aria-expanded={false}
                 aria-haspopup={true}
-                aria-owns="react-select-3-listbox"
+                aria-owns="react-select-9-listbox"
                 autoCapitalize="none"
                 autoComplete="off"
                 autoCorrect="off"
                 className=""
                 disabled={false}
-                id="react-select-3-input"
+                id="react-select-9-input"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}

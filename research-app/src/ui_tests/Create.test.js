@@ -79,6 +79,7 @@ test('Back to login button is clicked: valid input', () => {
   );
   const input = screen.getByPlaceholderText('Create username');
   fireEvent.change(input, { target: { value: 'user1' } });
+  expect(input.value).toEqual('user1');
 
   const inputPassword = screen.getByPlaceholderText('Create password');
   fireEvent.change(inputPassword, { target: { value: 'user1pass' } });

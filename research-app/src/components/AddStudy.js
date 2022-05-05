@@ -250,6 +250,7 @@ function AddStudy({ user, study, setStudy }) {
             type="text"
             id="title"
             onChange={updateTitle}
+            title="title"
           />
         </div>
         <div className="description-row">
@@ -259,6 +260,7 @@ function AddStudy({ user, study, setStudy }) {
             type="text"
             id="description"
             onChange={updateDescription}
+            title="description"
           />
           <div>Compensation</div>
           <input
@@ -266,6 +268,7 @@ function AddStudy({ user, study, setStudy }) {
             type="text"
             id="compensation"
             onChange={updateCompensation}
+            title="compensation"
           />
           <div>Duration</div>
           <input
@@ -273,6 +276,7 @@ function AddStudy({ user, study, setStudy }) {
             type="text"
             id="duration"
             onChange={updateDuration}
+            title="duration"
           />
         </div>
         <div className="profile-row">
@@ -286,7 +290,7 @@ function AddStudy({ user, study, setStudy }) {
             styles={customStyles}
           />
         </div>
-        <input className="signup-button" type="submit" value="Add Study" onClick={handleSubmit} />
+        <input className="signup-button" type="submit" value="Add Study" title="add-study" onClick={handleSubmit} />
       </div>
     </div>
   );
