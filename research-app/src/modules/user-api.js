@@ -1,27 +1,34 @@
-/* eslint-disable */ 
-export async function userExists(user) {
-  const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+// Returns if a user exists in the DB
+async function userExists(user) {
+  return fetch(`http://localhost:5000/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  }).catch((e) => { console.log(e); });
-
-  return await data.json() != null;
+  })
+    .then(async (data) => {
+      const json = await data.json();
+      return (json !== null);
+    })
+    .catch((e) => {
+      console.log(e);
+      return false;
+    });
 }
 
-export async function deleteUser(user) {
-  await fetch(`http://localhost:5000/record/delete/${user.username}`, {
+// Deletes a user from the DB
+async function deleteUser(user) {
+  return fetch(`http://localhost:5000/record/delete/${user.username}`, {
     method: 'delete',
     headers: {
       'Content-Type': 'application/json',
     },
-  }).catch((e) => e.toString());
-  return true;
+  }).then(() => true)
+    .catch((e) => e.toString());
 }
 
-// gets list of studies that match user's tags
-export async function getUserTags(user) {
+// Gets list of studies that match user's tags
+async function getUserTags(user) {
   const data = await fetch(`http://localhost:5000/record/${user.username}`, {
     method: 'GET',
     headers: {
@@ -52,7 +59,8 @@ export async function getUserTags(user) {
   return userTags;
 }
 
-export async function getUserInfo(user) {
+// Gets the user object
+async function getUserInfo(user) {
   const data = await fetch(`http://localhost:5000/record/${user.username}`, {
     method: 'GET',
     headers: {
@@ -62,7 +70,8 @@ export async function getUserInfo(user) {
   return data.json();
 }
 
-export async function updateUserInfo(user) {
+// Updates user to the have the contents of the passed-in body
+async function updateUserInfo(user) {
   await fetch(`http://localhost:5000/record/participant-edit/${user.username}`, {
     method: 'POST',
     headers: {
@@ -71,124 +80,97 @@ export async function updateUserInfo(user) {
     body: JSON.stringify(user),
   })
     .catch((e) => {
-      window.alert(e);
+      console.log(e);
     });
 
   return true;
 }
 
-export async function updateEnrolledUser(studyId, bodyObj) {
-    const username = bodyObj.username;
-    await fetch(`/record/enroll/${username}/${studyId}`, {
-      method: 'POST',
-      body: JSON.stringify(bodyObj),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).catch((e) => { window.alert(e); });
+// Adds the studyId to the user's enrolled field
+async function updateEnrolledUser(studyId, bodyObj) {
+  const { username } = bodyObj;
+  await fetch(`/record/enroll/${username}/${studyId}`, {
+    method: 'POST',
+    body: JSON.stringify(bodyObj),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).catch((e) => { console.log(e); });
 }
 
-export async function postUserInfo(user) {
-  await fetch('http://localhost:5000/record/add', {
+// Adds a new user
+async function postUserInfo(user) {
+  return fetch('http://localhost:5000/record/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
-  })
+  }).then(() => true)
     .catch((e) => {
-      window.alert(e);
+      console.log(e);
+      return false;
     });
-
-  return true;
 }
 
-  // gets list of all enrolled studies for user
-export async function getEnrolledStudyIds(user, setUser) {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    setUser({
-      username: user.username,
-      password: user.password,
-      enrolled: json.enrolled,
-      age: user.age,
-      heightFeet: user.heightFeet,
-      heightInches: user.heightInches,
-      weight: user.weight,
-      sex: user.sex,
-      gender: user.gender,
-      allergies: user.allergies,
-      phys: user.phys,
-      psych: user.psych,
-      med: user.med,
-      type: user.type,
-    });
-
-    // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
-    return json?.enrolled ?? [];
-  }
-
-  // gets list of all studies for researcher
-  export async function getResearcherStudies(user, setUser) {
-    const data = await fetch(`http://localhost:5000/record/${user.username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await data.json();
-    setUser({
-        username: user.username,
-        password: user.password,
-        name: user.name,
-        organization: user.organization,
-        studies: json.studies,
-        type: user.type,
-    });
-      // setUser({ username: user.username, password: user.password, enrolled: json.enrolled });
-    return json?.studies ?? [];
-}
-
-export async function getResearcherNumStudies(user) {
-  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+// Gets list of all enrolled studies for user
+async function getEnrolledStudyIds(user, setUser) {
+  const data = await fetch(`http://localhost:5000/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   });
   const json = await data.json();
-  return json?.length ?? 0;
+  setUser({
+    username: user.username,
+    password: user.password,
+    enrolled: json.enrolled,
+    age: user.age,
+    heightFeet: user.heightFeet,
+    heightInches: user.heightInches,
+    weight: user.weight,
+    sex: user.sex,
+    gender: user.gender,
+    allergies: user.allergies,
+    phys: user.phys,
+    psych: user.psych,
+    med: user.med,
+    type: user.type,
+  });
+
+  return json?.enrolled ?? [];
 }
 
-export async function getResearcherNumParticipants(user) {
-  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+// Gets list of all studies for researcher
+async function getResearcherStudies(user, setUser) {
+  const data = await fetch(`http://localhost:5000/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   });
   const json = await data.json();
-  if (!json) {
-    return 0;
-  }
-  return json.reduce((acc, obj) => acc + (obj?.participants?.length ?? 0), 0);
+  setUser({
+    username: user.username,
+    password: user.password,
+    name: user.name,
+    organization: user.organization,
+    studies: json.studies,
+    type: user.type,
+  });
+
+  return json?.studies ?? [];
 }
 
-export default {
-    userExists,
-    deleteUser,
-    getUserTags,
-    getUserInfo,
-    postUserInfo,
-    updateEnrolledUser,
-    updateUserInfo,
-    getEnrolledStudyIds,
-    getResearcherStudies,
-    getResearcherNumStudies, 
-    getResearcherNumParticipants,
-  };
+export {
+  userExists,
+  deleteUser,
+  getUserTags,
+  getUserInfo,
+  postUserInfo,
+  updateEnrolledUser,
+  updateUserInfo,
+  getEnrolledStudyIds,
+  getResearcherStudies,
+};
