@@ -9,7 +9,6 @@ const bcrypt = require('bcryptjs');
 const recordRoutes = express.Router();
 
 // Connect to DB
-const { ObjectId } = require('mongodb');
 const dbo = require('../db/conn');
 
 // Helps convert the id from string to ObjectId for the _id.

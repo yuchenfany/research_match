@@ -1,5 +1,4 @@
-/* eslint-disable */ 
-import { getUserTags } from '../modules/user-api';
+import { getUserTags } from './user-api';
 
 export async function addStudy(user, study, setStudy) {
   // finds maximum studyID in our collections
@@ -113,7 +112,10 @@ export async function deleteStudy(study) {
   await fetch(`http://localhost:5000/study/${study.studyId}`, {
     method: 'DELETE',
     body: null,
+  }).catch((e) => {
+    console.log(e);
   });
+  return true;
 }
 
 // for deleting a study: updates a researcher's study array
@@ -202,13 +204,13 @@ export async function closeStudy(bodyObj) {
 }
 
 export async function getStudyById(id) {
-    const data = await fetch(`http://localhost:5000/study/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return data.json();
+  const data = await fetch(`http://localhost:5000/study/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return data.json();
 }
 
 // gets a list of studies by tag
@@ -229,16 +231,15 @@ export async function getAllStudyJsonByTag(user, setUser) {
 }
 
 export async function updateEnrolledStudy(bodyObj) {
-    const studyId = bodyObj.studyId;
-    const data = await fetch('http://localhost:5000/study/${studyId}/enroll', {
-      method: 'POST',
-      body: JSON.stringify(bodyObj),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).catch((e) => { window.alert(e); });
+  const { studyId } = bodyObj;
+  await fetch(`http://localhost:5000/study/${studyId}/enroll`, {
+    method: 'POST',
+    body: JSON.stringify(bodyObj),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).catch((e) => { window.alert(e); });
 }
-
 
 export default {
   addStudy,
@@ -249,5 +250,5 @@ export default {
   removeStudyForParticipants,
   closeStudy,
   getStudyById,
-  updateEnrolledStudy, 
+  updateEnrolledStudy,
 };
