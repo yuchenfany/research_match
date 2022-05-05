@@ -1,15 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import React, { useState, useEffect} from 'react';
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import  { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './components/Login'
-import ParticipantHome from './components/ParticipantHome'
-import ParticipantEdit from './components/ParticipantEdit'
-import ResearcherEdit from './components/ResearcherEdit'
-import ParticipantStudies from './components/ParticipantStudies'
-import Study from './components/Study'
-import DeleteAccount from './components/DeleteAccount'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Login from './components/Login';
+import ParticipantHome from './components/ParticipantHome';
+import ParticipantEdit from './components/ParticipantEdit';
+import ResearcherEdit from './components/ResearcherEdit';
+import ParticipantStudies from './components/ParticipantStudies';
+import Study from './components/Study';
+import DeleteAccount from './components/DeleteAccount';
 
 /* REFERENCE CODE
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,7 +29,7 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-} */ 
+} */
 
 const Stack = createNativeStackNavigator();
 
@@ -38,7 +37,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />  
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
         <Stack.Screen name="ParticipantEdit" component={ParticipantEdit} />
         <Stack.Screen name="ParticipantStudies" component={ParticipantStudies} />

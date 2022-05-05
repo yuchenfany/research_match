@@ -2,14 +2,14 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import React, { useEffect, useState } from 'react';
-import { View, Button, Text } from 'react-native';
+import {
+  View, Button, Text, StyleSheet,
+} from 'react-native';
 import NavBar from './NavBar';
 
 function Study({ route, navigation }) {
-  let { user, setUser, studyId } = route.params;
-
-  // Hardcoded:
-  const [study, setStudy] = useState({ studyId: studyId });
+  const { user, setUser, studyId } = route.params;
+  const [study, setStudy] = useState({ studyId });
   const [status, setStatus] = useState({ isEnrolled: false });
 
   async function getUserStudies() {
@@ -148,36 +148,85 @@ function Study({ route, navigation }) {
     dropUpdateStudy().then(dropUpdateUser());
   }
 
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+      padding: 20,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      marginBottom: 20,
+      color: '#103143',
+    },
+    subheader: {
+      fontSize: 16,
+      lineHeight: 40,
+      fontWeight: 500,
+      color: '#103143',
+      marginLeft: 0,
+      marginTop: 20,
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+    studyDescription: {
+      marginBottom: 10,
+    },
+  });
+
   return (
-    <View>
+    <View style={styles.container}>
       <NavBar user={user} setUser={setUser} navigation={navigation} />
       <View>
-        <Text>
-          {study?.title ?? ''}
-        </Text>
-        <Text>
-          Duration:
-          {study?.duration ?? ''}
-        </Text>
-        <Text>
-          Compensation:
-          {study?.compensation ?? ''}
-        </Text>
-        <Text> Researcher names: {study?.researchers ?? ''} </Text>
-        {status.isEnrolled
-          ? <Button title="DROP" type="button" onPress={() => drop()} />
-          : <Button title="ENROLL" type="button" onPress={() => enroll()} />}
-        <Text> Description </Text>
-        <Text>
+        <View style={styles.studyDescription}>
+          <Text style={styles.header}>
+            {study?.title ?? ''}
+          </Text>
+          <Text color="#103143">
+            Duration:
+            <Text>{' '}</Text>
+            {study?.duration ?? ''}
+          </Text>
+          <Text color="#103143">
+            Compensation:
+            <Text>{' '}</Text>
+            {study?.compensation ?? ''}
+          </Text>
+          <Text color="#103143">
+            Researcher names:
+            <Text>{' '}</Text>
+            {study?.researchers ?? ''}
+          </Text>
+        </View>
+        <View style={styles.button}>
+          {status.isEnrolled
+            ? <Button title="DROP" type="button" color="#103143" onPress={() => drop()} />
+            : <Button title="ENROLL" type="button" color="#103143" onPress={() => enroll()} />}
+        </View>
+        <Text style={styles.subheader}>Description</Text>
+        <Text style={styles.studyDescription}>
           {study?.description}
         </Text>
-          <Text>Message Researcher</Text>
-          <Button title="MESSAGE RESEARCHER" type="button" key={2} 
-          onPress={() => navigation.navigate('Chat', {
-            sender: user,
-            receiverName: study?.researchers ?? 'receiverUsername',
-          })} 
+        <View style={styles.button}>
+          <Button
+            title="MESSAGE RESEARCHER"
+            color="#103143"
+            type="button"
+            key={2}
+            onPress={() => navigation.navigate('Chat', {
+              sender: user,
+              receiverName: study?.researchers ?? 'receiverUsername',
+            })}
           />
+        </View>
       </View>
     </View>
   );

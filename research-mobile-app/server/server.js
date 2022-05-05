@@ -13,6 +13,7 @@ app.use(require('./routes/chats'));
 // get driver connection
 const dbo = require('./db/conn');
 
+/* eslint-disable */
 app.listen(port, () => {
   // perform a database connection when server starts
   // dbo.connectToServer(function (err) {

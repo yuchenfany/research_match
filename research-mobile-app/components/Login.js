@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import {
+  StyleSheet, View, Text, TextInput, Button,
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import bcrypt from 'bcryptjs';
 import ParticipantHome from './ParticipantHome';
 import ParticipantStudies from './ParticipantStudies';
-import Study from './Study'
+import Study from './Study';
 import ResearcherHome from './ResearcherHome';
 import ParticipantEdit from './ParticipantEdit';
 import ResearcherEdit from './ResearcherEdit';
@@ -15,10 +19,6 @@ import EditStudy from './EditStudy';
 import DeleteAccount from './DeleteAccount';
 import Messages from './Messages';
 import Chat from './Chat';
-
-import { NavigationContainer } from '@react-navigation/native';
-import  { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 
 function Login({ navigation }) {
   const [study, setStudy] = useState({
@@ -35,7 +35,7 @@ function Login({ navigation }) {
     psych: [],
     med: [],
     studies: [],
-    type: 0
+    type: 0,
   });
 
   let jsonResult = '';
@@ -73,7 +73,6 @@ function Login({ navigation }) {
     if (json === null) {
       setError({ message: 'User does not exist' });
       event.preventDefault();
-    //  } else if (bcrypt.compareSync(user.password, json.password)) { : CHANGE LATER 
     } else if (bcrypt.compareSync(user.password, json.password)) {
       jsonResult = json;
 
@@ -96,9 +95,13 @@ function Login({ navigation }) {
           type: json.type,
         };
         setUser(updatedUser);
-
-        return 0;
-      } else if (json.type === 1) {
+        navigation.navigate('ParticipantHome', {
+          user: jsonResult,
+          setUser,
+          setStudy,
+        });
+      }
+      if (json.type === 1) {
         // makes sure all fields are available in home
         const updatedUser = {
           username: json.username,
@@ -109,8 +112,13 @@ function Login({ navigation }) {
           type: json.type,
           title: json.title,
         };
-
-        return 1;
+        setUser(updatedUser);
+        navigation.navigate('ResearcherHome', {
+          user: jsonResult,
+          setUser,
+          setStudy,
+          study,
+        });
       }
     } else {
       setError({ message: 'Incorrect password' });
@@ -139,27 +147,28 @@ function Login({ navigation }) {
     );
   };
 
-  const navigateTo = (type) => {
-    if (type === 0) {
-      navigation.navigate('ParticipantHome', {
-        user: jsonResult,
-        setUser: setUser,
-        setStudy: setStudy,
-      });
-    } else if (type === 1) {
-      navigation.navigate('ResearcherHome', {
-        user: jsonResult,
-        setUser: setUser,
-        setStudy: setStudy,
-      });
-    }
-  };
+  // const navigateTo = (type) => {
+  //   if (type === 0) {
+  //     navigation.navigate('ParticipantHome', {
+  //       user: jsonResult,
+  //       setUser,
+  //       setStudy,
+  //     });
+  //   } else if (type === 1) {
+  //     navigation.navigate('ResearcherHome', {
+  //       user: jsonResult,
+  //       setUser,
+  //       setStudy,
+  //       study,
+  //     });
+  //   }
+  // };
 
   const handleAsync = async (event) => {
     event.preventDefault();
     // handleNameChangePassword(event).then(handleNameChange(event)).then(handleSubmit(event));
-    const type = await handleSubmit(event);
-    setTimeout(1000, navigateTo(type));
+    await handleSubmit(event);
+    // setTimeout(1000, navigateTo(type));
   };
 
   const styles = StyleSheet.create({
@@ -218,7 +227,7 @@ function Login({ navigation }) {
         <TextInput style={styles.inputField} type="text" id="username" onChange={handleNameChangePassword} />
         <Text style={styles.errorMessage}>{error.message}</Text>
         <View style={styles.button}>
-          <Button type="submit" color='#103143' title="SUBMIT" onPress={handleAsync} />
+          <Button type="submit" color="#103143" title="SUBMIT" onPress={handleAsync} />
         </View>
       </View>
     </View>
@@ -231,7 +240,7 @@ function Login({ navigation }) {
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer independent={true}>
+    <NavigationContainer independent>
       <Stack.Navigator initialRouteName="Research Application">
         <Stack.Screen name="Research Application" component={Login} />
         <Stack.Screen name="ParticipantHome" component={ParticipantHome} />
@@ -249,6 +258,5 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-
 }
 // export default Login;

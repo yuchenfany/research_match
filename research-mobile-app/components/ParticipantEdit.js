@@ -1,45 +1,43 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
-import React, { useState, useEffect } from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
-// import NavBar from './NavBar';
+import React, { useState } from 'react';
+import {
+  View, Button, Text, TextInput, StyleSheet,
+} from 'react-native';
+// import DropDownPicker from 'react-native-dropdown-picker';
+import NavBar from './NavBar';
 
 function ParticipantEdit({ route, navigation }) { // add props user
-  let {user, setUser} = route.params;
-  console.log('PARTICIPANT EDIT === = ====');
-  console.log(user.phys);
-  console.log(user.password);
-  
-  const[tempUser, setTempUser] = useState({
-      username: user.username,
-      password: user.password,
-      age: user.age,
-      enrolled: user.enrolled,
-      age: user.age,
-      heightFeet: user.heightFeet,
-      heightInches: user.heightInches,
-      weight: user.weight,
-      sex: user.sex,
-      gender: user.gender,
-      allergies: user.allergies,
-      phys: user.phys,
-      psych: user.psych,
-      med: user.med,
-      type: user.type,
-    }
-  );
-  const [ageErr, setAgeErr] = useState({ message: '' });
-  const [feetErr, setFeetErr] = useState({ message: '' });
-  const [inchErr, setInchErr] = useState({ message: '' });
-  const [weightErr, setWeightErr] = useState({ message: '' });
-  const [sexErr, setSexErr] = useState({ message: '' });
-  const [genderErr, setGenderErr] = useState({ message: '' });
-  const [allergErr, setAllergErr] = useState({ message: '' });
-  const [physErr, setPhysErr] = useState({ message: '' });
-  const [psychErr, setPsychErr] = useState({ message: '' });
-  const [medErr, setMedErr] = useState({ message: '' });
+  const { user, setUser } = route.params;
+
+  const [tempUser, setTempUser] = useState({
+    username: user.username,
+    password: user.password,
+    age: user.age,
+    enrolled: user.enrolled,
+    heightFeet: user.heightFeet,
+    heightInches: user.heightInches,
+    weight: user.weight,
+    sex: user.sex,
+    gender: user.gender,
+    allergies: user.allergies,
+    phys: user.phys,
+    psych: user.psych,
+    med: user.med,
+    type: user.type,
+  });
+
+  // const [ageErr, setAgeErr] = useState({ message: '' });
+  // const [feetErr, setFeetErr] = useState({ message: '' });
+  // const [inchErr, setInchErr] = useState({ message: '' });
+  // const [weightErr, setWeightErr] = useState({ message: '' });
+  // const [sexErr, setSexErr] = useState({ message: '' });
+  // const [genderErr, setGenderErr] = useState({ message: '' });
+  // const [allergErr, setAllergErr] = useState({ message: '' });
+  // const [physErr, setPhysErr] = useState({ message: '' });
+  // const [psychErr, setPsychErr] = useState({ message: '' });
+  // const [medErr, setMedErr] = useState({ message: '' });
 
   const updateAge = async (event) => {
     await setTempUser({
@@ -59,7 +57,6 @@ function ParticipantEdit({ route, navigation }) { // add props user
       type: tempUser.type,
     });
   };
-
 
   const updateHeightFeet = async (event) => {
     await setTempUser({
@@ -119,8 +116,6 @@ function ParticipantEdit({ route, navigation }) { // add props user
   };
 
   const updateBioSex = async (value) => {
-    console.log('BIO SEx UPDATE');
-    console.log(value);
     await setTempUser({
       username: tempUser.username,
       password: tempUser.password,
@@ -128,7 +123,7 @@ function ParticipantEdit({ route, navigation }) { // add props user
       enrolled: tempUser.enrolled,
       heightFeet: tempUser.heightFeet,
       heightInches: tempUser.heightInches,
-      weight:  tempUser.weight,
+      weight: tempUser.weight,
       sex: value,
       gender: tempUser.gender,
       allergies: tempUser.allergies,
@@ -138,11 +133,9 @@ function ParticipantEdit({ route, navigation }) { // add props user
       type: tempUser.type,
     });
   };
-  const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
+  // const isValidInput = (input) => !(input.length === 0 || !input.match(/^[0-9]+$/));
 
   async function handleUpdate(event) {
-    console.log('=============HANDLE UPDATE REACHED=============');
-
     // if (!isValidInput(user.age) || !isValidInput(user.weight) || !isValidInput(user.heightFeet)
     // || !isValidInput(user.heightInches)) {
     //   if (!isValidInput(user.age)) {
@@ -174,133 +167,191 @@ function ParticipantEdit({ route, navigation }) { // add props user
     //   return;
     // }
 
+    async function postUserInfo() {
+      // console.log(JSON.stringify(tempUser));
+      await fetch(`http://localhost:5000/record/participant-edit/${tempUser.username}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tempUser),
+      })
+        .catch((e) => {
+          throw new Error(e);
+        });
+      return true;
+    }
 
     if (await postUserInfo()) {
-        await setUser(tempUser);
-
-        navigation.navigate('ParticipantHome', {
-            user: tempUser,
-            setUser,
-          });    
+      await setUser(tempUser);
+      navigation.navigate('ParticipantHome', {
+        user: tempUser,
+        setUser,
+      });
     } else {
       event.preventDefault();
     }
   }
 
-  async function postUserInfo() {
-    console.log('TEMP USER LOG');
-    // console.log(JSON.stringify(tempUser));
-    await fetch(`http://localhost:5000/record/participant-edit/${tempUser.username}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(tempUser),
-    })
-      .catch((e) => {
-        window.alert(e);
-      });
+  //   useEffect(() => {
+  //     getAllStudyJson()
+  //       .then(setEnrolledStudies);
+  //   }, []);
 
-    return true;
-  }
+  //   function goToStudy(studyId) {
+  //     console.log(studyId);
+  //     setStudy({ studyId });
+  //     navigate(`/study/${studyId}`);
+  //   }
 
-//   useEffect(() => {
-//     getAllStudyJson()
-//       .then(setEnrolledStudies);
-//   }, []);
-
-//   function goToStudy(studyId) {
-//     console.log(studyId);
-//     setStudy({ studyId });
-//     navigate(`/study/${studyId}`);
-//   }
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+      padding: 20,
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      color: '#103143',
+    },
+    subheader: {
+      fontSize: 16,
+      lineHeight: 40,
+      fontWeight: 500,
+      color: '#103143',
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 20,
+    },
+    inputField: {
+      width: 40,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginRight: 5,
+      marginBottom: 10,
+      borderRadius: 3,
+      color: '#103143',
+    },
+    heightInput: {
+      width: 40,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginRight: 5,
+      marginLeft: 5,
+      marginBottom: 10,
+      borderRadius: 3,
+      color: '#103143',
+    },
+    inputView: {
+      display: 'flex',
+      flexDirection: 'row',
+    },
+  });
 
   return (
-    <View>
-        <Text>EDIT PROFILE</Text>
-        <View>
-          <div>Age</div>
-          <input
-            className="small-input"
-            type="text"
-            id="age"
-            defaultValue={user.age}
-            onChange={updateAge}
-          />
-          <span className="error-message">{ageErr.message}</span>
-          <div>Height</div>
-          <input
-            className="small-input"
+    <View style={styles.container}>
+      <NavBar user={user} setUser={setUser} navigation={navigation} />
+      <Text style={styles.header}>Edit Profile</Text>
+      <View>
+        <Text style={styles.subheader}>Age</Text>
+        <TextInput
+          style={styles.inputField}
+          type="text"
+          id="age"
+          defaultValue={user.age}
+          onChange={updateAge}
+        />
+        {/* <span className="error-message">{ageErr.message}</span> */}
+        <Text style={styles.subheader}>Height</Text>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.inputField}
             type="text"
             id="age"
             defaultValue={user.heightFeet}
             onChange={updateHeightFeet}
           />
-          <div>ft</div>
-          <span className="error-message">{feetErr.message}</span>
-          <input
-            className="small-input"
+          <Text color="#103143">ft</Text>
+          {/* <span className="error-message">{feetErr.message}</span> */}
+          <TextInput
+            style={styles.heightInput}
             type="text"
             id="age"
             defaultValue={user.heightInches}
             onChange={updateHeightInches}
           />
-          <div>in</div>
-          <span className="error-message">{inchErr.message}</span>
-          <div>Weight</div>
-          <input
-            className="small-input"
+          <Text color="#103143" marginLeft="10">in</Text>
+        </View>
+        {/* <span className="error-message">{inchErr.message}</span> */}
+        <Text style={styles.subheader}>Weight</Text>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.inputField}
             type="text"
             id="age"
             defaultValue={user.weight}
             onChange={updateWeight}
           />
-          <div>lbs</div>
-          <span className="error-message">{weightErr.message}</span>
-          <div>Biological Sex</div>
-          <label htmlFor="form" className="radio-option">
-            <input
-              type="radio"
-              id="male"
-              value="male"
-              name="option"
-              defaultChecked={(user.sex === 'male') ? 'checked' : ''}
-              onClick={() => updateBioSex('male')}
-            />
-            <div>Male</div>
-          </label>
-          <label htmlFor="form" className="radio-option">
-            <input
-              type="radio"
-              id="female"
-              value="female"
-              name="option"
-              defaultChecked={(user.sex === 'female') ? 'checked' : ''}
-              onClick={() => updateBioSex('female')}
-            />
-            <div>Female</div>
-          </label>
-          <label htmlFor="form" className="radio-option">
-            <input
-              type="radio"
-              id="intersex"
-              value="intersex"
-              name="option"
-              defaultChecked={(user.sex === 'intersex') ? 'checked' : ''}
-              onClick={() => updateBioSex('intersex')}
-            />
-            <div>Intersex</div>
-          </label>
-          {/* <DropDownPicker
+          <Text color="#103143" marginLeft="10">lbs</Text>
+        </View>
+        {/* <span className="error-message">{weightErr.message}</span> */}
+        <Text style={styles.subheader}>Biological Sex</Text>
+        <label htmlFor="form" className="radio-option">
+          <input
+            type="radio"
+            id="male"
+            value="male"
+            name="option"
+            defaultChecked={(user.sex === 'male') ? 'checked' : ''}
+            onClick={() => updateBioSex('male')}
+          />
+          <Text color="#103143">Male</Text>
+        </label>
+        <label htmlFor="form" className="radio-option">
+          <input
+            type="radio"
+            id="female"
+            value="female"
+            name="option"
+            defaultChecked={(user.sex === 'female') ? 'checked' : ''}
+            onClick={() => updateBioSex('female')}
+          />
+          <Text color="#103143">Female</Text>
+        </label>
+        <label htmlFor="form" className="radio-option">
+          <input
+            type="radio"
+            id="intersex"
+            value="intersex"
+            name="option"
+            defaultChecked={(user.sex === 'intersex') ? 'checked' : ''}
+            onClick={() => updateBioSex('intersex')}
+          />
+          <Text color="#103143">Intersex</Text>
+        </label>
+        {/* <DropDownPicker
             items={[{label: 'Apple', value: 'apple'}, {label: 'Banana', value: 'banana'}]}
             defaultValue="item1"
             containerStyle={{height: 40}}
             style={{backgroundColor: '#BBEFEB'}}
             dropDownStyle={{backgroundColor: '#BBEFEB'}}
           /> */}
-        </View>
-        {/* <div className="spacer"></div> */}
-        <Button title="UPDATE" onPress={() => handleUpdate()}/>
+      </View>
+      {/* <div className="spacer"></div> */}
+      <View style={styles.button}>
+        <Button title="UPDATE" color="#103143" onPress={() => handleUpdate()} />
+      </View>
     </View>
   );
 }
