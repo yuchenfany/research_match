@@ -32,6 +32,7 @@ jobs:
           cache: 'npm'
       
   # Runs a single command using the runners shell
+      - run: cd research-app
       - run: npm install
       - run: npm run lint
       - run: npm run test
