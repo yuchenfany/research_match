@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text } from 'react-native';
-import NavBar from './NavBar';
+import {
+  StyleSheet, Text, View, ScrollView, TextInput, Button,
+} from 'react-native';
 
-function Chat({ route, navigation }) {
-  let {
-    sender, receiverName
+function Chat({ route }) {
+  const {
+    sender, receiverName,
   } = route.params;
   const [message, setMessage] = useState('');
   const [file, setFile] = useState();
@@ -38,8 +39,6 @@ function Chat({ route, navigation }) {
     }
     const attachment = event.target.files[0];
 
-    console.log(attachment);
-
     const reader = new FileReader();
     reader.onload = () => {
       setFile(reader.result);
@@ -54,13 +53,11 @@ function Chat({ route, navigation }) {
 
   async function reloadMessages() {
     if (!nIntervId) {
-      console.log('reloadMessages is called!');
       nIntervId = setInterval(messageRetrieval, 1000);
     }
   }
 
   useEffect(() => {
-    console.log('===== USE EFFECT IS CALLED =====');
     reloadMessages();
   }, []);
 
@@ -114,11 +111,95 @@ function Chat({ route, navigation }) {
   };
 
   const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#F3F8FA',
+      flex: 1,
+    },
+    headerContainer: {
+      position: 'sticky',
+      top: 0,
+      borderBottomWidth: 1,
+      borderBottomColor: '#808A8F',
+      height: 100,
+      backgroundColor: '#F3F8FA',
+      zIndex: 1,
+    },
+    innerContainer: {
+      padding: 20,
+    },
+    chatContainer: {
+      position: 'sticky',
+      zIndex: 1,
+      backgroundColor: '#F3F8FA',
+      height: 100,
+      bottom: 0,
+      paddingTop: 20,
+      paddingLeft: 20,
+      borderTopWidth: 1,
+      borderTopColor: '#808A8F',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    header: {
+      fontSize: 20,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginTop: 30,
+      marginLeft: 20,
+      color: '#103143',
+    },
+    subheader: {
+      fontSize: 16,
+      lineHeight: 40,
+      fontWeight: 500,
+      marginBottom: 20,
+      color: '#103143',
+    },
+    studyCard: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderRadius: 5,
+      borderWidth: 1,
+      paddingTop: 10,
+      paddingBottom: 18,
+      paddingRight: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+      width: 500,
+    },
+    button: {
+      width: 275,
+      height: 35,
+      fontSize: 12,
+      letterSpacing: 1,
+      marginTop: 10,
+    },
+    viewButton: {
+      right: 0,
+      width: 100,
+      height: -10,
+      fontSize: 10,
+      letterSpacing: 1,
+      marginLeft: 'auto',
+    },
     senderChat: {
       color: 'blue',
     },
     receiverChat: {
       color: 'red',
+    },
+    inputField: {
+      width: 500,
+      height: 27,
+      backgroundColor: '#F9FFFE',
+      borderColor: '#808A8F',
+      borderWidth: 1,
+      marginBottom: 10,
+      marginRight: 10,
+      borderRadius: 3,
+      color: '#103143',
     },
   });
 
@@ -130,12 +211,14 @@ function Chat({ route, navigation }) {
           : chats.map(
             (entry) => (
               <div>
-                <p className="chat-timestamp">
+                <Text color="#103143">
                   {
                     `${(new Date(entry.timestamp)).getMonth()}/${(new Date(entry.timestamp)).getDate()}/22 ${(new Date(entry.timestamp)).toLocaleTimeString('en-US')}`
                   }
-                </p>
+                </Text>
+                <Text>{': '}</Text>
                 <Text
+                  color="#103143"
                   key={entry.timestamp}
                   style={entry.sender === sender.username ? styles.senderChat : styles.receiverChat}
                 >
@@ -151,28 +234,30 @@ function Chat({ route, navigation }) {
   );
 
   return (
-    <div>
-      <header>
-        <h1>{receiverName}</h1> 
-      </header>
-      { chatsDisplay }
-      <div className="chat-input-container">
-        <input
-          className="chat-input-field"
+    <ScrollView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>{receiverName}</Text>
+      </View>
+      <View style={styles.innerContainer}>
+        { chatsDisplay }
+      </View>
+      <View style={styles.chatContainer}>
+        <TextInput
+          style={styles.inputField}
           type="text"
           id="chat-message"
           value={message}
           onChange={handleMessageChange}
         />
-        <button className="view-button" type="submit" onClick={handleSubmit}>SEND</button>
         <input
           type="file"
           id="chat-attachment"
           accept="image/png, image/jpeg, audio/*, video/*"
           onChange={handleFile}
         />
-      </div>
-    </div>
+        <Button style={styles.viewButton} type="submit" title="SEND" color="#103143" onPress={(e) => handleSubmit(e)} />
+      </View>
+    </ScrollView>
   );
 }
 
