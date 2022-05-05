@@ -1,5 +1,5 @@
-/* MESSAGING */
-export async function getMessages(sender, receiverName) {
+// Gets all the messages the user has set or received
+async function getMessages(sender, receiverName) {
   const userField = sender.type === 0 ? sender.username : receiverName;
   const researcher = sender.type === 1 ? sender.username : receiverName;
   const data = await fetch(`http://localhost:5000/chats/get/${userField}/${researcher}`, {
@@ -12,8 +12,8 @@ export async function getMessages(sender, receiverName) {
   return json?.messages ?? []; // returns messages array
 }
 
-// gets number of messages that user has received
-export async function getNumMessages(sender) {
+// Gets number of messages that user has received
+async function getNumMessages(sender) {
   const data = await fetch(`http://localhost:5000/chats/getNumMessages/${sender.username}`, {
     method: 'GET',
     headers: {
@@ -25,7 +25,7 @@ export async function getNumMessages(sender) {
   return messageCounts[0]?.messages;
 }
 
-export async function updateNumberOfMessages(sender, setSender, setNotification, user, setUser) {
+async function updateNumberOfMessages(sender, setSender, setNotification, user, setUser) {
   const newNumMessages = await getNumMessages(sender);
   if (sender.messages === newNumMessages) {
     setNotification(false);
@@ -45,7 +45,7 @@ export async function updateNumberOfMessages(sender, setSender, setNotification,
   });
 }
 
-export async function getChats(user) {
+async function getChats(user) {
   const allChats = await fetch(
     `http://localhost:5000/chats?senderName=${user.username}&senderType=${user.type}`,
     {
@@ -59,7 +59,7 @@ export async function getChats(user) {
   return data;
 }
 
-export async function getNumMessagesSent(user) {
+async function getNumMessagesSent(user) {
   const data = await fetch(`http://localhost:5000/chats/getNumMessagesSent/${user.username}`, {
     method: 'GET',
     headers: {
@@ -71,6 +71,6 @@ export async function getNumMessagesSent(user) {
   return messageCounts[0]?.messages;
 }
 
-export default {
-  getMessages, getNumMessages, updateNumberOfMessages, getChats,
+export {
+  getMessages, getNumMessages, updateNumberOfMessages, getChats, getNumMessagesSent,
 };
