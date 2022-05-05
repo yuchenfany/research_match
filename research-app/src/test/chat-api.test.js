@@ -2,6 +2,8 @@
 import { test, expect, beforeEach } from '@jest/globals';
 import api from '../modules/chat-api';
 
+require('jest-fetch-mock').enableMocks();
+
 beforeEach(() => {
   fetch.resetMocks();
 });

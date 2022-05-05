@@ -38,6 +38,9 @@ messageRoutes.route('/chats').get((req, res) => {
     .find(query)
     .toArray((err, result) => {
       if (err) throw err;
+      if (!result || result.length === 0) {
+        return res.status(404);
+      }
       res.json(result);
     });
 });

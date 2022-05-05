@@ -1,6 +1,9 @@
 import { test, expect, beforeEach } from '@jest/globals';
 import api from '../modules/user-api';
 
+require('jest-fetch-mock').enableMocks();
+
+
 beforeEach(() => {
   fetch.resetMocks();
 });
@@ -152,30 +155,4 @@ test('get researcher study ids', async () => {
   expect(res).toContain(2);
   expect(res).toContain(3);
   expect(res).toContain(5);
-});
-
-test('get researcher number of studies', async () => {
-  fetch.mockResponseOnce(JSON.stringify([2, 3, 5]));
-  const res = await api.getResearcherNumStudies(testResearcher);
-  expect(res).toEqual(3);
-});
-
-test('get researcher number of participants', async () => {
-  fetch.mockResponseOnce(
-    JSON.stringify(
-      [
-        { participants: ['a', 'b'] },
-        { participants: ['a', 'b', 'c'] },
-        { participants: ['a', 'b', 'c', 'd', 'e'] },
-      ],
-    ),
-  );
-  const res = await api.getResearcherNumParticipants(testResearcher);
-  expect(res).toEqual(10);
-});
-
-test('get researcher number of participants no studies', async () => {
-  fetch.mockResponseOnce(JSON.stringify(null));
-  const res = await api.getResearcherNumParticipants(testResearcher);
-  expect(res).toEqual(0);
 });

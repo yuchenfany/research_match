@@ -191,6 +191,7 @@ async function removeStudyForParticipants(study, participants) {
       },
     ),
   );
+  return true;
 }
 
 async function closeStudy(bodyObj) {
@@ -239,6 +240,7 @@ async function updateEnrolledStudy(bodyObj) {
       'Content-Type': 'application/json',
     },
   }).catch((e) => { console.log(e); });
+  return true;
 }
 
 async function getResearcherNumStudies(user) {

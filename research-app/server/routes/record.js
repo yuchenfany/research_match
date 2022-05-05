@@ -247,35 +247,6 @@ recordRoutes.route('/record/add-to-user-array').post((req, response) => {
       response.json(res);
     });
 });
-// Update user info PUT method
-// recordRoutes.route("/update/:id").post(function (req, response) {
-//   let dbConnect = dbo.getDb();
-//   let myquery = { username: ObjectId( req.params.id )};
-//   let newvalues = {
-//     $set: {
-//       username: req.body.username,
-//       password: req.body.password,
-//     },
-//   };
-//   dbConnect
-//     .collection("records")
-//     .updateOne(myquery, function (err, res) {
-//       if (err) throw err;
-//       console.log("1 document updated");
-//       response.json(res);
-//     });
-// });
-
-// Delete user DELETE method
-// recordRoutes.route("/:id").delete((req, response) => {
-//   let dbConnect = dbo.getDb();
-//   let myquery = { _id: ObjectId( req.params.id )};
-//   dbConnect.collection("records").deleteOne(myquery, function (err, obj) {
-//     if (err) throw err;
-//     console.log("1 document deleted");
-//     response.json(obj);
-//   });
-// });
 
 recordRoutes.route('/record/delete/:id').delete((req, response) => {
   const dbConnect = dbo.getDb();
@@ -298,6 +269,7 @@ recordRoutes.route('/record/updateMessages').post((req, response) => {
   const dbConnect = dbo.getDb();
   dbConnect.collection('user-info').updateOne(myquery, newvalues, (err, res) => {
     if (err) throw err;
+    console.log(res);
     response.json(res);
   });
 });
