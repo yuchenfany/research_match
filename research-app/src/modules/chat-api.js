@@ -21,7 +21,9 @@ async function getNumMessages(sender) {
     },
   });
   const json = await data.json();
-  const messageCounts = json ?? [0];
+  const messageCounts = !json || (json?.length ?? 0) === 0 ? [{ messages: 0 }] : json;
+  console.log('in getnummessages');
+  console.log(messageCounts[0]?.messages);
   return messageCounts[0]?.messages;
 }
 

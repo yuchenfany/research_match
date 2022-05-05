@@ -31,9 +31,14 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
       setShowPopup(!showPopup);
     }
   }, []);
-  
+  const bg = {
+    overlay: {
+      background: "#339933"
+    }
+  };
   const renderNotification = () => (
     <Popup
+      styles = {bg}
       open={notificationRH}
       modal
       nested
@@ -52,13 +57,13 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   );
 
   async function checkNotifications() {
+    console.log(user.messages);
     getNumMessages(user).then(
       (num) => {
-        // console.log(num);
-        // console.log(user.messages);
-        // setNotificationDS(num !== user.messages);
+        console.log(num);
+        console.log(user.messages);
         setNotificationRH(num !== user.messages);
-        // console.log(notificationDS);
+        console.log(notificationRH);
       },
     );
   }
