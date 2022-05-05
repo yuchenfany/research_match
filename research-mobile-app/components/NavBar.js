@@ -7,11 +7,6 @@ import {
 
 function NavBar({ user, setUser, navigation }) {
   const [accountToggled, setAccountToggled] = useState(false);
-  const editProfile = () => {
-    // store current state in case of 'Cancel'
-    // localStorage.setItem(user.username, JSON.stringify(user));
-    // navigate(`/${(user.type ?? 0) === 0 ? 'participant' : 'researcher'}-edit`);
-  };
 
   const styles = StyleSheet.create({
     container: {
@@ -55,13 +50,6 @@ function NavBar({ user, setUser, navigation }) {
     <View
       style={{ display: accountToggled ? 'flex' : 'none', flexDirection: 'row' }}
     >
-      <View style={styles.optionButtons}>
-        <Button
-          title="EDIT PROFILE"
-          color="#103143"
-          onPress={editProfile}
-        />
-      </View>
       <View style={styles.optionButtons}>
         <Button
           title="DELETE ACCOUNT"

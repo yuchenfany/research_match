@@ -6,7 +6,7 @@ import { Button } from 'react-native'
 import NavBar from './NavBar';
 
 function Messages({ route, navigation }) {
-  let { user, setUser } = route.params;
+  const { user, setUser } = route.params;
   const [chatsList, setChatsList] = useState([]);
 
   async function getChats() {
