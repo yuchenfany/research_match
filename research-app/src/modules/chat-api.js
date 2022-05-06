@@ -1,8 +1,10 @@
+import config from '../config.json';
+
 // Gets all the messages the user has set or received
 async function getMessages(sender, receiverName) {
   const userField = sender.type === 0 ? sender.username : receiverName;
   const researcher = sender.type === 1 ? sender.username : receiverName;
-  const data = await fetch(`http://localhost:5000/chats/get/${userField}/${researcher}`, {
+  const data = await fetch(`http://${config.server_host}/chats/get/${userField}/${researcher}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +16,7 @@ async function getMessages(sender, receiverName) {
 
 // Gets number of messages that user has received
 async function getNumMessages(sender) {
-  const data = await fetch(`http://localhost:5000/chats/getNumMessages/${sender.username}`, {
+  const data = await fetch(`http://${config.server_host}/chats/getNumMessages/${sender.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -36,7 +38,7 @@ async function updateNumberOfMessages(sender, setSender, setNotification, user, 
   await setSender(updatedUser);
   await setNotification(false);
   await setUser(updatedUser);
-  await fetch('http://localhost:5000/record/updateMessages', {
+  await fetch(`http://${config.server_host}/record/updateMessages`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -47,7 +49,7 @@ async function updateNumberOfMessages(sender, setSender, setNotification, user, 
 
 async function getChats(user) {
   const allChats = await fetch(
-    `http://localhost:5000/chats?senderName=${user.username}&senderType=${user.type}`,
+    `http://${config.server_host}/chats?senderName=${user.username}&senderType=${user.type}`,
     {
       method: 'GET',
       headers: {
@@ -60,7 +62,7 @@ async function getChats(user) {
 }
 
 async function getNumMessagesSent(user) {
-  const data = await fetch(`http://localhost:5000/chats/getNumMessagesSent/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/chats/getNumMessagesSent/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

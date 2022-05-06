@@ -1,6 +1,8 @@
+import config from '../config.json';
+
 // Returns if a user exists in the DB
 async function userExists(user) {
-  return fetch(`http://localhost:5000/record/${user.username}`, {
+  return fetch(`http://${config.server_host}/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -18,7 +20,7 @@ async function userExists(user) {
 
 // Deletes a user from the DB
 async function deleteUser(user) {
-  return fetch(`http://localhost:5000/record/delete/${user.username}`, {
+  return fetch(`http://${config.server_host}/record/delete/${user.username}`, {
     method: 'delete',
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +31,7 @@ async function deleteUser(user) {
 
 // Gets list of studies that match user's tags
 async function getUserTags(user) {
-  const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -61,7 +63,7 @@ async function getUserTags(user) {
 
 // Gets the user object
 async function getUserInfo(user) {
-  const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -72,7 +74,7 @@ async function getUserInfo(user) {
 
 // Updates user to the have the contents of the passed-in body
 async function updateUserInfo(user) {
-  await fetch(`http://localhost:5000/record/participant-edit/${user.username}`, {
+  await fetch(`http://${config.server_host}/record/participant-edit/${user.username}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -89,7 +91,7 @@ async function updateUserInfo(user) {
 // Adds the studyId to the user's enrolled field
 async function updateEnrolledUser(studyId, bodyObj) {
   const { username } = bodyObj;
-  await fetch(`/record/enroll/${username}/${studyId}`, {
+  await fetch(`http://${config.server_host}/record/enroll/${username}/${studyId}`, {
     method: 'POST',
     body: JSON.stringify(bodyObj),
     headers: {
@@ -100,8 +102,7 @@ async function updateEnrolledUser(studyId, bodyObj) {
 
 // Adds a new user
 async function postUserInfo(user) {
-  console.log(user);
-  return fetch('http://localhost:5000/record/add', {
+  return fetch(`http://${config.server_host}/record/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -131,7 +132,7 @@ async function postResearcherInfo(user) {
 
 // Gets list of all enrolled studies for user
 async function getEnrolledStudyIds(user, setUser) {
-  const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -160,7 +161,7 @@ async function getEnrolledStudyIds(user, setUser) {
 
 // Gets list of all studies for researcher
 async function getResearcherStudies(user, setUser) {
-  const data = await fetch(`http://localhost:5000/record/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

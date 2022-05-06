@@ -1,0 +1,4 @@
+{
+    "server_host": "research-app-backend.herokuapp.com",
+    "server_port":"5000"
+}

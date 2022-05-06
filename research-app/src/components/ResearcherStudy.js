@@ -19,7 +19,6 @@ function ResearcherStudy({
 
   return (
     <div className="Study Page">
-      {/* <div className="nav">nav</div> */}
       <NavBar user={user} />
       <div className="study-flex">
         <div className="header-left">
@@ -33,7 +32,10 @@ function ResearcherStudy({
           Compensation:
           {study.compensation}
         </div>
-        {/* <div> Researcher names: [this is the researcherStudy page] </div> */}
+        <div>
+          Researcher names: &nbsp;
+          {study?.researchers}
+        </div>
         <button className="button" type="button" onClick={() => navigate('/edit-study')}>Edit Study</button>
         <div className="header-small"> Description </div>
         <div className="paragraph">
