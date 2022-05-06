@@ -100,7 +100,23 @@ async function updateEnrolledUser(studyId, bodyObj) {
 
 // Adds a new user
 async function postUserInfo(user) {
+  console.log(user);
   return fetch('http://localhost:5000/record/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  }).then(() => true)
+    .catch((e) => {
+      console.log(e);
+      return false;
+    });
+}
+
+async function postResearcherInfo(user) {
+  console.log(user);
+  return fetch('http://localhost:5000/record/add-researcher', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -169,6 +185,7 @@ export {
   getUserTags,
   getUserInfo,
   postUserInfo,
+  postResearcherInfo,
   updateEnrolledUser,
   updateUserInfo,
   getEnrolledStudyIds,

@@ -30,11 +30,7 @@ function App() {
   const [user, setUser] = useState({
     username: 'participant',
     password: 'participantpass',
-    enrolled: [],
-    phys: [],
-    psych: [],
-    med: [],
-    studies: [],
+    messages: 0,
   });
   // const [deleteUser, setUserDelete] =
   // useState({ username: 'testuser', password: 'testuserpassword' });

@@ -33,7 +33,7 @@ function ResearcherStudy({
           Compensation:
           {study.compensation}
         </div>
-        <div> Researcher names: [this is the researcherStudy page] </div>
+        {/* <div> Researcher names: [this is the researcherStudy page] </div> */}
         <button className="button" type="button" onClick={() => navigate('/edit-study')}>Edit Study</button>
         <div className="header-small"> Description </div>
         <div className="paragraph">
