@@ -12,6 +12,7 @@ function ResearcherEdit({ route, navigation }) {
   const [tempUser, setTempUser] = useState({
     username: user.username,
     password: user.password,
+    name: user.name,
     organization: user.organization,
     studies: user.studies,
     type: user.type,
