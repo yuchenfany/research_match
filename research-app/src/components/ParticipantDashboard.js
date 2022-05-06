@@ -56,7 +56,7 @@ function ParticipantDashboard({ user }) {
     ['TOTAL COMPENSATION EARNED', `$${totalCompensation}`],
     ['TOTAL ENROLLED STUDIES', `${numEnrolled} ${numEnrolled === 1 ? 'study' : 'studies'}`],
     ['TOTAL RECOMMENDED STUDIES', `${numRecommended} ${numRecommended === 1 ? 'study' : 'studies'}`],
-    ['TOTAL MESSAGES SENT', `${numMessages} ${numMessages === 1 ? 'message' : 'messages'}`],
+    ['TOTAL MESSAGES SENT', `${numMessages ?? 0} ${(numMessages ?? 0) === 1 ? 'message' : 'messages'}`],
   ].map(([name, content]) => (
     <div key={name} className="dash-card">
       <h4>{name}</h4>
