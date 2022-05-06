@@ -4,6 +4,7 @@ import React from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../assets/index.css';
+import NavBar from './NavBar';
 
 import {
   editStudy, deleteStudy, updateResearcherStudies, getStudyParticipants, removeStudyForParticipants,
@@ -160,6 +161,7 @@ function EditStudy({ user, study, setStudy }) {
 
   return (
     <div className="Profile">
+      <NavBar user={user} />
       <div className="profile-flex">
         <div className="header-left"> Edit Study </div>
         <div className="title-row">

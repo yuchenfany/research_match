@@ -34,10 +34,10 @@ function ResearcherDashboard({ user }) {
   }, []);
 
   const cards = [
-    ['TOTAL STUDIES', `${numStudies} ${numStudies === 1 ? 'study' : 'studies'}`],
-    ['TOTAL TAGS', `${numTags} ${numTags === 1 ? 'tag' : 'tags'}`],
-    ['TOTAL NUMBER OF PARTICIPANTS', `${numParticipants} ${numParticipants === 1 ? 'participant' : 'participant'}`],
-    ['TOTAL MESSAGES SENT', `${numMessages} ${numMessages === 1 ? 'message' : 'messages'}`],
+    ['TOTAL STUDIES', `${numStudies ?? 0} ${numStudies === 1 ? 'study' : 'studies'}`],
+    ['TOTAL TAGS', `${numTags ?? 0} ${numTags === 1 ? 'tag' : 'tags'}`],
+    ['TOTAL NUMBER OF PARTICIPANTS', `${numParticipants ?? 0} ${numParticipants === 1 ? 'participant' : 'participants'}`],
+    ['TOTAL MESSAGES SENT', `${numMessages ?? 0} ${numMessages === 1 ? 'message' : 'messages'}`],
   ].map(([name, content]) => (
     <div key={name} className="dash-card">
       <h4>{name}</h4>
