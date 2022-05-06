@@ -132,7 +132,6 @@ async function postUserInfo(user) {
 }
 
 async function postResearcherInfo(user) {
-  console.log(user);
   return fetch('http://localhost:5000/record/add-researcher', {
     method: 'POST',
     headers: {
