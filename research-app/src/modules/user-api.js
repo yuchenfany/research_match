@@ -88,6 +88,22 @@ async function updateUserInfo(user) {
   return true;
 }
 
+// Updates researcher to the have the contents of the passed-in body
+async function updateResearcherInfo(user) {
+  await fetch(`http://localhost:5000/record/researcher-edit/${user.username}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  })
+    .catch((e) => {
+      console.log(e);
+    });
+
+  return true;
+}
+
 // Adds the studyId to the user's enrolled field
 async function updateEnrolledUser(studyId, bodyObj) {
   const { username } = bodyObj;
@@ -189,6 +205,7 @@ export {
   postResearcherInfo,
   updateEnrolledUser,
   updateUserInfo,
+  updateResearcherInfo,
   getEnrolledStudyIds,
   getResearcherStudies,
 };
