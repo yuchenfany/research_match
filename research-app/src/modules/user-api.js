@@ -91,7 +91,7 @@ async function updateUserInfo(user) {
 // Adds the studyId to the user's enrolled field
 async function updateEnrolledUser(studyId, bodyObj) {
   const { username } = bodyObj;
-  await fetch(`/record/enroll/${username}/${studyId}`, {
+  await fetch(`http://${config.server_host}/record/enroll/${username}/${studyId}`, {
     method: 'POST',
     body: JSON.stringify(bodyObj),
     headers: {
