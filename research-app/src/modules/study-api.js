@@ -1,8 +1,9 @@
+import config from '../config.json';
 import { getUserTags } from './user-api';
 
 async function addStudy(user, study, setStudy) {
   // finds maximum studyID in our collections
-  const studyData = await fetch('http://localhost:5000/findMax', {
+  const studyData = await fetch(`http://${config.server_host}/findMax`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -12,7 +13,7 @@ async function addStudy(user, study, setStudy) {
   // sets next ID
   const Id = data[0].studyId + 1;
   // gets the userData
-  const userData = await fetch(`http://localhost:5000/record/${user.username}`, {
+  const userData = await fetch(`http://${config.server_host}/record/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ async function addStudy(user, study, setStudy) {
   };
 
   // Adds the new created study into the user's studies field
-  await fetch('http://localhost:5000/record/add-to-user-array', {
+  await fetch(`http://${config.server_host}/record/add-to-user-array`, {
     method: 'POST',
     body: JSON.stringify(updatedUser),
     headers: {
@@ -59,7 +60,7 @@ async function addStudy(user, study, setStudy) {
     researchers: user.name,
   };
   // creates a new study in the study collection
-  await fetch('http://localhost:5000/add-study', {
+  await fetch(`http://${config.server_host}/add-study`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ async function editStudy(study, setStudy) {
   };
 
   // edits the study
-  await fetch('http://localhost:5000/study/edit-study', {
+  await fetch(`http://${config.server_host}/study/edit-study`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -109,7 +110,7 @@ async function editStudy(study, setStudy) {
 }
 
 async function deleteStudy(study) {
-  await fetch(`http://localhost:5000/study/${study.studyId}`, {
+  await fetch(`http://${config.server_host}/study/${study.studyId}`, {
     method: 'DELETE',
     body: null,
   }).catch((e) => {
@@ -132,7 +133,7 @@ async function updateResearcherStudies(user, study) {
     title: user.title,
   };
 
-  await fetch(`http://localhost:5000/record/researcher-studies/${user.username}`, {
+  await fetch(`http://${config.server_host}/record/researcher-studies/${user.username}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -146,7 +147,7 @@ async function updateResearcherStudies(user, study) {
 }
 
 async function getStudyParticipants(study) {
-  const response = await fetch(`http://localhost:5000/study/${study.studyId}`, {
+  const response = await fetch(`http://${config.server_host}/study/${study.studyId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -157,7 +158,7 @@ async function getStudyParticipants(study) {
   const participants = await Promise.all(
     participantIds.map(
       async (id) => {
-        const participantData = await fetch(`http://localhost:5000/record/${id}`, {
+        const participantData = await fetch(`http://${config.server_host}/record/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -181,7 +182,7 @@ async function removeStudyForParticipants(study, participants) {
         const updatedStudies = participant.enrolled.filter((e) => e !== study.studyId) ?? [];
         const bodyObj = participant;
         bodyObj.enrolled = updatedStudies;
-        await fetch(`http://localhost:5000/record/participant-edit/${participant.username}`, {
+        await fetch(`http://${config.server_host}/record/participant-edit/${participant.username}`, {
           method: 'POST',
           body: JSON.stringify(bodyObj),
           headers: {
@@ -194,7 +195,7 @@ async function removeStudyForParticipants(study, participants) {
 }
 
 async function closeStudy(bodyObj) {
-  await fetch('http://localhost:5000/add-study', {
+  await fetch(`http://${config.server_host}/add-study`, {
     method: 'POST',
     body: JSON.stringify(bodyObj),
     headers: {
@@ -204,7 +205,7 @@ async function closeStudy(bodyObj) {
 }
 
 async function getStudyById(id) {
-  const data = await fetch(`http://localhost:5000/study/${id}`, {
+  const data = await fetch(`http://${config.server_host}/study/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -215,7 +216,7 @@ async function getStudyById(id) {
 
 // Gets a list of studies by tag
 async function getStudyByTag(tag) {
-  const data = await fetch(`http://localhost:5000/study/tag/${tag}`, {
+  const data = await fetch(`http://${config.server_host}/study/tag/${tag}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -232,7 +233,7 @@ async function getAllStudyJsonByTag(user, setUser) {
 
 async function updateEnrolledStudy(bodyObj) {
   const { studyId } = bodyObj;
-  await fetch(`http://localhost:5000/study/${studyId}/enroll`, {
+  await fetch(`http://${config.server_host}/study/${studyId}/enroll`, {
     method: 'POST',
     body: JSON.stringify(bodyObj),
     headers: {
@@ -242,7 +243,7 @@ async function updateEnrolledStudy(bodyObj) {
 }
 
 async function getResearcherNumStudies(user) {
-  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/study/researcher/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -253,7 +254,7 @@ async function getResearcherNumStudies(user) {
 }
 
 async function getResearcherNumParticipants(user) {
-  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/study/researcher/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -267,7 +268,7 @@ async function getResearcherNumParticipants(user) {
 }
 
 async function getResearcherNumTags(user) {
-  const data = await fetch(`http://localhost:5000/study/researcher/${user.username}`, {
+  const data = await fetch(`http://${config.server_host}/study/researcher/${user.username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
