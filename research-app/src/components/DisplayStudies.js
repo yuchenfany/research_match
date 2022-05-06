@@ -94,13 +94,6 @@ function DisplayStudies({
           }
         </div>
       </div>
-      <div className="study-flex">
-        <div className="header-left">For Testing Purposes: Delete Later</div>
-        <div className="study">
-          <div className="study-title">Sleep Research</div>
-          <button className="view-button" type="button" key={2} onClick={() => goToStudy(2)}>VIEW</button>
-        </div>
-      </div>
     </div>
   );
 }
