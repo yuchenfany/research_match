@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
+import config from '../config.json';
 
 import '../assets/index.css';
 import { getMessages, updateNumberOfMessages } from '../modules/chat-api';
@@ -71,7 +72,7 @@ function Chat({
       attachment: file,
     };
     setMessage('');
-    await fetch('http://localhost:5000/chats/send', {
+    await fetch(`http://${config.server_host}/chats/send`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

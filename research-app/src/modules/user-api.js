@@ -90,7 +90,7 @@ async function updateUserInfo(user) {
 
 // Updates researcher to the have the contents of the passed-in body
 async function updateResearcherInfo(user) {
-  await fetch(`http://localhost:5000/record/researcher-edit/${user.username}`, {
+  await fetch(`http://${config.server_host}0/record/researcher-edit/${user.username}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -132,7 +132,8 @@ async function postUserInfo(user) {
 }
 
 async function postResearcherInfo(user) {
-  return fetch('http://localhost:5000/record/add-researcher', {
+  console.log(user);
+  return fetch(`http://${config.server_host}/record/add-researcher`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
