@@ -5,7 +5,7 @@ import '../assets/index.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
-import { updateUserInfo } from '../modules/user-api';
+import { updateResearcherInfo } from '../modules/user-api';
 
 function ResearcherEdit({ user, setUser }) {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ function ResearcherEdit({ user, setUser }) {
       return;
     }
 
-    if (await updateUserInfo(user)) {
+    if (await updateResearcherInfo(user)) {
       navigate('/researcher-home');
     } else {
       event.preventDefault();
