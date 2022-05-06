@@ -36,5 +36,5 @@ jobs:
         working-directory: research-app
       - run: npm run lint
         working-directory: research-app
-      - run: npm run build -if-present
+      - run: npm test -- --coverage --watchAll
         working-directory: research-app

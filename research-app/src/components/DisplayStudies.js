@@ -44,7 +44,11 @@ function DisplayStudies({
   async function checkNotifications() {
     getNumMessages(user).then(
       (num) => {
-        setNotificationDS(num !== user.messages);
+        if (user.messages !== undefined) {
+          setNotificationDS(num !== user.messages);
+        } else {
+          setNotificationDS(false);
+        }
       },
     );
   }

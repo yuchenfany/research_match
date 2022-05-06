@@ -291,4 +291,19 @@ recordRoutes.route('/record/delete/:id').delete((req, response) => {
   });
 });
 
+// update the user's number of messages POST method
+recordRoutes.route('/record/updateMessages').post((req, response) => {
+  const myquery = { username: req.body.username };
+  const newvalues = {
+    $set: {
+      messages: req.body.messages,
+    },
+  };
+  const dbConnect = dbo.getDb();
+  dbConnect.collection('user-info').updateOne(myquery, newvalues, (err, res) => {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
 module.exports = recordRoutes;
