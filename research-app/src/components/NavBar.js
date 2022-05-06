@@ -57,7 +57,7 @@ function NavBar({ user, setUser }) {
       <button
         type="button"
         className="account-btn"
-        onClick={async () => { navigate('/delete-account', { user, setUser }); }}
+        onClick={async () => { console.log('go to delete account'); navigate('/delete-account', { user, setUser }); }}
       >
         DELETE ACCOUNT
       </button>
