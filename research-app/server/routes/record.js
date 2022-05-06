@@ -99,6 +99,7 @@ recordRoutes.route('/record/add').post((req, response) => {
     med: req.body.med,
     enrolled: [],
     type: req.body.type,
+    messages: 0,
   };
   dbConnect.collection('user-info').insertOne(myobj, (err, res) => {
     if (err) throw err;
@@ -116,6 +117,7 @@ recordRoutes.route('/record/add-researcher').post((req, response) => {
     organization: req.body.organization,
     studies: [],
     type: req.body.type,
+    messages: 0,
   };
   dbConnect.collection('user-info').insertOne(myobj, (err, res) => {
     if (err) throw err;

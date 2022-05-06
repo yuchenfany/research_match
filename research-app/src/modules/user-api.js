@@ -88,6 +88,22 @@ async function updateUserInfo(user) {
   return true;
 }
 
+// Updates researcher to the have the contents of the passed-in body
+async function updateResearcherInfo(user) {
+  await fetch(`http://localhost:5000/record/researcher-edit/${user.username}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  })
+    .catch((e) => {
+      console.log(e);
+    });
+
+  return true;
+}
+
 // Adds the studyId to the user's enrolled field
 async function updateEnrolledUser(studyId, bodyObj) {
   const { username } = bodyObj;
@@ -103,6 +119,21 @@ async function updateEnrolledUser(studyId, bodyObj) {
 // Adds a new user
 async function postUserInfo(user) {
   return fetch(`http://${config.server_host}/record/add`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  }).then(() => true)
+    .catch((e) => {
+      console.log(e);
+      return false;
+    });
+}
+
+async function postResearcherInfo(user) {
+  console.log(user);
+  return fetch('http://localhost:5000/record/add-researcher', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -171,8 +202,10 @@ export {
   getUserTags,
   getUserInfo,
   postUserInfo,
+  postResearcherInfo,
   updateEnrolledUser,
   updateUserInfo,
+  updateResearcherInfo,
   getEnrolledStudyIds,
   getResearcherStudies,
 };
