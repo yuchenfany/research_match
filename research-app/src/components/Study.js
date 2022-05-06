@@ -71,7 +71,8 @@ function Study({
       researchers: currStudy.researchers,
     };
 
-    enrollUpdateStudy(updatedStudy);
+    updateEnrolledStudy(updatedStudy);
+    // enrollUpdateStudy(updatedStudy);
   }
 
   async function dropUpdateUser() {
