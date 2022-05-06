@@ -20,9 +20,9 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
   // get all studies
   async function getAllStudyJson() {
     const studyIds = await getResearcherStudies(user, setUser);
-    console.log(user.username);
-    console.log(user.studies);
-    console.log(studyIds);
+    // console.log(user.username);
+    // console.log(user.studies);
+    // console.log(studyIds);
     return Promise.all(studyIds.map((studyId) => getStudyById(studyId)));
   }
 
@@ -105,11 +105,10 @@ function ResearcherHome({ user, setUser, setStudy, notification, setNotification
           }
         </div>
       </div>
-      <div className="study-transfer">
-        <div className="header-left">For Testing Purposes: Directs to Add Study Page</div>
-        <div className="study">
-          <div className="study-transfer">Go to Study Page</div>
-          <button className="view-button" type="button" onClick={() => navigate('/add-study')}>Add Study</button>
+      <div className="study-flex">
+        <div className="header-left">Add a Study</div>
+        <div>
+          <button className="button" type="button" onClick={() => navigate('/add-study')}>Add Study</button>
         </div>
       </div>
     </div>

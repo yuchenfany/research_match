@@ -20,14 +20,14 @@ async function addStudy(user, study, setStudy) {
     },
   });
   const currUser = await userData.json();
-  const currStudies = currUser.studies;
+  const currStudies = currUser.studies ?? [];
   currStudies.push(Id);
   const updatedUser = {
     username: currUser.username,
     password: currUser.password,
     name: currUser.name,
     organization: currUser.organization,
-    studies: currUser.studies,
+    studies: currStudies,
     type: currUser.type,
   };
 

@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { addStudy } from '../modules/study-api';
 import '../assets/index.css';
+import NavBar from './NavBar';
 
 function AddStudy({ user, study, setStudy }) {
   const navigate = useNavigate();
@@ -124,6 +125,7 @@ function AddStudy({ user, study, setStudy }) {
 
   return (
     <div className="Profile">
+      <NavBar user={user} />
       <div className="profile-flex">
         <div className="header-left"> Create Study </div>
         <div className="title-row">
