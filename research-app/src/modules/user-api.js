@@ -115,6 +115,21 @@ async function postUserInfo(user) {
     });
 }
 
+async function postResearcherInfo(user) {
+  console.log(user);
+  return fetch('http://localhost:5000/record/add-researcher', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  }).then(() => true)
+    .catch((e) => {
+      console.log(e);
+      return false;
+    });
+}
+
 // Gets list of all enrolled studies for user
 async function getEnrolledStudyIds(user, setUser) {
   const data = await fetch(`http://${config.server_host}/record/${user.username}`, {
@@ -171,6 +186,7 @@ export {
   getUserTags,
   getUserInfo,
   postUserInfo,
+  postResearcherInfo,
   updateEnrolledUser,
   updateUserInfo,
   getEnrolledStudyIds,

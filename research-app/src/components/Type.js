@@ -19,24 +19,31 @@ function Type({ user, setUser }) {
     let type = 0;
     if (value === 'researcher') {
       type = 1;
+      setUser({
+        username: user.username,
+        password: user.password,
+        messages: 0,
+        type,
+      });
+    } else {
+      setUser({
+        username: user.username,
+        password: user.password,
+        enrolled: user.enrolled,
+        age: user.age,
+        heightFeet: user.heightFeet,
+        heightInches: user.heightInches,
+        weight: user.weight,
+        sex: user.sex,
+        gender: user.gender,
+        allergies: user.allergies,
+        phys: user.phys,
+        psych: user.psych,
+        med: user.med,
+        messages: 0,
+        type,
+      });
     }
-
-    setUser({
-      username: user.username,
-      password: user.password,
-      enrolled: user.enrolled,
-      age: user.age,
-      heightFeet: user.heightFeet,
-      heightInches: user.heightInches,
-      weight: user.weight,
-      sex: user.sex,
-      gender: user.gender,
-      allergies: user.allergies,
-      phys: user.phys,
-      psych: user.psych,
-      med: user.med,
-      type,
-    });
   };
 
   return (
