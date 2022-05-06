@@ -9,9 +9,20 @@ import { getUserInfo } from '../modules/user-api';
 
 function Login({ user, setUser }) {
   const [error, setError] = useState({ message: '' });
+  const [lockoutUser, setLockoutUser] = useState('');
   const navigate = useNavigate();
   // const [samePassword, setSamePassword] = useState(0);
-
+  async function refresh() {
+    setLockoutUser('');
+    console.log('refreshing our locked out user');
+  }
+  async function lockout(username) {
+    console.log('Reaching lockout');
+    setInterval(() => {
+      refresh();
+    }, 100000);
+    setLockoutUser(username);
+  }
   async function handleSubmit(event) {
     if (user.username.length === 0 && user.password.length === 0) {
       setError({ message: 'Please enter your login credentials' });
@@ -36,6 +47,9 @@ function Login({ user, setUser }) {
       setError({ message: 'User does not exist' });
       event.preventDefault();
     // } else if (user.password === json.password) {
+    } else if (user.username === lockoutUser) {
+      setError({ message: 'You are currently locked out' });
+      event.preventDefault();
     } else if (bcrypt.compareSync(user.password, json.password)) {
       if (json.type === 0) {
         // makes sure all fields are available in home
@@ -72,10 +86,11 @@ function Login({ user, setUser }) {
       }
     } else {
       setError({ message: 'Incorrect password' });
+      console.log('reached incorrect password stage');
+      await lockout(user.username);
       event.preventDefault();
     }
   }
-
   // update username as it's being entered
   const handleNameChange = async (event) => {
     setUser(
