@@ -33,6 +33,8 @@ jobs:
       
   # Runs a single command using the runners shell
       - run: npm install
+        working-directory: research-app
       - run: npm run lint
-      - run: npm run test
+        working-directory: research-app
       - run: npm run build -if-present
+        working-directory: research-app
