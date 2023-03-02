@@ -30,6 +30,7 @@ npm start
 
 # Code Structure
 research-app: contains full-stack impl of website
+
   -> src 
   
   -> server
