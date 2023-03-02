@@ -19,17 +19,23 @@ Our project will solve the problem of helping organizations recruit research par
 
 ## Website
 cd research-app
+
 npm run build
 
 ## Mobile
 cd research-mobile-app
+
 npm start
 
 
 # Code Structure
 research-app: contains full-stack impl of website
   -> src 
+  
   -> server
+  
 research-mobile-app: contains full-stack impl of mobile app
+
   -> src
+  
   -> server
